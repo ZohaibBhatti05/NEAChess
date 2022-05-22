@@ -30,6 +30,7 @@
         {
             this.panelBoardGUI = new System.Windows.Forms.Panel();
             this.buttonStartGame = new System.Windows.Forms.Button();
+            this.buttonUndo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelBoardGUI
@@ -44,17 +45,28 @@
             // 
             this.buttonStartGame.Location = new System.Drawing.Point(677, 12);
             this.buttonStartGame.Name = "buttonStartGame";
-            this.buttonStartGame.Size = new System.Drawing.Size(140, 23);
+            this.buttonStartGame.Size = new System.Drawing.Size(140, 145);
             this.buttonStartGame.TabIndex = 1;
             this.buttonStartGame.Text = "Start Game";
             this.buttonStartGame.UseVisualStyleBackColor = true;
             this.buttonStartGame.Click += new System.EventHandler(this.buttonStartGame_Click);
+            // 
+            // buttonUndo
+            // 
+            this.buttonUndo.Location = new System.Drawing.Point(677, 588);
+            this.buttonUndo.Name = "buttonUndo";
+            this.buttonUndo.Size = new System.Drawing.Size(140, 65);
+            this.buttonUndo.TabIndex = 2;
+            this.buttonUndo.Text = "Undo";
+            this.buttonUndo.UseVisualStyleBackColor = true;
+            this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
             // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(907, 666);
+            this.Controls.Add(this.buttonUndo);
             this.Controls.Add(this.buttonStartGame);
             this.Controls.Add(this.panelBoardGUI);
             this.Name = "GameForm";
@@ -68,5 +80,6 @@
 
         public System.Windows.Forms.Panel panelBoardGUI;
         private System.Windows.Forms.Button buttonStartGame;
+        private System.Windows.Forms.Button buttonUndo;
     }
 }

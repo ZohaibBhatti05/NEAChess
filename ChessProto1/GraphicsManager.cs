@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ChessProto1
 {
-    internal enum PieceVisuals
+    public enum PieceVisuals
     {
         Standard
     }
@@ -53,7 +53,7 @@ namespace ChessProto1
 
             string pieceImagePath = resourcePath + "Assets\\PieceImages\\" + pVisuals.ToString() + "\\";
 
-            for (int i = 0; i < 11; i++)
+            for (int i = 0; i < 12; i++)
             {
                 string path = pieceImagePath;
                 switch (i)
@@ -99,9 +99,14 @@ namespace ChessProto1
                 }
             }
 
-            if (chessBoard.selectedCell != (null, null))
+            if (chessBoard.selectedCell.column > -1)
             {
-                boardCells[(int)chessBoard.selectedCell.Item1][(int)chessBoard.selectedCell.Item2].BackColor = selectColor;
+                boardCells[(int)chessBoard.selectedCell.column][(int)chessBoard.selectedCell.row].BackColor = selectColor;
+            }
+
+            foreach(Position position in chessBoard.selectedPieceMoves)
+            {
+                boardCells[position.column][position.row].BackColor = Color.Yellow;
             }
 
             DrawPieces();
@@ -113,10 +118,14 @@ namespace ChessProto1
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    if (chessBoard.HasPiece(i, j))
+                    if (chessBoard.HasPiece(new Position(i, j)))
                     {
-                        Piece p = chessBoard.GetPiece(i, j);
-                        boardCells[i][j].Image = pieceImages[(6 * ((p.color == PlayerColor.White) ? 0 : 1) + p.type)];
+                        Piece p = chessBoard.GetPiece(new Position(i, j));
+                        boardCells[i][j].Image = pieceImages[(6 * ((p.color == PlayerColor.White) ? 0 : 1)) + p.type];
+                    }
+                    else
+                    {
+                        boardCells[i][j].Image = null;
                     }
                 }
             }
@@ -129,7 +138,7 @@ namespace ChessProto1
                 if (boardCells[i].Contains(sender))
                 {
                     int j = Array.IndexOf(boardCells[i], sender);
-                    chessBoard.SelectCell(i, j);
+                    chessBoard.SelectCell(new Position(i, j));
                     Debug.WriteLine(i + " : " + j);
                     UpdateBoardGUI();
                     return;

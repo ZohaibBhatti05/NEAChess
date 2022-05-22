@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace ChessProto1.Pieces
 {
-    internal class Rook : Piece
+    public class Rook : Piece
     {
-        public const int type = 1;
         public Rook(PlayerColor color) : base(color)
         {
+            base.type = 1;
+        }
+
+        public override List<Position> GenerateValidMoves(ChessBoard board, Position pos)
+        {
+            return base.GetHorizontalMoves(board, pos);
         }
     }
 }

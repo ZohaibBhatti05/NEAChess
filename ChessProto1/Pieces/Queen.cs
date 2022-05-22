@@ -7,11 +7,27 @@ using System.Threading.Tasks;
 
 namespace ChessProto1.Pieces
 {
-    internal class Queen : Piece
+    public class Queen : Piece
     {
-        public const int type = 4;
         public Queen(PlayerColor color) : base(color)
         {
+            base.type = 4;
+        }
+
+        public override List<Position> GenerateValidMoves(ChessBoard board, Position pos)
+        {
+            List<Position> moves = new List<Position>();
+            foreach(Position position in base.GetHorizontalMoves(board, pos))
+            {
+                moves.Add(position);
+            }
+            foreach (Position position in base.GetDiagonalMoves(board, pos))
+            {
+                moves.Add(position);
+            }
+
+
+            return moves;
         }
     }
 }

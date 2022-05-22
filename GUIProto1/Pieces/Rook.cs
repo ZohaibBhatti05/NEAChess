@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUIProto1.Pieces
 {
-    internal class Rook : Piece
+    public class Rook : Piece
     {
 
         public Rook(bool white) : base(white)

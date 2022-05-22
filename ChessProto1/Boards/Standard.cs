@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessProto1.Boards
 {
-    internal class Standard : ChessBoard
+    public class Standard : ChessBoard
     {
         public Standard() : base()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUIProto1.Players
 {
-    internal class Computer : Player
+    public class Computer : Player
     {
         public Computer()
         {

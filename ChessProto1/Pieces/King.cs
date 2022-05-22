@@ -7,11 +7,23 @@ using System.Threading.Tasks;
 
 namespace ChessProto1.Pieces
 {
-    internal class King : Piece
+    public class King : Piece
     {
-        public const int type = 5;
+        private readonly (int, int)[] moveArray =
+        {
+            (-1, 1), (0, 1), (1, 1),
+            (-1, 0),          (1, 0),
+            (-1, -1), (0, -1), (1, -1),
+        };
+
         public King(PlayerColor color) : base(color)
         {
+            base.type = 5;
+        }
+
+        public override List<Position> GenerateValidMoves(ChessBoard board, Position pos)
+        {
+            return base.GetArrayMoves(board, pos, moveArray);
         }
     }
 }

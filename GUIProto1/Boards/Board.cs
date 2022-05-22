@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GUIProto1.Boards
 {
-    internal class Board
+    public class Board
     {
         public bool checkState { get; private set; }
 

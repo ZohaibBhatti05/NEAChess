@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessProto1.Players
 {
-    internal class Human : Player
+    public class Human : Player
     {
     }
 }

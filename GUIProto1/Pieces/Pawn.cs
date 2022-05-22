@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUIProto1.Pieces
 {
-    internal class Pawn : Piece
+    public class Pawn : Piece
     {
         
         public Pawn(bool white) : base(white)

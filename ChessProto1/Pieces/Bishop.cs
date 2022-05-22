@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace ChessProto1.Pieces
 {
-    internal class Bishop : Piece
+    public class Bishop : Piece
     {
-        public const int type = 3;
         public Bishop(PlayerColor color) : base(color)
         {
+            base.type = 3;
+        }
+
+        public override List<Position> GenerateValidMoves(ChessBoard board, Position pos)
+        {
+            return base.GetDiagonalMoves(board, pos);
         }
     }
 }

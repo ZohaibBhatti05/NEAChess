@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GUIProto1.Pieces
 {
-    internal class King : Piece
+    public class King : Piece
     {
         public King(bool white) : base(white)
         {

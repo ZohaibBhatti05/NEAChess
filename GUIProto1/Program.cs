@@ -1,6 +1,6 @@
 namespace GUIProto1
 {
-    internal static class Program
+    public static class Program
     {
         /// <summary>
         ///  The main entry point for the application.

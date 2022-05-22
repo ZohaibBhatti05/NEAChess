@@ -35,5 +35,11 @@ namespace ChessProto1
             blackPlayer = new Human();
             InitialiseGUI();
         }
+
+        private void buttonUndo_Click(object sender, EventArgs e)
+        {
+            chessBoard.UndoLastMove();
+            UpdateBoardGUI();
+        }
     }
 }
