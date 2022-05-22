@@ -46,15 +46,16 @@ namespace ChessProto1.Players
                         int valueBefore = value;    // store copy of value
                         value = Math.Max(value, MinMax(board, currentDepth, false, alpha, beta)); // recursion call
 
+                        if (value >= beta)
+                        {
+                            break;  // beta cutoff
+                        }
+
                         if (value != valueBefore) // if value has improved
                         {
                             bestPositionF = posF; bestPositionT = posT; // update best move
                         }
 
-                        if (value >= beta)
-                        {
-                            break;  // beta cutoff
-                        }
                         alpha = Math.Max(value, alpha);
                         board.UndoLastMove();   // undo move
                     }
@@ -70,14 +71,14 @@ namespace ChessProto1.Players
                         int valueBefore = value;    // store copy of value
                         value = Math.Min(value, MinMax(board, currentDepth, false, alpha, beta)); // recursion call
 
-                        if (value != valueBefore) // if value has improved
-                        {
-                            bestPositionF = posF; bestPositionT = posT; // update best move
-                        }
-
                         if (value <= alpha)
                         {
                             break;  // alpha cutoff
+                        }
+
+                        if (value != valueBefore) // if value has improved
+                        {
+                            bestPositionF = posF; bestPositionT = posT; // update best move
                         }
                         beta = Math.Min(value, alpha);
                         board.UndoLastMove();   // undo move

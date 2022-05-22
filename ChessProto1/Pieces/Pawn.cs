@@ -24,9 +24,12 @@ namespace ChessProto1.Pieces
                 {
                     moves.Add(new Position(pos.column, pos.row + 1));
 
-                    if (!board.HasPiece(new Position(pos.column, pos.row + 2)) && pos.row == 1)  // double forward :: empty and on rank 1
+                    if (pos.row == 1)
                     {
-                        moves.Add(new Position(pos.column, pos.row + 2));
+                        if (!board.HasPiece(new Position(pos.column, pos.row + 2)))  // double forward :: empty and on rank 1
+                        {
+                            moves.Add(new Position(pos.column, pos.row + 2));
+                        }
                     }
                 }
 
@@ -62,9 +65,12 @@ namespace ChessProto1.Pieces
                 {
                     moves.Add(new Position(pos.column, pos.row - 1));
 
-                    if (!board.HasPiece(new Position(pos.column, pos.row - 2)) && pos.row == 6)  // double forward :: empty and on rank 1
+                    if (pos.row == 6)
                     {
-                        moves.Add(new Position(pos.column, pos.row - 2));
+                        if (!board.HasPiece(new Position(pos.column, pos.row - 2)))  // double forward :: empty and on rank 1
+                        {
+                            moves.Add(new Position(pos.column, pos.row - 2));
+                        }
                     }
                 }
 

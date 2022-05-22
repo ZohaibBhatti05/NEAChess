@@ -58,7 +58,7 @@ namespace ChessProto1.Boards
 
         private Dictionary<int, int> pieceValues = new Dictionary<int, int>()
         {
-            { 0, 0 },
+            { 0, 1 },
             { 1, 5 },
             { 2, 3 },
             { 3, 3 },
@@ -76,7 +76,7 @@ namespace ChessProto1.Boards
         public WinState winState { get; protected set; }
         public PlayerColor currentTurn { get; protected set; }
 
-        private AI computer = new AI(4);
+        private AI computer = new AI(5);
 
         public ChessBoard()
         {
@@ -204,6 +204,7 @@ namespace ChessProto1.Boards
             RemovePiece(posF);  // remove piece from old spot
 
             moveHistory.Push(move); // add move to history
+            SwitchTurns();
         }
 
         public void UndoLastMove()
