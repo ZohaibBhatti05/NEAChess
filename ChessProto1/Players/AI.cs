@@ -48,6 +48,7 @@ namespace ChessProto1.Players
 
                         if (value >= beta)
                         {
+                            board.UndoLastMove();   // undo move
                             break;  // beta cutoff
                         }
 
@@ -69,10 +70,11 @@ namespace ChessProto1.Players
                         board.MakeMove(posF, posT); // perform move
 
                         int valueBefore = value;    // store copy of value
-                        value = Math.Min(value, MinMax(board, currentDepth, false, alpha, beta)); // recursion call
+                        value = Math.Min(value, MinMax(board, currentDepth, true, alpha, beta)); // recursion call
 
                         if (value <= alpha)
                         {
+                            board.UndoLastMove();   // undo move
                             break;  // alpha cutoff
                         }
 

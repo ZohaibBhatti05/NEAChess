@@ -76,7 +76,7 @@ namespace ChessProto1.Boards
         public WinState winState { get; protected set; }
         public PlayerColor currentTurn { get; protected set; }
 
-        private AI computer = new AI(5);
+        private AI computer = new AI(6);
 
         public ChessBoard()
         {
@@ -115,6 +115,11 @@ namespace ChessProto1.Boards
 
             board[3][0] = new Queen(PlayerColor.White); board[3][7] = new Queen(PlayerColor.Black);
             board[4][0] = new King(PlayerColor.White); board[4][7] = new King(PlayerColor.Black);
+
+
+            //board[0][0] = new King(PlayerColor.Black);
+            //board[0][7] = new Queen(PlayerColor.White);
+            //board[7][0] = new Queen(PlayerColor.White);
         }
 
         protected virtual void CustomPositions()

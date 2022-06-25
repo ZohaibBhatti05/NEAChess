@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.2.32505.173
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUIProto1", "GUIProto1\GUIProto1.csproj", "{68350632-E38E-4EBF-B769-2ED7B6113570}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessProto1", "ChessProto1\ChessProto1.csproj", "{4630AE27-5E3B-40DE-B053-6DAD580B9A75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototype1", "WinFormsApp1\Prototype1.csproj", "{166C31F0-FD33-4BE3-A349-56559F441E7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{4630AE27-5E3B-40DE-B053-6DAD580B9A75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4630AE27-5E3B-40DE-B053-6DAD580B9A75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4630AE27-5E3B-40DE-B053-6DAD580B9A75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{166C31F0-FD33-4BE3-A349-56559F441E7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{166C31F0-FD33-4BE3-A349-56559F441E7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{166C31F0-FD33-4BE3-A349-56559F441E7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{166C31F0-FD33-4BE3-A349-56559F441E7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
