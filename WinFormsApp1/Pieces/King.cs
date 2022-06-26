@@ -11,6 +11,7 @@ namespace Prototype1.Pieces
     {
         public King(PlayerColour colour) : base(colour)
         {
+            base.type = 5;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Prototype1
         #region UserDefinedSettings
         Color CELL_COLOUR_1 = Color.LightGray;
         Color CELL_COLOUR_2 = Color.SaddleBrown;
+        Color SELECT_COLOUR = Color.Yellow;
         Color MOVE_COLOUR = Color.Green;
         Color CHECK_COLOUR = Color.Red;
         #endregion
@@ -28,6 +29,7 @@ namespace Prototype1
         PictureBox[][] boardCells = new PictureBox[8][];
         // array of buttons for click location purposes
 
+        // sets up graphics dictionary and pictureboxes
         private void InitialiseGraphics()
         {
             // create buttons, arrange and resize, add click event
@@ -39,6 +41,7 @@ namespace Prototype1
                     PictureBox cell = new PictureBox();
                     cell.Size = new Size(75, 75);
                     cell.Location = new Point(i * 75, (7 - j) * 75);
+                    cell.SizeMode = PictureBoxSizeMode.StretchImage;
                     pnlBoard.Controls.Add(cell);
                     boardCells[i][j] = cell;
                     cell.Click += ClickCell;
@@ -115,7 +118,7 @@ namespace Prototype1
                         // get piece type
                         Piece piece = chessBoard.GetPiece(i, j);
                         int type = piece.type;
-                        if (piece.colour == PlayerColour.Black) { type += 6; }
+                        if (piece.colour == PlayerColour.Black) { type += (pieceImages.Count / 2); }
                         boardCells[i][j].Image = pieceImages[type];
                     }
                 }

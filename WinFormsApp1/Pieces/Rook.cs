@@ -11,6 +11,7 @@ namespace Prototype1.Pieces
     {
         public Rook(PlayerColour colour) : base(colour)
         {
+            base.type = 1;
         }
     }
 }

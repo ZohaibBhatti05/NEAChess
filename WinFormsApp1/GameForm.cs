@@ -31,9 +31,22 @@ namespace Prototype1
             InitialiseGraphics();
         }
 
+        // function is run whenever a cell is clicked
         private void ClickCell(object sender, EventArgs e)
         {
-            
+            Position position;
+            // get position of clicked cell
+            for (int i = 0; i < 8; i++)
+            {
+                if (boardCells[i].Contains(sender))
+                {
+                    position = new Position(i, Array.IndexOf(boardCells[i], sender));
+                    break;
+                }
+            }
+            //
+
+            //
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Prototype1.Pieces
     {
         public Queen(PlayerColour colour) : base(colour)
         {
+            base.type = 4;
         }
     }
 }
