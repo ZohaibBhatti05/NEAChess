@@ -41,6 +41,7 @@ namespace Prototype1
                 if (boardCells[i].Contains(sender))
                 {
                     position = new Position(i, Array.IndexOf(boardCells[i], sender));
+                    chessBoard.SelectCell(position);
                     break;
                 }
             }

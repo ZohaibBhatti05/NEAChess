@@ -112,6 +112,21 @@ namespace Prototype1
                         boardCells[i][j].BackColor = CELL_COLOUR_2;
                     }
 
+                    // highlight cells
+                    if(chessBoard.selectedCell != null) // selected piece / moves
+                    {
+                        Position selected = chessBoard.selectedCell;
+                        boardCells[selected.column][selected.row].BackColor = SELECT_COLOUR;
+
+                        foreach(Move move in chessBoard.selectedMoves)
+                        {
+                            boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
+                        }
+                    } 
+                    
+
+                    //
+
                     // draw pieces
                     if (chessBoard.ContainsPiece(i, j))
                     {

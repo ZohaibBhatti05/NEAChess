@@ -17,5 +17,11 @@ namespace Prototype1.Pieces
         {
             this.colour = colour;
         }
+
+        // takes board and position of moving piece
+        public virtual List<Move> GenerateLegalMoves(ChessBoard board, Position position)
+        {
+            return null; // line should never be run, should always be overwritten
+        }
     }
 }

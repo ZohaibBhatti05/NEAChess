@@ -12,14 +12,15 @@ namespace Prototype1.Boards
         White, Black
     }
 
-    public struct Position
+    public class Position
     {
         public Position(int column, int row)
         {
             this.column = column; this.row = row;
         }
-        public int column;
-        public int row;
+
+        public int column { get; private set; }
+        public int row { get; private set; }
     }
 
     class ChessBoard
@@ -29,6 +30,10 @@ namespace Prototype1.Boards
         public PlayerColour currentTurn { get; private set; }
 
         public Position selectedCell { get; private set; }
+
+        public List<Move> selectedMoves { get; private set; }
+
+        private List<Move> moveHistory;
 
         public Piece[][] board { get; private set; }
 
@@ -45,7 +50,9 @@ namespace Prototype1.Boards
             // set callback //
             graphicsCallBack = updateGraphicsCallback;
 
+            moveHistory = new List<Move>();
             currentTurn = PlayerColour.White;
+            selectedMoves = new List<Move>();
 
             // change later to allow custom positions
             StandardPositions();
@@ -138,7 +145,108 @@ namespace Prototype1.Boards
         // method run from form when a cell is clicked
         public void SelectCell(Position position)
         {
-            if 
+            // if there is no selected position
+            if (selectedCell == null)
+            {
+                // cant select what isnt there
+                if (!ContainsPiece(position))
+                {
+                    return;
+                }
+                // cant select opponents pieces
+                else if (GetPiece(position).colour != currentTurn)
+                {
+                    return;
+                }
+                else
+                {
+                    // select piece
+                    selectedCell = position;
+                    selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
+                    graphicsCallBack.Invoke();
+                    return;
+                }
+            }
+
+            // if there IS a selected piece
+            else
+            {
+                // clicking a piece:
+                if (ContainsPiece(position))
+                {
+                    // of the same colour: select it
+                    if (GetPiece(position).colour == currentTurn)
+                    {
+                        selectedCell = position; // select cell
+                        selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
+                        graphicsCallBack.Invoke();
+                        return;
+                    }
+
+                    // of a different colour: try to make a move
+                    else
+                    {
+                        foreach(Move move in selectedMoves) // if position is in a valid move, make the move
+                        {
+                            if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
+                            {
+                                MakeMove(move);
+                                AfterMove(move);
+                                graphicsCallBack.Invoke();
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                // if selecting an empty square
+                else
+                {
+                    foreach(Move move in selectedMoves) // if position is in a valid move, make the move
+                    {
+                        if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
+                        {
+                            MakeMove(move);
+                            AfterMove(move);
+                            graphicsCallBack.Invoke();
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        // method takes a move and performs it
+        private void MakeMove(Move move)
+        {
+            AddPiece(move.movingPiece, move.positionTo);
+
+            RemovePiece(move.positionFrom);
+        }
+
+        private void AfterMove(Move move)
+        {
+            // switch turns
+            currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
+
+            // clear selections
+            selectedCell = null;
+            selectedMoves = null;
+
+            // add move to history
+            moveHistory.Add(move);
+        }
+
+        // adds a specified piece to the specified position
+        private void AddPiece(Piece piece, Position position)
+        {
+            board[position.column][position.row] = piece;
+        }
+
+        // removes the piece at the specified position
+        private void RemovePiece(Position position)
+        {
+            board[position.column][position.row] = null;
         }
     }
 }
