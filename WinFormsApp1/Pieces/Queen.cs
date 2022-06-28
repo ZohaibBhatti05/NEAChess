@@ -13,5 +13,15 @@ namespace Prototype1.Pieces
         {
             base.type = 4;
         }
+
+        public override List<Move> GenerateLegalMoves(ChessBoard board, Position position) // queen
+        {
+            // add both lists
+            List<Move> orthogonal = base.GenerateOrthogonalMoves(board, position);
+            List<Move> diagonal = base.GenerateDiagonalMoves(board, position);
+
+            orthogonal.AddRange(diagonal); // append all elements of diagonal to orthogonal, return combined list
+            return orthogonal;
+        }
     }
 }

@@ -13,5 +13,10 @@ namespace Prototype1.Pieces
         {
             base.type = 3;
         }
+
+        public override List<Move> GenerateLegalMoves(ChessBoard board, Position position) // bishop
+        {
+            return base.GenerateDiagonalMoves(board, position);
+        }
     }
 }

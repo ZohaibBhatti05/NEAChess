@@ -13,5 +13,10 @@ namespace Prototype1.Pieces
         {
             base.type = 1;
         }
+
+        public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)
+        {
+            return base.GenerateOrthogonalMoves(board, position);
+        }
     }
 }

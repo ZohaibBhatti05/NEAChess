@@ -118,9 +118,12 @@ namespace Prototype1
                         Position selected = chessBoard.selectedCell;
                         boardCells[selected.column][selected.row].BackColor = SELECT_COLOUR;
 
-                        foreach(Move move in chessBoard.selectedMoves)
+                        if (chessBoard.selectedMoves.Count != 0)
                         {
-                            boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
+                            foreach (Move move in chessBoard.selectedMoves)
+                            {
+                                boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
+                            }
                         }
                     } 
                     
