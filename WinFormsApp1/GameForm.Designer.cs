@@ -35,19 +35,20 @@ namespace Prototype1
             // 
             // pnlBoard
             // 
+            this.pnlBoard.AutoSize = true;
+            this.pnlBoard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlBoard.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pnlBoard.Location = new System.Drawing.Point(11, 10);
-            this.pnlBoard.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.pnlBoard.Location = new System.Drawing.Point(13, 13);
+            this.pnlBoard.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBoard.Name = "pnlBoard";
-            this.pnlBoard.Size = new System.Drawing.Size(600, 600);
+            this.pnlBoard.Size = new System.Drawing.Size(0, 0);
             this.pnlBoard.TabIndex = 0;
             // 
             // btnStartGame
             // 
-            this.btnStartGame.Location = new System.Drawing.Point(617, 10);
-            this.btnStartGame.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnStartGame.Location = new System.Drawing.Point(705, 13);
             this.btnStartGame.Name = "btnStartGame";
-            this.btnStartGame.Size = new System.Drawing.Size(216, 56);
+            this.btnStartGame.Size = new System.Drawing.Size(247, 75);
             this.btnStartGame.TabIndex = 1;
             this.btnStartGame.Text = "Start Game";
             this.btnStartGame.UseVisualStyleBackColor = true;
@@ -55,16 +56,16 @@ namespace Prototype1
             // 
             // GameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1101, 663);
+            this.ClientSize = new System.Drawing.Size(1258, 884);
             this.Controls.Add(this.btnStartGame);
             this.Controls.Add(this.pnlBoard);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "GameForm";
             this.Text = "GameForm";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

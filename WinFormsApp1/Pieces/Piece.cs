@@ -24,7 +24,7 @@ namespace Prototype1.Pieces
             return null; // line should never be run, should always be overwritten
         }
 
-        // function returns list of moves that
+        // rook movement function
         protected List<Move> GenerateOrthogonalMoves(ChessBoard board, Position position)
         {
             List<Move> validMoves = new List<Move>();
@@ -77,6 +77,7 @@ namespace Prototype1.Pieces
             return validMoves;
         }
 
+        // bishop movement function
         protected List<Move> GenerateDiagonalMoves(ChessBoard board, Position position)
         {
             List<Move> validMoves = new List<Move>();
@@ -153,6 +154,27 @@ namespace Prototype1.Pieces
         protected List<Move> GenerateArrayMoves(ChessBoard board, Position position, (int, int)[] moves)
         {
             List<Move> validMoves = new List<Move>();
+
+            foreach ((int x, int y) offset in moves)
+            {
+                Position positionTo = new Position(position.column + offset.x, position.row + offset.y); // get new position
+
+                // check if in bounds
+                if (positionTo.column < 0 || positionTo.column > 7 || positionTo.row < 0 || positionTo.row > 7)
+                {
+                    continue;
+                }
+
+                if (board.ContainsPiece(positionTo))
+                {
+                    if (board.GetPiece(positionTo).colour == this.colour) // if the space is occupied by a piece of the same colour, try next move
+                    {
+                        continue;
+                    }
+                }
+
+                validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
+            }
 
             return validMoves;
         }

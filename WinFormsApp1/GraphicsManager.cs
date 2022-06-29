@@ -42,6 +42,7 @@ namespace Prototype1
                     cell.Size = new Size(75, 75);
                     cell.Location = new Point(i * 75, (7 - j) * 75);
                     cell.SizeMode = PictureBoxSizeMode.StretchImage;
+                    cell.Margin = new Padding(0, 0, 0, 0);
                     pnlBoard.Controls.Add(cell);
                     boardCells[i][j] = cell;
                     cell.Click += ClickCell;

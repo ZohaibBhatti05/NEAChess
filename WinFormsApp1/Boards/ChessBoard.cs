@@ -224,6 +224,13 @@ namespace Prototype1.Boards
             RemovePiece(move.positionFrom);
         }
 
+        private void UndoMove(Move move)
+        {
+            AddPiece(move.takenPiece, move.positionTo); // put taken piece back
+
+            AddPiece(move.movingPiece, move.positionFrom); // put the moving piece back
+        }
+
         private void AfterMove(Move move)
         {
             // switch turns
@@ -247,6 +254,23 @@ namespace Prototype1.Boards
         private void RemovePiece(Position position)
         {
             board[position.column][position.row] = null;
+        }
+
+        private Position GetKingPosition(PlayerColour colour)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++) // foreach piece on the board
+                {
+                    if (ContainsPiece(i , j))
+                    {
+                        Piece piece = GetPiece(i, j);
+                        if (piece is King && piece.colour == colour) { return new Position(i, j); }
+                        // if it is a king of the specified colour, return the position
+                    }
+                }
+            }
+            return null; // prevent error throwing
         }
     }
 }
