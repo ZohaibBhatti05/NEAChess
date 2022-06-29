@@ -71,9 +71,31 @@ namespace Prototype1.Pieces
                 {
                     validMoves.Add(new Move(position, new Position(x, y - 2), this));
                 }
+
+                // taking block :: black
+                if (x > 0)
+                {
+                    if (board.ContainsPiece(x - 1, y - 1)) // left
+                    {
+                        if (board.GetPiece(x - 1, y - 1).colour != this.colour) // if piece diagonal occupied by opposing colour, add the move
+                        {
+                            validMoves.Add(new Move(position, new Position(x - 1, y - 1), this, board.GetPiece(x - 1, y - 1)));
+                        }
+                    }
+                }
+                if (x < 7)
+                {
+                    if (board.ContainsPiece(x + 1, y - 1)) // right
+                    {
+                        if (board.GetPiece(x + 1, y - 1).colour != this.colour)
+                        {
+                            validMoves.Add(new Move(position, new Position(x + 1, y - 1), this, board.GetPiece(x + 1, y - 1)));
+                        }
+                    }
+                }
             }
 
-            return validMoves;
+            return board.CullCheckMoves(validMoves, this.colour);
         }
     }
 }

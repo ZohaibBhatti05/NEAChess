@@ -7,11 +7,25 @@ using System.Threading.Tasks;
 
 namespace Prototype1.Boards
 {
+    public enum WinStatus
+    {
+        None, 
+        WhiteCheck,
+        BlackCheck,
+        WhiteMate,
+        BlackMate,
+        Stalemate,
+        DrawInsufficient,
+        DrawRepetition,
+        DrawFifty,
+    }
+
     public enum PlayerColour
     {
         White, Black
     }
 
+    // class has two attributes : column and row. Thats it
     public class Position
     {
         public Position(int column, int row)
@@ -30,12 +44,15 @@ namespace Prototype1.Boards
         public PlayerColour currentTurn { get; private set; }
 
         public Position selectedCell { get; private set; }
+        public Position checkCell { get; private set; }
 
         public List<Move> selectedMoves { get; private set; }
 
         private List<Move> moveHistory;
 
         public Piece[][] board { get; private set; }
+
+        public WinStatus winStatus { get; private set; }
 
         public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback)
         {
@@ -50,9 +67,11 @@ namespace Prototype1.Boards
             // set callback //
             graphicsCallBack = updateGraphicsCallback;
 
+            // initalise empty variables
             moveHistory = new List<Move>();
             currentTurn = PlayerColour.White;
             selectedMoves = new List<Move>();
+            winStatus = WinStatus.None;
 
             // change later to allow custom positions
             StandardPositions();
@@ -63,9 +82,11 @@ namespace Prototype1.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr / pppppppp / 8 / 8 / 8 / 8 / PPPPPPPP / RNBQKBNR");
-        }
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
+            // custom fen for testing
+            //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
+        }
 
         // places pieces from a FEN string
         // error checking should be added if user inputted FEN is implemented
@@ -119,24 +140,21 @@ namespace Prototype1.Boards
             return null;
         }
 
-        // return true if position is occupied
+        // returns if a position has a piece in it
         public bool ContainsPiece(Position position)
         {
             return (board[position.column][position.row] != null);
         }
-
         public bool ContainsPiece(int column, int row)
         {
             return (board[column][row] != null);
         }
 
-
-        // return piece stored in position, test first
+        // returns the piece at the specified position
         public Piece GetPiece(Position position)
         {
             return (board[position.column][position.row]);
         }
-
         public Piece GetPiece(int column, int row)
         {
             return (board[column][row]);
@@ -224,6 +242,7 @@ namespace Prototype1.Boards
             RemovePiece(move.positionFrom);
         }
 
+        // undoes a specified instance of a move
         private void UndoMove(Move move)
         {
             AddPiece(move.takenPiece, move.positionTo); // put taken piece back
@@ -239,6 +258,9 @@ namespace Prototype1.Boards
             // clear selections
             selectedCell = null;
             selectedMoves = null;
+
+            // update win status for check/mate/draw
+            UpdateWinStatus();
 
             // add move to history
             moveHistory.Add(move);
@@ -256,6 +278,7 @@ namespace Prototype1.Boards
             board[position.column][position.row] = null;
         }
 
+        // returns the position of the king of the specified colour
         private Position GetKingPosition(PlayerColour colour)
         {
             for (int i = 0; i < 8; i++)
@@ -271,6 +294,82 @@ namespace Prototype1.Boards
                 }
             }
             return null; // prevent error throwing
+        }
+
+        // function takes a list of moves and removes all that result in check
+        public List<Move> CullCheckMoves(List<Move> moves, PlayerColour colour)
+        {
+            List<Move> validMoves = new List<Move>();
+            foreach(Move move in moves)
+            {
+                MakeMove(move); // make the move
+                Position position = GetKingPosition(colour); // get the king
+                King king = (GetPiece(position) as King);
+
+                if (!king.IsInCheck(this, position)) // if move doesnt result in check, add the move
+                {
+                    validMoves.Add(move);
+                }
+
+                UndoMove(move); // undo the move
+            }
+            return validMoves;
+        }
+
+        // function takes a colour and returns all possible moves for every piece of that colour
+        public List<Move> AllPossibleMoves(PlayerColour colour)
+        {
+            List<Move> possibleMoves = new List<Move>();
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++) // for every piece on the board
+                {
+                    if (ContainsPiece(x, y))
+                    {
+                        if (GetPiece(x, y).colour == colour) // if it is of the specified colour
+                        {
+                            possibleMoves.AddRange(GetPiece(x, y).GenerateLegalMoves(this, new Position(x, y)));
+                            // add all moves to big list
+                        }
+                    }
+                }
+            }
+            return possibleMoves;
+        }
+
+        // updates whether a side is in check/mate or a draw
+        private void UpdateWinStatus()
+        {
+            Position position = GetKingPosition(currentTurn); // get the king
+            King king = (GetPiece(position) as King);
+
+            if (king.IsInCheck(this, position)) // if in check:
+            {
+                if (AllPossibleMoves(currentTurn).Count == 0) // no possible moves
+                {
+                    winStatus = (currentTurn == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate; // checkmate
+                    checkCell = GetKingPosition(currentTurn);
+                }
+                else // possible moves
+                {
+                    winStatus = (currentTurn == PlayerColour.White) ? WinStatus.WhiteCheck : WinStatus.BlackCheck; // check (regular)
+                    checkCell = GetKingPosition(currentTurn);
+                }
+            }
+            else // not in check
+            {
+                if (AllPossibleMoves(currentTurn).Count == 0) // no possible moves
+                {
+                    winStatus = WinStatus.Stalemate; // stalemate
+                }
+                else // possible moves
+                {
+                    winStatus = WinStatus.None; // noones winning
+                    checkCell = null;
+                }
+            }
+
+            // test for other draw types here
         }
     }
 }

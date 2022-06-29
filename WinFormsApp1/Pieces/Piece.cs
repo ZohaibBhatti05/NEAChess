@@ -74,7 +74,7 @@ namespace Prototype1.Pieces
                 }
                 if (!proceed) { break; }
             }
-            return validMoves;
+            return board.CullCheckMoves(validMoves, this.colour);
         }
 
         // bishop movement function
@@ -91,7 +91,7 @@ namespace Prototype1.Pieces
                 (bool isValid, bool proceed) = IsSlidingMoveValid(board, positionTo);
                 if (isValid)
                 {
-                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(position)));
+                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
                 }
                 if (!proceed) { break; }
             }
@@ -102,7 +102,7 @@ namespace Prototype1.Pieces
                 (bool isValid, bool proceed) = IsSlidingMoveValid(board, positionTo);
                 if (isValid)
                 {
-                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(position)));
+                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
                 }
                 if (!proceed) { break; }
             }
@@ -113,7 +113,7 @@ namespace Prototype1.Pieces
                 (bool isValid, bool proceed) = IsSlidingMoveValid(board, positionTo);
                 if (isValid)
                 {
-                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(position)));
+                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
                 }
                 if (!proceed) { break; }
             }
@@ -124,11 +124,11 @@ namespace Prototype1.Pieces
                 (bool isValid, bool proceed) = IsSlidingMoveValid(board, positionTo);
                 if (isValid)
                 {
-                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(position)));
+                    validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
                 }
                 if (!proceed) { break; }
             }
-            return validMoves;
+            return board.CullCheckMoves(validMoves, this.colour);
         }
 
         // returns whether a sliding move is valid and whether moves after should be considered
@@ -176,7 +176,7 @@ namespace Prototype1.Pieces
                 validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
             }
 
-            return validMoves;
+            return board.CullCheckMoves(validMoves, this.colour);
         }
     }
 }

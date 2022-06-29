@@ -126,10 +126,18 @@ namespace Prototype1
                                 boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
                             }
                         }
-                    } 
-                    
+                    }
+
+                    // highlight king in check
+                    if (chessBoard.checkCell != null)
+                    {
+                        Position check = chessBoard.checkCell;
+                        boardCells[check.column][check.row].BackColor = CHECK_COLOUR;
+                    }
 
                     //
+                    // update win label
+                    lblWinStatus.Text = String.Format($"Win Status: {chessBoard.winStatus.ToString()}");
 
                     // draw pieces
                     if (chessBoard.ContainsPiece(i, j))

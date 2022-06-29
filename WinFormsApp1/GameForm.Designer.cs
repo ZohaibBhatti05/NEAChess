@@ -31,6 +31,7 @@ namespace Prototype1
         {
             this.pnlBoard = new System.Windows.Forms.Panel();
             this.btnStartGame = new System.Windows.Forms.Button();
+            this.lblWinStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // pnlBoard
@@ -54,11 +55,21 @@ namespace Prototype1
             this.btnStartGame.UseVisualStyleBackColor = true;
             this.btnStartGame.Click += new System.EventHandler(this.btnStartGame_Click);
             // 
+            // lblWinStatus
+            // 
+            this.lblWinStatus.AutoSize = true;
+            this.lblWinStatus.Location = new System.Drawing.Point(705, 95);
+            this.lblWinStatus.Name = "lblWinStatus";
+            this.lblWinStatus.Size = new System.Drawing.Size(82, 20);
+            this.lblWinStatus.TabIndex = 2;
+            this.lblWinStatus.Text = "WinStatus: ";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 884);
+            this.Controls.Add(this.lblWinStatus);
             this.Controls.Add(this.btnStartGame);
             this.Controls.Add(this.pnlBoard);
             this.DoubleBuffered = true;
@@ -73,5 +84,6 @@ namespace Prototype1
 
         private System.Windows.Forms.Panel pnlBoard;
         private System.Windows.Forms.Button btnStartGame;
+        private System.Windows.Forms.Label lblWinStatus;
     }
 }
