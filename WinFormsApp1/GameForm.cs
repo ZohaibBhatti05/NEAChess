@@ -49,5 +49,10 @@ namespace Prototype1
 
             //
         }
+
+        private void btnUndoMove_Click(object sender, EventArgs e)
+        {
+            chessBoard.UndoLastMove();
+        }
     }
 }

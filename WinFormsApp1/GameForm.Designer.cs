@@ -32,6 +32,7 @@ namespace Prototype1
             this.pnlBoard = new System.Windows.Forms.Panel();
             this.btnStartGame = new System.Windows.Forms.Button();
             this.lblWinStatus = new System.Windows.Forms.Label();
+            this.btnUndoMove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pnlBoard
@@ -64,11 +65,22 @@ namespace Prototype1
             this.lblWinStatus.TabIndex = 2;
             this.lblWinStatus.Text = "WinStatus: ";
             // 
+            // btnUndoMove
+            // 
+            this.btnUndoMove.Location = new System.Drawing.Point(705, 188);
+            this.btnUndoMove.Name = "btnUndoMove";
+            this.btnUndoMove.Size = new System.Drawing.Size(247, 87);
+            this.btnUndoMove.TabIndex = 3;
+            this.btnUndoMove.Text = "Undo";
+            this.btnUndoMove.UseVisualStyleBackColor = true;
+            this.btnUndoMove.Click += new System.EventHandler(this.btnUndoMove_Click);
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1258, 884);
+            this.Controls.Add(this.btnUndoMove);
             this.Controls.Add(this.lblWinStatus);
             this.Controls.Add(this.btnStartGame);
             this.Controls.Add(this.pnlBoard);
@@ -85,5 +97,6 @@ namespace Prototype1
         private System.Windows.Forms.Panel pnlBoard;
         private System.Windows.Forms.Button btnStartGame;
         private System.Windows.Forms.Label lblWinStatus;
+        private System.Windows.Forms.Button btnUndoMove;
     }
 }

@@ -48,7 +48,9 @@ namespace Prototype1.Boards
 
         public List<Move> selectedMoves { get; private set; }
 
-        private List<Move> moveHistory;
+        private Stack<Move> moveHistory;
+        private Stack<Position> checkCellHistory;
+        private Stack<WinStatus> winStatusHistory;
 
         public Piece[][] board { get; private set; }
 
@@ -58,7 +60,7 @@ namespace Prototype1.Boards
         {
             // create an emtpy array for the board //
             board = new Piece[8][];
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 board[i] = new Piece[8];
             }
@@ -68,7 +70,11 @@ namespace Prototype1.Boards
             graphicsCallBack = updateGraphicsCallback;
 
             // initalise empty variables
-            moveHistory = new List<Move>();
+            moveHistory = new Stack<Move>();
+            checkCellHistory = new Stack<Position>();
+            checkCellHistory.Push(null);
+            winStatusHistory = new Stack<WinStatus>();
+            winStatusHistory.Push(WinStatus.None);
             currentTurn = PlayerColour.White;
             selectedMoves = new List<Move>();
             winStatus = WinStatus.None;
@@ -237,17 +243,56 @@ namespace Prototype1.Boards
         // method takes a move and performs it
         private void MakeMove(Move move)
         {
-            AddPiece(move.movingPiece, move.positionTo);
+            // en passant 
+            if (move is EnPassant)
+            {
+                AddPiece(move.movingPiece, move.positionTo);
+                RemovePiece(move.positionFrom);
+                RemovePiece((move as EnPassant).takenPosition);
+            }
+            else // standard move
+            {
+                AddPiece(move.movingPiece, move.positionTo);
 
-            RemovePiece(move.positionFrom);
+                RemovePiece(move.positionFrom);
+            }
         }
 
         // undoes a specified instance of a move
         private void UndoMove(Move move)
         {
-            AddPiece(move.takenPiece, move.positionTo); // put taken piece back
+            // en passant 
+            if (move is EnPassant)
+            {
+                AddPiece(move.movingPiece, move.positionFrom);
+                RemovePiece(move.positionTo);
+                AddPiece(move.takenPiece, (move as EnPassant).takenPosition);
+            }
+            else // standard move
+            {
+                AddPiece(move.takenPiece, move.positionTo); // put taken piece back
 
-            AddPiece(move.movingPiece, move.positionFrom); // put the moving piece back
+                AddPiece(move.movingPiece, move.positionFrom); // put the moving piece back
+            }
+        }
+
+        // run when the undo button is clicked. if move history empty, do nothing
+        public void UndoLastMove()
+        {
+            if (moveHistory.Count == 0) { return; }
+            else
+            {
+                Move move = moveHistory.Pop();
+                checkCellHistory.Pop();
+                checkCell = checkCellHistory.Peek();
+                winStatusHistory.Pop();
+                winStatus = winStatusHistory.Peek();
+                UndoMove(move); // undo the move
+                graphicsCallBack.Invoke();
+                // switch back to player who made move
+                currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
+
+            }
         }
 
         private void AfterMove(Move move)
@@ -259,11 +304,53 @@ namespace Prototype1.Boards
             selectedCell = null;
             selectedMoves = null;
 
+            // update enpassant pawn
+            UpdateEnPassant(move);
+
             // update win status for check/mate/draw
             UpdateWinStatus();
 
             // add move to history
-            moveHistory.Add(move);
+            moveHistory.Push(move);
+            checkCellHistory.Push(checkCell);
+            winStatusHistory.Push(winStatus);
+        }
+
+        private void UpdateEnPassant(Move move)
+        {
+            bool loop = true;
+            // clear all en passantable pawns
+            for(int x = 0; x < 8; x++)
+            {
+                if (!loop) { break; }
+                for (int y = 0; y < 8; y++)
+                {
+                    if (!loop) { break; }
+                    if (ContainsPiece(x, y))
+                    {
+                        Piece piece = GetPiece(x, y);
+                        if (piece is Pawn)
+                        {
+                            if ((piece as Pawn).canBeEnPassanted)   // if a pawn is flagged as takeable, unflag it
+                            {
+                                (GetPiece(x, y) as Pawn).canBeEnPassanted = false;
+                                loop = false; // only one pawn can be flagged as enpassantable, dont bother checking the rest
+                                              // use a variable, dont return or pawns wont be flagged as enpassantable
+                            }
+                        }
+                    }
+                }
+            }
+
+            // update pawn
+            if (move.movingPiece is Pawn)
+            {
+                Position posF = move.positionFrom; Position posT = move.positionTo;
+                if ((posF.row == 1 && posT.row == 3) || (posF.row == 6 && posT.row == 4)) // if pawn doubles, flag as takeable
+                {
+                    (GetPiece(posT) as Pawn).canBeEnPassanted = true;
+                }
+            }
         }
 
         // adds a specified piece to the specified position

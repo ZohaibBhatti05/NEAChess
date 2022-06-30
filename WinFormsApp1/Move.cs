@@ -34,4 +34,13 @@ namespace Prototype1
             positionTo = to;
         }
     }
+
+    class EnPassant : Move
+    {
+        public Position takenPosition { get; private set; }
+        public EnPassant(Position from, Position to, Piece moving, Piece taken, Position takenPos) : base(from, to, moving, taken)
+        {
+            takenPosition = takenPos;
+        }
+    }
 }
