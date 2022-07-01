@@ -57,9 +57,10 @@ namespace Prototype2.Boards
 
         public WinStatus winStatus { get; private set; }
 
+        // initialise new instance of board
         public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback)
         {
-            // create an emtpy array for the board //
+            // create an empty array for the board //
             board = new Piece[8][];
             for (int i = 0; i < 8; i++)
             {
@@ -90,7 +91,7 @@ namespace Prototype2.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
             //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
@@ -294,7 +295,7 @@ namespace Prototype2.Boards
             }
         }
 
-        // run when the undo button is clicked. if move history empty, do nothing
+        // runs when the undo button is clicked. if move history empty, do nothing
         public void UndoLastMove()
         {
             if (moveHistory.Count == 0)
@@ -332,6 +333,7 @@ namespace Prototype2.Boards
             }
         }
 
+        // function does logistics after a move is made
         private void AfterMove(Move move)
         {
             // switch turns
@@ -356,7 +358,7 @@ namespace Prototype2.Boards
             winStatusHistory.Push(winStatus);
         }
 
-
+        // updates castling rights of moving pieces after a move is made
         private void UpdateCastling(Move move)
         {
             if (move.movingPiece is King || move.movingPiece is Rook) // if king or rook moved, flag it as uncastleable
