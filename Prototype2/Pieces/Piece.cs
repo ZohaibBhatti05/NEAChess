@@ -14,6 +14,7 @@ namespace Prototype2.Pieces
         public int type { get; protected set; }
 
         public bool canCastle { get; protected set; }
+
         // encapsulation method
         public void SetCastle(bool value)
         {
@@ -179,8 +180,8 @@ namespace Prototype2.Pieces
                         continue;
                     }
                 }
-
                 validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
+                
             }
 
             return board.CullCheckMoves(validMoves, this.colour);

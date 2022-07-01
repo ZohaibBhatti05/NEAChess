@@ -51,6 +51,7 @@ namespace Prototype2.Boards
         private Stack<Move> moveHistory;
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
+        private Stack<bool> castleChangeHistory;
 
         public Piece[][] board { get; private set; }
 
@@ -77,6 +78,7 @@ namespace Prototype2.Boards
             winStatusHistory.Push(WinStatus.None);
             currentTurn = PlayerColour.White;
             selectedMoves = new List<Move>();
+            castleChangeHistory = new Stack<bool>();
             winStatus = WinStatus.None;
 
             // change later to allow custom positions
@@ -295,9 +297,9 @@ namespace Prototype2.Boards
         // run when the undo button is clicked. if move history empty, do nothing
         public void UndoLastMove()
         {
-            if (moveHistory.Count == 0) 
+            if (moveHistory.Count == 0)
             {
-                return; 
+                return;
             }
             else
             {
@@ -314,6 +316,19 @@ namespace Prototype2.Boards
                 // unselect cell
                 selectedCell = null;
                 graphicsCallBack.Invoke();
+
+                // reset castling rights
+                if (move is Castle)
+                {
+                    GetPiece(move.positionFrom).SetCastle(true); // ensure king can castle again
+                    GetPiece((move as Castle).rookFrom).SetCastle(true); // ensure rook can castle again
+                    castleChangeHistory.Pop();
+                }
+                else
+                {
+                    // reset castling changes
+                    GetPiece(move.positionFrom).SetCastle(castleChangeHistory.Pop());
+                }
             }
         }
 
@@ -347,6 +362,11 @@ namespace Prototype2.Boards
             if (move.movingPiece is King || move.movingPiece is Rook) // if king or rook moved, flag it as uncastleable
             {
                 GetPiece(move.positionTo).SetCastle(false);
+                castleChangeHistory.Push(true);
+            }
+            else
+            {
+                castleChangeHistory.Push(false);
             }
         }
 
