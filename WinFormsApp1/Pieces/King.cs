@@ -24,6 +24,7 @@ namespace Prototype1.Pieces
         public King(PlayerColour colour) : base(colour)
         {
             base.type = 5;
+            base.canCastle = true;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)

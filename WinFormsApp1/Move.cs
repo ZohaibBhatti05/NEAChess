@@ -43,4 +43,17 @@ namespace Prototype1
             takenPosition = takenPos;
         }
     }
+
+    class Castle : Move
+    {
+        public Position rookFrom { get; private set; }
+        public Position rookTo { get; private set; }
+        public Piece rook { get; private set; }
+
+        public Castle(Position from, Position to, Piece king,
+            Position rookFrom, Position rookTo, Piece rook) : base(from, to, king)
+        {
+            rookFrom = this.rookFrom; rookTo = this.rookTo; rook = this.rook;
+        }
+    }
 }

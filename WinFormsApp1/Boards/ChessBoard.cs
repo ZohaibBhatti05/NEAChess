@@ -268,10 +268,15 @@ namespace Prototype1.Boards
                 RemovePiece(move.positionTo);
                 AddPiece(move.takenPiece, (move as EnPassant).takenPosition);
             }
-            else // standard move
+            // castling
+            else if (move is Castle)
+            {
+
+            }
+            // standard move
+            else
             {
                 AddPiece(move.takenPiece, move.positionTo); // put taken piece back
-
                 AddPiece(move.movingPiece, move.positionFrom); // put the moving piece back
             }
         }
@@ -279,7 +284,10 @@ namespace Prototype1.Boards
         // run when the undo button is clicked. if move history empty, do nothing
         public void UndoLastMove()
         {
-            if (moveHistory.Count == 0) { return; }
+            if (moveHistory.Count == 0) 
+            {
+                return; 
+            }
             else
             {
                 Move move = moveHistory.Pop();
@@ -307,6 +315,9 @@ namespace Prototype1.Boards
             // update enpassant pawn
             UpdateEnPassant(move);
 
+            // update castling procedures
+            UpdateCastling(move);
+
             // update win status for check/mate/draw
             UpdateWinStatus();
 
@@ -316,6 +327,16 @@ namespace Prototype1.Boards
             winStatusHistory.Push(winStatus);
         }
 
+
+        private void UpdateCastling(Move move)
+        {
+            if (move.movingPiece is King || move.movingPiece is Rook) // if king or rook moved, flag it as uncastleable
+            {
+                GetPiece(move.positionTo).SetCastle(false);
+            }
+        }
+
+        // unmarks all untaken en passant pawns as takeable and assigns double jumping pawns the takeable attribute
         private void UpdateEnPassant(Move move)
         {
             bool loop = true;
@@ -333,7 +354,7 @@ namespace Prototype1.Boards
                         {
                             if ((piece as Pawn).canBeEnPassanted)   // if a pawn is flagged as takeable, unflag it
                             {
-                                (GetPiece(x, y) as Pawn).canBeEnPassanted = false;
+                                (GetPiece(x, y) as Pawn).SetEnPassant(false);
                                 loop = false; // only one pawn can be flagged as enpassantable, dont bother checking the rest
                                               // use a variable, dont return or pawns wont be flagged as enpassantable
                             }
@@ -348,7 +369,7 @@ namespace Prototype1.Boards
                 Position posF = move.positionFrom; Position posT = move.positionTo;
                 if ((posF.row == 1 && posT.row == 3) || (posF.row == 6 && posT.row == 4)) // if pawn doubles, flag as takeable
                 {
-                    (GetPiece(posT) as Pawn).canBeEnPassanted = true;
+                    (GetPiece(posT) as Pawn).SetEnPassant(true);
                 }
             }
         }

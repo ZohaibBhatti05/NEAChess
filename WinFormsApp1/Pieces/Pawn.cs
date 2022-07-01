@@ -9,7 +9,12 @@ namespace Prototype1.Pieces
 {
     class Pawn : Piece
     {
-        public bool canBeEnPassanted { get; set; }
+        public bool canBeEnPassanted { get; private set; }
+        // encapsulation method
+        public void SetEnPassant(bool value)
+        {
+            canBeEnPassanted = value;
+        }
 
         public Pawn(PlayerColour colour) : base(colour)
         {

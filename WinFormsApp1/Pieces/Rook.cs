@@ -9,9 +9,11 @@ namespace Prototype1.Pieces
 {
     class Rook : Piece
     {
+
         public Rook(PlayerColour colour) : base(colour)
         {
             base.type = 1;
+            base.canCastle = true;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)

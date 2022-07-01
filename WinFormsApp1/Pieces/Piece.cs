@@ -13,6 +13,13 @@ namespace Prototype1.Pieces
 
         public int type { get; protected set; }
 
+        public bool canCastle { get; protected set; }
+        // encapsulation method
+        public void SetCastle(bool value)
+        {
+            canCastle = value;
+        }
+
         public Piece(PlayerColour colour)
         {
             this.colour = colour;
