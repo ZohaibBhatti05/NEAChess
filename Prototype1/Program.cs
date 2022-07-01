@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype2
+namespace Prototype1
 {
     static class Program
     {

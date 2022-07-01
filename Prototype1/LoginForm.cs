@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype2
+namespace Prototype1
 {
-    public partial class RegisterForm : Form
+    public partial class LoginForm : Form
     {
-        public RegisterForm()
+        public LoginForm()
         {
             InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            GameForm gameForm = new GameForm();
+            gameForm.ShowDialog();
         }
     }
 }

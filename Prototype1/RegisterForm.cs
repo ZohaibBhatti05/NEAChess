@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype2
+namespace Prototype1
 {
     public partial class RegisterForm : Form
     {

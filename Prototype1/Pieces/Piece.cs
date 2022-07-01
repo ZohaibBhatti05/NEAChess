@@ -1,24 +1,17 @@
-﻿using Prototype2.Boards;
+﻿using Prototype1.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype2.Pieces
+namespace Prototype1.Pieces
 {
     class Piece
     {
         public PlayerColour colour { get; protected set; }
 
         public int type { get; protected set; }
-
-        public bool canCastle { get; protected set; }
-        // encapsulation method
-        public void SetCastle(bool value)
-        {
-            canCastle = value;
-        }
 
         public Piece(PlayerColour colour)
         {

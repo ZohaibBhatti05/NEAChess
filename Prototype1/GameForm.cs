@@ -1,4 +1,4 @@
-﻿using Prototype2.Boards;
+﻿using Prototype1.Boards;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype2
+namespace Prototype1
 {
     public partial class GameForm : Form
     {
@@ -48,11 +48,6 @@ namespace Prototype2
             //
 
             //
-        }
-
-        private void btnUndoMove_Click(object sender, EventArgs e)
-        {
-            chessBoard.UndoLastMove();
         }
     }
 }

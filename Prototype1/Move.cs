@@ -1,12 +1,12 @@
-﻿using Prototype2.Boards;
-using Prototype2.Pieces;
+﻿using Prototype1.Boards;
+using Prototype1.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype2
+namespace Prototype1
 {
     class Move
     {
@@ -32,30 +32,6 @@ namespace Prototype2
             takenPiece = taken;
             positionFrom = from;
             positionTo = to;
-        }
-    }
-
-    class EnPassant : Move
-    {
-        public Position takenPosition { get; private set; }
-        public EnPassant(Position from, Position to, Piece moving, Piece taken, Position takenPos) : base(from, to, moving, taken)
-        {
-            takenPosition = takenPos;
-        }
-    }
-
-    class Castle : Move
-    {
-        public Position rookFrom { get; private set; }
-        public Position rookTo { get; private set; }
-        public Piece rook { get; private set; }
-
-        public Castle(Position from, Position to, Piece king,
-            Position rookFrom, Position rookTo, Piece rook) : base(from, to, king)
-        {
-            this.rookFrom = rookFrom;
-            this.rookTo = rookTo;
-            this.rook = rook;
         }
     }
 }

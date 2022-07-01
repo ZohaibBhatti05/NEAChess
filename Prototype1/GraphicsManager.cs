@@ -1,5 +1,5 @@
-﻿using Prototype2.Boards;
-using Prototype2.Pieces;
+﻿using Prototype1.Boards;
+using Prototype1.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype2
+namespace Prototype1
 {
     // callback function for board to tell form to redraw
     public delegate void UpdateBoardGraphicsCallBack();

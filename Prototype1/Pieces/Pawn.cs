@@ -1,25 +1,17 @@
-﻿using Prototype2.Boards;
+﻿using Prototype1.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype2.Pieces
+namespace Prototype1.Pieces
 {
     class Pawn : Piece
     {
-        public bool canBeEnPassanted { get; private set; }
-        // encapsulation method
-        public void SetEnPassant(bool value)
-        {
-            canBeEnPassanted = value;
-        }
-
         public Pawn(PlayerColour colour) : base(colour)
         {
             base.type = 0;
-            canBeEnPassanted = false;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)
@@ -53,22 +45,6 @@ namespace Prototype2.Pieces
                             validMoves.Add(new Move(position, new Position(x - 1, y + 1), this, board.GetPiece(x - 1, y + 1)));
                         }
                     }
-
-                    // enpassant left
-                    if (y == 4)
-                    {
-                        if (board.ContainsPiece(x - 1, y))
-                        {
-                            Piece piece = board.GetPiece(x - 1, y);
-                            if (piece is Pawn)
-                            {
-                                if ((piece as Pawn).canBeEnPassanted) // no need to check if cell above pawn is empty: its impossible here
-                                {
-                                    validMoves.Add(new EnPassant(position, new Position(x - 1, y + 1), this, piece, new Position(x - 1, y)));
-                                }
-                            }
-                        }
-                    }
                 }
                 if (x < 7)
                 {
@@ -77,22 +53,6 @@ namespace Prototype2.Pieces
                         if (board.GetPiece(x + 1, y + 1).colour != this.colour)
                         {
                             validMoves.Add(new Move(position, new Position(x + 1, y + 1), this, board.GetPiece(x + 1, y + 1)));
-                        }
-                    }
-
-                    // enpassant right
-                    if (y == 4)
-                    {
-                        if (board.ContainsPiece(x + 1, y))
-                        {
-                            Piece piece = board.GetPiece(x + 1, y);
-                            if (piece is Pawn)
-                            {
-                                if ((piece as Pawn).canBeEnPassanted) // no need to check if cell above pawn is empty: its impossible here
-                                {
-                                    validMoves.Add(new EnPassant(position, new Position(x + 1, y + 1), this, piece, new Position(x + 1, y)));
-                                }
-                            }
                         }
                     }
                 }
@@ -122,23 +82,6 @@ namespace Prototype2.Pieces
                             validMoves.Add(new Move(position, new Position(x - 1, y - 1), this, board.GetPiece(x - 1, y - 1)));
                         }
                     }
-
-                    // enpassant left
-                    if (y == 3)
-                    {
-                        if (board.ContainsPiece(x - 1, y))
-                        {
-                            Piece piece = board.GetPiece(x - 1, y);
-                            if (piece is Pawn)
-                            {
-                                if ((piece as Pawn).canBeEnPassanted) // no need to check if cell above pawn is empty: its impossible here
-                                {
-                                    validMoves.Add(new EnPassant(position, new Position(x - 1, y - 1), this, piece, new Position(x - 1, y)));
-                                }
-                            }
-                        }
-                    }
-
                 }
                 if (x < 7)
                 {
@@ -147,22 +90,6 @@ namespace Prototype2.Pieces
                         if (board.GetPiece(x + 1, y - 1).colour != this.colour)
                         {
                             validMoves.Add(new Move(position, new Position(x + 1, y - 1), this, board.GetPiece(x + 1, y - 1)));
-                        }
-                    }
-
-                    // enpassant right
-                    if (y == 3)
-                    {
-                        if (board.ContainsPiece(x + 1, y))
-                        {
-                            Piece piece = board.GetPiece(x + 1, y);
-                            if (piece is Pawn)
-                            {
-                                if ((piece as Pawn).canBeEnPassanted) // no need to check if cell above pawn is empty: its impossible here
-                                {
-                                    validMoves.Add(new EnPassant(position, new Position(x + 1, y - 1), this, piece, new Position(x + 1, y)));
-                                }
-                            }
                         }
                     }
                 }

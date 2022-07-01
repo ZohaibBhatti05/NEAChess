@@ -1,5 +1,5 @@
 ﻿
-namespace Prototype2
+namespace Prototype1
 {
     partial class RegisterForm
     {

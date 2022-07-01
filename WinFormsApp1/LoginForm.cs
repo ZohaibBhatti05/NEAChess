@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype1
+namespace Prototype2
 {
     public partial class LoginForm : Form
     {
