@@ -53,7 +53,9 @@ namespace Prototype1
         public Castle(Position from, Position to, Piece king,
             Position rookFrom, Position rookTo, Piece rook) : base(from, to, king)
         {
-            rookFrom = this.rookFrom; rookTo = this.rookTo; rook = this.rook;
+            this.rookFrom = rookFrom;
+            this.rookTo = rookTo;
+            this.rook = rook;
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Prototype1.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R");
 
             // custom fen for testing
             //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
@@ -250,6 +250,14 @@ namespace Prototype1.Boards
                 RemovePiece(move.positionFrom);
                 RemovePiece((move as EnPassant).takenPosition);
             }
+            // castling
+            else if (move is Castle)
+            {
+                AddPiece(move.movingPiece, move.positionTo);
+                RemovePiece(move.positionFrom);
+                AddPiece((move as Castle).rook, (move as Castle).rookTo);
+                RemovePiece((move as Castle).rookFrom);
+            }
             else // standard move
             {
                 AddPiece(move.movingPiece, move.positionTo);
@@ -271,7 +279,10 @@ namespace Prototype1.Boards
             // castling
             else if (move is Castle)
             {
-
+                AddPiece(move.movingPiece, move.positionFrom); // put king back
+                RemovePiece(move.positionTo);
+                AddPiece((move as Castle).rook, (move as Castle).rookFrom); // put rook back
+                RemovePiece((move as Castle).rookTo);
             }
             // standard move
             else
@@ -300,6 +311,9 @@ namespace Prototype1.Boards
                 // switch back to player who made move
                 currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
 
+                // unselect cell
+                selectedCell = null;
+                graphicsCallBack.Invoke();
             }
         }
 

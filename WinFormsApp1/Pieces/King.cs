@@ -29,7 +29,68 @@ namespace Prototype1.Pieces
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)
         {
-            return base.GenerateArrayMoves(board, position, moveArray);
+            List<Move> validMoves = new List<Move>();
+            validMoves.AddRange(base.GenerateArrayMoves(board, position, moveArray));
+
+            int x = position.column; int y = position.row;
+
+            // // castling
+            if (canCastle)
+            {
+                // kingside (right)
+                if (board.ContainsPiece(7, y)) // get rightmost (top or bottom for colour) piece
+                {
+                    Piece piece = board.GetPiece(7, y);
+                    if (piece.canCastle) // if a valid rook is present
+                    {
+                        // ensure spaces are empty
+                        if (!board.ContainsPiece(6, y) && !board.ContainsPiece(5, y))
+                        {
+                            List<Move> testMoves = new List<Move>();
+                            // if king moves there and is in check, cant castle
+                            for (int i = 5; i < 7; i++)
+                            {
+                                Move testMove = new Move(position, new Position(i, y), this);
+                                testMoves.Add(testMove);
+                            }
+                            if (board.CullCheckMoves(testMoves, this.colour).Count == 2) // if neither move results in check
+                            {
+                                Castle castleMove = new Castle(position, new Position(6, y), this, new Position(7, y),
+                                    new Position(5, y), board.GetPiece(7, y));
+                                validMoves.Add(castleMove); // castle rightside valid
+                            }
+                        }
+                    }
+                }
+                // queenside (left)
+                if (board.ContainsPiece(0, y)) // get leftmost (top or bottom for colour) piece
+                {
+                    Piece piece = board.GetPiece(0, y);
+                    if (piece.canCastle) // if a valid rook is present
+                    {
+                        // ensure spaces are empty
+                        if (!board.ContainsPiece(1, y) && !board.ContainsPiece(2, y) && !board.ContainsPiece(3, y))
+                        {
+                            List<Move> testMoves = new List<Move>();
+                            // if king moves there and is in check, cant castle
+                            for (int i = 3; i > 0; i--) // for all 3 positions between king/rook
+                            {
+                                Move testMove = new Move(position, new Position(i, y), this); // attempt to move king there, check for check
+                                testMoves.Add(testMove);
+                            }
+                            if (board.CullCheckMoves(testMoves, this.colour).Count == 3) // if no move results in check
+                            {
+                                Castle castleMove = new Castle(position, new Position(2, y), this, new Position(0, y),
+                                    new Position(3, y), board.GetPiece(0, y));
+                                validMoves.Add(castleMove); // castle leftside valid
+                            }
+                        }
+                    }
+                }
+
+                //
+            }
+            return validMoves;
         }
 
         public bool IsInCheck(ChessBoard board, Position position)
