@@ -58,4 +58,13 @@ namespace Prototype2
             this.rook = rook;
         }
     }
+
+    //class Promote : Move
+    //{
+    //    public char promotionPiece { get; private set; }
+    //    public Promote(Position from, Position to, Piece moving, Piece taken, char promotion) : base(from, to, moving, taken)
+    //    {
+    //        promotionPiece = promotion;
+    //    }
+    //}
 }

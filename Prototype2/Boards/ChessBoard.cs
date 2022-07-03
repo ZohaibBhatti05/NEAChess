@@ -1,6 +1,7 @@
 ﻿using Prototype2.Pieces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,7 +92,7 @@ namespace Prototype2.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("rnbqkbnr/pPpppppp/8/8/8/8/PPPPPPPP/RNBQK2R");
 
             // custom fen for testing
             //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
@@ -352,6 +353,9 @@ namespace Prototype2.Boards
             // update win status for check/mate/draw
             UpdateWinStatus();
 
+            // promotion
+            UpdatePromotion(move);
+
             // add move to history
             moveHistory.Push(move);
             checkCellHistory.Push(checkCell);
@@ -363,8 +367,15 @@ namespace Prototype2.Boards
         {
             if (move.movingPiece is King || move.movingPiece is Rook) // if king or rook moved, flag it as uncastleable
             {
-                GetPiece(move.positionTo).SetCastle(false);
-                castleChangeHistory.Push(true);
+                if (move.movingPiece.canCastle == true)
+                {
+                    GetPiece(move.positionTo).SetCastle(false);
+                    castleChangeHistory.Push(true);
+                }
+                else
+                {
+                    castleChangeHistory.Push(false);
+                }
             }
             else
             {
@@ -407,6 +418,24 @@ namespace Prototype2.Boards
                 {
                     (GetPiece(posT) as Pawn).SetEnPassant(true);
                 }
+            }
+        }
+
+        private void UpdatePromotion(Move move)
+        {
+            if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7)) // if pawn moving to end rank
+            {
+                PromotionForm promotionForm = new PromotionForm(move.movingPiece.colour);
+
+                if (move.movingPiece.colour == PlayerColour.White)
+                {
+                    promotionForm.Location = new Point(500, 100);
+                }
+                else
+                {
+                    promotionForm.Location = new Point(100, 100);
+                }
+                promotionForm.ShowDialog();
             }
         }
 
