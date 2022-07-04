@@ -11,17 +11,65 @@ using System.Windows.Forms;
 
 namespace Prototype2
 {
+    public delegate void GetPromotionCallback(char type, Move move);
+
     public partial class PromotionForm : Form
     {
-        public PromotionForm(PlayerColour colour)
+        private GetPromotionCallback promotionCallback;
+        private PlayerColour pieceColour;
+        private Move move;
+
+        public PromotionForm(GetPromotionCallback callback, PlayerColour colour, Move move)
         {
-            ShowPieces();
             InitializeComponent();
+
+            // display piece images
+            if (colour == PlayerColour.White)
+            {
+                picQueen.Image = Properties.Resources.wQ;
+                picKnight.Image = Properties.Resources.wN;
+                picBishop.Image = Properties.Resources.wB;
+                picRook.Image = Properties.Resources.wR;
+            }
+            else
+            {
+                picQueen.Image = Properties.Resources.bQ;
+                picKnight.Image = Properties.Resources.bN;
+                picBishop.Image = Properties.Resources.bB;
+                picRook.Image = Properties.Resources.bR;
+            }
+
+            pieceColour = colour;
+            promotionCallback = callback;
+            this.move = move;
         }
 
-        private void ShowPieces()
+        private void btnQueen_Click(object sender, EventArgs e)
         {
+            char type = 'q';
+            promotionCallback.Invoke(type, move);
+            this.Close();
+        }
 
+        private void btnKnight_Click(object sender, EventArgs e)
+        {
+            char type = 'n';
+            promotionCallback.Invoke(type, move);
+            this.Close();
+        }
+
+        private void btnBishop_Click(object sender, EventArgs e)
+        {
+            char type = 'b';
+            promotionCallback.Invoke(type, move);
+            this.Close();
+        }
+
+        private void btnRook_Click(object sender, EventArgs e)
+        {
+            char type = 'r';
+            promotionCallback.Invoke(type, move);
+            this.Close();
         }
     }
 }

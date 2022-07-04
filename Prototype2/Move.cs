@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Prototype2
 {
-    class Move
+    public class Move
     {
         public Piece movingPiece { get; private set; }
         public Piece takenPiece { get; private set; }

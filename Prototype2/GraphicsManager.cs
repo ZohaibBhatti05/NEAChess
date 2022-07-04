@@ -151,5 +151,15 @@ namespace Prototype2
                 }
             }
         }
+
+        private void DisplayPromotionBox()
+        {
+
+        }
+
+        private void SelectPromote(object sender, EventArgs e)
+        {
+
+        }
     }
 }

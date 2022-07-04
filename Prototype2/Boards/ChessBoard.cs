@@ -38,7 +38,7 @@ namespace Prototype2.Boards
         public int row { get; private set; }
     }
 
-    class ChessBoard
+    public class ChessBoard
     {
         protected UpdateBoardGraphicsCallBack graphicsCallBack;
 
@@ -92,7 +92,7 @@ namespace Prototype2.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pPpppppp/8/8/8/8/PPPPPPPP/RNBQK2R");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
             //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
@@ -350,11 +350,11 @@ namespace Prototype2.Boards
             // update castling procedures
             UpdateCastling(move);
 
-            // update win status for check/mate/draw
-            UpdateWinStatus();
-
             // promotion
             UpdatePromotion(move);
+
+            // update win status for check/mate/draw
+            UpdateWinStatus();
 
             // add move to history
             moveHistory.Push(move);
@@ -421,22 +421,20 @@ namespace Prototype2.Boards
             }
         }
 
+        // method run when a pawn needs to promote
         private void UpdatePromotion(Move move)
         {
-            if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7)) // if pawn moving to end rank
+            if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7))
             {
-                PromotionForm promotionForm = new PromotionForm(move.movingPiece.colour);
-
-                if (move.movingPiece.colour == PlayerColour.White)
-                {
-                    promotionForm.Location = new Point(500, 100);
-                }
-                else
-                {
-                    promotionForm.Location = new Point(100, 100);
-                }
+                PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
                 promotionForm.ShowDialog();
             }
+        }
+
+        // method run from promotion form when a piece is selected
+        private void Promote(char type, Move move)
+        {
+            AddPiece(NewPieceFromCharType(type, move.movingPiece.colour), move.positionTo);
         }
 
         // adds a specified piece to the specified position

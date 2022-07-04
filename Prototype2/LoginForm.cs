@@ -19,8 +19,7 @@ namespace Prototype2
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            GameForm gameForm = new GameForm();
-            gameForm.ShowDialog();
+            this.Close();
         }
     }
 }

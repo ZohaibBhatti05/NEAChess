@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Prototype2.Pieces
 {
-    class Piece
+    public class Piece
     {
         public PlayerColour colour { get; protected set; }
 
