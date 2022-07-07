@@ -56,6 +56,8 @@ namespace Prototype2.Boards
 
         public Piece[][] board { get; private set; }
 
+        private int fiftyMoveCounter = 0;
+
         public WinStatus winStatus { get; private set; }
 
         // initialise new instance of board
@@ -92,10 +94,12 @@ namespace Prototype2.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("1k6/3r4/8/8/8/8/8/6K1");
 
             // custom fen for testing
             //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
+
+            // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
 
         // places pieces from a FEN string
@@ -148,6 +152,39 @@ namespace Prototype2.Boards
                     return new King(colour);
             }
             return null;
+        }
+
+        // returns the FEN char of a given piece
+        private char CharFromPiece(Piece piece)
+        {
+            char character = new char();
+
+            if (piece is Pawn)
+            {
+                character = 'p';
+            }
+            else if (piece is Rook)
+            {
+                character = 'r';
+            }
+            else if (piece is Bishop)
+            {
+                character = 'b';
+            }
+            else if (piece is Knight)
+            {
+                character = 'n';
+            }
+            else if (piece is Queen)
+            {
+                character = 'q';
+            }
+            else if (piece is King)
+            {
+                character = 'k';
+            }
+
+            return (piece.colour == PlayerColour.White) ? char.ToUpper(character) : character;
         }
 
         // returns if a position has a piece in it
@@ -353,13 +390,81 @@ namespace Prototype2.Boards
             // promotion
             UpdatePromotion(move);
 
-            // update win status for check/mate/draw
-            UpdateWinStatus();
+            // update draw conditions BEFORE win status
+            bool draw = UpdateDrawConditions(move);
+
+            if (!draw)
+            {
+                // update win status for check/mate/draw
+                UpdateWinStatus();
+            }
 
             // add move to history
             moveHistory.Push(move);
             checkCellHistory.Push(checkCell);
             winStatusHistory.Push(winStatus);
+        }
+
+        // check for draw by insufficiency, 50 move and threefold repetition
+        private bool UpdateDrawConditions(Move move)
+        {
+
+            // 50 move rule
+            if (move.takenPiece is null && !(move.movingPiece is Pawn)) // if no piece taken / pawn moved
+            {
+                fiftyMoveCounter++;
+                if (fiftyMoveCounter == 2) // 100 used as 2 board "moves" make an actual turn
+                {
+                    winStatus = WinStatus.DrawFifty; // draw by fifty move rule
+                    return true;
+                }
+            }
+            else // reset counter on taking move / pawn move :: these invalidate insufficient material as well
+            {
+                fiftyMoveCounter = 0;
+            }
+
+            // insufficient material :: only run if taking move
+            if (move.takenPiece != null)
+            {
+                bool insufficient = true;
+                int whitePieces = 0;
+                int blackPieces = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (ContainsPiece(i, j)) // foreach piece on the board, collate pieces or discontinue if a pawn is found
+                        {
+                            Piece piece = GetPiece(i, j);
+                            if (piece is Pawn || piece is Queen || piece is Rook) // pieces that invalidate the draw condition
+                            {
+                                insufficient = false;
+                                break;
+                            }
+                            else if (piece.colour == PlayerColour.White)
+                            {
+                                whitePieces++;
+                            }
+                            else
+                            {
+                                blackPieces++;
+                            }
+                        }
+                    }
+                    if (!insufficient) { break; } // break from both loops if impossible
+                }
+
+                // if no pawns found and neither side has enough pieces
+                if (insufficient && whitePieces < 3 && blackPieces < 3)
+                {
+                    winStatus = WinStatus.DrawInsufficient;
+                    checkCell = null; // check wont be updated, clear it manually
+                    return true;
+                }
+            }
+
+            return false; // no draw found
         }
 
         // updates castling rights of moving pieces after a move is made
