@@ -56,6 +56,9 @@ namespace Prototype2.Boards
 
         public Piece[][] board { get; private set; }
 
+        private Player whitePlayer;
+        private Player blackPlayer;
+
         private int fiftyMoveCounter = 0;
 
         public WinStatus winStatus { get; private set; }
@@ -85,19 +88,28 @@ namespace Prototype2.Boards
             castleChangeHistory = new Stack<bool>();
             winStatus = WinStatus.None;
 
+            // initialise players
+            InitialisePlayers();
+
             // change later to allow custom positions
             StandardPositions();
         }
 
+        private void InitialisePlayers()
+        {
+            whitePlayer = new Human();
+            blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
+            //blackPlayer = new Human();
+        }
 
         // function loads standard positions :: override if child classes are implemented
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("1k6/3r4/8/8/8/8/8/6K1");
+            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
+            PositionFromFEN("6k1/6p1/2p5/2bp4/8/P5Pb/1P3rrP/3RRN1K");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -282,7 +294,7 @@ namespace Prototype2.Boards
         }
 
         // method takes a move and performs it
-        private void MakeMove(Move move)
+        internal void MakeMove(Move move)
         {
             // en passant 
             if (move is EnPassant)
@@ -308,7 +320,7 @@ namespace Prototype2.Boards
         }
 
         // undoes a specified instance of a move
-        private void UndoMove(Move move)
+        internal void UndoMove(Move move)
         {
             // en passant 
             if (move is EnPassant)
@@ -403,12 +415,34 @@ namespace Prototype2.Boards
             moveHistory.Push(move);
             checkCellHistory.Push(checkCell);
             winStatusHistory.Push(winStatus);
+
+            // if other player is an AI, make an AI move
+            UpdatePlayers();
+        }
+
+        // method allows computer players to make moves
+        private void UpdatePlayers()
+        {
+            if (currentTurn == PlayerColour.White && whitePlayer is AI)
+            {
+                Move move = (whitePlayer as AI).MakeMove(this);
+                MakeMove(move);
+                AfterMove(move);
+                graphicsCallBack.Invoke();
+            }
+
+            else if (currentTurn == PlayerColour.Black && blackPlayer is AI)
+            {
+                Move move = (blackPlayer as AI).MakeMove(this);
+                MakeMove(move);
+                AfterMove(move);
+                graphicsCallBack.Invoke();
+            }
         }
 
         // check for draw by insufficiency, 50 move and threefold repetition
         private bool UpdateDrawConditions(Move move)
         {
-
             // 50 move rule
             if (move.takenPiece is null && !(move.movingPiece is Pawn)) // if no piece taken / pawn moved
             {
@@ -614,7 +648,7 @@ namespace Prototype2.Boards
         }
 
         // updates whether a side is in check/mate or a draw
-        private void UpdateWinStatus()
+        internal void UpdateWinStatus()
         {
             Position position = GetKingPosition(currentTurn); // get the king
             King king = (GetPiece(position) as King);
@@ -646,6 +680,35 @@ namespace Prototype2.Boards
             }
 
             // test for other draw types here
+        }
+
+        public int BoardValue()
+        {
+            // winstatus
+            switch (winStatus)
+            {
+                case WinStatus.WhiteMate:
+                    return int.MinValue;
+                case WinStatus.BlackMate:
+                    return int.MaxValue;
+            }
+
+            int value = 0;
+
+            // collate pieces on the board
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (ContainsPiece(i, j))
+                    {
+                        Piece piece = GetPiece(i, j);
+                        value += ((piece.colour == PlayerColour.White) ? 1 : -1) * piece.value;
+                    }
+                }
+            }
+
+            return value;
         }
     }
 }

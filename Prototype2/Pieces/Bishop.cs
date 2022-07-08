@@ -12,6 +12,7 @@ namespace Prototype2.Pieces
         public Bishop(PlayerColour colour) : base(colour)
         {
             base.type = 3;
+            base.value = 3;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position) // bishop

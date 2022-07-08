@@ -24,6 +24,7 @@ namespace Prototype2.Pieces
         public King(PlayerColour colour) : base(colour)
         {
             base.type = 5;
+            base.value = 100;
             base.canCastle = true;
         }
 

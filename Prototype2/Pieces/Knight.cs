@@ -18,6 +18,7 @@ namespace Prototype2.Pieces
         public Knight(PlayerColour colour) : base(colour)
         {
             base.type = 2;
+            base.value = 3;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)

@@ -12,7 +12,7 @@ namespace Prototype2.Pieces
         public PlayerColour colour { get; protected set; }
 
         public int type { get; protected set; }
-
+        public int value { get; protected set; }
         public bool canCastle { get; protected set; }
 
         // encapsulation method

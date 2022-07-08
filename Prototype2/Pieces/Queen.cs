@@ -12,6 +12,7 @@ namespace Prototype2.Pieces
         public Queen(PlayerColour colour) : base(colour)
         {
             base.type = 4;
+            base.value = 9;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position) // queen

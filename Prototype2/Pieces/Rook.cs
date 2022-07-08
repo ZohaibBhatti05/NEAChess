@@ -13,6 +13,7 @@ namespace Prototype2.Pieces
         public Rook(PlayerColour colour) : base(colour)
         {
             base.type = 1;
+            base.value = 5;
             base.canCastle = true;
         }
 

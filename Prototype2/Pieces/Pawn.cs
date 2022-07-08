@@ -19,6 +19,7 @@ namespace Prototype2.Pieces
         public Pawn(PlayerColour colour) : base(colour)
         {
             base.type = 0;
+            base.value = 1;
             canBeEnPassanted = false;
         }
 
