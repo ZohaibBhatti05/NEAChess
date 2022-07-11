@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Prototype2.Boards
@@ -106,10 +107,10 @@ namespace Prototype2.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            PositionFromFEN("6k1/6p1/2p5/2bp4/8/P5Pb/1P3rrP/3RRN1K");
+            //PositionFromFEN("6k1/6p1/2p5/2bp4/8/P5Pb/1P3rrP/3RRN1K");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -416,6 +417,8 @@ namespace Prototype2.Boards
             checkCellHistory.Push(checkCell);
             winStatusHistory.Push(winStatus);
 
+            graphicsCallBack.Invoke();
+
             // if other player is an AI, make an AI move
             UpdatePlayers();
         }
@@ -423,6 +426,8 @@ namespace Prototype2.Boards
         // method allows computer players to make moves
         private void UpdatePlayers()
         {
+            graphicsCallBack.Invoke();
+
             if (currentTurn == PlayerColour.White && whitePlayer is AI)
             {
                 Move move = (whitePlayer as AI).MakeMove(this);
@@ -447,7 +452,7 @@ namespace Prototype2.Boards
             if (move.takenPiece is null && !(move.movingPiece is Pawn)) // if no piece taken / pawn moved
             {
                 fiftyMoveCounter++;
-                if (fiftyMoveCounter == 2) // 100 used as 2 board "moves" make an actual turn
+                if (fiftyMoveCounter == 100) // 100 used as 2 board "moves" make an actual turn
                 {
                     winStatus = WinStatus.DrawFifty; // draw by fifty move rule
                     return true;
@@ -565,6 +570,21 @@ namespace Prototype2.Boards
         {
             if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7))
             {
+                // if move is made by an ai, default promote to queen
+
+                if ((currentTurn == PlayerColour.White && whitePlayer is AI) || (currentTurn == PlayerColour.Black && blackPlayer is AI))
+                {
+                    if (move.movingPiece.colour == PlayerColour.White)
+                    {
+                        Promote('Q', move);
+                    }
+                    else
+                    {
+                        Promote('q', move);
+                    }
+                    return;
+                }
+
                 PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
                 promotionForm.ShowDialog();
             }
@@ -691,6 +711,8 @@ namespace Prototype2.Boards
                     return int.MinValue;
                 case WinStatus.BlackMate:
                     return int.MaxValue;
+                default:
+                    break;
             }
 
             int value = 0;
@@ -703,6 +725,7 @@ namespace Prototype2.Boards
                     if (ContainsPiece(i, j))
                     {
                         Piece piece = GetPiece(i, j);
+
                         value += ((piece.colour == PlayerColour.White) ? 1 : -1) * piece.value;
                     }
                 }

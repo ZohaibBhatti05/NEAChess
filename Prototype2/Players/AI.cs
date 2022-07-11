@@ -23,25 +23,41 @@ namespace Prototype2.Boards
         // method run by board when computer needs to make a move
         public Move MakeMove(ChessBoard board)
         {
+            // optimise for when there's few pieces on the board
+            // count pieces on the board
+            int count = 0;
+            for(int i = 0; i < 8; i++)
+            {
+                for(int j = 0; j < 8; j++)
+                {
+                    if (board.ContainsPiece(i, j))
+                    {
+                        if (!(board.GetPiece(i, j) is Pawn))
+                        {
+                            count++;
+                        }
+                    }
+                }
+            }
+
+            if (count < 10) { plyDepth = 7; }
+            if (count < 5) { plyDepth = 10; } // think ahead more as game progresses
+
             // intital Minimax call
-            MinMax(board, plyDepth, 0, (colour == PlayerColour.White));
+            AlphaBeta(board, plyDepth, 0, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
             return bestMove;
         }
 
         // minimax algorithm
-        private int MinMax(ChessBoard board, int plyDepth, int currentDepth, bool max)
+        private int AlphaBeta(ChessBoard board, int plyDepth, int currentDepth, bool max, int alpha, int beta)
         {
+            List<Move> possibleMoves = ((max) ? board.AllPossibleMoves(PlayerColour.White) : board.AllPossibleMoves(PlayerColour.Black));
+
             // return board value at final depth
-            if (currentDepth == plyDepth)
+            if (currentDepth == plyDepth || possibleMoves.Count == 0)
             {
                 return board.BoardValue();
             }
-
-            //List<Move> possibleMoves = board.AllPossibleMoves((max) ? PlayerColour.White : PlayerColour.Black);
-            //if (possibleMoves.Count == 0)
-            //{
-            //    return board.BoardValue();
-            //}
 
             currentDepth++;
             int value;
@@ -59,7 +75,8 @@ namespace Prototype2.Boards
                     }
                     board.MakeMove(move); // make the move
                     board.UpdateWinStatus();
-                    int newValue = MinMax(board, plyDepth, currentDepth, false);
+                    int newValue = AlphaBeta(board, plyDepth, currentDepth, false, alpha, beta);
+
                     if (newValue > value) // if better move found
                     {
                         value = newValue;
@@ -67,7 +84,15 @@ namespace Prototype2.Boards
                         {
                             bestMove = move; // update best move
                         }
+
+                        // beta cutoff
+                        if (newValue >= beta)
+                        {
+                            board.UndoMove(move);
+                            break;
+                        }
                     }
+                    alpha = Math.Max(value, alpha);
                     board.UndoMove(move); // undo the move
                 }
                 return value;
@@ -85,7 +110,7 @@ namespace Prototype2.Boards
                     }
                     board.MakeMove(move); // make the move
                     board.UpdateWinStatus();
-                    int newValue = MinMax(board, plyDepth, currentDepth, true);
+                    int newValue = AlphaBeta(board, plyDepth, currentDepth, true, alpha, beta);
                     if (newValue < value) // if better move found
                     {
                         value = newValue;
@@ -93,7 +118,15 @@ namespace Prototype2.Boards
                         {
                             bestMove = move; // update best move
                         }
+
+                        // alpha cutoff
+                        if (newValue <= alpha)
+                        {
+                            board.UndoMove(move);
+                            break;
+                        }
                     }
+                    beta = Math.Min(value, beta);
                     board.UndoMove(move); // undo the move
                 }
                 return value;
