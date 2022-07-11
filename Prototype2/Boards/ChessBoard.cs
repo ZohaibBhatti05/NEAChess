@@ -110,7 +110,7 @@ namespace Prototype2.Boards
             PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            //PositionFromFEN("6k1/6p1/2p5/2bp4/8/P5Pb/1P3rrP/3RRN1K");
+            //PositionFromFEN("1r1k4/8/1K6/8/3q4/8/8/8");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -213,6 +213,9 @@ namespace Prototype2.Boards
         // returns the piece at the specified position
         public Piece GetPiece(Position position)
         {
+            // jank code remove later
+            if (position == null) return null;
+
             return (board[position.column][position.row]);
         }
         public Piece GetPiece(int column, int row)
@@ -568,21 +571,12 @@ namespace Prototype2.Boards
         // method run when a pawn needs to promote
         private void UpdatePromotion(Move move)
         {
+
             if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7))
             {
-                // if move is made by an ai, default promote to queen
-
-                if ((currentTurn == PlayerColour.White && whitePlayer is AI) || (currentTurn == PlayerColour.Black && blackPlayer is AI))
+                if ((currentTurn == PlayerColour.White && blackPlayer is AI) || (currentTurn == PlayerColour.Black && whitePlayer is AI))
                 {
-                    if (move.movingPiece.colour == PlayerColour.White)
-                    {
-                        Promote('Q', move);
-                    }
-                    else
-                    {
-                        Promote('q', move);
-                    }
-                    return;
+                    Promote((currentTurn == PlayerColour.White) ? 'q' : 'Q', move); // promote automatically for ais
                 }
 
                 PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
@@ -597,7 +591,7 @@ namespace Prototype2.Boards
         }
 
         // adds a specified piece to the specified position
-        private void AddPiece(Piece piece, Position position)
+        internal void AddPiece(Piece piece, Position position)
         {
             board[position.column][position.row] = piece;
         }
@@ -668,27 +662,32 @@ namespace Prototype2.Boards
         }
 
         // updates whether a side is in check/mate or a draw
-        internal void UpdateWinStatus()
+        private void UpdateWinStatus()
         {
-            Position position = GetKingPosition(currentTurn); // get the king
+            UpdateWinStatus(currentTurn);
+        }
+
+        internal void UpdateWinStatus(PlayerColour turn)
+        {
+            Position position = GetKingPosition(turn); // get the king
             King king = (GetPiece(position) as King);
 
             if (king.IsInCheck(this, position)) // if in check:
             {
-                if (AllPossibleMoves(currentTurn).Count == 0) // no possible moves
+                if (AllPossibleMoves(turn).Count == 0) // no possible moves
                 {
-                    winStatus = (currentTurn == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate; // checkmate
+                    winStatus = (turn == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate; // checkmate
                     checkCell = GetKingPosition(currentTurn);
                 }
                 else // possible moves
                 {
-                    winStatus = (currentTurn == PlayerColour.White) ? WinStatus.WhiteCheck : WinStatus.BlackCheck; // check (regular)
-                    checkCell = GetKingPosition(currentTurn);
+                    winStatus = (turn == PlayerColour.White) ? WinStatus.WhiteCheck : WinStatus.BlackCheck; // check (regular)
+                    checkCell = GetKingPosition(turn);
                 }
             }
             else // not in check
             {
-                if (AllPossibleMoves(currentTurn).Count == 0) // no possible moves
+                if (AllPossibleMoves(turn).Count == 0) // no possible moves
                 {
                     winStatus = WinStatus.Stalemate; // stalemate
                 }
@@ -698,7 +697,6 @@ namespace Prototype2.Boards
                     checkCell = null;
                 }
             }
-
             // test for other draw types here
         }
 

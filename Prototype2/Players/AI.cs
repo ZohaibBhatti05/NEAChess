@@ -23,26 +23,39 @@ namespace Prototype2.Boards
         // method run by board when computer needs to make a move
         public Move MakeMove(ChessBoard board)
         {
-            // optimise for when there's few pieces on the board
-            // count pieces on the board
+            //optimise for when there's few pieces on the board
+
+            //count pieces on the board
+
             int count = 0;
-            for(int i = 0; i < 8; i++)
+            int wCount = 0;
+            int bCount = 0;
+            for (int i = 0; i < 8; i++)
             {
-                for(int j = 0; j < 8; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     if (board.ContainsPiece(i, j))
                     {
-                        if (!(board.GetPiece(i, j) is Pawn))
+                        //if (!(board.GetPiece(i, j) is Pawn))
+                        //{
+                        //    count++;
+                        //}
+                        count++;
+                        if (board.GetPiece(i, j).colour == PlayerColour.White)
                         {
-                            count++;
+                            wCount++;
+                        }
+                        else
+                        {
+                            bCount++;
                         }
                     }
                 }
             }
-
-            if (count < 10) { plyDepth = 7; }
-            if (count < 5) { plyDepth = 10; } // think ahead more as game progresses
-
+            if (wCount < 3)
+            {
+                plyDepth = 6;
+            }
             // intital Minimax call
             AlphaBeta(board, plyDepth, 0, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
             return bestMove;
@@ -54,7 +67,7 @@ namespace Prototype2.Boards
             List<Move> possibleMoves = ((max) ? board.AllPossibleMoves(PlayerColour.White) : board.AllPossibleMoves(PlayerColour.Black));
 
             // return board value at final depth
-            if (currentDepth == plyDepth || possibleMoves.Count == 0)
+            if (currentDepth == plyDepth)// || possibleMoves.Count == 0)
             {
                 return board.BoardValue();
             }
@@ -67,14 +80,18 @@ namespace Prototype2.Boards
             {
                 value = int.MinValue;
                 // for every possible move
-                foreach(Move move in board.AllPossibleMoves(PlayerColour.White))
+                foreach(Move move in possibleMoves)
                 {
+                    board.MakeMove(move); // make the move
+
                     if (move.movingPiece is Pawn && move.positionTo.row == 7)
                     {
-                        continue; // ignore promotion
+                        //continue;
+                        board.AddPiece(new Queen(PlayerColour.White), move.positionTo);
                     }
-                    board.MakeMove(move); // make the move
-                    board.UpdateWinStatus();
+
+                    board.UpdateWinStatus(PlayerColour.Black);
+
                     int newValue = AlphaBeta(board, plyDepth, currentDepth, false, alpha, beta);
 
                     if (newValue > value) // if better move found
@@ -91,6 +108,7 @@ namespace Prototype2.Boards
                             board.UndoMove(move);
                             break;
                         }
+
                     }
                     alpha = Math.Max(value, alpha);
                     board.UndoMove(move); // undo the move
@@ -102,14 +120,16 @@ namespace Prototype2.Boards
             {
                 value = int.MaxValue;
                 // for every possible move
-                foreach (Move move in board.AllPossibleMoves(PlayerColour.Black))
-                {
+                foreach (Move move in possibleMoves)
+                {                    
+                    board.MakeMove(move); // make the move
                     if (move.movingPiece is Pawn && move.positionTo.row == 0)
                     {
-                        continue; // ignore promotion
+                        board.AddPiece(new Queen(PlayerColour.Black), move.positionTo);
+                        //continue;
                     }
-                    board.MakeMove(move); // make the move
-                    board.UpdateWinStatus();
+
+                    board.UpdateWinStatus(PlayerColour.White);
                     int newValue = AlphaBeta(board, plyDepth, currentDepth, true, alpha, beta);
                     if (newValue < value) // if better move found
                     {
@@ -125,6 +145,7 @@ namespace Prototype2.Boards
                             board.UndoMove(move);
                             break;
                         }
+
                     }
                     beta = Math.Min(value, beta);
                     board.UndoMove(move); // undo the move

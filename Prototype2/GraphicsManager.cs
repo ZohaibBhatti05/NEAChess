@@ -104,7 +104,7 @@ namespace Prototype2
                     boardCells[i][j].Image = null;
 
                     // set colour
-                    if ((i + j) % 2 == 0)
+                    if ((i + j) % 2 != 0)
                     {
                         boardCells[i][j].BackColor = CELL_COLOUR_1;
                     }
