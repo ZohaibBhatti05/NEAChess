@@ -36,7 +36,7 @@ namespace Prototype2.Pieces
             int x = position.column; int y = position.row;
 
             // // castling
-            if (canCastle)
+            if (canCastle && x == 4)
             {
                 // kingside (right)
                 if (board.ContainsPiece(7, y)) // get rightmost (top or bottom for colour) piece
@@ -49,7 +49,7 @@ namespace Prototype2.Pieces
                         {
                             List<Move> testMoves = new List<Move>();
                             // if king moves there and is in check, cant castle
-                            for (int i = 5; i < 7; i++)
+                            for (int i = 4; i < 7; i++)
                             {
                                 Move testMove = new Move(position, new Position(i, y), this);
                                 testMoves.Add(testMove);
@@ -74,7 +74,7 @@ namespace Prototype2.Pieces
                         {
                             List<Move> testMoves = new List<Move>();
                             // if king moves there and is in check, cant castle
-                            for (int i = 3; i > 0; i--) // for all 3 positions between king/rook
+                            for (int i = 4; i > 0; i--) // for all 3 positions between king/rook
                             {
                                 Move testMove = new Move(position, new Position(i, y), this); // attempt to move king there, check for check
                                 testMoves.Add(testMove);

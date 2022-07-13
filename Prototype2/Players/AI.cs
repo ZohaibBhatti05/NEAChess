@@ -55,7 +55,7 @@ namespace Prototype2.Boards
             }
             if (wCount < 3 && count < 6)
             {
-                plyDepth = 7;
+                plyDepth = 6;
             }
             // intital Minimax call
             AlphaBeta(board, plyDepth, 0, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
@@ -75,7 +75,7 @@ namespace Prototype2.Boards
             // return board value at final depth
             if (currentDepth == plyDepth)// || possibleMoves.Count == 0)
             {
-                return board.BoardValue();
+                return board.BoardValue(max);
             }
 
             currentDepth++;

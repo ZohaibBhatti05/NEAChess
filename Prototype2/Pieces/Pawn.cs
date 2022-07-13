@@ -36,12 +36,11 @@ namespace Prototype2.Pieces
                 {
                     // is valid
                     validMoves.Add(new Move(position, new Position(x, y + 1), this));
-                }
-
-                // if hasnt moved and space 2 in front is empty, move valid
-                if (y == 1 && !board.ContainsPiece(x, y + 2))
-                {
-                    validMoves.Add(new Move(position, new Position(x, y + 2), this));
+                    // if hasnt moved and space 2 in front is empty, move valid
+                    if (y == 1 && !board.ContainsPiece(x, y + 2))
+                    {
+                        validMoves.Add(new Move(position, new Position(x, y + 2), this));
+                    }
                 }
 
                 // taking block :: white
@@ -105,12 +104,11 @@ namespace Prototype2.Pieces
                 {
                     // is valid
                     validMoves.Add(new Move(position, new Position(x, y - 1), this));
-                }
-
-                // if hasnt moved and space 2 in front is empty, move valid
-                if (y == 6 && !board.ContainsPiece(x, y - 2))
-                {
-                    validMoves.Add(new Move(position, new Position(x, y - 2), this));
+                    // if hasnt moved and space 2 in front is empty, move valid
+                    if (y == 6 && !board.ContainsPiece(x, y - 2))
+                    {
+                        validMoves.Add(new Move(position, new Position(x, y - 2), this));
+                    }
                 }
 
                 // taking block :: black
