@@ -110,7 +110,7 @@ namespace Prototype2.Boards
             PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            //PositionFromFEN("1r1k4/8/1K6/8/3q4/8/8/8");
+            //PositionFromFEN("8/3pkp2/4p1n1/2P5/2b5/8/2K4P/8");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -700,6 +700,8 @@ namespace Prototype2.Boards
             // test for other draw types here
         }
 
+        #region board value
+
         public int BoardValue()
         {
             // winstatus
@@ -709,6 +711,8 @@ namespace Prototype2.Boards
                     return int.MinValue;
                 case WinStatus.BlackMate:
                     return int.MaxValue;
+                case WinStatus.Stalemate:
+                    return 0;
                 default:
                     break;
             }
@@ -725,11 +729,119 @@ namespace Prototype2.Boards
                         Piece piece = GetPiece(i, j);
 
                         value += ((piece.colour == PlayerColour.White) ? 1 : -1) * piece.value;
+                        // if white, add value, if black, subtract value
                     }
                 }
             }
 
             return value;
         }
+
+        // PIECE TABLES
+        // positive is good and negative is bad for either side. usually reflections
+
+
+        // pawns: advance, if in middle prioritise controlling the center (discourage advancing too much for center pawns)
+        private readonly sbyte[][] whitePawnTable =
+        {
+            new sbyte[] { 60, 60, 60,  60,  60,  60,  60, 60, },
+            new sbyte[] { 50, 50, 50,  50,  50,  50,  50, 50, },
+            new sbyte[] { 10, 10, 20,  30,  30,  20,  10, 10, },
+            new sbyte[] { 5,  5,  10,  25,  25,  10,  5,  5, },
+            new sbyte[] { 0,  0,  0,   20,  20,  0,   0,  0, },
+            new sbyte[] { 5,  -5, -10, 0,   0,   -10, -5, 5, },
+            new sbyte[] { 5,  10, 10,  -20, -20, 10,  10, 5, },
+            new sbyte[] { 0,  0,  0,   0,    0,  0,   0,  0 },
+        };
+
+        private readonly sbyte[][] blackPawnTable =
+        {
+            new sbyte[] { 0,  0,  0,   0,   0,   0,   0,  0 },
+            new sbyte[] { 5,  10, 10,  -20, -20, 10,  10, 5, },
+            new sbyte[] { 5,  -5, -10,  0,   0,  -10, -5, 5, },
+            new sbyte[] { 0,  0,  0,   20,  20,  0,   0,  0, },
+            new sbyte[] { 5,  5,  10,  25,  25,  10,  5,  5, },
+            new sbyte[] { 10, 10, 20,  30,  30,  20,  10, 10, },
+            new sbyte[] { 50, 50, 50,  50,  50,  50,  50, 50, },
+            new sbyte[] { 60, 60, 60,  60,  60,  60,  60, 60, },
+        };
+
+        // rooks: not really any good/bad places to be, but avoid harsh edges a bit unless on a corner
+        private readonly sbyte[][] whiteRookTable =
+        {
+            new sbyte[] {  0, 0, 0, 0, 0, 0, 0, 0, },
+            new sbyte[] {  5, 5, 5, 5, 5, 5, 5, 5, },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+        };
+
+        private readonly sbyte[][] blackRookTable =
+        {
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new sbyte[] {  5, 5, 5, 5, 5, 5, 5, 5, },
+            new sbyte[] {  0, 0, 0, 0, 0, 0, 0, 0, },
+        };
+
+        // knights: the closer to the center, the better, the closer to the corner, the worse
+        private readonly sbyte[][] whiteKnightTable =
+        {
+            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
+            new sbyte[] { -40, -25, -5,  0,    0,  -5,  -25, -40 },
+            new sbyte[] { -35, 0,   5,   15,   15, 5,   0,   -35 },
+            new sbyte[] { -30, 0,   15,  30,   30, 15,  0,   -30 },
+            new sbyte[] { -30, 0,   15,  30,   30, 15,  0,   -30 },
+            new sbyte[] { -35, 0,   5,   15,   15, 5,   0,   -35 },
+            new sbyte[] { -40, -25, -5,  0,    0,  -5,  -25, -40 },
+            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
+        };
+
+        private readonly sbyte[][] blackKnightTable =
+        {
+            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
+            new sbyte[] { -40, -25, -5,  0,    0,  -5,  -25, -40 },
+            new sbyte[] { -35, 0,   5,   15,   15, 5,   0,   -35 },
+            new sbyte[] { -30, 0,   15,  30,   30, 15,  0,   -30 },
+            new sbyte[] { -30, 0,   15,  30,   30, 15,  0,   -30 },
+            new sbyte[] { -35, 0,   5,   15,   15, 5,   0,   -35 },
+            new sbyte[] { -40, -25, -5,  0,    0,  -5,  -25, -40 },
+            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
+        };
+
+        // bishops: avoid corners and edges, center is better for further ranks and vice versa for black
+        private readonly sbyte[][] whiteBishopTable =
+        {
+            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
+            new sbyte[] { -20,  0,   0,   0,   0,   0,   0,   0  },
+            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,   0, },
+            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,  -10 },
+            new sbyte[] { -10,  0,   5,   10,  10,  5,   0,  -10 },
+            new sbyte[] { -10,  5,   10,  10,  10,  10,  5,  -10 },
+            new sbyte[] { -20,  5,   0,   0,   0,   0,   5,  -20 },
+            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
+        };
+
+        private readonly sbyte[][] blackBishopTable =
+{
+            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
+            new sbyte[] { -20,  5,   0,   0,   0,   0,   5,  -20 },
+            new sbyte[] { -10,  5,   10,  10,  10,  10,  5,  -10 },
+            new sbyte[] { -10,  0,   5,   10,  10,  5,   0,  -10 },
+            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,  -10 },
+            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,   0, },
+            new sbyte[] { -20,  0,   0,   0,   0,   0,   0,   0  },
+            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
+        };
+
+
+        #endregion
     }
 }

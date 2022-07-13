@@ -23,6 +23,7 @@ namespace Prototype2.Boards
         // method run by board when computer needs to make a move
         public Move MakeMove(ChessBoard board)
         {
+            bestMove = null;
             //optimise for when there's few pieces on the board
 
             //count pieces on the board
@@ -52,12 +53,17 @@ namespace Prototype2.Boards
                     }
                 }
             }
-            if (wCount < 3)
+            if (wCount < 3 && count < 6)
             {
-                plyDepth = 6;
+                plyDepth = 7;
             }
             // intital Minimax call
             AlphaBeta(board, plyDepth, 0, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
+            
+            if (bestMove == null && board.winStatus != ((colour == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate))
+            {
+                bestMove = board.AllPossibleMoves(colour)[0];
+            }
             return bestMove;
         }
 
