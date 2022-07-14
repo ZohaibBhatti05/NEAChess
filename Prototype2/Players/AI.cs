@@ -57,13 +57,15 @@ namespace Prototype2.Boards
             {
                 plyDepth = 6;
             }
+
             // intital Minimax call
             AlphaBeta(board, plyDepth, 0, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
             
-            if (bestMove == null && board.winStatus != ((colour == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate))
-            {
-                bestMove = board.AllPossibleMoves(colour)[0];
-            }
+            //if (bestMove == null && board.winStatus != ((colour == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate))
+            //{
+            //    bestMove = board.AllPossibleMoves(colour)[0];
+            //}
+
             return bestMove;
         }
 
@@ -73,9 +75,9 @@ namespace Prototype2.Boards
             List<Move> possibleMoves = ((max) ? board.AllPossibleMoves(PlayerColour.White) : board.AllPossibleMoves(PlayerColour.Black));
 
             // return board value at final depth
-            if (currentDepth == plyDepth)// || possibleMoves.Count == 0)
+            if (currentDepth == plyDepth || possibleMoves.Count == 0)
             {
-                return board.BoardValue(max);
+                return board.BoardValue(max, currentDepth);
             }
 
             currentDepth++;
@@ -107,15 +109,15 @@ namespace Prototype2.Boards
                         {
                             bestMove = move; // update best move
                         }
-
-                        // beta cutoff
-                        if (newValue >= beta)
-                        {
-                            board.UndoMove(move);
-                            break;
-                        }
-
                     }
+
+                    // beta cutoff
+                    if (value >= beta)
+                    {
+                        board.UndoMove(move);
+                        break;
+                    }
+
                     alpha = Math.Max(value, alpha);
                     board.UndoMove(move); // undo the move
                 }
@@ -145,14 +147,15 @@ namespace Prototype2.Boards
                             bestMove = move; // update best move
                         }
 
-                        // alpha cutoff
-                        if (newValue <= alpha)
-                        {
-                            board.UndoMove(move);
-                            break;
-                        }
-
                     }
+
+                    // alpha cutoff
+                    if (value <= alpha)
+                    {
+                        board.UndoMove(move);
+                        break;
+                    }
+
                     beta = Math.Min(value, beta);
                     board.UndoMove(move); // undo the move
                 }

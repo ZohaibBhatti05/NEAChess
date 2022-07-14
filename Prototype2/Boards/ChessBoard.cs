@@ -110,7 +110,7 @@ namespace Prototype2.Boards
             PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            //PositionFromFEN("r6k/pp4pp/1b1P4/8/1n4Q1/2N1R3/PPq2Pp1/1RB1K3");
+            //PositionFromFEN("5k2/1pK3pp/p7/2qp1p2/5P2/8/8/8");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -431,20 +431,24 @@ namespace Prototype2.Boards
         {
             graphicsCallBack.Invoke();
 
-            if (currentTurn == PlayerColour.White && whitePlayer is AI)
+            if ((winStatus != WinStatus.WhiteMate && winStatus != WinStatus.BlackMate))
             {
-                Move move = (whitePlayer as AI).MakeMove(this);
-                MakeMove(move);
-                AfterMove(move);
-                graphicsCallBack.Invoke();
-            }
 
-            else if (currentTurn == PlayerColour.Black && blackPlayer is AI)
-            {
-                Move move = (blackPlayer as AI).MakeMove(this);
-                MakeMove(move);
-                AfterMove(move);
-                graphicsCallBack.Invoke();
+                if (currentTurn == PlayerColour.White && whitePlayer is AI)
+                {
+                    Move move = (whitePlayer as AI).MakeMove(this);
+                    MakeMove(move);
+                    AfterMove(move);
+                    graphicsCallBack.Invoke();
+                }
+
+                else if (currentTurn == PlayerColour.Black && blackPlayer is AI)
+                {
+                    Move move = (blackPlayer as AI).MakeMove(this);
+                    MakeMove(move);
+                    AfterMove(move);
+                    graphicsCallBack.Invoke();
+                }
             }
         }
 
@@ -577,6 +581,7 @@ namespace Prototype2.Boards
                 if ((currentTurn == PlayerColour.White && blackPlayer is AI) || (currentTurn == PlayerColour.Black && whitePlayer is AI))
                 {
                     Promote((currentTurn == PlayerColour.White) ? 'q' : 'Q', move); // promote automatically for ais
+                    return;
                 }
 
                 PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
@@ -707,17 +712,17 @@ namespace Prototype2.Boards
 
         #region board value
 
-        public int BoardValue(bool max)
+        public int BoardValue(bool max, int depth)
         {
             // winstatus
             switch (winStatus)
             {
                 case WinStatus.WhiteMate:
-                    return int.MinValue;
+                    return int.MinValue + depth;
                 case WinStatus.BlackMate:
-                    return int.MaxValue;
+                    return int.MaxValue - depth;
                 case WinStatus.Stalemate:
-                    return (max ? (int.MinValue / 2) : (int.MaxValue / 2)); // HEAVILY discourage a stalemate
+                    return (max ? (int.MaxValue / 2) : (int.MinValue / 2)); // HEAVILY discourage a stalemate
                 default:
                     break;
             }
@@ -741,7 +746,7 @@ namespace Prototype2.Boards
                 }
             }
 
-            return value;
+            return value + (max ? -depth : depth); // add very slight penalty for later moves
         }
 
         // MATERIAL
@@ -765,17 +770,17 @@ namespace Prototype2.Boards
                 switch (type)
                 {
                     case 0: // pawn
-                        return WHITE_PAWN_TABLE[7 - row][column]; // board starts at bottom left, array starts at top left and goes row->column
+                        return PAWN_TABLE[7 - row][column]; // board starts at bottom left, array starts at top left and goes row->column
                     case 1: // rook
-                        return WHITE_ROOK_TABLE[7 - row][column];
+                        return ROOK_TABLE[7 - row][column];
                     case 2: // knight
-                        return WHITE_KNIGHT_TABLE[7 - row][column];
+                        return KNIGHT_TABLE[7 - row][column];
                     case 3: // bishop
-                        return WHITE_BISHOP_TABLE[7 - row][column];
+                        return BISHOP_TABLE[7 - row][column];
                     case 4: // queen
-                        return WHITE_QUEEN_TABLE[7 - row][column];
+                        return QUEEN_TABLE[7 - row][column];
                     case 5: // king
-                        return WHITE_KING_TABLE[7 - row][column];
+                        return KING_TABLE[7 - row][column];
                 }
             }
             // black
@@ -784,17 +789,17 @@ namespace Prototype2.Boards
                 switch (type)
                 {
                     case 0: // pawn
-                        return BLACK_PAWN_TABLE[7 - row][column];
+                        return PAWN_TABLE[row][column];
                     case 1: // rook
-                        return BLACK_ROOK_TABLE[7 - row][column];
+                        return ROOK_TABLE[row][column];
                     case 2: // knight
-                        return BLACK_KNIGHT_TABLE[7 - row][column];
+                        return KNIGHT_TABLE[row][column];
                     case 3: // bishop
-                        return BLACK_BISHOP_TABLE[7 - row][column];
+                        return BISHOP_TABLE[row][column];
                     case 4: // queen
-                        return BLACK_QUEEN_TABLE[7 - row][column];
+                        return QUEEN_TABLE[row][column];
                     case 5: // king
-                        return BLACK_KING_TABLE[7 - row][column];
+                        return KING_TABLE[row][column];
                 }
             }
 
@@ -802,7 +807,7 @@ namespace Prototype2.Boards
         }
 
         // pawns: advance, if in middle prioritise controlling the center
-        private readonly sbyte[][] WHITE_PAWN_TABLE =
+        private readonly sbyte[][] PAWN_TABLE =
         {
             new sbyte[] { 60, 60, 60,  60,  60,  60,  60, 60 },
             new sbyte[] { 50, 50, 50,  50,  50,  50,  50, 50 },
@@ -812,22 +817,10 @@ namespace Prototype2.Boards
             new sbyte[] { 5, -5, -10,  0,   0,  -10, -5,  5  },
             new sbyte[] { 5,  10, 10, -20, -20,  10,  10, 5  },
             new sbyte[] { 0,  0,  0,   0,   0,   0,   0,  0  },
-        };
-
-        private readonly sbyte[][] BLACK_PAWN_TABLE =
-        {
-            new sbyte[] { 0,  0,  0,   0,   0,   0,   0,  0  },
-            new sbyte[] { 5,  10, 10, -20, -20,  10,  10, 5  },
-            new sbyte[] { 5, -5, -10,  0,   0,  -10, -5,  5  },
-            new sbyte[] { 0,  0,  0,   20,  20,  0,   0,  0  },
-            new sbyte[] { 5,  5,  10,  25,  25,  10,  5,  5  },
-            new sbyte[] { 10, 10, 20,  30,  30,  20,  10, 10 },
-            new sbyte[] { 50, 50, 50,  50,  50,  50,  50, 50 },
-            new sbyte[] { 60, 60, 60,  60,  60,  60,  60, 60 },
         };
 
         // rooks: not really any good/bad places to be, but avoid harsh edges a bit unless on a corner
-        private readonly sbyte[][] WHITE_ROOK_TABLE =
+        private readonly sbyte[][] ROOK_TABLE =
         {
             new sbyte[] {  0, 0, 0, 0, 0, 0, 0, 0, },
             new sbyte[] {  5, 5, 5, 5, 5, 5, 5, 5, },
@@ -837,34 +830,10 @@ namespace Prototype2.Boards
             new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
             new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
             new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-        };
-
-        private readonly sbyte[][] BLACK_ROOK_TABLE =
-        {
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] {  5, 5, 5, 5, 5, 5, 5, 5, },
-            new sbyte[] {  0, 0, 0, 0, 0, 0, 0, 0, },
         };
 
         // knights: the closer to the center, the better, the closer to the corner, the worse
-        private readonly sbyte[][] WHITE_KNIGHT_TABLE =
-        {
-            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
-            new sbyte[] { -40, -25, -5,   0,   0,  -5,  -25, -40 },
-            new sbyte[] { -35,  0,   5,   15,  15,  5,   0,  -35 },
-            new sbyte[] { -30,  0,   15,  30,  30,  15,  0,  -30 },
-            new sbyte[] { -30,  0,   15,  30,  30,  15,  0,  -30 },
-            new sbyte[] { -35,  0,   5,   15,  15,  5,   0,  -35 },
-            new sbyte[] { -40, -25, -5,   0,   0,  -5,  -25, -40 },
-            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
-        };
-
-        private readonly sbyte[][] BLACK_KNIGHT_TABLE =
+        private readonly sbyte[][] KNIGHT_TABLE =
         {
             new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
             new sbyte[] { -40, -25, -5,   0,   0,  -5,  -25, -40 },
@@ -878,7 +847,7 @@ namespace Prototype2.Boards
 
         // bishops: avoid corners and edges, center is better for further ranks and vice versa for black
         // discourage positions allowing opposite side to attack/develop pawns
-        private readonly sbyte[][] WHITE_BISHOP_TABLE =
+        private readonly sbyte[][] BISHOP_TABLE =
         {
             new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
             new sbyte[] { -20,  0,   0,   0,   0,   0,   0,  -20 },
@@ -887,23 +856,11 @@ namespace Prototype2.Boards
             new sbyte[] { -10,  0,   5,   10,  10,  5,   0,  -10 },
             new sbyte[] { -10,  5,   10,  10,  10,  10,  5,  -10 },
             new sbyte[] { -20,  5,   0,   0,   0,   0,   5,  -20 },
-            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
-        };
-
-        private readonly sbyte[][] BLACK_BISHOP_TABLE =
-        {
-            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
-            new sbyte[] { -20,  5,   0,   0,   0,   0,   5,  -20 },
-            new sbyte[] { -10,  5,   10,  10,  10,  10,  5,  -10 },
-            new sbyte[] { -10,  0,   5,   10,  10,  5,   0,  -10 },
-            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,  -10 },
-            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,  -10 },
-            new sbyte[] { -20,  0,   0,   0,   0,   0,   0,  -20 },
             new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
         };
 
         // queens: avoid the opposite rank, avoid the very middle of the board, but encourage coverage
-        private readonly sbyte[][] WHITE_QUEEN_TABLE =
+        private readonly sbyte[][] QUEEN_TABLE =
         {
             new sbyte[] { -15, -20, -30, -20, -40, -30, -20, -15 },
             new sbyte[] { -20, -10, -20, -5,  -5,  -5,  -10, -20 },
@@ -913,22 +870,10 @@ namespace Prototype2.Boards
             new sbyte[] { -5,   5,   0,   0,   5,   0,   0,  -5  },
             new sbyte[] { -10, -5,   5,   5,   0,   0,   0,  -10 },
             new sbyte[] { -15, -10, -10, -5,  -5,  -10, -10, -15 },
-        };
-
-        private readonly sbyte[][] BLACK_QUEEN_TABLE =
-        {
-            new sbyte[] { -15, -10, -10, -5,  -5,  -10, -10, -15 },
-            new sbyte[] { -10, -5,   5,   5,   0,   0,   0,  -10 },
-            new sbyte[] { -5,   5,   0,   0,   5,   0,   0,  -5  },
-            new sbyte[] { -5,   0,   5,   0,   0,   0,   0,   0  },
-            new sbyte[] {  0,   0,   5,   5,   5,   5,   0,  -5  },
-            new sbyte[] { -5,   0,   0,   5,   5,   0,   0,   0  },
-            new sbyte[] { -20, -10, -20, -5,  -5,  -5,  -10, -20 },
-            new sbyte[] { -15, -20, -30, -20, -40, -30, -20, -15 },
         };
 
         // kings: encourage castling, discourage advancing
-        private readonly sbyte[][] WHITE_KING_TABLE =
+        private readonly sbyte[][] KING_TABLE =
         {
             new sbyte[] { -60, -60, -60, -60, -60, -60, -60, -60 },
             new sbyte[] { -50, -50, -50, -50, -50, -50, -50, -50 },
@@ -938,18 +883,6 @@ namespace Prototype2.Boards
             new sbyte[] { -10, -10, -20, -20, -20, -20, -10, -10 },
             new sbyte[] {  10,  10,  0,   0,   0,   0,   10,  10 },
             new sbyte[] {  20,  30,  30,  0,   0,   30,  30,  20 },
-        };
-
-        private readonly sbyte[][] BLACK_KING_TABLE =
-        {
-            new sbyte[] {  20,  30,  30,  0,   0,   30,  30,  20 },
-            new sbyte[] {  10,  10,  0,   0,   0,   0,   10,  10 },
-            new sbyte[] { -10, -10, -20, -20, -20, -20, -10, -10 },
-            new sbyte[] { -20, -20, -30, -40, -40, -30, -20, -20 },
-            new sbyte[] { -30, -30, -30, -30, -30, -30, -30, -30 },
-            new sbyte[] { -40, -40, -40, -40, -40, -40, -40, -40 },
-            new sbyte[] { -50, -50, -50, -50, -50, -50, -50, -50 },
-            new sbyte[] { -60, -60, -60, -60, -60, -60, -60, -60 },
         };
 
         #endregion
