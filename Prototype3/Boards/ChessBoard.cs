@@ -51,6 +51,7 @@ namespace Prototype2.Boards
         public List<Move> selectedMoves { get; private set; }
 
         private Stack<Move> moveHistory;
+        public List<string> moveNameHistory { get; private set; }
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
         private Stack<bool> castleChangeHistory;
@@ -58,7 +59,7 @@ namespace Prototype2.Boards
         public Piece[][] board { get; private set; }
 
         private Player whitePlayer;
-        private Player blackPlayer;
+        private Player blackPlayer; 
 
         private int fiftyMoveCounter = 0;
 
@@ -80,6 +81,7 @@ namespace Prototype2.Boards
 
             // initalise empty variables
             moveHistory = new Stack<Move>();
+            moveNameHistory = new List<string>();
             checkCellHistory = new Stack<Position>();
             checkCellHistory.Push(null);
             winStatusHistory = new Stack<WinStatus>();
@@ -99,18 +101,18 @@ namespace Prototype2.Boards
         private void InitialisePlayers()
         {
             whitePlayer = new Human();
-            blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
-            //blackPlayer = new Human();
+            //blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
+            blackPlayer = new Human();
         }
 
         // function loads standard positions :: override if child classes are implemented
         private void StandardPositions()
         {
             // fen for standard position
-            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
+            //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -168,7 +170,7 @@ namespace Prototype2.Boards
         }
 
         // returns the FEN char of a given piece
-        private char CharFromPiece(Piece piece)
+        public char CharFromPiece(Piece piece)
         {
             char character = new char();
 
@@ -363,6 +365,7 @@ namespace Prototype2.Boards
                 checkCell = checkCellHistory.Peek();
                 winStatusHistory.Pop();
                 winStatus = winStatusHistory.Peek();
+                moveNameHistory.RemoveAt(moveNameHistory.Count - 1);
                 UndoMove(move); // undo the move
                 graphicsCallBack.Invoke();
                 // switch back to player who made move
@@ -419,6 +422,29 @@ namespace Prototype2.Boards
             moveHistory.Push(move);
             checkCellHistory.Push(checkCell);
             winStatusHistory.Push(winStatus);
+
+            // push move name to stack, overwrite/append where needed
+            switch (winStatus)
+            {
+                case WinStatus.Stalemate:
+                    moveNameHistory.Add("1/2 - 1/2"); break;
+                case WinStatus.DrawFifty:
+                    moveNameHistory.Add("1/2 - 1/2"); break;
+                case WinStatus.DrawInsufficient:
+                    moveNameHistory.Add("1/2 - 1/2"); break;
+                case WinStatus.DrawRepetition:
+                    moveNameHistory.Add("1/2 - 1/2"); break;
+                case WinStatus.WhiteCheck:
+                    moveNameHistory.Add(move.GetMoveName(this) + "+"); break;
+                case WinStatus.BlackCheck:
+                    moveNameHistory.Add(move.GetMoveName(this) + "+"); break;
+                case WinStatus.WhiteMate:
+                    moveNameHistory.Add(move.GetMoveName(this) + "#"); break;
+                case WinStatus.BlackMate:
+                    moveNameHistory.Add(move.GetMoveName(this) + "#"); break;
+                default:
+                    moveNameHistory.Add(move.GetMoveName(this)); break;
+            }
 
             graphicsCallBack.Invoke();
 
