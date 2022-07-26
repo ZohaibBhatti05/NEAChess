@@ -1,12 +1,12 @@
-﻿using Prototype2.Boards;
-using Prototype2.Pieces;
+﻿using Prototype3.Boards;
+using Prototype3.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype2
+namespace Prototype3
 {
     public class Move
     {

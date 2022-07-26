@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype2.Boards
+namespace Prototype3.Boards
 {
     class Player
     {

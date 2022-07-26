@@ -1,4 +1,4 @@
-﻿using Prototype2.Pieces;
+﻿using Prototype3.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Prototype2.Boards
+namespace Prototype3.Boards
 {
     public enum WinStatus
     {
@@ -101,18 +101,18 @@ namespace Prototype2.Boards
         private void InitialisePlayers()
         {
             whitePlayer = new Human();
-            //blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
-            blackPlayer = new Human();
+            blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
+            //blackPlayer = new Human();
         }
 
         // function loads standard positions :: override if child classes are implemented
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
+            PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -169,7 +169,7 @@ namespace Prototype2.Boards
             return null;
         }
 
-        // returns the FEN char of a given piece
+        // returns the FEN/PGN char of a given piece
         public char CharFromPiece(Piece piece)
         {
             char character = new char();
@@ -443,7 +443,15 @@ namespace Prototype2.Boards
                 case WinStatus.BlackMate:
                     moveNameHistory.Add(move.GetMoveName(this) + "#"); break;
                 default:
-                    moveNameHistory.Add(move.GetMoveName(this)); break;
+
+                    string name = move.GetMoveName(this);
+
+                    if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7)) // promotion name
+                    {
+                        name += "=" + char.ToUpper(CharFromPiece(GetPiece(move.positionTo)));
+                    }
+
+                    moveNameHistory.Add(name); break;
             }
 
             graphicsCallBack.Invoke();

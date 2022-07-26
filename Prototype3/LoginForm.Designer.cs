@@ -1,5 +1,5 @@
 ﻿
-namespace Prototype2
+namespace Prototype3
 {
     partial class LoginForm
     {
@@ -34,6 +34,9 @@ namespace Prototype2
             this.txtLoginPassword = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
+            this.btnRegister = new System.Windows.Forms.Button();
+            this.lblNoAccount = new System.Windows.Forms.Label();
+            this.btnGuest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLogin
@@ -41,7 +44,7 @@ namespace Prototype2
             this.btnLogin.Location = new System.Drawing.Point(216, 106);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(109, 28);
+            this.btnLogin.Size = new System.Drawing.Size(110, 28);
             this.btnLogin.TabIndex = 0;
             this.btnLogin.Text = "Log In";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -81,11 +84,43 @@ namespace Prototype2
             this.lblPassword.TabIndex = 4;
             this.lblPassword.Text = "Password:";
             // 
+            // btnRegister
+            // 
+            this.btnRegister.Location = new System.Drawing.Point(216, 166);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(110, 28);
+            this.btnRegister.TabIndex = 5;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
+            // 
+            // lblNoAccount
+            // 
+            this.lblNoAccount.AutoSize = true;
+            this.lblNoAccount.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblNoAccount.Location = new System.Drawing.Point(207, 150);
+            this.lblNoAccount.Name = "lblNoAccount";
+            this.lblNoAccount.Size = new System.Drawing.Size(128, 13);
+            this.lblNoAccount.TabIndex = 6;
+            this.lblNoAccount.Text = "Don\'t have an account?";
+            // 
+            // btnGuest
+            // 
+            this.btnGuest.Location = new System.Drawing.Point(216, 200);
+            this.btnGuest.Name = "btnGuest";
+            this.btnGuest.Size = new System.Drawing.Size(110, 38);
+            this.btnGuest.TabIndex = 7;
+            this.btnGuest.Text = "Continue as Guest";
+            this.btnGuest.UseVisualStyleBackColor = true;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(561, 250);
+            this.ClientSize = new System.Drawing.Size(561, 277);
+            this.Controls.Add(this.btnGuest);
+            this.Controls.Add(this.lblNoAccount);
+            this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.txtLoginPassword);
@@ -94,6 +129,7 @@ namespace Prototype2
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LoginForm";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -106,6 +142,9 @@ namespace Prototype2
         private System.Windows.Forms.TextBox txtLoginPassword;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Label lblNoAccount;
+        private System.Windows.Forms.Button btnGuest;
     }
 }
 

@@ -1,11 +1,11 @@
-﻿using Prototype2.Boards;
+﻿using Prototype3.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype2.Pieces
+namespace Prototype3.Pieces
 {
     class King : Piece
     {

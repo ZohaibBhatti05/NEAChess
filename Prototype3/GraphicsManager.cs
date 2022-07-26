@@ -1,5 +1,5 @@
-﻿using Prototype2.Boards;
-using Prototype2.Pieces;
+﻿using Prototype3.Boards;
+using Prototype3.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,14 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Prototype2
+namespace Prototype3
 {
     // callback function for board to tell form to redraw
     public delegate void UpdateBoardGraphicsCallBack();
 
     public partial class GameForm : Form
     {
-        private readonly string resourcePath = System.AppDomain.CurrentDomain.BaseDirectory; // get where app is RUNNING
+        private readonly string RESOURCE_PATH = System.AppDomain.CurrentDomain.BaseDirectory; // get where app is RUNNING
         private Dictionary<int, Image> pieceImages = new Dictionary<int, Image>(); // dictionary of images
 
         #region UserDefinedSettings
@@ -51,7 +51,7 @@ namespace Prototype2
             //
 
             // initialise piece graphics
-            string pieceImagePath = resourcePath + "Assets\\PieceImages\\Standard\\";
+            string pieceImagePath = RESOURCE_PATH + "Assets\\PieceImages\\Standard\\";
             // add relative path
 
             for (int i = 0; i < 12; i++)
