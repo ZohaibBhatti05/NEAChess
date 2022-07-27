@@ -62,6 +62,7 @@ namespace Prototype3
             this.txtPassword.Location = new System.Drawing.Point(223, 77);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(116, 23);
             this.txtPassword.TabIndex = 2;
             this.txtPassword.Text = "Password1";
@@ -71,6 +72,7 @@ namespace Prototype3
             this.txtPasswordConfirm.Location = new System.Drawing.Point(223, 114);
             this.txtPasswordConfirm.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.txtPasswordConfirm.Name = "txtPasswordConfirm";
+            this.txtPasswordConfirm.PasswordChar = '*';
             this.txtPasswordConfirm.Size = new System.Drawing.Size(116, 23);
             this.txtPasswordConfirm.TabIndex = 3;
             this.txtPasswordConfirm.Text = "Password1";

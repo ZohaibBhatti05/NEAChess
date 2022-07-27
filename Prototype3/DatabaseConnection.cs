@@ -8,13 +8,15 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data.Sql;
+using System.IO;
 
 namespace Prototype3.Database
 {
     // class used for connections to the main database
     public class DatabaseConnection
     {
-        private readonly string DB_PATH = "C:/Users/Zohaib/source/repos/NEAChess/Database/Database.accdb"; // path of database file
+        private readonly string DB_PATH = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName 
+            + "/Database/Database.accdb"; // path of database file, change later
 
         private OleDbConnection dbConnection;
 
