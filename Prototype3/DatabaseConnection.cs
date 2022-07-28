@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data.Sql;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Prototype3.Database
 {
@@ -40,15 +41,70 @@ namespace Prototype3.Database
 
         }
 
-        // method returns the salt for a user
-        public string GetUserSalt(string username)
+        // function returns the string SHA512 hash of the input
+        public string GetHashedPassword(string plain)
         {
+            SHA512 hasher = SHA512.Create();
+            // hash salted password into byte array
+            byte[] hashArray = hasher.ComputeHash(Encoding.UTF8.GetBytes(plain));
+
+            // Convert byte array to a string   
+            StringBuilder hashBuilder = new StringBuilder();
+            for (int i = 0; i < hashArray.Length; i++)
+            {
+                hashBuilder.Append(hashArray[i].ToString("x2"));
+            }
+
+            return hashBuilder.ToString();
+        }
+
+        public bool AreDetailsValid(string username, string password)
+        {
+            if (IsUsernameTaken(username)) // if user exists
+            {
+                if (GetUserHash(username) == GetHashedPassword(password + GetUserSalt(username))) // if details are valid
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // method returns the salt for a user
+        private string GetUserSalt(string username)
+        {
+            OleDbCommand command = new OleDbCommand(
+                $"SELECT Salt FROM Users WHERE Username = '{username}'",
+                dbConnection);  // query
+
+            dbConnection.Open();
+            OleDbDataReader reader = command.ExecuteReader(); // create reader to access data from the table
+            while (reader.Read()) // while the reader is active, get the data required from the table
+            {
+                string output = reader["Salt"].ToString();
+                dbConnection.Close();
+                return output;
+            }
+            dbConnection.Close();
             return null;
         }
 
         // method returns the hashed password for a user
-        public string GetUserHash(string username)
+        private string GetUserHash(string username)
         {
+            OleDbCommand command = new OleDbCommand(
+                $"SELECT Hash FROM Users WHERE Username = '{username}'",
+                dbConnection);  // query
+
+            dbConnection.Open();
+            OleDbDataReader reader = command.ExecuteReader(); // create reader to access data from the table
+            while (reader.Read()) // while the reader is active, get the data required from the table
+            {
+                string output = reader["Hash"].ToString();
+                dbConnection.Close();
+                return output;
+            }
+            dbConnection.Close();
             return null;
         }
 

@@ -57,14 +57,17 @@ namespace Prototype3
             this.txtLoginUsername.Name = "txtLoginUsername";
             this.txtLoginUsername.Size = new System.Drawing.Size(110, 23);
             this.txtLoginUsername.TabIndex = 1;
+            this.txtLoginUsername.Text = "Zohaib1";
             // 
             // txtLoginPassword
             // 
             this.txtLoginPassword.Location = new System.Drawing.Point(216, 81);
             this.txtLoginPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtLoginPassword.Name = "txtLoginPassword";
+            this.txtLoginPassword.PasswordChar = '*';
             this.txtLoginPassword.Size = new System.Drawing.Size(110, 23);
             this.txtLoginPassword.TabIndex = 2;
+            this.txtLoginPassword.Text = "Password1";
             // 
             // lblUsername
             // 
@@ -112,6 +115,7 @@ namespace Prototype3
             this.btnGuest.TabIndex = 7;
             this.btnGuest.Text = "Continue as Guest";
             this.btnGuest.UseVisualStyleBackColor = true;
+            this.btnGuest.Click += new System.EventHandler(this.btnGuest_Click);
             // 
             // LoginForm
             // 

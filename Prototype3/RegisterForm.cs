@@ -37,7 +37,7 @@ namespace Prototype3
                 string username = txtUsername.Text; // get un
                 string salt = GenerateSalt(); // get salt for new user
 
-                string hash = GetHashedPassword(txtPassword.Text + salt); // get hashed password
+                string hash = dbConnection.GetHashedPassword(txtPassword.Text + salt); // get hashed password
 
                 CreateNewUser(username, hash, salt);
             }
@@ -47,23 +47,6 @@ namespace Prototype3
         private void CreateNewUser(string username, string hash, string salt)
         {
             dbConnection.StoreNewUser(username, hash, salt);
-        }
-
-        // function returns the string SHA512 hash of the input
-        private string GetHashedPassword(string plain)
-        {
-            SHA512 hasher = SHA512.Create();
-            // hash salted password into byte array
-            byte[] hashArray = hasher.ComputeHash(Encoding.UTF8.GetBytes(plain));
-
-            // Convert byte array to a string   
-            StringBuilder hashBuilder = new StringBuilder();
-            for (int i = 0; i < hashArray.Length; i++)
-            {
-                hashBuilder.Append(hashArray[i].ToString("x2"));
-            }
-
-            return hashBuilder.ToString();
         }
 
         // function returns if a username meets complexity requirements
