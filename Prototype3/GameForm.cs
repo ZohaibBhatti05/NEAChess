@@ -14,9 +14,19 @@ namespace Prototype3
     public partial class GameForm : Form
     {
         ChessBoard chessBoard;
+        private string username; // username of person logged in
 
+        // user logged in
+        public GameForm(string username)
+        {
+            this.username = username;
+            InitializeComponent();
+        }
+
+        // guest: not logged in
         public GameForm()
         {
+            username = "Guest";
             InitializeComponent();
         }
 
@@ -27,7 +37,7 @@ namespace Prototype3
 
         private void InitialiseGame()
         {
-            chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard));
+            chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard), username);
             InitialiseGraphics();
         }
 

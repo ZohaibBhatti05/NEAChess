@@ -119,5 +119,32 @@ namespace Prototype3.Database
             command.ExecuteNonQuery();
             dbConnection.Close();
         }
+
+        // method stores a new instance of a game.
+        public void StoreNewGame(string username, string winState, string PGN, string gameType)
+        {
+            int userID = GetUserID(username);
+
+            OleDbCommand command = new OleDbCommand(
+                $"INSERT INTO Games (UserID, PGN, GameType, WinState) VALUES ('{userID}', '{PGN}', '{gameType}', '{winState}')",
+                dbConnection);  // query
+
+            dbConnection.Open();
+            command.ExecuteNonQuery();
+            dbConnection.Close();
+        }
+
+        // method returns the id of the user with the given username
+        private int GetUserID(string username)
+        {
+            OleDbCommand command = new OleDbCommand(
+                $"SELECT UserID FROM Users WHERE Username = '{username}'",
+                dbConnection);  // query
+
+            dbConnection.Open();
+            int userID = (int)command.ExecuteScalar(); // run query
+            dbConnection.Close();
+            return userID;
+        }
     }
 }

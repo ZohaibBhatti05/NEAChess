@@ -27,9 +27,8 @@ namespace Prototype3
             {
                 if (AreDetailsValid(txtLoginUsername.Text, txtLoginPassword.Text))
                 {
-                    this.Hide();
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                    GameForm gameForm = new GameForm(txtLoginUsername.Text); // show the game form
+                    gameForm.ShowDialog();
                 }
             }
         }
@@ -66,22 +65,11 @@ namespace Prototype3
             registerForm.ShowDialog();
         }
 
-        // method run when the form closes
-        private void OnFormClose(object sender, FormClosedEventArgs e)
-        {
-            if (this.DialogResult != DialogResult.Cancel) // if the user DIDNT hit the X button or kill the form
-            {
-                GameForm gameForm = new GameForm(); // show the game form
-                gameForm.ShowDialog();
-            }
-        }
-
         // guest, set gameform attributes as needed
         private void btnGuest_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            GameForm gameForm = new GameForm(); // show the game form
+            gameForm.ShowDialog();
         }
     }
 }

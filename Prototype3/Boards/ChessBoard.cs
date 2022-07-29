@@ -1,4 +1,5 @@
-﻿using Prototype3.Pieces;
+﻿using Prototype3.Database;
+using Prototype3.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,6 +43,7 @@ namespace Prototype3.Boards
     public class ChessBoard
     {
         protected UpdateBoardGraphicsCallBack graphicsCallBack;
+        private string username;
 
         public PlayerColour currentTurn { get; private set; }
 
@@ -66,7 +68,7 @@ namespace Prototype3.Boards
         public WinStatus winStatus { get; private set; }
 
         // initialise new instance of board
-        public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback)
+        public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback, string username)
         {
             // create an empty array for the board //
             board = new Piece[8][];
@@ -92,27 +94,28 @@ namespace Prototype3.Boards
             winStatus = WinStatus.None;
 
             // initialise players
-            InitialisePlayers();
+            InitialisePlayers(username);
 
             // change later to allow custom positions
             StandardPositions();
         }
 
-        private void InitialisePlayers()
+        private void InitialisePlayers(string username) // hardcoded for now
         {
-            whitePlayer = new Human();
-            blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
-            //blackPlayer = new Human();
+            this.username = username;
+            whitePlayer = new Human(username);
+            //blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
+            blackPlayer = new Human("temp");
         }
 
         // function loads standard positions :: override if child classes are implemented
         private void StandardPositions()
         {
             // fen for standard position
-            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
+            //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -458,6 +461,45 @@ namespace Prototype3.Boards
 
             // if other player is an AI, make an AI move
             UpdatePlayers();
+
+            // method checks for a winner
+            UpdatePostGame();
+        }
+
+        // method perofrms post-game logistics
+        private void UpdatePostGame()
+        {
+            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) && username != "Guest") // if someone won and user is logged in
+            {
+                string winState = string.Empty;
+                switch (winStatus)
+                {
+                    case WinStatus.BlackMate: // white wins
+                        winState = "White Wins";
+                        break;
+                    case WinStatus.WhiteMate: // black wins
+                        winState = "Black Wins";
+                        break;
+                    case WinStatus.Stalemate:
+                        winState = "Stalemate";
+                        break;
+                    case WinStatus.DrawInsufficient:
+                        winState = "Draw by Insufficient Material";
+                        break;
+                    case WinStatus.DrawRepetition:
+                        winState = "Draw by Repetition";
+                        break;
+                    case WinStatus.DrawFifty:
+                        winState = "Draw by 50 Move Rule";
+                        break;
+                }
+
+                string PGN = string.Join(", ", moveNameHistory.ToArray()); // convert pgn history to single string
+                string gameType = (blackPlayer is AI) ? "Human v AI" : "Human v Human";
+
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                dbConnection.StoreNewGame(username, winState, PGN, gameType);
+            }
         }
 
         // method allows computer players to make moves
@@ -465,7 +507,7 @@ namespace Prototype3.Boards
         {
             graphicsCallBack.Invoke();
 
-            if ((winStatus != WinStatus.WhiteMate && winStatus != WinStatus.BlackMate))
+            if ((winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck)) // if no winner
             {
 
                 if (currentTurn == PlayerColour.White && whitePlayer is AI)

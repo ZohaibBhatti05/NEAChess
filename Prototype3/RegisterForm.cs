@@ -54,6 +54,12 @@ namespace Prototype3
         {
             string username = txtUsername.Text;
 
+            if (username.ToLower() == "guest")
+            {
+                MessageBox.Show("Your username is invalid.");
+                return false;
+            }
+
             if (username.Length < MIN_LENGTH || username.Length > MAX_LENGTH) // length requirements
             {
                 MessageBox.Show($"Username must be between {MIN_LENGTH} and {MAX_LENGTH} characters");

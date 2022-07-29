@@ -133,7 +133,6 @@ namespace Prototype3
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LoginForm";
             this.Text = "Form1";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClose);
             this.ResumeLayout(false);
             this.PerformLayout();
 
