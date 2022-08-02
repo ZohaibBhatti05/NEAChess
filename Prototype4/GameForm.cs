@@ -38,6 +38,7 @@ namespace Prototype4
         private void InitialiseGame()
         {
             chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard), username);
+
             InitialiseGraphics();
         }
 

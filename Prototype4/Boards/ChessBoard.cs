@@ -104,8 +104,8 @@ namespace Prototype4.Boards
         {
             this.username = username;
             whitePlayer = new Human(username);
-            //blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
-            blackPlayer = new Human("temp");
+            blackPlayer = new AI(3, PlayerColour.Black); // hardcoded ply depth
+            //blackPlayer = new Human("temp");
         }
 
         // function loads standard positions :: override if child classes are implemented
@@ -278,7 +278,6 @@ namespace Prototype4.Boards
                             {
                                 MakeMove(move);
                                 AfterMove(move);
-                                graphicsCallBack.Invoke();
                                 return;
                             }
                         }
@@ -294,7 +293,6 @@ namespace Prototype4.Boards
                         {
                             MakeMove(move);
                             AfterMove(move);
-                            graphicsCallBack.Invoke();
                             return;
                         }
                     }
@@ -370,7 +368,6 @@ namespace Prototype4.Boards
                 winStatus = winStatusHistory.Peek();
                 moveNameHistory.RemoveAt(moveNameHistory.Count - 1);
                 UndoMove(move); // undo the move
-                graphicsCallBack.Invoke();
                 // switch back to player who made move
                 currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
 
@@ -458,7 +455,11 @@ namespace Prototype4.Boards
             }
 
             graphicsCallBack.Invoke();
+        }
 
+        // method run after board redrawn
+        public void PostBoardRedraw()
+        {
             // if other player is an AI, make an AI move
             UpdatePlayers();
 
@@ -505,8 +506,6 @@ namespace Prototype4.Boards
         // method allows computer players to make moves
         private void UpdatePlayers()
         {
-            graphicsCallBack.Invoke();
-
             if ((winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck)) // if no winner
             {
 

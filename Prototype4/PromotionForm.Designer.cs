@@ -44,7 +44,7 @@ namespace Prototype4
             this.picQueen.Location = new System.Drawing.Point(0, 0);
             this.picQueen.Margin = new System.Windows.Forms.Padding(0);
             this.picQueen.Name = "picQueen";
-            this.picQueen.Size = new System.Drawing.Size(125, 125);
+            this.picQueen.Size = new System.Drawing.Size(100, 100);
             this.picQueen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picQueen.TabIndex = 0;
             this.picQueen.TabStop = false;
@@ -52,10 +52,10 @@ namespace Prototype4
             // 
             // picKnight
             // 
-            this.picKnight.Location = new System.Drawing.Point(125, 0);
+            this.picKnight.Location = new System.Drawing.Point(100, 0);
             this.picKnight.Margin = new System.Windows.Forms.Padding(0);
             this.picKnight.Name = "picKnight";
-            this.picKnight.Size = new System.Drawing.Size(125, 125);
+            this.picKnight.Size = new System.Drawing.Size(100, 100);
             this.picKnight.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picKnight.TabIndex = 1;
             this.picKnight.TabStop = false;
@@ -63,10 +63,10 @@ namespace Prototype4
             // 
             // picRook
             // 
-            this.picRook.Location = new System.Drawing.Point(375, 0);
+            this.picRook.Location = new System.Drawing.Point(300, 0);
             this.picRook.Margin = new System.Windows.Forms.Padding(0);
             this.picRook.Name = "picRook";
-            this.picRook.Size = new System.Drawing.Size(125, 125);
+            this.picRook.Size = new System.Drawing.Size(100, 100);
             this.picRook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRook.TabIndex = 2;
             this.picRook.TabStop = false;
@@ -74,10 +74,10 @@ namespace Prototype4
             // 
             // picBishop
             // 
-            this.picBishop.Location = new System.Drawing.Point(250, 0);
+            this.picBishop.Location = new System.Drawing.Point(200, 0);
             this.picBishop.Margin = new System.Windows.Forms.Padding(0);
             this.picBishop.Name = "picBishop";
-            this.picBishop.Size = new System.Drawing.Size(125, 125);
+            this.picBishop.Size = new System.Drawing.Size(100, 100);
             this.picBishop.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picBishop.TabIndex = 3;
             this.picBishop.TabStop = false;
@@ -85,17 +85,18 @@ namespace Prototype4
             // 
             // PromotionForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(700, 338);
             this.ControlBox = false;
             this.Controls.Add(this.picBishop);
             this.Controls.Add(this.picRook);
             this.Controls.Add(this.picKnight);
             this.Controls.Add(this.picQueen);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "PromotionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PromotionForm";

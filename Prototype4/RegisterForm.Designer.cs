@@ -108,7 +108,7 @@ namespace Prototype4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 357);
+            this.ClientSize = new System.Drawing.Size(591, 326);
             this.Controls.Add(this.lblPasswordConfirm);
             this.Controls.Add(this.lblPassword);
             this.Controls.Add(this.lblUserName);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -114,7 +115,7 @@ namespace Prototype4
                     }
 
                     // highlight cells
-                    if(chessBoard.selectedCell != null) // selected piece / moves
+                    if (chessBoard.selectedCell != null) // selected piece / moves
                     {
                         Position selected = chessBoard.selectedCell;
                         boardCells[selected.column][selected.row].BackColor = SELECT_COLOUR;
@@ -148,10 +149,12 @@ namespace Prototype4
                         if (piece.colour == PlayerColour.Black) { type += (pieceImages.Count / 2); }
                         boardCells[i][j].Image = pieceImages[type];
                     }
+                    boardCells[i][j].Update(); // redraw cell
                 }
             }
 
             UpdateMoveHistory();
+            chessBoard.PostBoardRedraw();
         }
 
         // prints the move history to a rich text box on the game form
