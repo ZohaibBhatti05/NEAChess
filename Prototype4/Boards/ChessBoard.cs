@@ -52,7 +52,7 @@ namespace Prototype4.Boards
 
         public List<Move> selectedMoves { get; private set; }
 
-        private Stack<Move> moveHistory;
+        public Stack<Move> moveHistory { get; private set; }
         public List<string> moveNameHistory { get; private set; }
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
@@ -104,7 +104,7 @@ namespace Prototype4.Boards
         {
             this.username = username;
             whitePlayer = new Human(username);
-            blackPlayer = new AI(3, PlayerColour.Black); // hardcoded ply depth
+            blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
             //blackPlayer = new Human("temp");
         }
 
@@ -249,7 +249,7 @@ namespace Prototype4.Boards
                     // select piece
                     selectedCell = position;
                     selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
-                    graphicsCallBack.Invoke();
+                    graphicsCallBack.Invoke(false);
                     return;
                 }
             }
@@ -265,7 +265,7 @@ namespace Prototype4.Boards
                     {
                         selectedCell = position; // select cell
                         selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
-                        graphicsCallBack.Invoke();
+                        graphicsCallBack.Invoke(false);
                         return;
                     }
 
@@ -373,7 +373,6 @@ namespace Prototype4.Boards
 
                 // unselect cell
                 selectedCell = null;
-                graphicsCallBack.Invoke();
 
                 // reset castling rights
                 if (move is Castle)
@@ -387,6 +386,8 @@ namespace Prototype4.Boards
                     // reset castling changes
                     GetPiece(move.positionFrom).SetCastle(castleChangeHistory.Pop());
                 }
+
+                graphicsCallBack.Invoke(false); // redraw board
             }
         }
 
@@ -454,7 +455,7 @@ namespace Prototype4.Boards
                     moveNameHistory.Add(name); break;
             }
 
-            graphicsCallBack.Invoke();
+            graphicsCallBack.Invoke(true);
         }
 
         // method run after board redrawn
@@ -514,7 +515,6 @@ namespace Prototype4.Boards
                     Move move = (whitePlayer as AI).MakeMove(this);
                     MakeMove(move);
                     AfterMove(move);
-                    graphicsCallBack.Invoke();
                 }
 
                 else if (currentTurn == PlayerColour.Black && blackPlayer is AI)
@@ -522,7 +522,6 @@ namespace Prototype4.Boards
                     Move move = (blackPlayer as AI).MakeMove(this);
                     MakeMove(move);
                     AfterMove(move);
-                    graphicsCallBack.Invoke();
                 }
             }
         }

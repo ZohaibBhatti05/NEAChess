@@ -18,6 +18,8 @@ namespace Prototype4
         public LoginForm()
         {
             InitializeComponent();
+
+
         }
 
         // logging in
@@ -62,7 +64,9 @@ namespace Prototype4
         private void btnRegister_Click(object sender, EventArgs e)
         {
             RegisterForm registerForm = new RegisterForm();
+            this.Hide();
             registerForm.ShowDialog();
+            this.Show();
         }
 
         // guest, set gameform attributes as needed

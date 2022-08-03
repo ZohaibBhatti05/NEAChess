@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace Prototype4
 {
     // callback function for board to tell form to redraw
-    public delegate void UpdateBoardGraphicsCallBack();
+    public delegate void UpdateBoardGraphicsCallBack(bool updatePost);
 
     public partial class GameForm : Form
     {
@@ -90,11 +90,11 @@ namespace Prototype4
             }
             //
 
-            DrawBoard();
+            DrawBoard(false);
         }
 
         // method to draw the cells and pieces that comprise the board
-        private void DrawBoard()
+        private void DrawBoard(bool updatePost)
         {
             // draw cells (update button colours and pictures)
             for (int i = 0; i < 8; i++)
@@ -136,6 +136,14 @@ namespace Prototype4
                         boardCells[check.column][check.row].BackColor = CHECK_COLOUR;
                     }
 
+                    //highlight last move
+                    if (chessBoard.moveHistory.Count > 0)
+                    {
+                        Move lastMove = chessBoard.moveHistory.First();
+                        boardCells[lastMove.positionFrom.column][lastMove.positionFrom.row].BackColor = SELECT_COLOUR;
+                        boardCells[lastMove.positionTo.column][lastMove.positionTo.row].BackColor = SELECT_COLOUR;
+                    }
+
                     //
                     // update win label
                     lblWinStatus.Text = String.Format($"Win Status: {chessBoard.winStatus.ToString()}");
@@ -154,10 +162,14 @@ namespace Prototype4
             }
 
             UpdateMoveHistory();
-            chessBoard.PostBoardRedraw();
+
+            if (updatePost)
+            {
+                chessBoard.PostBoardRedraw();
+            }
         }
 
-        // prints the move history to a rich text box on the game form
+        // prints the move history to a rich text box on the game form :: format better later
         private void UpdateMoveHistory()
         {
             txtMoveHistory.Text = null;
@@ -170,6 +182,7 @@ namespace Prototype4
 
                 txtMoveHistory.Text += chessBoard.moveNameHistory[i] + " :: ";
             }
+            txtMoveHistory.Update();
         }
     }
 }

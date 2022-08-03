@@ -121,23 +121,26 @@
   <data name="bB" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\PieceImages\Standard\bB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bK" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\PieceImages\Standard\bK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="bN" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\PieceImages\Standard\bN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\PieceImages\Standard\bP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="wB" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\PieceImages\Standard\wB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\PieceImages\Standard\wP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="bQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\PieceImages\Standard\bQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="bR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\PieceImages\Standard\bR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\PieceImages\Standard\wR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wB" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\PieceImages\Standard\wB.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="wQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\PieceImages\Standard\wQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="wK" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\PieceImages\Standard\wK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,13 +148,16 @@
   <data name="wN" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\PieceImages\Standard\wN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\PieceImages\Standard\wP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\PieceImages\Standard\bK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\PieceImages\Standard\wQ.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="bR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\PieceImages\Standard\bR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\PieceImages\Standard\wR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BlueButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BlueButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GreenButton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
