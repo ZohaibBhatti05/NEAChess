@@ -68,11 +68,10 @@ namespace Prototype4
             this.txtLoginUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtLoginUsername.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtLoginUsername.ForeColor = System.Drawing.Color.White;
-            this.txtLoginUsername.Location = new System.Drawing.Point(10, 10);
+            this.txtLoginUsername.Location = new System.Drawing.Point(10, 12);
             this.txtLoginUsername.Margin = new System.Windows.Forms.Padding(10);
-            this.txtLoginUsername.Multiline = true;
             this.txtLoginUsername.Name = "txtLoginUsername";
-            this.txtLoginUsername.Size = new System.Drawing.Size(232, 25);
+            this.txtLoginUsername.Size = new System.Drawing.Size(232, 20);
             this.txtLoginUsername.TabIndex = 1;
             this.txtLoginUsername.Text = "Zohaib1";
             this.txtLoginUsername.WordWrap = false;
@@ -134,6 +133,7 @@ namespace Prototype4
             this.btnGuest.FlatAppearance.BorderSize = 0;
             this.btnGuest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuest.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnGuest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(150)))), ((int)(((byte)(230)))));
             this.btnGuest.Location = new System.Drawing.Point(132, 360);
             this.btnGuest.Margin = new System.Windows.Forms.Padding(10);
             this.btnGuest.Name = "btnGuest";
@@ -177,12 +177,11 @@ namespace Prototype4
             this.txtLoginPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtLoginPassword.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.txtLoginPassword.ForeColor = System.Drawing.Color.White;
-            this.txtLoginPassword.Location = new System.Drawing.Point(10, 11);
+            this.txtLoginPassword.Location = new System.Drawing.Point(10, 13);
             this.txtLoginPassword.Margin = new System.Windows.Forms.Padding(10);
-            this.txtLoginPassword.Multiline = true;
             this.txtLoginPassword.Name = "txtLoginPassword";
             this.txtLoginPassword.PasswordChar = '•';
-            this.txtLoginPassword.Size = new System.Drawing.Size(147, 25);
+            this.txtLoginPassword.Size = new System.Drawing.Size(147, 20);
             this.txtLoginPassword.TabIndex = 1;
             this.txtLoginPassword.Text = "Password1";
             this.txtLoginPassword.WordWrap = false;
@@ -207,7 +206,8 @@ namespace Prototype4
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "LoginForm";
-            this.Text = "Form1";
+            this.Text = "Login";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.LoginForm_Paint);
             this.pnlLogin.ResumeLayout(false);
             this.pnlLogin.PerformLayout();
             this.pnlPW.ResumeLayout(false);

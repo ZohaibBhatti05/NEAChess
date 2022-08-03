@@ -29,28 +29,18 @@ namespace Prototype4
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnRegister = new System.Windows.Forms.Button();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.txtPasswordConfirm = new System.Windows.Forms.TextBox();
-            this.lblUserName = new System.Windows.Forms.Label();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
-            this.lblPasswordConfirm = new System.Windows.Forms.Label();
+            this.lblConfirmPassword = new System.Windows.Forms.Label();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnRegister
-            // 
-            this.btnRegister.Location = new System.Drawing.Point(223, 147);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(116, 23);
-            this.btnRegister.TabIndex = 0;
-            this.btnRegister.Text = "Register";
-            this.btnRegister.UseVisualStyleBackColor = true;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // txtUsername
             // 
-            this.txtUsername.Location = new System.Drawing.Point(223, 40);
+            this.txtUsername.Location = new System.Drawing.Point(532, 263);
             this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(116, 23);
@@ -59,7 +49,7 @@ namespace Prototype4
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(223, 77);
+            this.txtPassword.Location = new System.Drawing.Point(532, 300);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
@@ -69,7 +59,7 @@ namespace Prototype4
             // 
             // txtPasswordConfirm
             // 
-            this.txtPasswordConfirm.Location = new System.Drawing.Point(223, 114);
+            this.txtPasswordConfirm.Location = new System.Drawing.Point(532, 337);
             this.txtPasswordConfirm.Margin = new System.Windows.Forms.Padding(3, 7, 3, 7);
             this.txtPasswordConfirm.Name = "txtPasswordConfirm";
             this.txtPasswordConfirm.PasswordChar = '*';
@@ -77,45 +67,70 @@ namespace Prototype4
             this.txtPasswordConfirm.TabIndex = 3;
             this.txtPasswordConfirm.Text = "Password1";
             // 
-            // lblUserName
+            // lblUsername
             // 
-            this.lblUserName.AutoSize = true;
-            this.lblUserName.Location = new System.Drawing.Point(154, 43);
-            this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(63, 15);
-            this.lblUserName.TabIndex = 4;
-            this.lblUserName.Text = "Username:";
+            this.lblUsername.AutoSize = true;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUsername.ForeColor = System.Drawing.Color.White;
+            this.lblUsername.Location = new System.Drawing.Point(337, 145);
+            this.lblUsername.Margin = new System.Windows.Forms.Padding(10);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(87, 21);
+            this.lblUsername.TabIndex = 7;
+            this.lblUsername.Text = "Username";
             // 
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(157, 80);
+            this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPassword.ForeColor = System.Drawing.Color.White;
+            this.lblPassword.Location = new System.Drawing.Point(319, 206);
+            this.lblPassword.Margin = new System.Windows.Forms.Padding(10);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(60, 15);
-            this.lblPassword.TabIndex = 5;
-            this.lblPassword.Text = "Password:";
+            this.lblPassword.Size = new System.Drawing.Size(82, 21);
+            this.lblPassword.TabIndex = 8;
+            this.lblPassword.Text = "Password";
             // 
-            // lblPasswordConfirm
+            // lblConfirmPassword
             // 
-            this.lblPasswordConfirm.AutoSize = true;
-            this.lblPasswordConfirm.Location = new System.Drawing.Point(110, 117);
-            this.lblPasswordConfirm.Name = "lblPasswordConfirm";
-            this.lblPasswordConfirm.Size = new System.Drawing.Size(107, 15);
-            this.lblPasswordConfirm.TabIndex = 6;
-            this.lblPasswordConfirm.Text = "Confirm Password:";
+            this.lblConfirmPassword.AutoSize = true;
+            this.lblConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblConfirmPassword.ForeColor = System.Drawing.Color.White;
+            this.lblConfirmPassword.Location = new System.Drawing.Point(319, 265);
+            this.lblConfirmPassword.Margin = new System.Windows.Forms.Padding(10);
+            this.lblConfirmPassword.Name = "lblConfirmPassword";
+            this.lblConfirmPassword.Size = new System.Drawing.Size(148, 21);
+            this.lblConfirmPassword.TabIndex = 9;
+            this.lblConfirmPassword.Text = "Confirm Password";
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(150)))), ((int)(((byte)(230)))));
+            this.btnRegister.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRegister.FlatAppearance.BorderSize = 0;
+            this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegister.Font = new System.Drawing.Font("Bahnschrift", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRegister.ForeColor = System.Drawing.Color.Transparent;
+            this.btnRegister.Location = new System.Drawing.Point(217, 402);
+            this.btnRegister.Margin = new System.Windows.Forms.Padding(10);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(250, 45);
+            this.btnRegister.TabIndex = 10;
+            this.btnRegister.Text = "SIGN IN";
+            this.btnRegister.UseVisualStyleBackColor = false;
             // 
             // RegisterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 326);
-            this.Controls.Add(this.lblPasswordConfirm);
+            this.ClientSize = new System.Drawing.Size(919, 582);
+            this.Controls.Add(this.btnRegister);
+            this.Controls.Add(this.lblConfirmPassword);
             this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.lblUserName);
+            this.Controls.Add(this.lblUsername);
             this.Controls.Add(this.txtPasswordConfirm);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.btnRegister);
             this.Name = "RegisterForm";
             this.Text = "RegisterForm";
             this.ResumeLayout(false);
@@ -124,13 +139,12 @@ namespace Prototype4
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.TextBox txtPasswordConfirm;
-        private System.Windows.Forms.Label lblUserName;
+        private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.Label lblPassword;
-        private System.Windows.Forms.Label lblPasswordConfirm;
+        private System.Windows.Forms.Label lblConfirmPassword;
+        private System.Windows.Forms.Button btnRegister;
     }
 }

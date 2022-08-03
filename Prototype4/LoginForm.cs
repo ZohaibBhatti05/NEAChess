@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace Prototype4
@@ -18,8 +19,6 @@ namespace Prototype4
         public LoginForm()
         {
             InitializeComponent();
-
-
         }
 
         // logging in
@@ -74,6 +73,20 @@ namespace Prototype4
         {
             GameForm gameForm = new GameForm(); // show the game form
             gameForm.ShowDialog();
+        }
+
+        private void LoginForm_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+
+            //the rectangle, the same size as our Form
+            Rectangle gradient_rectangle = new Rectangle(0, 0, Width, Height);
+
+            //define gradient's properties
+            Brush b = new LinearGradientBrush(gradient_rectangle, Color.FromArgb(10, 10, 10), Color.FromArgb(60, 60, 60), 65f);
+
+            //apply gradient         
+            graphics.FillRectangle(b, gradient_rectangle);
         }
     }
 }
