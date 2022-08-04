@@ -30,8 +30,10 @@ namespace Prototype4
                 {
                     GameForm gameForm = new GameForm(txtLoginUsername.Text); // show the game form
                     gameForm.ShowDialog();
+                    return;
                 }
             }
+            lblError.Text = "Invalid Details - Please check your entered details.";
         }
 
 
@@ -42,7 +44,6 @@ namespace Prototype4
             {
                 if ("!£$%^&*()-_=+{}[]@'~# ".Contains(c))
                 {
-                    MessageBox.Show("Invalid details");
                     return false;
                 }
             }

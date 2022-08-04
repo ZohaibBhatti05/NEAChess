@@ -37,6 +37,7 @@ namespace Prototype4
             this.lblNoAccount = new System.Windows.Forms.Label();
             this.btnGuest = new System.Windows.Forms.Button();
             this.pnlLogin = new System.Windows.Forms.Panel();
+            this.lblError = new System.Windows.Forms.Label();
             this.lblSignIn = new System.Windows.Forms.Label();
             this.pnlPW = new System.Windows.Forms.Panel();
             this.txtLoginPassword = new System.Windows.Forms.TextBox();
@@ -148,6 +149,7 @@ namespace Prototype4
             // 
             this.pnlLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.pnlLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlLogin.Controls.Add(this.lblError);
             this.pnlLogin.Controls.Add(this.lblSignIn);
             this.pnlLogin.Controls.Add(this.pnlPW);
             this.pnlLogin.Controls.Add(this.pnlUN);
@@ -162,6 +164,16 @@ namespace Prototype4
             this.pnlLogin.Padding = new System.Windows.Forms.Padding(30);
             this.pnlLogin.Size = new System.Drawing.Size(400, 505);
             this.pnlLogin.TabIndex = 8;
+            // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblError.ForeColor = System.Drawing.Color.IndianRed;
+            this.lblError.Location = new System.Drawing.Point(72, 188);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(0, 15);
+            this.lblError.TabIndex = 11;
             // 
             // lblSignIn
             // 
@@ -245,6 +257,7 @@ namespace Prototype4
         private System.Windows.Forms.Panel pnlPW;
         private System.Windows.Forms.TextBox txtLoginPassword;
         private System.Windows.Forms.Label lblSignIn;
+        private System.Windows.Forms.Label lblError;
     }
 }
 

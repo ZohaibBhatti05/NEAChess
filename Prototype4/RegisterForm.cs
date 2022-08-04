@@ -33,6 +33,8 @@ namespace Prototype4
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            lblUNError.Text = string.Empty;
+            lblPWError.Text = string.Empty;
             if (IsUserNameValid() && IsPasswordValid())
             {
                 string username = txtUsername.Text; // get un
@@ -57,19 +59,19 @@ namespace Prototype4
 
             if (username.ToLower() == "guest")
             {
-                MessageBox.Show("Your username is invalid.");
+                lblUNError.Text = "Your username is invalid.";
                 return false;
             }
 
             if (username.Length < MIN_LENGTH || username.Length > MAX_LENGTH) // length requirements
             {
-                MessageBox.Show($"Username must be between {MIN_LENGTH} and {MAX_LENGTH} characters");
+                lblUNError.Text = $"Username must be between {MIN_LENGTH} and {MAX_LENGTH} characters";
                 return false;
             }
 
             if (!Regex.IsMatch(username, "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])")) // complexity requirements
             {
-                MessageBox.Show("Username must contain at least one uppercase and lowercase character and at least one number");
+                lblUNError.Text = "Must have upper/lowercase characters and a number";
                 return false;
             }
 
@@ -77,7 +79,7 @@ namespace Prototype4
             {
                 if (BANNED_CHARS.Contains(c)) // disallowed characters
                 {
-                    MessageBox.Show("Username contains banned characters");
+                    lblUNError.Text = "Username contains banned characters";
                     return false;
                 }
             }
@@ -85,7 +87,7 @@ namespace Prototype4
             // sql statement can now be run :: check if available
             if (dbConnection.IsUsernameTaken(username))
             {
-                MessageBox.Show("Username is not available");
+                lblUNError.Text = "Username is not available";
                 return false;
             }
 
@@ -99,19 +101,19 @@ namespace Prototype4
 
             if (password != txtPasswordConfirm.Text) // confirming password
             {
-                MessageBox.Show("Passwords do not match");
+                lblPWError.Text = "Passwords do not match";
                 return false;
             }
 
             if (password.Length < MIN_LENGTH || password.Length > MAX_LENGTH) // length requirements
             {
-                MessageBox.Show($"Password must be between {MIN_LENGTH} and {MAX_LENGTH} characters");
+                lblPWError.Text = $"Password must be between {MIN_LENGTH} and {MAX_LENGTH} characters";
                 return false;
             }
 
             if (!Regex.IsMatch(password, "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])")) // complexity requirements
             {
-                MessageBox.Show("Password must contain at least one uppercase and lowercase character and at least one number");
+                lblPWError.Text = "Password must contain at least one uppercase and lowercase character and at least one number";
                 return false;
             }
 
@@ -119,7 +121,7 @@ namespace Prototype4
             {
                 if (BANNED_CHARS.Contains(c)) // disallowed characters
                 {
-                    MessageBox.Show("Password contains banned characters");
+                    lblPWError.Text = "Password contains banned characters";
                     return false;
                 }
             }
@@ -147,6 +149,11 @@ namespace Prototype4
             Rectangle rect = new Rectangle(0, 0, Width, Height);
             Brush brush = new LinearGradientBrush(rect, Color.FromArgb(10, 10, 10), Color.FromArgb(60, 60, 60), 45f);
             graphics.FillRectangle(brush, rect);
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -36,6 +36,9 @@ namespace Prototype4
             this.lblConfirmPassword = new System.Windows.Forms.Label();
             this.btnRegister = new System.Windows.Forms.Button();
             this.pnlRegister = new System.Windows.Forms.Panel();
+            this.lblPWError = new System.Windows.Forms.Label();
+            this.lblUNError = new System.Windows.Forms.Label();
+            this.btnLogin = new System.Windows.Forms.Button();
             this.pnlCPW = new System.Windows.Forms.Panel();
             this.pnlPW = new System.Windows.Forms.Panel();
             this.pnlUN = new System.Windows.Forms.Panel();
@@ -80,7 +83,7 @@ namespace Prototype4
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUsername.ForeColor = System.Drawing.Color.White;
-            this.lblUsername.Location = new System.Drawing.Point(72, 102);
+            this.lblUsername.Location = new System.Drawing.Point(72, 98);
             this.lblUsername.Margin = new System.Windows.Forms.Padding(10);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(87, 21);
@@ -92,7 +95,7 @@ namespace Prototype4
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPassword.ForeColor = System.Drawing.Color.White;
-            this.lblPassword.Location = new System.Drawing.Point(72, 201);
+            this.lblPassword.Location = new System.Drawing.Point(72, 200);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(10);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(82, 21);
@@ -104,7 +107,7 @@ namespace Prototype4
             this.lblConfirmPassword.AutoSize = true;
             this.lblConfirmPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblConfirmPassword.ForeColor = System.Drawing.Color.White;
-            this.lblConfirmPassword.Location = new System.Drawing.Point(72, 300);
+            this.lblConfirmPassword.Location = new System.Drawing.Point(72, 302);
             this.lblConfirmPassword.Margin = new System.Windows.Forms.Padding(10);
             this.lblConfirmPassword.Name = "lblConfirmPassword";
             this.lblConfirmPassword.Size = new System.Drawing.Size(148, 21);
@@ -132,6 +135,9 @@ namespace Prototype4
             // 
             this.pnlRegister.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.pnlRegister.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlRegister.Controls.Add(this.lblPWError);
+            this.pnlRegister.Controls.Add(this.lblUNError);
+            this.pnlRegister.Controls.Add(this.btnLogin);
             this.pnlRegister.Controls.Add(this.pnlCPW);
             this.pnlRegister.Controls.Add(this.pnlPW);
             this.pnlRegister.Controls.Add(this.pnlUN);
@@ -143,8 +149,42 @@ namespace Prototype4
             this.pnlRegister.Location = new System.Drawing.Point(200, 15);
             this.pnlRegister.Name = "pnlRegister";
             this.pnlRegister.Padding = new System.Windows.Forms.Padding(30);
-            this.pnlRegister.Size = new System.Drawing.Size(400, 505);
+            this.pnlRegister.Size = new System.Drawing.Size(400, 535);
             this.pnlRegister.TabIndex = 11;
+            // 
+            // lblPWError
+            // 
+            this.lblPWError.AutoSize = true;
+            this.lblPWError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPWError.ForeColor = System.Drawing.Color.IndianRed;
+            this.lblPWError.Location = new System.Drawing.Point(72, 283);
+            this.lblPWError.Name = "lblPWError";
+            this.lblPWError.Size = new System.Drawing.Size(0, 15);
+            this.lblPWError.TabIndex = 17;
+            // 
+            // lblUNError
+            // 
+            this.lblUNError.AutoSize = true;
+            this.lblUNError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblUNError.ForeColor = System.Drawing.Color.IndianRed;
+            this.lblUNError.Location = new System.Drawing.Point(72, 180);
+            this.lblUNError.Name = "lblUNError";
+            this.lblUNError.Size = new System.Drawing.Size(0, 15);
+            this.lblUNError.TabIndex = 16;
+            // 
+            // btnLogin
+            // 
+            this.btnLogin.FlatAppearance.BorderSize = 0;
+            this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(150)))), ((int)(((byte)(230)))));
+            this.btnLogin.Location = new System.Drawing.Point(138, 457);
+            this.btnLogin.Name = "btnLogin";
+            this.btnLogin.Size = new System.Drawing.Size(120, 30);
+            this.btnLogin.TabIndex = 15;
+            this.btnLogin.Text = "Back to Sign In";
+            this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // pnlCPW
             // 
@@ -160,7 +200,7 @@ namespace Prototype4
             // 
             this.pnlPW.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(66)))), ((int)(((byte)(51)))));
             this.pnlPW.Controls.Add(this.txtPassword);
-            this.pnlPW.Location = new System.Drawing.Point(75, 235);
+            this.pnlPW.Location = new System.Drawing.Point(75, 232);
             this.pnlPW.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
             this.pnlPW.Name = "pnlPW";
             this.pnlPW.Size = new System.Drawing.Size(250, 45);
@@ -170,7 +210,7 @@ namespace Prototype4
             // 
             this.pnlUN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(66)))), ((int)(((byte)(51)))));
             this.pnlUN.Controls.Add(this.txtUsername);
-            this.pnlUN.Location = new System.Drawing.Point(75, 136);
+            this.pnlUN.Location = new System.Drawing.Point(75, 130);
             this.pnlUN.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
             this.pnlUN.Name = "pnlUN";
             this.pnlUN.Size = new System.Drawing.Size(250, 45);
@@ -206,7 +246,7 @@ namespace Prototype4
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(784, 536);
+            this.ClientSize = new System.Drawing.Size(784, 566);
             this.Controls.Add(this.pnlRegister);
             this.Name = "RegisterForm";
             this.Text = "RegisterForm";
@@ -236,5 +276,8 @@ namespace Prototype4
         private System.Windows.Forms.Panel pnlCPW;
         private System.Windows.Forms.Panel pnlPW;
         private System.Windows.Forms.TextBox txtUsername;
+        private System.Windows.Forms.Button btnLogin;
+        private System.Windows.Forms.Label lblUNError;
+        private System.Windows.Forms.Label lblPWError;
     }
 }
