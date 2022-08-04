@@ -78,15 +78,9 @@ namespace Prototype4
         private void LoginForm_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-
-            //the rectangle, the same size as our Form
-            Rectangle gradient_rectangle = new Rectangle(0, 0, Width, Height);
-
-            //define gradient's properties
-            Brush b = new LinearGradientBrush(gradient_rectangle, Color.FromArgb(10, 10, 10), Color.FromArgb(60, 60, 60), 65f);
-
-            //apply gradient         
-            graphics.FillRectangle(b, gradient_rectangle);
+            Rectangle rect = new Rectangle(0, 0, Width, Height);
+            Brush brush = new LinearGradientBrush(rect, Color.FromArgb(10, 10, 10), Color.FromArgb(60, 60, 60), 45f);      
+            graphics.FillRectangle(brush, rect);
         }
     }
 }

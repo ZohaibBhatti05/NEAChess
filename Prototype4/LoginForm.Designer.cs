@@ -37,6 +37,7 @@ namespace Prototype4
             this.lblNoAccount = new System.Windows.Forms.Label();
             this.btnGuest = new System.Windows.Forms.Button();
             this.pnlLogin = new System.Windows.Forms.Panel();
+            this.lblSignIn = new System.Windows.Forms.Label();
             this.pnlPW = new System.Windows.Forms.Panel();
             this.txtLoginPassword = new System.Windows.Forms.TextBox();
             this.pnlUN = new System.Windows.Forms.Panel();
@@ -53,7 +54,7 @@ namespace Prototype4
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.Font = new System.Drawing.Font("Bahnschrift", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnLogin.ForeColor = System.Drawing.Color.Transparent;
-            this.btnLogin.Location = new System.Drawing.Point(75, 261);
+            this.btnLogin.Location = new System.Drawing.Point(75, 323);
             this.btnLogin.Margin = new System.Windows.Forms.Padding(10);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(250, 45);
@@ -81,7 +82,7 @@ namespace Prototype4
             this.lblUsername.AutoSize = true;
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblUsername.ForeColor = System.Drawing.Color.White;
-            this.lblUsername.Location = new System.Drawing.Point(75, 40);
+            this.lblUsername.Location = new System.Drawing.Point(72, 102);
             this.lblUsername.Margin = new System.Windows.Forms.Padding(10);
             this.lblUsername.Name = "lblUsername";
             this.lblUsername.Size = new System.Drawing.Size(87, 21);
@@ -93,7 +94,7 @@ namespace Prototype4
             this.lblPassword.AutoSize = true;
             this.lblPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPassword.ForeColor = System.Drawing.Color.White;
-            this.lblPassword.Location = new System.Drawing.Point(75, 151);
+            this.lblPassword.Location = new System.Drawing.Point(72, 213);
             this.lblPassword.Margin = new System.Windows.Forms.Padding(10);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(82, 21);
@@ -106,7 +107,7 @@ namespace Prototype4
             this.btnRegister.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRegister.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRegister.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(150)))), ((int)(((byte)(230)))));
-            this.btnRegister.Location = new System.Drawing.Point(253, 322);
+            this.btnRegister.Location = new System.Drawing.Point(253, 384);
             this.btnRegister.Margin = new System.Windows.Forms.Padding(10);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Size = new System.Drawing.Size(72, 26);
@@ -120,7 +121,7 @@ namespace Prototype4
             this.lblNoAccount.AutoSize = true;
             this.lblNoAccount.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblNoAccount.ForeColor = System.Drawing.Color.White;
-            this.lblNoAccount.Location = new System.Drawing.Point(75, 324);
+            this.lblNoAccount.Location = new System.Drawing.Point(75, 386);
             this.lblNoAccount.Margin = new System.Windows.Forms.Padding(10);
             this.lblNoAccount.Name = "lblNoAccount";
             this.lblNoAccount.Size = new System.Drawing.Size(171, 21);
@@ -134,7 +135,7 @@ namespace Prototype4
             this.btnGuest.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuest.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnGuest.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(150)))), ((int)(((byte)(230)))));
-            this.btnGuest.Location = new System.Drawing.Point(132, 360);
+            this.btnGuest.Location = new System.Drawing.Point(132, 422);
             this.btnGuest.Margin = new System.Windows.Forms.Padding(10);
             this.btnGuest.Name = "btnGuest";
             this.btnGuest.Size = new System.Drawing.Size(135, 24);
@@ -147,6 +148,7 @@ namespace Prototype4
             // 
             this.pnlLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.pnlLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlLogin.Controls.Add(this.lblSignIn);
             this.pnlLogin.Controls.Add(this.pnlPW);
             this.pnlLogin.Controls.Add(this.pnlUN);
             this.pnlLogin.Controls.Add(this.lblUsername);
@@ -155,17 +157,28 @@ namespace Prototype4
             this.pnlLogin.Controls.Add(this.lblNoAccount);
             this.pnlLogin.Controls.Add(this.btnRegister);
             this.pnlLogin.Controls.Add(this.lblPassword);
-            this.pnlLogin.Location = new System.Drawing.Point(200, 14);
+            this.pnlLogin.Location = new System.Drawing.Point(200, 15);
             this.pnlLogin.Name = "pnlLogin";
             this.pnlLogin.Padding = new System.Windows.Forms.Padding(30);
-            this.pnlLogin.Size = new System.Drawing.Size(400, 503);
+            this.pnlLogin.Size = new System.Drawing.Size(400, 505);
             this.pnlLogin.TabIndex = 8;
+            // 
+            // lblSignIn
+            // 
+            this.lblSignIn.AutoSize = true;
+            this.lblSignIn.Font = new System.Drawing.Font("Segoe UI Semibold", 19F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblSignIn.ForeColor = System.Drawing.Color.White;
+            this.lblSignIn.Location = new System.Drawing.Point(33, 30);
+            this.lblSignIn.Name = "lblSignIn";
+            this.lblSignIn.Size = new System.Drawing.Size(97, 36);
+            this.lblSignIn.TabIndex = 10;
+            this.lblSignIn.Text = "Sign In";
             // 
             // pnlPW
             // 
             this.pnlPW.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(66)))), ((int)(((byte)(51)))));
             this.pnlPW.Controls.Add(this.txtLoginPassword);
-            this.pnlPW.Location = new System.Drawing.Point(75, 185);
+            this.pnlPW.Location = new System.Drawing.Point(75, 247);
             this.pnlPW.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
             this.pnlPW.Name = "pnlPW";
             this.pnlPW.Size = new System.Drawing.Size(250, 45);
@@ -190,7 +203,7 @@ namespace Prototype4
             // 
             this.pnlUN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(66)))), ((int)(((byte)(51)))));
             this.pnlUN.Controls.Add(this.txtLoginUsername);
-            this.pnlUN.Location = new System.Drawing.Point(75, 74);
+            this.pnlUN.Location = new System.Drawing.Point(75, 136);
             this.pnlUN.Margin = new System.Windows.Forms.Padding(10, 3, 10, 10);
             this.pnlUN.Name = "pnlUN";
             this.pnlUN.Size = new System.Drawing.Size(250, 45);
@@ -201,7 +214,7 @@ namespace Prototype4
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(784, 534);
+            this.ClientSize = new System.Drawing.Size(784, 536);
             this.Controls.Add(this.pnlLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -231,6 +244,7 @@ namespace Prototype4
         private System.Windows.Forms.Panel pnlUN;
         private System.Windows.Forms.Panel pnlPW;
         private System.Windows.Forms.TextBox txtLoginPassword;
+        private System.Windows.Forms.Label lblSignIn;
     }
 }
 
