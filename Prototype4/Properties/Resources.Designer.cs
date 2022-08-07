@@ -83,16 +83,6 @@ namespace Prototype4.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BlueButton {
-            get {
-                object obj = ResourceManager.GetObject("BlueButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap bN {
             get {
                 object obj = ResourceManager.GetObject("bN", resourceCulture);
@@ -133,9 +123,39 @@ namespace Prototype4.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap GreenButton {
+        internal static System.Drawing.Bitmap Circle {
             get {
-                object obj = ResourceManager.GetObject("GreenButton", resourceCulture);
+                object obj = ResourceManager.GetObject("Circle", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dot {
+            get {
+                object obj = ResourceManager.GetObject("Dot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Flag {
+            get {
+                object obj = ResourceManager.GetObject("Flag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Undo {
+            get {
+                object obj = ResourceManager.GetObject("Undo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

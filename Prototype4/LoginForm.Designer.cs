@@ -74,7 +74,6 @@ namespace Prototype4
             this.txtLoginUsername.Name = "txtLoginUsername";
             this.txtLoginUsername.Size = new System.Drawing.Size(232, 20);
             this.txtLoginUsername.TabIndex = 1;
-            this.txtLoginUsername.Text = "Zohaib1";
             this.txtLoginUsername.WordWrap = false;
             // 
             // lblUsername
@@ -207,7 +206,6 @@ namespace Prototype4
             this.txtLoginPassword.PasswordChar = '•';
             this.txtLoginPassword.Size = new System.Drawing.Size(147, 20);
             this.txtLoginPassword.TabIndex = 1;
-            this.txtLoginPassword.Text = "Password1";
             this.txtLoginPassword.WordWrap = false;
             // 
             // pnlUN

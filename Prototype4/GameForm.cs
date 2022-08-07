@@ -21,6 +21,9 @@ namespace Prototype4
         {
             this.username = username;
             InitializeComponent();
+
+            pnlPreGame.Visible = true;
+            pnlDuringGame.Visible = false;
         }
 
         // guest: not logged in
@@ -28,17 +31,21 @@ namespace Prototype4
         {
             username = "Guest";
             InitializeComponent();
+
+            pnlPreGame.Visible = true;
+            pnlDuringGame.Visible = false;
         }
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
+            pnlPreGame.Visible = false;
+            pnlDuringGame.Visible = true;
             InitialiseGame();
         }
 
         private void InitialiseGame()
         {
             chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard), username);
-
             InitialiseGraphics();
         }
 

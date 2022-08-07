@@ -43,6 +43,7 @@ namespace Prototype4
                     cell.Size = new Size(75, 75);
                     cell.Location = new Point(i * 75, (7 - j) * 75);
                     cell.SizeMode = PictureBoxSizeMode.StretchImage;
+                    cell.BackgroundImageLayout = ImageLayout.Stretch;
                     cell.Margin = new Padding(0, 0, 0, 0);
                     pnlBoard.Controls.Add(cell);
                     boardCells[i][j] = cell;
@@ -102,6 +103,7 @@ namespace Prototype4
                 for (int j = 0; j < 8; j++)
                 {
                     // clear image
+                    boardCells[i][j].BackgroundImage = null;
                     boardCells[i][j].Image = null;
 
                     // set colour
@@ -112,21 +114,6 @@ namespace Prototype4
                     else
                     {
                         boardCells[i][j].BackColor = CELL_COLOUR_2;
-                    }
-
-                    // highlight cells
-                    if (chessBoard.selectedCell != null) // selected piece / moves
-                    {
-                        Position selected = chessBoard.selectedCell;
-                        boardCells[selected.column][selected.row].BackColor = SELECT_COLOUR;
-
-                        if (chessBoard.selectedMoves.Count != 0)
-                        {
-                            foreach (Move move in chessBoard.selectedMoves)
-                            {
-                                boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
-                            }
-                        }
                     }
 
                     // highlight king in check
@@ -145,9 +132,6 @@ namespace Prototype4
                     }
 
                     //
-                    // update win label
-                    lblWinStatus.Text = String.Format($"Win Status: {chessBoard.winStatus.ToString()}");
-
                     // draw pieces
                     if (chessBoard.ContainsPiece(i, j))
                     {
@@ -155,9 +139,35 @@ namespace Prototype4
                         Piece piece = chessBoard.GetPiece(i, j);
                         int type = piece.type;
                         if (piece.colour == PlayerColour.Black) { type += (pieceImages.Count / 2); }
-                        boardCells[i][j].Image = pieceImages[type];
+                        boardCells[i][j].BackgroundImage = pieceImages[type];
                     }
                     boardCells[i][j].Update(); // redraw cell
+                }
+            }
+
+            // highlight cells
+            if (chessBoard.selectedCell != null) // selected piece / moves
+            {
+                Position selected = chessBoard.selectedCell;
+                boardCells[selected.column][selected.row].BackColor = SELECT_COLOUR;
+
+                // valid moves
+                if (chessBoard.selectedMoves.Count != 0)
+                {
+                    foreach (Move move in chessBoard.selectedMoves)
+                    {
+                        int i = move.positionTo.column;
+                        int j = move.positionTo.row;
+                        if (chessBoard.ContainsPiece(move.positionTo))
+                        {
+                            boardCells[i][j].Image = Properties.Resources.Circle;
+                        }
+                        else
+                        {
+                            boardCells[i][j].Image = Properties.Resources.Dot;
+                        }
+                        //boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
+                    }
                 }
             }
 
@@ -172,17 +182,21 @@ namespace Prototype4
         // prints the move history to a rich text box on the game form :: format better later
         private void UpdateMoveHistory()
         {
-            txtMoveHistory.Text = null;
-            for (int i = 0; i < chessBoard.moveNameHistory.Count; i++)
+            txtWhiteMoves.Text = null;
+            txtBlackMoves.Text = null;
+            for (int i = 0; i < chessBoard.moveNameHistory.Count; i++) // foreach move made
             {
-                if (i > 0 && i % 2 == 0) // after every 2 moves, go to newline
+                if (i % 2 == 0)
                 {
-                    txtMoveHistory.Text += "\n"; // newline
+                    txtWhiteMoves.Text += (i + 1) + ". " + chessBoard.moveNameHistory[i] + "\n";
                 }
-
-                txtMoveHistory.Text += chessBoard.moveNameHistory[i] + " :: ";
+                else
+                {
+                    txtBlackMoves.Text += chessBoard.moveNameHistory[i] + "\n";
+                }
             }
-            txtMoveHistory.Update();
+            txtWhiteMoves.Update();
+            txtBlackMoves.Update(); // redraw
         }
     }
 }
