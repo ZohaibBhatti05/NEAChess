@@ -154,11 +154,11 @@ namespace Prototype4
                 // valid moves
                 if (chessBoard.selectedMoves.Count != 0)
                 {
-                    foreach (Move move in chessBoard.selectedMoves)
+                    foreach (Move move in chessBoard.selectedMoves) // for each move
                     {
                         int i = move.positionTo.column;
                         int j = move.positionTo.row;
-                        if (chessBoard.ContainsPiece(move.positionTo))
+                        if (chessBoard.ContainsPiece(move.positionTo))  // if contains piece, display circle, else display dot
                         {
                             boardCells[i][j].Image = Properties.Resources.Circle;
                         }
@@ -188,11 +188,11 @@ namespace Prototype4
             {
                 if (i % 2 == 0)
                 {
-                    txtWhiteMoves.Text += (i + 1) + ". " + chessBoard.moveNameHistory[i] + "\n";
+                    txtWhiteMoves.Text += ((i / 2) + 1) + ". " + chessBoard.moveNameHistory[i] + Environment.NewLine;
                 }
                 else
                 {
-                    txtBlackMoves.Text += chessBoard.moveNameHistory[i] + "\n";
+                    txtBlackMoves.Text += chessBoard.moveNameHistory[i] + Environment.NewLine;
                 }
             }
             txtWhiteMoves.Update();
