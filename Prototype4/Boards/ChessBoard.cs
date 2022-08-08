@@ -21,6 +21,10 @@ namespace Prototype4.Boards
         DrawInsufficient,
         DrawRepetition,
         DrawFifty,
+        WhiteResign,
+        BlackResign,
+        WhiteTimeout,
+        BlackTimeout,
     }
 
     public enum PlayerColour
@@ -391,6 +395,21 @@ namespace Prototype4.Boards
             }
         }
 
+        // function run when a player hits the resign button
+        public void Resign()
+        {
+            if (currentTurn == PlayerColour.White)
+            {
+                winStatus = WinStatus.WhiteResign;
+            }
+            else
+            {
+                winStatus = WinStatus.BlackResign;
+            }
+            UpdatePostGame();
+            graphicsCallBack.Invoke(false);
+        }
+
         // function does logistics after a move is made
         private void AfterMove(Move move)
         {
@@ -428,19 +447,16 @@ namespace Prototype4.Boards
             switch (winStatus)
             {
                 case WinStatus.Stalemate:
-                    moveNameHistory.Add("1/2 - 1/2"); break;
                 case WinStatus.DrawFifty:
-                    moveNameHistory.Add("1/2 - 1/2"); break;
                 case WinStatus.DrawInsufficient:
-                    moveNameHistory.Add("1/2 - 1/2"); break;
                 case WinStatus.DrawRepetition:
                     moveNameHistory.Add("1/2 - 1/2"); break;
+
                 case WinStatus.WhiteCheck:
-                    moveNameHistory.Add(move.GetMoveName(this) + "+"); break;
                 case WinStatus.BlackCheck:
                     moveNameHistory.Add(move.GetMoveName(this) + "+"); break;
+
                 case WinStatus.WhiteMate:
-                    moveNameHistory.Add(move.GetMoveName(this) + "#"); break;
                 case WinStatus.BlackMate:
                     moveNameHistory.Add(move.GetMoveName(this) + "#"); break;
                 default:
@@ -454,7 +470,6 @@ namespace Prototype4.Boards
 
                     moveNameHistory.Add(name); break;
             }
-
             graphicsCallBack.Invoke(true);
         }
 
@@ -493,6 +508,31 @@ namespace Prototype4.Boards
                         break;
                     case WinStatus.DrawFifty:
                         winState = "Draw by 50 Move Rule";
+                        break;
+
+                    case WinStatus.WhiteResign:
+                    case WinStatus.BlackResign:
+                        winState = "Resignation";
+                        break;
+
+                    case WinStatus.WhiteTimeout:
+                    case WinStatus.BlackTimeout:
+                        winState = "Timeout";
+                        break;
+
+                }
+
+                // add name to abrupt game ends
+                switch (winStatus)
+                {
+                    case WinStatus.WhiteResign:
+                    case WinStatus.WhiteTimeout:
+                        moveNameHistory.Add("0-1");
+                        break;
+
+                    case WinStatus.BlackResign:
+                    case WinStatus.BlackTimeout:
+                        moveNameHistory.Add("1-0");
                         break;
                 }
 

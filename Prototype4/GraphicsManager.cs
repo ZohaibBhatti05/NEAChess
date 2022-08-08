@@ -20,10 +20,10 @@ namespace Prototype4
         private Dictionary<int, Image> pieceImages = new Dictionary<int, Image>(); // dictionary of images
 
         #region UserDefinedSettings
-        Color CELL_COLOUR_1 = Color.LightGray;
-        Color CELL_COLOUR_2 = Color.SaddleBrown;
-        Color SELECT_COLOUR = Color.Yellow;
-        Color MOVE_COLOUR = Color.Green;
+        Color CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
+        Color CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
+        Color SELECT_COLOUR = Color.FromArgb(214, 195, 79);
+        Color MOVE_COLOUR = Color.FromArgb(245, 235, 121);
         Color CHECK_COLOUR = Color.Red;
         #endregion
 
@@ -127,8 +127,8 @@ namespace Prototype4
                     if (chessBoard.moveHistory.Count > 0)
                     {
                         Move lastMove = chessBoard.moveHistory.First();
-                        boardCells[lastMove.positionFrom.column][lastMove.positionFrom.row].BackColor = SELECT_COLOUR;
-                        boardCells[lastMove.positionTo.column][lastMove.positionTo.row].BackColor = SELECT_COLOUR;
+                        boardCells[lastMove.positionFrom.column][lastMove.positionFrom.row].BackColor = MOVE_COLOUR;
+                        boardCells[lastMove.positionTo.column][lastMove.positionTo.row].BackColor = MOVE_COLOUR;
                     }
 
                     //

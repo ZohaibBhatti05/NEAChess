@@ -72,5 +72,10 @@ namespace Prototype4
         {
             chessBoard.UndoLastMove();
         }
+
+        private void btnResign_Click(object sender, EventArgs e)
+        {
+            chessBoard.Resign();
+        }
     }
 }

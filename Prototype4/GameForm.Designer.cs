@@ -42,7 +42,7 @@ namespace Prototype4
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtBlackMoves = new System.Windows.Forms.TextBox();
             this.txtWhiteMoves = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDraw = new System.Windows.Forms.Button();
             this.btnResign = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
             this.pnlPreGame.SuspendLayout();
@@ -158,7 +158,7 @@ namespace Prototype4
             // 
             this.pnlDuringGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.pnlDuringGame.Controls.Add(this.panel1);
-            this.pnlDuringGame.Controls.Add(this.button1);
+            this.pnlDuringGame.Controls.Add(this.btnDraw);
             this.pnlDuringGame.Controls.Add(this.btnResign);
             this.pnlDuringGame.Controls.Add(this.btnUndo);
             this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -204,22 +204,22 @@ namespace Prototype4
             this.txtWhiteMoves.Size = new System.Drawing.Size(100, 528);
             this.txtWhiteMoves.TabIndex = 0;
             // 
-            // button1
+            // btnDraw
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
-            this.button1.Location = new System.Drawing.Point(200, 542);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(98, 56);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "½ ½";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnDraw.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.btnDraw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnDraw.FlatAppearance.BorderSize = 0;
+            this.btnDraw.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.btnDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDraw.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnDraw.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
+            this.btnDraw.Location = new System.Drawing.Point(200, 542);
+            this.btnDraw.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDraw.Name = "btnDraw";
+            this.btnDraw.Size = new System.Drawing.Size(98, 56);
+            this.btnDraw.TabIndex = 3;
+            this.btnDraw.Text = "½ ½";
+            this.btnDraw.UseVisualStyleBackColor = false;
             // 
             // btnResign
             // 
@@ -235,6 +235,7 @@ namespace Prototype4
             this.btnResign.Size = new System.Drawing.Size(96, 56);
             this.btnResign.TabIndex = 2;
             this.btnResign.UseVisualStyleBackColor = false;
+            this.btnResign.Click += new System.EventHandler(this.btnResign_Click);
             // 
             // btnUndo
             // 
@@ -250,6 +251,7 @@ namespace Prototype4
             this.btnUndo.Size = new System.Drawing.Size(94, 56);
             this.btnUndo.TabIndex = 1;
             this.btnUndo.UseVisualStyleBackColor = false;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndoMove_Click);
             // 
             // GameForm
             // 
@@ -295,7 +297,7 @@ namespace Prototype4
         private System.Windows.Forms.Panel pnlTimeControl;
         private System.Windows.Forms.Label lblTimeControl;
         private System.Windows.Forms.Button btnUndo;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDraw;
         private System.Windows.Forms.Button btnResign;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtBlackMoves;
