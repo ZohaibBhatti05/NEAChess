@@ -72,10 +72,9 @@ namespace Prototype4
             this.btnStartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartGame.Font = new System.Drawing.Font("Bahnschrift", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartGame.ForeColor = System.Drawing.Color.White;
-            this.btnStartGame.Location = new System.Drawing.Point(0, 530);
-            this.btnStartGame.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.btnStartGame.Location = new System.Drawing.Point(3, 530);
             this.btnStartGame.Name = "btnStartGame";
-            this.btnStartGame.Size = new System.Drawing.Size(300, 70);
+            this.btnStartGame.Size = new System.Drawing.Size(294, 67);
             this.btnStartGame.TabIndex = 1;
             this.btnStartGame.Text = "START GAME";
             this.btnStartGame.UseVisualStyleBackColor = false;
@@ -162,6 +161,7 @@ namespace Prototype4
             this.pnlDuringGame.Controls.Add(this.button1);
             this.pnlDuringGame.Controls.Add(this.btnResign);
             this.pnlDuringGame.Controls.Add(this.btnUndo);
+            this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.pnlDuringGame.Location = new System.Drawing.Point(613, 10);
             this.pnlDuringGame.Name = "pnlDuringGame";
             this.pnlDuringGame.Size = new System.Drawing.Size(300, 600);
@@ -263,6 +263,7 @@ namespace Prototype4
             this.Controls.Add(this.pnlPreGame);
             this.Controls.Add(this.pnlBoard);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameForm";
             this.Text = "GameForm";
