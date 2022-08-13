@@ -24,7 +24,7 @@ namespace Prototype4
         Color CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
         Color SELECT_COLOUR = Color.FromArgb(214, 195, 79);
         Color MOVE_COLOUR = Color.FromArgb(245, 235, 121);
-        Color CHECK_COLOUR = Color.Red;
+        Color CHECK_COLOUR = Color.FromArgb(255, 0, 0);
         #endregion
 
         PictureBox[][] boardCells = new PictureBox[8][];

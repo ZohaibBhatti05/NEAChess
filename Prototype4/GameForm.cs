@@ -46,6 +46,7 @@ namespace Prototype4
         private void InitialiseGame()
         {
             chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard), username);
+            timerUpdateTime.Start();
             InitialiseGraphics();
         }
 
@@ -63,9 +64,6 @@ namespace Prototype4
                     break;
                 }
             }
-            //
-
-            //
         }
 
         private void btnUndoMove_Click(object sender, EventArgs e)
@@ -77,5 +75,41 @@ namespace Prototype4
         {
             chessBoard.Resign();
         }
+
+
+        #region timers
+
+        TimeSpan totalTime = new TimeSpan(0, 0, 10); // 5 minutes hardcoded
+
+        // take timers from board, display times
+        private void timerUpdateTime_Tick(object sender, EventArgs e)
+        {
+            TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed;
+            TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed;
+
+            if (whiteTimeLeft < TimeSpan.Zero)
+            {
+                whiteTimeLeft = TimeSpan.Zero;
+                chessBoard.Timeout();
+                timerUpdateTime.Stop();
+            }
+            else if (blackTimeLeft < TimeSpan.Zero)
+            {
+                blackTimeLeft = TimeSpan.Zero;
+                chessBoard.Timeout();
+                timerUpdateTime.Stop();
+            }
+
+            lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");
+            lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
+        }
+
+        private void UpdateTimers()
+        {
+
+        }
+
+
+        #endregion
     }
 }

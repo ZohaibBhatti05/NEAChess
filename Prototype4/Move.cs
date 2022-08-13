@@ -42,11 +42,11 @@ namespace Prototype4
             {
                 if (positionTo.column == 1)
                 {
-                    return "O-O";
+                    return "O-O-O";
                 }
                 else
                 {
-                    return "O-O-O";
+                    return "O-O";
                 }
             }
 

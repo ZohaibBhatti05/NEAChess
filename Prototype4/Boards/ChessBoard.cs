@@ -2,6 +2,7 @@
 using Prototype4.Pieces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -61,6 +62,7 @@ namespace Prototype4.Boards
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
         private Stack<bool> castleChangeHistory;
+        private Stack<TimeSpan> whiteTimerHistory;
 
         public Piece[][] board { get; private set; }
 
@@ -70,6 +72,10 @@ namespace Prototype4.Boards
         private int fiftyMoveCounter = 0;
 
         public WinStatus winStatus { get; private set; }
+
+        public Stopwatch whiteTimer { get; private set; }
+        public Stopwatch blackTimer { get; private set; }
+
 
         // initialise new instance of board
         public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback, string username)
@@ -95,10 +101,14 @@ namespace Prototype4.Boards
             currentTurn = PlayerColour.White;
             selectedMoves = new List<Move>();
             castleChangeHistory = new Stack<bool>();
+            whiteTimerHistory = new Stack<TimeSpan>();
             winStatus = WinStatus.None;
 
             // initialise players
             InitialisePlayers(username);
+
+            // initialise timers
+            InitialiseTimers();
 
             // change later to allow custom positions
             StandardPositions();
@@ -108,8 +118,30 @@ namespace Prototype4.Boards
         {
             this.username = username;
             whitePlayer = new Human(username);
-            blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
-            //blackPlayer = new Human("temp");
+            //blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
+            blackPlayer = new Human("temp");
+        }
+
+        private void InitialiseTimers()
+        {
+            whiteTimer = new Stopwatch();
+            blackTimer = new Stopwatch();
+            whiteTimer.Start();
+        }
+
+        // toggles both the white and black player's timers
+        private void SwapTimers()
+        {
+            if (whiteTimer.IsRunning)
+            {
+                whiteTimer.Stop();
+                blackTimer.Start();
+            }
+            else
+            {
+                blackTimer.Stop();
+                whiteTimer.Start();
+            }
         }
 
         // function loads standard positions :: override if child classes are implemented
@@ -172,6 +204,8 @@ namespace Prototype4.Boards
                     return new Queen(colour);
                 case 'k':
                     return new King(colour);
+                default:
+                    break;
             }
             return null;
         }
@@ -235,48 +269,66 @@ namespace Prototype4.Boards
         // method run from form when a cell is clicked
         public void SelectCell(Position position)
         {
-            // if there is no selected position
-            if (selectedCell == null)
+            if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
-                // cant select what isnt there
-                if (!ContainsPiece(position))
-                {
-                    return;
-                }
-                // cant select opponents pieces
-                else if (GetPiece(position).colour != currentTurn)
-                {
-                    return;
-                }
-                else
-                {
-                    // select piece
-                    selectedCell = position;
-                    selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
-                    graphicsCallBack.Invoke(false);
-                    return;
-                }
-            }
 
-            // if there IS a selected piece
-            else
-            {
-                // clicking a piece:
-                if (ContainsPiece(position))
+                // if there is no selected position
+                if (selectedCell == null)
                 {
-                    // of the same colour: select it
-                    if (GetPiece(position).colour == currentTurn)
+                    // cant select what isnt there
+                    if (!ContainsPiece(position))
                     {
-                        selectedCell = position; // select cell
+                        return;
+                    }
+                    // cant select opponents pieces
+                    else if (GetPiece(position).colour != currentTurn)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        // select piece
+                        selectedCell = position;
                         selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
                         graphicsCallBack.Invoke(false);
                         return;
                     }
+                }
 
-                    // of a different colour: try to make a move
+                // if there IS a selected piece
+                else
+                {
+                    // clicking a piece:
+                    if (ContainsPiece(position))
+                    {
+                        // of the same colour: select it
+                        if (GetPiece(position).colour == currentTurn)
+                        {
+                            selectedCell = position; // select cell
+                            selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
+                            graphicsCallBack.Invoke(false);
+                            return;
+                        }
+
+                        // of a different colour: try to make a move
+                        else
+                        {
+                            foreach (Move move in selectedMoves) // if position is in a valid move, make the move
+                            {
+                                if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
+                                {
+                                    MakeMove(move);
+                                    AfterMove(move);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
+                    // if selecting an empty square
                     else
                     {
-                        foreach(Move move in selectedMoves) // if position is in a valid move, make the move
+                        foreach (Move move in selectedMoves) // if position is in a valid move, make the move
                         {
                             if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
                             {
@@ -284,20 +336,6 @@ namespace Prototype4.Boards
                                 AfterMove(move);
                                 return;
                             }
-                        }
-                    }
-                }
-
-                // if selecting an empty square
-                else
-                {
-                    foreach(Move move in selectedMoves) // if position is in a valid move, make the move
-                    {
-                        if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
-                        {
-                            MakeMove(move);
-                            AfterMove(move);
-                            return;
                         }
                     }
                 }
@@ -371,6 +409,9 @@ namespace Prototype4.Boards
                 winStatusHistory.Pop();
                 winStatus = winStatusHistory.Peek();
                 moveNameHistory.RemoveAt(moveNameHistory.Count - 1);
+
+                UndoTimers();
+
                 UndoMove(move); // undo the move
                 // switch back to player who made move
                 currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
@@ -395,6 +436,12 @@ namespace Prototype4.Boards
             }
         }
 
+        // method handles data needed to "undo" timers
+        private void UndoTimers()
+        {
+
+        }
+
         // function run when a player hits the resign button
         public void Resign()
         {
@@ -405,6 +452,21 @@ namespace Prototype4.Boards
             else
             {
                 winStatus = WinStatus.BlackResign;
+            }
+            UpdatePostGame();
+            graphicsCallBack.Invoke(false);
+        }
+
+        // function run when a player runs out of time
+        public void Timeout()
+        {
+            if (currentTurn == PlayerColour.White)
+            {
+                winStatus = WinStatus.WhiteTimeout;
+            }
+            else
+            {
+                winStatus = WinStatus.BlackTimeout;
             }
             UpdatePostGame();
             graphicsCallBack.Invoke(false);
@@ -470,6 +532,8 @@ namespace Prototype4.Boards
 
                     moveNameHistory.Add(name); break;
             }
+            SwapTimers();
+
             graphicsCallBack.Invoke(true);
         }
 
@@ -486,41 +550,8 @@ namespace Prototype4.Boards
         // method perofrms post-game logistics
         private void UpdatePostGame()
         {
-            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) && username != "Guest") // if someone won and user is logged in
+            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck)) // if someone won
             {
-                string winState = string.Empty;
-                switch (winStatus)
-                {
-                    case WinStatus.BlackMate: // white wins
-                        winState = "White Wins";
-                        break;
-                    case WinStatus.WhiteMate: // black wins
-                        winState = "Black Wins";
-                        break;
-                    case WinStatus.Stalemate:
-                        winState = "Stalemate";
-                        break;
-                    case WinStatus.DrawInsufficient:
-                        winState = "Draw by Insufficient Material";
-                        break;
-                    case WinStatus.DrawRepetition:
-                        winState = "Draw by Repetition";
-                        break;
-                    case WinStatus.DrawFifty:
-                        winState = "Draw by 50 Move Rule";
-                        break;
-
-                    case WinStatus.WhiteResign:
-                    case WinStatus.BlackResign:
-                        winState = "Resignation";
-                        break;
-
-                    case WinStatus.WhiteTimeout:
-                    case WinStatus.BlackTimeout:
-                        winState = "Timeout";
-                        break;
-
-                }
 
                 // add name to abrupt game ends
                 switch (winStatus)
@@ -536,11 +567,54 @@ namespace Prototype4.Boards
                         break;
                 }
 
-                string PGN = string.Join(", ", moveNameHistory.ToArray()); // convert pgn history to single string
-                string gameType = (blackPlayer is AI) ? "Human v AI" : "Human v Human";
+                if (username != "Guest") // if someone is logged in
+                {
 
-                DatabaseConnection dbConnection = new DatabaseConnection();
-                dbConnection.StoreNewGame(username, winState, PGN, gameType);
+                    string winState = string.Empty;
+                    switch (winStatus)
+                    {
+                        case WinStatus.BlackMate: // white wins
+                            winState = "White Wins";
+                            break;
+                        case WinStatus.WhiteMate: // black wins
+                            winState = "Black Wins";
+                            break;
+                        case WinStatus.Stalemate:
+                            winState = "Stalemate";
+                            break;
+                        case WinStatus.DrawInsufficient:
+                            winState = "Draw by Insufficient Material";
+                            break;
+                        case WinStatus.DrawRepetition:
+                            winState = "Draw by Repetition";
+                            break;
+                        case WinStatus.DrawFifty:
+                            winState = "Draw by 50 Move Rule";
+                            break;
+
+                        case WinStatus.WhiteResign:
+                        case WinStatus.BlackResign:
+                            winState = "Resignation";
+                            break;
+
+                        case WinStatus.WhiteTimeout:
+                        case WinStatus.BlackTimeout:
+                            winState = "Timeout";
+                            break;
+
+                    }
+
+
+                    string PGN = string.Join(", ", moveNameHistory.ToArray()); // convert pgn history to single string
+                    string gameType = (blackPlayer is AI) ? "Human v AI" : "Human v Human";
+
+                    DatabaseConnection dbConnection = new DatabaseConnection();
+                    dbConnection.StoreNewGame(username, winState, PGN, gameType);
+                }
+
+                // stop both timers
+                whiteTimer.Stop();
+                blackTimer.Stop();
             }
         }
 
@@ -570,7 +644,7 @@ namespace Prototype4.Boards
         private bool UpdateDrawConditions(Move move)
         {
             // 50 move rule
-            if (move.takenPiece is null && !(move.movingPiece is Pawn)) // if no piece taken / pawn moved
+            if (move.takenPiece is null && move.movingPiece is not Pawn) // if no piece taken / pawn moved
             {
                 fiftyMoveCounter++;
                 if (fiftyMoveCounter == 100) // 100 used as 2 board "moves" make an actual turn

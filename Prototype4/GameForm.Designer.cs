@@ -29,9 +29,12 @@ namespace Prototype4
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlBoard = new System.Windows.Forms.Panel();
             this.btnStartGame = new System.Windows.Forms.Button();
             this.pnlPreGame = new System.Windows.Forms.Panel();
+            this.pnlPosition = new System.Windows.Forms.Panel();
+            this.lblPosition = new System.Windows.Forms.Label();
             this.pnlTimeControl = new System.Windows.Forms.Panel();
             this.lblTimeControl = new System.Windows.Forms.Label();
             this.pnlVariants = new System.Windows.Forms.Panel();
@@ -45,12 +48,28 @@ namespace Prototype4
             this.btnDraw = new System.Windows.Forms.Button();
             this.btnResign = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
+            this.pnlBlackUI = new System.Windows.Forms.Panel();
+            this.pnlBlackTime = new System.Windows.Forms.Panel();
+            this.picBlackTime = new System.Windows.Forms.PictureBox();
+            this.lblBlackTime = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlWhiteTime = new System.Windows.Forms.Panel();
+            this.picWhiteTime = new System.Windows.Forms.PictureBox();
+            this.lblWhiteTime = new System.Windows.Forms.Label();
+            this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
             this.pnlPreGame.SuspendLayout();
+            this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
             this.pnlVariants.SuspendLayout();
             this.pnlPlayerOptions.SuspendLayout();
             this.pnlDuringGame.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.pnlBlackUI.SuspendLayout();
+            this.pnlBlackTime.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBlackTime)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.pnlWhiteTime.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWhiteTime)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlBoard
@@ -58,7 +77,7 @@ namespace Prototype4
             this.pnlBoard.AutoSize = true;
             this.pnlBoard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlBoard.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pnlBoard.Location = new System.Drawing.Point(10, 10);
+            this.pnlBoard.Location = new System.Drawing.Point(10, 72);
             this.pnlBoard.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBoard.MinimumSize = new System.Drawing.Size(600, 600);
             this.pnlBoard.Name = "pnlBoard";
@@ -72,7 +91,7 @@ namespace Prototype4
             this.btnStartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartGame.Font = new System.Drawing.Font("Bahnschrift", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartGame.ForeColor = System.Drawing.Color.White;
-            this.btnStartGame.Location = new System.Drawing.Point(3, 530);
+            this.btnStartGame.Location = new System.Drawing.Point(3, 654);
             this.btnStartGame.Name = "btnStartGame";
             this.btnStartGame.Size = new System.Drawing.Size(294, 67);
             this.btnStartGame.TabIndex = 1;
@@ -82,14 +101,36 @@ namespace Prototype4
             // 
             // pnlPreGame
             // 
+            this.pnlPreGame.Controls.Add(this.pnlPosition);
             this.pnlPreGame.Controls.Add(this.pnlTimeControl);
             this.pnlPreGame.Controls.Add(this.pnlVariants);
             this.pnlPreGame.Controls.Add(this.pnlPlayerOptions);
             this.pnlPreGame.Controls.Add(this.btnStartGame);
             this.pnlPreGame.Location = new System.Drawing.Point(613, 10);
             this.pnlPreGame.Name = "pnlPreGame";
-            this.pnlPreGame.Size = new System.Drawing.Size(300, 600);
+            this.pnlPreGame.Size = new System.Drawing.Size(300, 724);
             this.pnlPreGame.TabIndex = 5;
+            // 
+            // pnlPosition
+            // 
+            this.pnlPosition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlPosition.Controls.Add(this.lblPosition);
+            this.pnlPosition.Location = new System.Drawing.Point(3, 531);
+            this.pnlPosition.Name = "pnlPosition";
+            this.pnlPosition.Size = new System.Drawing.Size(294, 117);
+            this.pnlPosition.TabIndex = 5;
+            // 
+            // lblPosition
+            // 
+            this.lblPosition.AutoSize = true;
+            this.lblPosition.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPosition.ForeColor = System.Drawing.Color.White;
+            this.lblPosition.Location = new System.Drawing.Point(3, 3);
+            this.lblPosition.Margin = new System.Windows.Forms.Padding(3);
+            this.lblPosition.Name = "lblPosition";
+            this.lblPosition.Size = new System.Drawing.Size(67, 19);
+            this.lblPosition.TabIndex = 1;
+            this.lblPosition.Text = "Position:";
             // 
             // pnlTimeControl
             // 
@@ -164,7 +205,7 @@ namespace Prototype4
             this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.pnlDuringGame.Location = new System.Drawing.Point(613, 10);
             this.pnlDuringGame.Name = "pnlDuringGame";
-            this.pnlDuringGame.Size = new System.Drawing.Size(300, 600);
+            this.pnlDuringGame.Size = new System.Drawing.Size(300, 724);
             this.pnlDuringGame.TabIndex = 6;
             this.pnlDuringGame.Visible = false;
             // 
@@ -175,7 +216,7 @@ namespace Prototype4
             this.panel1.Controls.Add(this.txtWhiteMoves);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(294, 534);
+            this.panel1.Size = new System.Drawing.Size(294, 658);
             this.panel1.TabIndex = 4;
             // 
             // txtBlackMoves
@@ -188,7 +229,7 @@ namespace Prototype4
             this.txtBlackMoves.Multiline = true;
             this.txtBlackMoves.Name = "txtBlackMoves";
             this.txtBlackMoves.ReadOnly = true;
-            this.txtBlackMoves.Size = new System.Drawing.Size(100, 528);
+            this.txtBlackMoves.Size = new System.Drawing.Size(100, 652);
             this.txtBlackMoves.TabIndex = 1;
             // 
             // txtWhiteMoves
@@ -201,7 +242,7 @@ namespace Prototype4
             this.txtWhiteMoves.Multiline = true;
             this.txtWhiteMoves.Name = "txtWhiteMoves";
             this.txtWhiteMoves.ReadOnly = true;
-            this.txtWhiteMoves.Size = new System.Drawing.Size(100, 528);
+            this.txtWhiteMoves.Size = new System.Drawing.Size(100, 652);
             this.txtWhiteMoves.TabIndex = 0;
             // 
             // btnDraw
@@ -213,7 +254,7 @@ namespace Prototype4
             this.btnDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDraw.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDraw.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
-            this.btnDraw.Location = new System.Drawing.Point(200, 542);
+            this.btnDraw.Location = new System.Drawing.Point(200, 666);
             this.btnDraw.Margin = new System.Windows.Forms.Padding(2);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(98, 56);
@@ -229,7 +270,7 @@ namespace Prototype4
             this.btnResign.FlatAppearance.BorderSize = 0;
             this.btnResign.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnResign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResign.Location = new System.Drawing.Point(100, 542);
+            this.btnResign.Location = new System.Drawing.Point(100, 666);
             this.btnResign.Margin = new System.Windows.Forms.Padding(2);
             this.btnResign.Name = "btnResign";
             this.btnResign.Size = new System.Drawing.Size(96, 56);
@@ -245,13 +286,98 @@ namespace Prototype4
             this.btnUndo.FlatAppearance.BorderSize = 0;
             this.btnUndo.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUndo.Location = new System.Drawing.Point(2, 542);
+            this.btnUndo.Location = new System.Drawing.Point(2, 666);
             this.btnUndo.Margin = new System.Windows.Forms.Padding(2);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(94, 56);
             this.btnUndo.TabIndex = 1;
             this.btnUndo.UseVisualStyleBackColor = false;
             this.btnUndo.Click += new System.EventHandler(this.btnUndoMove_Click);
+            // 
+            // pnlBlackUI
+            // 
+            this.pnlBlackUI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlBlackUI.Controls.Add(this.pnlBlackTime);
+            this.pnlBlackUI.Location = new System.Drawing.Point(10, 10);
+            this.pnlBlackUI.Name = "pnlBlackUI";
+            this.pnlBlackUI.Size = new System.Drawing.Size(600, 59);
+            this.pnlBlackUI.TabIndex = 7;
+            // 
+            // pnlBlackTime
+            // 
+            this.pnlBlackTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pnlBlackTime.Controls.Add(this.picBlackTime);
+            this.pnlBlackTime.Controls.Add(this.lblBlackTime);
+            this.pnlBlackTime.Location = new System.Drawing.Point(3, 3);
+            this.pnlBlackTime.Name = "pnlBlackTime";
+            this.pnlBlackTime.Size = new System.Drawing.Size(165, 53);
+            this.pnlBlackTime.TabIndex = 2;
+            // 
+            // picBlackTime
+            // 
+            this.picBlackTime.Image = global::Prototype4.Properties.Resources.Timer;
+            this.picBlackTime.Location = new System.Drawing.Point(3, 3);
+            this.picBlackTime.Name = "picBlackTime";
+            this.picBlackTime.Size = new System.Drawing.Size(47, 47);
+            this.picBlackTime.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBlackTime.TabIndex = 1;
+            this.picBlackTime.TabStop = false;
+            // 
+            // lblBlackTime
+            // 
+            this.lblBlackTime.AutoSize = true;
+            this.lblBlackTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblBlackTime.ForeColor = System.Drawing.Color.White;
+            this.lblBlackTime.Location = new System.Drawing.Point(59, 17);
+            this.lblBlackTime.Margin = new System.Windows.Forms.Padding(3);
+            this.lblBlackTime.Name = "lblBlackTime";
+            this.lblBlackTime.Size = new System.Drawing.Size(0, 21);
+            this.lblBlackTime.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.panel2.Controls.Add(this.pnlWhiteTime);
+            this.panel2.Location = new System.Drawing.Point(10, 675);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(600, 59);
+            this.panel2.TabIndex = 8;
+            // 
+            // pnlWhiteTime
+            // 
+            this.pnlWhiteTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.pnlWhiteTime.Controls.Add(this.picWhiteTime);
+            this.pnlWhiteTime.Controls.Add(this.lblWhiteTime);
+            this.pnlWhiteTime.Location = new System.Drawing.Point(3, 3);
+            this.pnlWhiteTime.Name = "pnlWhiteTime";
+            this.pnlWhiteTime.Size = new System.Drawing.Size(165, 53);
+            this.pnlWhiteTime.TabIndex = 1;
+            // 
+            // picWhiteTime
+            // 
+            this.picWhiteTime.Image = global::Prototype4.Properties.Resources.Timer;
+            this.picWhiteTime.Location = new System.Drawing.Point(3, 3);
+            this.picWhiteTime.Name = "picWhiteTime";
+            this.picWhiteTime.Size = new System.Drawing.Size(47, 47);
+            this.picWhiteTime.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picWhiteTime.TabIndex = 1;
+            this.picWhiteTime.TabStop = false;
+            // 
+            // lblWhiteTime
+            // 
+            this.lblWhiteTime.AutoSize = true;
+            this.lblWhiteTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblWhiteTime.ForeColor = System.Drawing.Color.White;
+            this.lblWhiteTime.Location = new System.Drawing.Point(59, 17);
+            this.lblWhiteTime.Margin = new System.Windows.Forms.Padding(3);
+            this.lblWhiteTime.Name = "lblWhiteTime";
+            this.lblWhiteTime.Size = new System.Drawing.Size(0, 21);
+            this.lblWhiteTime.TabIndex = 0;
+            // 
+            // timerUpdateTime
+            // 
+            this.timerUpdateTime.Interval = 10;
+            this.timerUpdateTime.Tick += new System.EventHandler(this.timerUpdateTime_Tick);
             // 
             // GameForm
             // 
@@ -261,6 +387,8 @@ namespace Prototype4
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1677, 934);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnlBlackUI);
             this.Controls.Add(this.pnlDuringGame);
             this.Controls.Add(this.pnlPreGame);
             this.Controls.Add(this.pnlBoard);
@@ -270,6 +398,8 @@ namespace Prototype4
             this.Name = "GameForm";
             this.Text = "GameForm";
             this.pnlPreGame.ResumeLayout(false);
+            this.pnlPosition.ResumeLayout(false);
+            this.pnlPosition.PerformLayout();
             this.pnlTimeControl.ResumeLayout(false);
             this.pnlTimeControl.PerformLayout();
             this.pnlVariants.ResumeLayout(false);
@@ -279,6 +409,14 @@ namespace Prototype4
             this.pnlDuringGame.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.pnlBlackUI.ResumeLayout(false);
+            this.pnlBlackTime.ResumeLayout(false);
+            this.pnlBlackTime.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picBlackTime)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.pnlWhiteTime.ResumeLayout(false);
+            this.pnlWhiteTime.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWhiteTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,5 +440,16 @@ namespace Prototype4
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtBlackMoves;
         private System.Windows.Forms.TextBox txtWhiteMoves;
+        private System.Windows.Forms.Panel pnlBlackUI;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlWhiteTime;
+        private System.Windows.Forms.Label lblWhiteTime;
+        private System.Windows.Forms.Panel pnlBlackTime;
+        private System.Windows.Forms.PictureBox picBlackTime;
+        private System.Windows.Forms.Label lblBlackTime;
+        private System.Windows.Forms.PictureBox picWhiteTime;
+        private System.Windows.Forms.Timer timerUpdateTime;
+        private System.Windows.Forms.Panel pnlPosition;
+        private System.Windows.Forms.Label lblPosition;
     }
 }
