@@ -121,12 +121,12 @@ namespace Prototype4.Database
         }
 
         // method stores a new instance of a game.
-        public void StoreNewGame(string username, string winState, string PGN, string gameType)
+        public void StoreNewGame(string username, string winState, string PGN)
         {
             int userID = GetUserID(username);
 
             OleDbCommand command = new OleDbCommand(
-                $"INSERT INTO Games (UserID, PGN, GameType, WinState) VALUES ('{userID}', '{PGN}', '{gameType}', '{winState}')",
+                $"INSERT INTO Games (UserID, PGN, WinState) VALUES ('{userID}', '{PGN}', '{winState}')",
                 dbConnection);  // query
 
             dbConnection.Open();

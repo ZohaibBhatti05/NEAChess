@@ -40,6 +40,12 @@ namespace Prototype4
             this.pnlVariants = new System.Windows.Forms.Panel();
             this.lblVariant = new System.Windows.Forms.Label();
             this.pnlPlayerOptions = new System.Windows.Forms.Panel();
+            this.pnlAISettings = new System.Windows.Forms.Panel();
+            this.lblPlyDepth = new System.Windows.Forms.Label();
+            this.lblDepth = new System.Windows.Forms.Label();
+            this.trackPlyDepth = new System.Windows.Forms.TrackBar();
+            this.radAgainstAI = new System.Windows.Forms.RadioButton();
+            this.radAgainstHuman = new System.Windows.Forms.RadioButton();
             this.lblPlayAgainst = new System.Windows.Forms.Label();
             this.pnlDuringGame = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -62,6 +68,8 @@ namespace Prototype4
             this.pnlTimeControl.SuspendLayout();
             this.pnlVariants.SuspendLayout();
             this.pnlPlayerOptions.SuspendLayout();
+            this.pnlAISettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackPlyDepth)).BeginInit();
             this.pnlDuringGame.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlBlackUI.SuspendLayout();
@@ -123,12 +131,12 @@ namespace Prototype4
             // lblPosition
             // 
             this.lblPosition.AutoSize = true;
-            this.lblPosition.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPosition.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPosition.ForeColor = System.Drawing.Color.White;
             this.lblPosition.Location = new System.Drawing.Point(3, 3);
             this.lblPosition.Margin = new System.Windows.Forms.Padding(3);
             this.lblPosition.Name = "lblPosition";
-            this.lblPosition.Size = new System.Drawing.Size(67, 19);
+            this.lblPosition.Size = new System.Drawing.Size(70, 20);
             this.lblPosition.TabIndex = 1;
             this.lblPosition.Text = "Position:";
             // 
@@ -144,12 +152,12 @@ namespace Prototype4
             // lblTimeControl
             // 
             this.lblTimeControl.AutoSize = true;
-            this.lblTimeControl.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTimeControl.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblTimeControl.ForeColor = System.Drawing.Color.White;
             this.lblTimeControl.Location = new System.Drawing.Point(3, 4);
             this.lblTimeControl.Margin = new System.Windows.Forms.Padding(3);
             this.lblTimeControl.Name = "lblTimeControl";
-            this.lblTimeControl.Size = new System.Drawing.Size(46, 19);
+            this.lblTimeControl.Size = new System.Drawing.Size(48, 20);
             this.lblTimeControl.TabIndex = 0;
             this.lblTimeControl.Text = "Time:";
             // 
@@ -165,33 +173,109 @@ namespace Prototype4
             // lblVariant
             // 
             this.lblVariant.AutoSize = true;
-            this.lblVariant.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblVariant.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblVariant.ForeColor = System.Drawing.Color.White;
             this.lblVariant.Location = new System.Drawing.Point(3, 3);
             this.lblVariant.Margin = new System.Windows.Forms.Padding(3);
             this.lblVariant.Name = "lblVariant";
-            this.lblVariant.Size = new System.Drawing.Size(60, 19);
+            this.lblVariant.Size = new System.Drawing.Size(63, 20);
             this.lblVariant.TabIndex = 0;
             this.lblVariant.Text = "Variant:";
             // 
             // pnlPlayerOptions
             // 
             this.pnlPlayerOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlPlayerOptions.Controls.Add(this.pnlAISettings);
+            this.pnlPlayerOptions.Controls.Add(this.radAgainstAI);
+            this.pnlPlayerOptions.Controls.Add(this.radAgainstHuman);
             this.pnlPlayerOptions.Controls.Add(this.lblPlayAgainst);
             this.pnlPlayerOptions.Location = new System.Drawing.Point(3, 3);
             this.pnlPlayerOptions.Name = "pnlPlayerOptions";
             this.pnlPlayerOptions.Size = new System.Drawing.Size(294, 170);
             this.pnlPlayerOptions.TabIndex = 2;
             // 
+            // pnlAISettings
+            // 
+            this.pnlAISettings.Controls.Add(this.lblPlyDepth);
+            this.pnlAISettings.Controls.Add(this.lblDepth);
+            this.pnlAISettings.Controls.Add(this.trackPlyDepth);
+            this.pnlAISettings.ForeColor = System.Drawing.Color.White;
+            this.pnlAISettings.Location = new System.Drawing.Point(3, 82);
+            this.pnlAISettings.Name = "pnlAISettings";
+            this.pnlAISettings.Size = new System.Drawing.Size(288, 85);
+            this.pnlAISettings.TabIndex = 3;
+            this.pnlAISettings.Visible = false;
+            // 
+            // lblPlyDepth
+            // 
+            this.lblPlyDepth.AutoSize = true;
+            this.lblPlyDepth.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPlyDepth.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.lblPlyDepth.Location = new System.Drawing.Point(78, 14);
+            this.lblPlyDepth.Name = "lblPlyDepth";
+            this.lblPlyDepth.Size = new System.Drawing.Size(15, 17);
+            this.lblPlyDepth.TabIndex = 2;
+            this.lblPlyDepth.Text = "1";
+            // 
+            // lblDepth
+            // 
+            this.lblDepth.AutoSize = true;
+            this.lblDepth.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblDepth.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.lblDepth.Location = new System.Drawing.Point(6, 14);
+            this.lblDepth.Margin = new System.Windows.Forms.Padding(3);
+            this.lblDepth.Name = "lblDepth";
+            this.lblDepth.Size = new System.Drawing.Size(73, 17);
+            this.lblDepth.TabIndex = 1;
+            this.lblDepth.Text = "Ply Depth:";
+            // 
+            // trackPlyDepth
+            // 
+            this.trackPlyDepth.Location = new System.Drawing.Point(3, 37);
+            this.trackPlyDepth.Maximum = 8;
+            this.trackPlyDepth.Minimum = 1;
+            this.trackPlyDepth.Name = "trackPlyDepth";
+            this.trackPlyDepth.Size = new System.Drawing.Size(282, 45);
+            this.trackPlyDepth.TabIndex = 0;
+            this.trackPlyDepth.Value = 1;
+            this.trackPlyDepth.ValueChanged += new System.EventHandler(this.trackPlyDepth_ValueChanged);
+            // 
+            // radAgainstAI
+            // 
+            this.radAgainstAI.AutoSize = true;
+            this.radAgainstAI.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radAgainstAI.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.radAgainstAI.Location = new System.Drawing.Point(9, 55);
+            this.radAgainstAI.Name = "radAgainstAI";
+            this.radAgainstAI.Size = new System.Drawing.Size(87, 21);
+            this.radAgainstAI.TabIndex = 2;
+            this.radAgainstAI.Text = "Computer";
+            this.radAgainstAI.UseVisualStyleBackColor = true;
+            this.radAgainstAI.CheckedChanged += new System.EventHandler(this.radAgainstAI_CheckedChanged);
+            // 
+            // radAgainstHuman
+            // 
+            this.radAgainstHuman.AutoSize = true;
+            this.radAgainstHuman.Checked = true;
+            this.radAgainstHuman.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radAgainstHuman.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.radAgainstHuman.Location = new System.Drawing.Point(9, 28);
+            this.radAgainstHuman.Name = "radAgainstHuman";
+            this.radAgainstHuman.Size = new System.Drawing.Size(71, 21);
+            this.radAgainstHuman.TabIndex = 1;
+            this.radAgainstHuman.TabStop = true;
+            this.radAgainstHuman.Text = "Human";
+            this.radAgainstHuman.UseVisualStyleBackColor = true;
+            // 
             // lblPlayAgainst
             // 
             this.lblPlayAgainst.AutoSize = true;
-            this.lblPlayAgainst.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblPlayAgainst.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblPlayAgainst.ForeColor = System.Drawing.Color.White;
             this.lblPlayAgainst.Location = new System.Drawing.Point(3, 3);
             this.lblPlayAgainst.Margin = new System.Windows.Forms.Padding(3);
             this.lblPlayAgainst.Name = "lblPlayAgainst";
-            this.lblPlayAgainst.Size = new System.Drawing.Size(96, 19);
+            this.lblPlayAgainst.Size = new System.Drawing.Size(100, 20);
             this.lblPlayAgainst.TabIndex = 0;
             this.lblPlayAgainst.Text = "Play Against:";
             // 
@@ -406,6 +490,9 @@ namespace Prototype4
             this.pnlVariants.PerformLayout();
             this.pnlPlayerOptions.ResumeLayout(false);
             this.pnlPlayerOptions.PerformLayout();
+            this.pnlAISettings.ResumeLayout(false);
+            this.pnlAISettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackPlyDepth)).EndInit();
             this.pnlDuringGame.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -451,5 +538,11 @@ namespace Prototype4
         private System.Windows.Forms.Timer timerUpdateTime;
         private System.Windows.Forms.Panel pnlPosition;
         private System.Windows.Forms.Label lblPosition;
+        private System.Windows.Forms.RadioButton radAgainstAI;
+        private System.Windows.Forms.RadioButton radAgainstHuman;
+        private System.Windows.Forms.Panel pnlAISettings;
+        private System.Windows.Forms.TrackBar trackPlyDepth;
+        private System.Windows.Forms.Label lblDepth;
+        private System.Windows.Forms.Label lblPlyDepth;
     }
 }

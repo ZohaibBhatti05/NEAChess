@@ -62,7 +62,6 @@ namespace Prototype4.Boards
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
         private Stack<bool> castleChangeHistory;
-        private Stack<TimeSpan> whiteTimerHistory;
 
         public Piece[][] board { get; private set; }
 
@@ -78,7 +77,7 @@ namespace Prototype4.Boards
 
 
         // initialise new instance of board
-        public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback, string username)
+        public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback)
         {
             // create an empty array for the board //
             board = new Piece[8][];
@@ -101,11 +100,7 @@ namespace Prototype4.Boards
             currentTurn = PlayerColour.White;
             selectedMoves = new List<Move>();
             castleChangeHistory = new Stack<bool>();
-            whiteTimerHistory = new Stack<TimeSpan>();
             winStatus = WinStatus.None;
-
-            // initialise players
-            InitialisePlayers(username);
 
             // initialise timers
             InitialiseTimers();
@@ -114,12 +109,20 @@ namespace Prototype4.Boards
             StandardPositions();
         }
 
-        private void InitialisePlayers(string username) // hardcoded for now
+        // initialise players of a game
+        public void InitialisePlayers(string username, bool AI, int plyDepth) 
         {
             this.username = username;
             whitePlayer = new Human(username);
-            //blackPlayer = new AI(4, PlayerColour.Black); // hardcoded ply depth
-            blackPlayer = new Human("temp");
+            
+            if (AI)
+            {
+                blackPlayer = new AI(plyDepth, PlayerColour.Black);
+            }
+            else
+            {
+                blackPlayer = new Human(null);
+            }
         }
 
         private void InitialiseTimers()
@@ -550,7 +553,7 @@ namespace Prototype4.Boards
         // method perofrms post-game logistics
         private void UpdatePostGame()
         {
-            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck)) // if someone won
+            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) && whitePlayer is Human && blackPlayer is Human) // if someone won and its humans
             {
 
                 // add name to abrupt game ends
@@ -606,10 +609,9 @@ namespace Prototype4.Boards
 
 
                     string PGN = string.Join(", ", moveNameHistory.ToArray()); // convert pgn history to single string
-                    string gameType = (blackPlayer is AI) ? "Human v AI" : "Human v Human";
 
                     DatabaseConnection dbConnection = new DatabaseConnection();
-                    dbConnection.StoreNewGame(username, winState, PGN, gameType);
+                    dbConnection.StoreNewGame(username, winState, PGN);
                 }
 
                 // stop both timers

@@ -45,8 +45,22 @@ namespace Prototype4
 
         private void InitialiseGame()
         {
-            chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard), username);
-            timerUpdateTime.Start();
+            chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard));
+
+            // intialise board players
+            if (radAgainstAI.Checked) // ai game
+            {
+                chessBoard.InitialisePlayers(username, true, trackPlyDepth.Value);
+                pnlWhiteTime.Hide();
+                pnlBlackTime.Hide(); // hide and disable timers
+            }
+            else // human game
+            {
+                chessBoard.InitialisePlayers(username, false, 0);
+                timerUpdateTime.Start();
+            }
+
+
             InitialiseGraphics();
         }
 
@@ -79,13 +93,14 @@ namespace Prototype4
 
         #region timers
 
-        TimeSpan totalTime = new TimeSpan(0, 0, 10); // 5 minutes hardcoded
+        TimeSpan totalTime = new TimeSpan(0, 10, 0); // 5 minutes hardcoded
+        TimeSpan increment = new TimeSpan(0, 10, 0);
 
         // take timers from board, display times
         private void timerUpdateTime_Tick(object sender, EventArgs e)
         {
-            TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed;
-            TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed;
+            TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed + (((chessBoard.moveNameHistory.Count + 1) / 2) * increment);
+            TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed + ((chessBoard.moveNameHistory.Count / 2) * increment);
 
             if (whiteTimeLeft < TimeSpan.Zero)
             {
@@ -104,11 +119,28 @@ namespace Prototype4
             lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
         }
 
-        private void UpdateTimers()
-        {
 
+        #endregion
+
+        #region AI Settings
+
+        private void radAgainstAI_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radAgainstAI.Checked) // if checking the ai button, show :: else hide
+            {
+                pnlAISettings.Show();
+            }
+            else
+            {
+                pnlAISettings.Hide();
+            }
         }
 
+        // show value of ai ply depth in label
+        private void trackPlyDepth_ValueChanged(object sender, EventArgs e)
+        {
+            lblPlyDepth.Text = trackPlyDepth.Value.ToString();
+        }
 
         #endregion
     }
