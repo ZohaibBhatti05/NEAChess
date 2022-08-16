@@ -21,6 +21,9 @@ namespace Prototype4
         {
             this.username = username;
             InitializeComponent();
+            cmbTimeSettings.SelectedIndex = 1;
+            pnlCustomTime.Hide();
+            cmbTimeSettings.Hide();
 
             pnlPreGame.Visible = true;
             pnlDuringGame.Visible = false;
@@ -31,6 +34,9 @@ namespace Prototype4
         {
             username = "Guest";
             InitializeComponent();
+            cmbTimeSettings.SelectedIndex = 1;
+            pnlCustomTime.Hide();
+            cmbTimeSettings.Hide();
 
             pnlPreGame.Visible = true;
             pnlDuringGame.Visible = false;
@@ -57,7 +63,58 @@ namespace Prototype4
             else // human game
             {
                 chessBoard.InitialisePlayers(username, false, 0);
-                timerUpdateTime.Start();
+
+                // time settings
+                if (radCustomTime.Checked) // custom
+                {
+                    totalTime = new TimeSpan(0, int.Parse(textMinutes.Text), int.Parse(textSeconds.Text));
+                    increment = new TimeSpan(0, 0, int.Parse(textIncrement.Text));
+                    timerUpdateTime.Start();
+                }
+                else if (radPresetTime.Checked) // preset
+                {
+                    switch (cmbTimeSettings.SelectedIndex)
+                    {
+                        case 0: // 1 min
+                            totalTime = new TimeSpan(0, 1, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 1: // 10 min
+                            totalTime = new TimeSpan(0, 10, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 2: // 20 min
+                            totalTime = new TimeSpan(0, 20, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 3: // 60 min
+                            totalTime = new TimeSpan(1, 0, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 4: // 15 | 10
+                            totalTime = new TimeSpan(0, 15, 0);
+                            increment = new TimeSpan(0, 0, 10);
+                            break;
+                        case 5: // 10 | 5
+                            totalTime = new TimeSpan(0, 10, 0);
+                            increment = new TimeSpan(0, 0, 5);
+                            break;
+                        case 6: // 3 | 2
+                            totalTime = new TimeSpan(0, 3, 0);
+                            increment = new TimeSpan(0, 0, 2);
+                            break;
+                        case 7: // 1 | 1
+                            totalTime = new TimeSpan(0, 1, 0);
+                            increment = new TimeSpan(0, 0, 1);
+                            break;
+                    }
+                    timerUpdateTime.Start();
+                }
+                else // infinite time
+                {
+                    pnlWhiteTime.Hide();
+                    pnlBlackTime.Hide(); // hide and disable timers
+                }
             }
 
 
@@ -129,10 +186,19 @@ namespace Prototype4
             if (radAgainstAI.Checked) // if checking the ai button, show :: else hide
             {
                 pnlAISettings.Show();
+
+                // hide time settings
+                radNoTimers.Checked = true;
+                timeRadioButton_CheckChanged(sender, e);
+
+                radCustomTime.Hide();
+                radPresetTime.Hide();
             }
             else
             {
                 pnlAISettings.Hide();
+                radCustomTime.Show();
+                radPresetTime.Show();
             }
         }
 
@@ -140,6 +206,36 @@ namespace Prototype4
         private void trackPlyDepth_ValueChanged(object sender, EventArgs e)
         {
             lblPlyDepth.Text = trackPlyDepth.Value.ToString();
+        }
+
+        #endregion
+
+        #region Time Settings
+
+        // hide relevant controls for time settings
+        private void timeRadioButton_CheckChanged(object sender, EventArgs e)
+        {
+            if (radPresetTime.Checked)
+            {
+                pnlCustomTime.Hide();
+                cmbTimeSettings.Show();
+            }
+            else if (radCustomTime.Checked)
+            {
+                pnlCustomTime.Show();
+                cmbTimeSettings.Hide();
+            }
+            else
+            {
+                pnlCustomTime.Hide();
+                cmbTimeSettings.Hide();
+            }
+        }
+
+        // if input not a number, dont accept
+        private void customTimeTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = !(int.TryParse(e.KeyChar.ToString(), out int i));
         }
 
         #endregion

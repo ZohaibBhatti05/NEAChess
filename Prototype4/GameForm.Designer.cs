@@ -36,6 +36,14 @@ namespace Prototype4
             this.pnlPosition = new System.Windows.Forms.Panel();
             this.lblPosition = new System.Windows.Forms.Label();
             this.pnlTimeControl = new System.Windows.Forms.Panel();
+            this.radNoTimers = new System.Windows.Forms.RadioButton();
+            this.pnlCustomTime = new System.Windows.Forms.Panel();
+            this.textMinutes = new System.Windows.Forms.TextBox();
+            this.textSeconds = new System.Windows.Forms.TextBox();
+            this.textIncrement = new System.Windows.Forms.TextBox();
+            this.radCustomTime = new System.Windows.Forms.RadioButton();
+            this.radPresetTime = new System.Windows.Forms.RadioButton();
+            this.cmbTimeSettings = new System.Windows.Forms.ComboBox();
             this.lblTimeControl = new System.Windows.Forms.Label();
             this.pnlVariants = new System.Windows.Forms.Panel();
             this.lblVariant = new System.Windows.Forms.Label();
@@ -66,6 +74,7 @@ namespace Prototype4
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
+            this.pnlCustomTime.SuspendLayout();
             this.pnlVariants.SuspendLayout();
             this.pnlPlayerOptions.SuspendLayout();
             this.pnlAISettings.SuspendLayout();
@@ -101,7 +110,7 @@ namespace Prototype4
             this.btnStartGame.ForeColor = System.Drawing.Color.White;
             this.btnStartGame.Location = new System.Drawing.Point(3, 654);
             this.btnStartGame.Name = "btnStartGame";
-            this.btnStartGame.Size = new System.Drawing.Size(294, 67);
+            this.btnStartGame.Size = new System.Drawing.Size(294, 70);
             this.btnStartGame.TabIndex = 1;
             this.btnStartGame.Text = "START GAME";
             this.btnStartGame.UseVisualStyleBackColor = false;
@@ -143,11 +152,131 @@ namespace Prototype4
             // pnlTimeControl
             // 
             this.pnlTimeControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlTimeControl.Controls.Add(this.radNoTimers);
+            this.pnlTimeControl.Controls.Add(this.pnlCustomTime);
+            this.pnlTimeControl.Controls.Add(this.radCustomTime);
+            this.pnlTimeControl.Controls.Add(this.radPresetTime);
+            this.pnlTimeControl.Controls.Add(this.cmbTimeSettings);
             this.pnlTimeControl.Controls.Add(this.lblTimeControl);
             this.pnlTimeControl.Location = new System.Drawing.Point(3, 179);
             this.pnlTimeControl.Name = "pnlTimeControl";
             this.pnlTimeControl.Size = new System.Drawing.Size(294, 170);
             this.pnlTimeControl.TabIndex = 4;
+            // 
+            // radNoTimers
+            // 
+            this.radNoTimers.AutoSize = true;
+            this.radNoTimers.Checked = true;
+            this.radNoTimers.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radNoTimers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.radNoTimers.Location = new System.Drawing.Point(7, 30);
+            this.radNoTimers.Name = "radNoTimers";
+            this.radNoTimers.Size = new System.Drawing.Size(87, 21);
+            this.radNoTimers.TabIndex = 7;
+            this.radNoTimers.TabStop = true;
+            this.radNoTimers.Text = "Unlimited";
+            this.radNoTimers.UseVisualStyleBackColor = true;
+            this.radNoTimers.CheckedChanged += new System.EventHandler(this.timeRadioButton_CheckChanged);
+            // 
+            // pnlCustomTime
+            // 
+            this.pnlCustomTime.Controls.Add(this.textMinutes);
+            this.pnlCustomTime.Controls.Add(this.textSeconds);
+            this.pnlCustomTime.Controls.Add(this.textIncrement);
+            this.pnlCustomTime.Location = new System.Drawing.Point(3, 133);
+            this.pnlCustomTime.Name = "pnlCustomTime";
+            this.pnlCustomTime.Size = new System.Drawing.Size(286, 33);
+            this.pnlCustomTime.TabIndex = 6;
+            // 
+            // textMinutes
+            // 
+            this.textMinutes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.textMinutes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textMinutes.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textMinutes.ForeColor = System.Drawing.Color.White;
+            this.textMinutes.Location = new System.Drawing.Point(16, 4);
+            this.textMinutes.Name = "textMinutes";
+            this.textMinutes.PlaceholderText = "minutes";
+            this.textMinutes.Size = new System.Drawing.Size(80, 25);
+            this.textMinutes.TabIndex = 3;
+            this.textMinutes.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textMinutes.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customTimeTextBox_KeyPress);
+            // 
+            // textSeconds
+            // 
+            this.textSeconds.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.textSeconds.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textSeconds.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textSeconds.ForeColor = System.Drawing.Color.White;
+            this.textSeconds.Location = new System.Drawing.Point(102, 4);
+            this.textSeconds.Name = "textSeconds";
+            this.textSeconds.PlaceholderText = "seconds";
+            this.textSeconds.Size = new System.Drawing.Size(80, 25);
+            this.textSeconds.TabIndex = 4;
+            this.textSeconds.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textSeconds.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customTimeTextBox_KeyPress);
+            // 
+            // textIncrement
+            // 
+            this.textIncrement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.textIncrement.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textIncrement.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textIncrement.ForeColor = System.Drawing.Color.White;
+            this.textIncrement.Location = new System.Drawing.Point(188, 4);
+            this.textIncrement.Name = "textIncrement";
+            this.textIncrement.PlaceholderText = "increment";
+            this.textIncrement.Size = new System.Drawing.Size(80, 25);
+            this.textIncrement.TabIndex = 5;
+            this.textIncrement.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textIncrement.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.customTimeTextBox_KeyPress);
+            // 
+            // radCustomTime
+            // 
+            this.radCustomTime.AutoSize = true;
+            this.radCustomTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radCustomTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.radCustomTime.Location = new System.Drawing.Point(7, 106);
+            this.radCustomTime.Name = "radCustomTime";
+            this.radCustomTime.Size = new System.Drawing.Size(77, 21);
+            this.radCustomTime.TabIndex = 5;
+            this.radCustomTime.Text = "Custom:";
+            this.radCustomTime.UseVisualStyleBackColor = true;
+            this.radCustomTime.CheckedChanged += new System.EventHandler(this.timeRadioButton_CheckChanged);
+            // 
+            // radPresetTime
+            // 
+            this.radPresetTime.AutoSize = true;
+            this.radPresetTime.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radPresetTime.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.radPresetTime.Location = new System.Drawing.Point(7, 66);
+            this.radPresetTime.Name = "radPresetTime";
+            this.radPresetTime.Size = new System.Drawing.Size(68, 21);
+            this.radPresetTime.TabIndex = 4;
+            this.radPresetTime.Text = "Preset:";
+            this.radPresetTime.UseVisualStyleBackColor = true;
+            this.radPresetTime.CheckedChanged += new System.EventHandler(this.timeRadioButton_CheckChanged);
+            // 
+            // cmbTimeSettings
+            // 
+            this.cmbTimeSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.cmbTimeSettings.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTimeSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbTimeSettings.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cmbTimeSettings.ForeColor = System.Drawing.Color.White;
+            this.cmbTimeSettings.FormattingEnabled = true;
+            this.cmbTimeSettings.Items.AddRange(new object[] {
+            "1 min",
+            "10 min",
+            "20 min",
+            "60 min",
+            "15 | 10",
+            "10 | 5",
+            "3 | 2",
+            "1 | 1"});
+            this.cmbTimeSettings.Location = new System.Drawing.Point(81, 66);
+            this.cmbTimeSettings.Name = "cmbTimeSettings";
+            this.cmbTimeSettings.Size = new System.Drawing.Size(136, 25);
+            this.cmbTimeSettings.TabIndex = 1;
             // 
             // lblTimeControl
             // 
@@ -210,7 +339,7 @@ namespace Prototype4
             // 
             this.lblPlyDepth.AutoSize = true;
             this.lblPlyDepth.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblPlyDepth.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.lblPlyDepth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.lblPlyDepth.Location = new System.Drawing.Point(78, 14);
             this.lblPlyDepth.Name = "lblPlyDepth";
             this.lblPlyDepth.Size = new System.Drawing.Size(15, 17);
@@ -221,7 +350,7 @@ namespace Prototype4
             // 
             this.lblDepth.AutoSize = true;
             this.lblDepth.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblDepth.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.lblDepth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.lblDepth.Location = new System.Drawing.Point(6, 14);
             this.lblDepth.Margin = new System.Windows.Forms.Padding(3);
             this.lblDepth.Name = "lblDepth";
@@ -244,7 +373,7 @@ namespace Prototype4
             // 
             this.radAgainstAI.AutoSize = true;
             this.radAgainstAI.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.radAgainstAI.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.radAgainstAI.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.radAgainstAI.Location = new System.Drawing.Point(9, 55);
             this.radAgainstAI.Name = "radAgainstAI";
             this.radAgainstAI.Size = new System.Drawing.Size(87, 21);
@@ -258,7 +387,7 @@ namespace Prototype4
             this.radAgainstHuman.AutoSize = true;
             this.radAgainstHuman.Checked = true;
             this.radAgainstHuman.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.radAgainstHuman.ForeColor = System.Drawing.SystemColors.ScrollBar;
+            this.radAgainstHuman.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.radAgainstHuman.Location = new System.Drawing.Point(9, 28);
             this.radAgainstHuman.Name = "radAgainstHuman";
             this.radAgainstHuman.Size = new System.Drawing.Size(71, 21);
@@ -287,7 +416,7 @@ namespace Prototype4
             this.pnlDuringGame.Controls.Add(this.btnResign);
             this.pnlDuringGame.Controls.Add(this.btnUndo);
             this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pnlDuringGame.Location = new System.Drawing.Point(613, 10);
+            this.pnlDuringGame.Location = new System.Drawing.Point(916, 10);
             this.pnlDuringGame.Name = "pnlDuringGame";
             this.pnlDuringGame.Size = new System.Drawing.Size(300, 724);
             this.pnlDuringGame.TabIndex = 6;
@@ -486,6 +615,8 @@ namespace Prototype4
             this.pnlPosition.PerformLayout();
             this.pnlTimeControl.ResumeLayout(false);
             this.pnlTimeControl.PerformLayout();
+            this.pnlCustomTime.ResumeLayout(false);
+            this.pnlCustomTime.PerformLayout();
             this.pnlVariants.ResumeLayout(false);
             this.pnlVariants.PerformLayout();
             this.pnlPlayerOptions.ResumeLayout(false);
@@ -544,5 +675,13 @@ namespace Prototype4
         private System.Windows.Forms.TrackBar trackPlyDepth;
         private System.Windows.Forms.Label lblDepth;
         private System.Windows.Forms.Label lblPlyDepth;
+        private System.Windows.Forms.ComboBox cmbTimeSettings;
+        private System.Windows.Forms.TextBox textIncrement;
+        private System.Windows.Forms.TextBox textSeconds;
+        private System.Windows.Forms.TextBox textMinutes;
+        private System.Windows.Forms.RadioButton radCustomTime;
+        private System.Windows.Forms.RadioButton radPresetTime;
+        private System.Windows.Forms.Panel pnlCustomTime;
+        private System.Windows.Forms.RadioButton radNoTimers;
     }
 }
