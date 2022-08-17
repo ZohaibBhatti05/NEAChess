@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -43,6 +44,11 @@ namespace Prototype4.Boards
 
         public int column { get; private set; }
         public int row { get; private set; }
+
+        public static Position Add(Position pos1, Position pos2) // static, instantiation not needed
+        {
+            return new Position(pos1.column + pos2.column, pos1.row + pos2.row);
+        }
     }
 
     public class ChessBoard
@@ -151,7 +157,7 @@ namespace Prototype4.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            PositionFromFEN("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w Kq - 99 1");
 
             // custom fen for testing
             //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
@@ -163,8 +169,12 @@ namespace Prototype4.Boards
         // error checking should be added if user inputted FEN is implemented
         private void PositionFromFEN(string FEN)
         {
+            // split relevant parts of string into seperate sections
+            string[] partFEN = FEN.Split(' ');
+
+            // position
             int file = 0; int rank = 7; // program displays from bottom up, FEN goes from top to bottom, so rank goes from 7 to 0
-            foreach (char c in FEN)
+            foreach (char c in partFEN[0])
             {
                 if (c == '/') // / denotes new line, go down
                 {
@@ -188,7 +198,67 @@ namespace Prototype4.Boards
                     file++; // next position
                 }
             }
+
+            // current turn
+            currentTurn = (partFEN[1] == "w") ? PlayerColour.White : PlayerColour.Black;
+
+            // castling rights (if found)
+            if (partFEN[2] != "-")
+            {
+                foreach (char c in partFEN[2])
+                {
+                    switch (c)
+                    {
+                        case 'k': // black kingside
+                            board[4][7].SetCastle(true);
+                            board[7][7].SetCastle(true);
+                            break;
+                        case 'q': // black queenside
+                            board[4][7].SetCastle(true);
+                            board[0][7].SetCastle(true);
+                            break;
+
+                        case 'K': // white kingside
+                            board[4][0].SetCastle(true);
+                            board[7][0].SetCastle(true);
+                            break;
+                        case 'Q': // white queenside
+                            board[4][0].SetCastle(true);
+                            board[0][0].SetCastle(true);
+                            break;
+
+                    }
+                }
+            }
+
+            // en passant (if found)
+            if (partFEN[3] != "-")
+            {
+                Position position = PositionFromAlgebraicPos(partFEN[3]);
+                if (position.row == 2) // white pawn
+                {
+                    (board[position.column][3] as Pawn).SetEnPassant(true);
+                }
+                else // black pawn
+                {
+                    (board[position.column][4] as Pawn).SetEnPassant(true);
+                }
+
+            }
+
+            // fifty move
+            fiftyMoveCounter = int.Parse(partFEN[4]);
+
+            // turn count
+
         }
+
+        // takes e4, returns Position(4, 4)
+        private Position PositionFromAlgebraicPos(string pos)
+        {
+            return new Position((int)pos[0] - 97, int.Parse(pos[1].ToString()));
+        }
+
 
         // takes a character, returns a piece
         private Piece NewPieceFromCharType(char type, PlayerColour colour)
@@ -413,8 +483,6 @@ namespace Prototype4.Boards
                 winStatus = winStatusHistory.Peek();
                 moveNameHistory.RemoveAt(moveNameHistory.Count - 1);
 
-                UndoTimers();
-
                 UndoMove(move); // undo the move
                 // switch back to player who made move
                 currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
@@ -437,12 +505,6 @@ namespace Prototype4.Boards
 
                 graphicsCallBack.Invoke(false); // redraw board
             }
-        }
-
-        // method handles data needed to "undo" timers
-        private void UndoTimers()
-        {
-
         }
 
         // function run when a player hits the resign button

@@ -71,6 +71,7 @@ namespace Prototype4
             this.picWhiteTime = new System.Windows.Forms.PictureBox();
             this.lblWhiteTime = new System.Windows.Forms.Label();
             this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
+            this.radDefaultPosition = new System.Windows.Forms.RadioButton();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -131,6 +132,7 @@ namespace Prototype4
             // pnlPosition
             // 
             this.pnlPosition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlPosition.Controls.Add(this.radDefaultPosition);
             this.pnlPosition.Controls.Add(this.lblPosition);
             this.pnlPosition.Location = new System.Drawing.Point(3, 531);
             this.pnlPosition.Name = "pnlPosition";
@@ -592,6 +594,20 @@ namespace Prototype4
             this.timerUpdateTime.Interval = 10;
             this.timerUpdateTime.Tick += new System.EventHandler(this.timerUpdateTime_Tick);
             // 
+            // radDefaultPosition
+            // 
+            this.radDefaultPosition.AutoSize = true;
+            this.radDefaultPosition.Checked = true;
+            this.radDefaultPosition.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radDefaultPosition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.radDefaultPosition.Location = new System.Drawing.Point(6, 29);
+            this.radDefaultPosition.Name = "radDefaultPosition";
+            this.radDefaultPosition.Size = new System.Drawing.Size(72, 21);
+            this.radDefaultPosition.TabIndex = 8;
+            this.radDefaultPosition.TabStop = true;
+            this.radDefaultPosition.Text = "Default";
+            this.radDefaultPosition.UseVisualStyleBackColor = true;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -683,5 +699,6 @@ namespace Prototype4
         private System.Windows.Forms.RadioButton radPresetTime;
         private System.Windows.Forms.Panel pnlCustomTime;
         private System.Windows.Forms.RadioButton radNoTimers;
+        private System.Windows.Forms.RadioButton radDefaultPosition;
     }
 }

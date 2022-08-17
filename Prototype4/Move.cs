@@ -40,7 +40,7 @@ namespace Prototype4
             // hardcode castling name
             if (this is Castle)
             {
-                if (positionTo.column == 1)
+                if (positionTo.column == 2)
                 {
                     return "O-O-O";
                 }
