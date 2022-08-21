@@ -22,6 +22,7 @@ namespace Prototype4.Boards
         Stalemate,
         DrawInsufficient,
         DrawRepetition,
+        DrawThreefold,
         DrawFifty,
         WhiteResign,
         BlackResign,
@@ -68,6 +69,7 @@ namespace Prototype4.Boards
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
         private Stack<bool> castleChangeHistory;
+        private List<string> positionHistory;
 
         public Piece[][] board { get; private set; }
 
@@ -106,13 +108,11 @@ namespace Prototype4.Boards
             currentTurn = PlayerColour.White;
             selectedMoves = new List<Move>();
             castleChangeHistory = new Stack<bool>();
+            positionHistory = new List<string>();
             winStatus = WinStatus.None;
 
             // initialise timers
             InitialiseTimers();
-
-            // change later to allow custom positions
-            StandardPositions();
         }
 
         // initialise players of a game
@@ -154,10 +154,10 @@ namespace Prototype4.Boards
         }
 
         // function loads standard positions :: override if child classes are implemented
-        private void StandardPositions()
+        public void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w Kq - 99 1");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             // custom fen for testing
             //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
@@ -165,8 +165,12 @@ namespace Prototype4.Boards
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
 
+        public void CustomPosition(string FEN)
+        {
+            PositionFromFEN(FEN);
+        }
+
         // places pieces from a FEN string
-        // error checking should be added if user inputted FEN is implemented
         private void PositionFromFEN(string FEN)
         {
             // split relevant parts of string into seperate sections
@@ -249,8 +253,129 @@ namespace Prototype4.Boards
             // fifty move
             fiftyMoveCounter = int.Parse(partFEN[4]);
 
-            // turn count
 
+            positionHistory.Add(FEN); // inital position
+        }
+
+        // method returns the FEN string of the current board state
+        private string PositionToFEN()
+        {
+            string FEN = string.Empty;
+            (int c, int r)? enPassantTarget = null;
+
+            // pieces
+            for (int j = 7; j >= 0; j--)
+            {
+                int stride = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    if (ContainsPiece(i, j)) // if piece found, add stride and reset, add piece fen
+                    {
+                        if (stride > 0)
+                        {
+                            FEN += stride.ToString(); 
+                        }
+                        stride = 0;
+                        FEN += CharFromPiece(GetPiece(i, j));
+
+                        // do en passant calcs here to avoid two iterations
+                        if (GetPiece(i, j) is Pawn)
+                        {
+                            if ((GetPiece(i, j) as Pawn).canBeEnPassanted)
+                            {
+                                enPassantTarget = (i, j);
+                            }
+                        }
+                    }
+                    else // no piece
+                    {
+                        stride++;
+                        if (i == 7)
+                        {
+                            FEN += stride.ToString();
+                        }
+                    }
+                }
+
+                if (j > 0) // dont add / on final line
+                {
+                    FEN += "/";
+                }
+            }
+
+            // current turn
+            FEN += " " + ((currentTurn == PlayerColour.White) ? "w " : "b ");
+
+            // castling rights
+            bool castlingRightsAvailable = false;
+
+            if (GetPiece(GetKingPosition(PlayerColour.White)).canCastle) // if white king can castle
+            {
+                if (ContainsPiece(0, 7)) // kingside
+                {
+                    if (GetPiece(0, 7).canCastle)
+                    {
+                        FEN += "K";
+                        castlingRightsAvailable = true;
+                    }
+                }
+                if (ContainsPiece(7, 7)) // queenside
+                {
+                    if (GetPiece(7, 7).canCastle)
+                    {
+                        FEN += "Q";
+                        castlingRightsAvailable = true;
+                    }
+                }
+            }
+
+            if (GetPiece(GetKingPosition(PlayerColour.Black)).canCastle) // if black king can castle
+            {
+                if (ContainsPiece(0, 0)) // kingside
+                {
+                    if (GetPiece(0, 0).canCastle)
+                    {
+                        FEN += "k";
+                        castlingRightsAvailable = true;
+                    }
+                }
+                if (ContainsPiece(7, 0)) // queenside
+                {
+                    if (GetPiece(7, 0).canCastle)
+                    {
+                        FEN += "q";
+                        castlingRightsAvailable = true;
+                    }
+                }
+            }
+
+            if (!castlingRightsAvailable)
+            {
+                FEN += "- ";
+            }
+            else
+            {
+                FEN += " ";
+            }
+
+            // en passant
+            if (enPassantTarget != null)
+            {
+                FEN += (char)(enPassantTarget.Value.c + 97); // file
+                FEN += (enPassantTarget.Value.r == 3) ? "3 " : "6 "; // rank
+                // FEN takes the position where the taking pawn will end up, not the position of the pawn being taken
+            }
+            else
+            {
+                FEN += "- ";
+            }
+
+            // fifty move
+            FEN += fiftyMoveCounter.ToString() + " ";
+
+            FEN += (moveHistory.Count / 2) + 1;
+
+            return FEN;
         }
 
         // takes e4, returns Position(4, 4)
@@ -482,6 +607,7 @@ namespace Prototype4.Boards
                 winStatusHistory.Pop();
                 winStatus = winStatusHistory.Peek();
                 moveNameHistory.RemoveAt(moveNameHistory.Count - 1);
+                positionHistory.RemoveAt(positionHistory.Count - 1);
 
                 UndoMove(move); // undo the move
                 // switch back to player who made move
@@ -556,6 +682,12 @@ namespace Prototype4.Boards
             // promotion
             UpdatePromotion(move);
 
+            // add move to history
+            positionHistory.Add(PositionToFEN()); // add position before draws
+            moveHistory.Push(move);
+            checkCellHistory.Push(checkCell);
+            winStatusHistory.Push(winStatus);
+
             // update draw conditions BEFORE win status
             bool draw = UpdateDrawConditions(move);
 
@@ -565,11 +697,6 @@ namespace Prototype4.Boards
                 UpdateWinStatus();
             }
 
-            // add move to history
-            moveHistory.Push(move);
-            checkCellHistory.Push(checkCell);
-            winStatusHistory.Push(winStatus);
-
             // push move name to stack, overwrite/append where needed
             switch (winStatus)
             {
@@ -577,6 +704,7 @@ namespace Prototype4.Boards
                 case WinStatus.DrawFifty:
                 case WinStatus.DrawInsufficient:
                 case WinStatus.DrawRepetition:
+                case WinStatus.DrawThreefold:
                     moveNameHistory.Add("1/2 - 1/2"); break;
 
                 case WinStatus.WhiteCheck:
@@ -655,6 +783,9 @@ namespace Prototype4.Boards
                             break;
                         case WinStatus.DrawFifty:
                             winState = "Draw by 50 Move Rule";
+                            break;
+                        case WinStatus.DrawThreefold:
+                            winState = "Draw by Repetition";
                             break;
 
                         case WinStatus.WhiteResign:
@@ -758,6 +889,24 @@ namespace Prototype4.Boards
                 {
                     winStatus = WinStatus.DrawInsufficient;
                     checkCell = null; // check wont be updated, clear it manually
+                    return true;
+                }
+            }
+
+            // draw by threefold repetition
+            for(int i = 0; i < positionHistory.Count - 2; i++)
+            {
+                int repeats = 1;
+                for (int j = i + 1; j < positionHistory.Count; j++)
+                {
+                    if (positionHistory[i].Substring(0, positionHistory[i].Length - 3) == positionHistory[j].Substring(0, positionHistory[j].Length - 3))
+                    {
+                        repeats++;
+                    }
+                }
+                if (repeats >= 3)
+                {
+                    winStatus = WinStatus.DrawThreefold;
                     return true;
                 }
             }

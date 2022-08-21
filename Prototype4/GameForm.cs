@@ -117,6 +117,15 @@ namespace Prototype4
                 }
             }
 
+            // position
+            if (radDefaultPosition.Checked)
+            {
+                chessBoard.StandardPositions();
+            }
+            else
+            {
+                chessBoard.CustomPosition(textFEN.Text);
+            }
 
             InitialiseGraphics();
         }
@@ -239,5 +248,72 @@ namespace Prototype4
         }
 
         #endregion
+
+        #region Position
+        private void radDefaultPosition_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radDefaultPosition.Checked)
+            {
+                textFEN.Hide();
+            }
+            else
+            {
+                textFEN.Show();
+            }
+        }
+
+
+
+        #endregion
+
+        #region Settings
+        private void menuColourC1_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                CELL_COLOUR_1 = colorDialog.Color;
+                DrawBoard(false);
+            }
+        }
+
+        private void menuColourC2_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                CELL_COLOUR_2 = colorDialog.Color;
+                DrawBoard(false);
+            }
+        }
+
+        private void menuColourMove_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                MOVE_COLOUR = colorDialog.Color;
+                DrawBoard(false);
+            }
+        }
+
+        private void menuColourSelect_Click(object sender, EventArgs e)
+        {
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                SELECT_COLOUR = colorDialog.Color;
+                DrawBoard(false);
+            }
+        }
+
+        private void menuResetColour_Click(object sender, EventArgs e)
+        {
+            CELL_COLOUR_1 = DEFAULT_CELL_COLOUR_1;
+            CELL_COLOUR_2 = DEFAULT_CELL_COLOUR_2;
+            MOVE_COLOUR = DEFAULT_MOVE_COLOUR;
+            SELECT_COLOUR = DEFAULT_SELECT_COLOUR;
+            DrawBoard(false);
+        }
+
+        #endregion
+
+
     }
 }

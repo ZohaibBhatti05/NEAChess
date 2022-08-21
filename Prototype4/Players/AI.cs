@@ -2,6 +2,7 @@
 using Prototype4.Pieces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,8 @@ namespace Prototype4.Boards
 {
     class AI : Player
     {
+        private int nodes;
+
         private int plyDepth;
         private PlayerColour colour;
         private Move bestMove;
@@ -23,70 +26,44 @@ namespace Prototype4.Boards
         // method run by board when computer needs to make a move
         public Move MakeMove(ChessBoard board)
         {
+            nodes = 0;
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             bestMove = null;
             //optimise for when there's few pieces on the board
 
             //count pieces on the board
 
-            //int count = 0;
-            //int wCount = 0;
-            //int bCount = 0;
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    for (int j = 0; j < 8; j++)
-            //    {
-            //        if (board.ContainsPiece(i, j))
-            //        {
-            //            //if (!(board.GetPiece(i, j) is Pawn))
-            //            //{
-            //            //    count++;
-            //            //}
-            //            count++;
-            //            if (board.GetPiece(i, j).colour == PlayerColour.White)
-            //            {
-            //                wCount++;
-            //            }
-            //            else
-            //            {
-            //                bCount++;
-            //            }
-            //        }
-            //    }
-            //}
-            //if (wCount < 3 && count < 6)
-            //{
-            //    plyDepth = 6;
-            //}
-
             // intital Minimax call
-            AlphaBeta(board, plyDepth, 0, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
-            
-            //if (bestMove == null && board.winStatus != ((colour == PlayerColour.White) ? WinStatus.WhiteMate : WinStatus.BlackMate))
-            //{
-            //    bestMove = board.AllPossibleMoves(colour)[0];
-            //}
+            AlphaBeta(board, plyDepth, (colour == PlayerColour.White), int.MinValue, int.MaxValue);
 
+            Console.WriteLine();
+            Console.WriteLine($"Ply {plyDepth} :: {nodes} nodes in {stopwatch.Elapsed.ToString()} seconds");
             return bestMove;
         }
 
         // minimax algorithm
-        private int AlphaBeta(ChessBoard board, int plyDepth, int currentDepth, bool max, int alpha, int beta)
+        private int AlphaBeta(ChessBoard board, int currentDepth, bool max, int alpha, int beta)
         {
             List<Move> possibleMoves = ((max) ? board.AllPossibleMoves(PlayerColour.White) : board.AllPossibleMoves(PlayerColour.Black));
 
             // return board value at final depth
-            if (currentDepth == plyDepth || possibleMoves.Count == 0)
+            if (currentDepth == 0 || possibleMoves.Count == 0)
             {
-                return board.BoardValue(max, currentDepth);
+                nodes++;
+                return board.BoardValue(max, plyDepth - currentDepth);
             }
 
-            currentDepth++;
+            currentDepth--;
             int value;
 
             // white
             if (max)
             {
                 value = int.MinValue;
+                Move bestMoveNode = null;
+
                 // for every possible move
                 foreach(Move move in possibleMoves)
                 {
@@ -100,15 +77,16 @@ namespace Prototype4.Boards
 
                     board.UpdateWinStatus(PlayerColour.Black);
 
-                    int newValue = AlphaBeta(board, plyDepth, currentDepth, false, alpha, beta);
+                    int newValue = AlphaBeta(board, currentDepth, false, alpha, beta);
 
                     if (newValue > value) // if better move found
                     {
                         value = newValue;
-                        if (currentDepth == 1)
+                        if (currentDepth == plyDepth - 1)
                         {
                             bestMove = move; // update best move
                         }
+                        bestMoveNode = move;
                     }
 
                     // beta cutoff
@@ -121,12 +99,14 @@ namespace Prototype4.Boards
                     alpha = Math.Max(value, alpha);
                     board.UndoMove(move); // undo the move
                 }
+
                 return value;
             }
             // black
             else
             {
                 value = int.MaxValue;
+                Move bestMoveNode = null;
                 // for every possible move
                 foreach (Move move in possibleMoves)
                 {                    
@@ -138,15 +118,15 @@ namespace Prototype4.Boards
                     }
 
                     board.UpdateWinStatus(PlayerColour.White);
-                    int newValue = AlphaBeta(board, plyDepth, currentDepth, true, alpha, beta);
+                    int newValue = AlphaBeta(board, currentDepth, true, alpha, beta);
                     if (newValue < value) // if better move found
                     {
                         value = newValue;
-                        if (currentDepth == 1)
+                        if (currentDepth == plyDepth - 1)
                         {
                             bestMove = move; // update best move
                         }
-
+                        bestMoveNode = move;
                     }
 
                     // alpha cutoff

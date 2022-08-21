@@ -19,6 +19,13 @@ namespace Prototype4
         private readonly string RESOURCE_PATH = System.AppDomain.CurrentDomain.BaseDirectory; // get where app is RUNNING
         private Dictionary<int, Image> pieceImages = new Dictionary<int, Image>(); // dictionary of images
 
+        #region DefaultColours
+        readonly Color DEFAULT_CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
+        readonly Color DEFAULT_CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
+        readonly Color DEFAULT_SELECT_COLOUR = Color.FromArgb(214, 195, 79);
+        readonly Color DEFAULT_MOVE_COLOUR = Color.FromArgb(245, 235, 121);
+        #endregion
+
         #region UserDefinedSettings
         Color CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
         Color CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);

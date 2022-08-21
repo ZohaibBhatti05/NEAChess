@@ -34,6 +34,9 @@ namespace Prototype4
             this.btnStartGame = new System.Windows.Forms.Button();
             this.pnlPreGame = new System.Windows.Forms.Panel();
             this.pnlPosition = new System.Windows.Forms.Panel();
+            this.textFEN = new System.Windows.Forms.TextBox();
+            this.radFEN = new System.Windows.Forms.RadioButton();
+            this.radDefaultPosition = new System.Windows.Forms.RadioButton();
             this.lblPosition = new System.Windows.Forms.Label();
             this.pnlTimeControl = new System.Windows.Forms.Panel();
             this.radNoTimers = new System.Windows.Forms.RadioButton();
@@ -71,7 +74,17 @@ namespace Prototype4
             this.picWhiteTime = new System.Windows.Forms.PictureBox();
             this.lblWhiteTime = new System.Windows.Forms.Label();
             this.timerUpdateTime = new System.Windows.Forms.Timer(this.components);
-            this.radDefaultPosition = new System.Windows.Forms.RadioButton();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.toolStripSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.imagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.coloursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.colourMenuC1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.colourMenuC2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.colourMenuMove = new System.Windows.Forms.ToolStripMenuItem();
+            this.colourMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuResetColour = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -88,6 +101,7 @@ namespace Prototype4
             this.panel2.SuspendLayout();
             this.pnlWhiteTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWhiteTime)).BeginInit();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlBoard
@@ -95,7 +109,7 @@ namespace Prototype4
             this.pnlBoard.AutoSize = true;
             this.pnlBoard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlBoard.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pnlBoard.Location = new System.Drawing.Point(10, 72);
+            this.pnlBoard.Location = new System.Drawing.Point(10, 118);
             this.pnlBoard.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBoard.MinimumSize = new System.Drawing.Size(600, 600);
             this.pnlBoard.Name = "pnlBoard";
@@ -124,20 +138,62 @@ namespace Prototype4
             this.pnlPreGame.Controls.Add(this.pnlVariants);
             this.pnlPreGame.Controls.Add(this.pnlPlayerOptions);
             this.pnlPreGame.Controls.Add(this.btnStartGame);
-            this.pnlPreGame.Location = new System.Drawing.Point(613, 10);
+            this.pnlPreGame.Location = new System.Drawing.Point(613, 56);
             this.pnlPreGame.Name = "pnlPreGame";
-            this.pnlPreGame.Size = new System.Drawing.Size(300, 724);
+            this.pnlPreGame.Size = new System.Drawing.Size(300, 725);
             this.pnlPreGame.TabIndex = 5;
             // 
             // pnlPosition
             // 
             this.pnlPosition.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlPosition.Controls.Add(this.textFEN);
+            this.pnlPosition.Controls.Add(this.radFEN);
             this.pnlPosition.Controls.Add(this.radDefaultPosition);
             this.pnlPosition.Controls.Add(this.lblPosition);
             this.pnlPosition.Location = new System.Drawing.Point(3, 531);
             this.pnlPosition.Name = "pnlPosition";
             this.pnlPosition.Size = new System.Drawing.Size(294, 117);
             this.pnlPosition.TabIndex = 5;
+            // 
+            // textFEN
+            // 
+            this.textFEN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.textFEN.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textFEN.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.textFEN.ForeColor = System.Drawing.Color.White;
+            this.textFEN.Location = new System.Drawing.Point(6, 81);
+            this.textFEN.Name = "textFEN";
+            this.textFEN.Size = new System.Drawing.Size(282, 16);
+            this.textFEN.TabIndex = 10;
+            this.textFEN.Text = "qrb5/rk1p1K2/p2P4/Pp6/1N2n3/6p1/5nB1/6b1 w - - 1 12";
+            this.textFEN.Visible = false;
+            // 
+            // radFEN
+            // 
+            this.radFEN.AutoSize = true;
+            this.radFEN.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radFEN.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.radFEN.Location = new System.Drawing.Point(6, 54);
+            this.radFEN.Name = "radFEN";
+            this.radFEN.Size = new System.Drawing.Size(77, 21);
+            this.radFEN.TabIndex = 9;
+            this.radFEN.Text = "Custom:";
+            this.radFEN.UseVisualStyleBackColor = true;
+            // 
+            // radDefaultPosition
+            // 
+            this.radDefaultPosition.AutoSize = true;
+            this.radDefaultPosition.Checked = true;
+            this.radDefaultPosition.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.radDefaultPosition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
+            this.radDefaultPosition.Location = new System.Drawing.Point(6, 29);
+            this.radDefaultPosition.Name = "radDefaultPosition";
+            this.radDefaultPosition.Size = new System.Drawing.Size(72, 21);
+            this.radDefaultPosition.TabIndex = 8;
+            this.radDefaultPosition.TabStop = true;
+            this.radDefaultPosition.Text = "Default";
+            this.radDefaultPosition.UseVisualStyleBackColor = true;
+            this.radDefaultPosition.CheckedChanged += new System.EventHandler(this.radDefaultPosition_CheckedChanged);
             // 
             // lblPosition
             // 
@@ -346,7 +402,7 @@ namespace Prototype4
             this.lblPlyDepth.Name = "lblPlyDepth";
             this.lblPlyDepth.Size = new System.Drawing.Size(15, 17);
             this.lblPlyDepth.TabIndex = 2;
-            this.lblPlyDepth.Text = "1";
+            this.lblPlyDepth.Text = "4";
             // 
             // lblDepth
             // 
@@ -362,13 +418,14 @@ namespace Prototype4
             // 
             // trackPlyDepth
             // 
+            this.trackPlyDepth.LargeChange = 1;
             this.trackPlyDepth.Location = new System.Drawing.Point(3, 37);
             this.trackPlyDepth.Maximum = 8;
             this.trackPlyDepth.Minimum = 1;
             this.trackPlyDepth.Name = "trackPlyDepth";
             this.trackPlyDepth.Size = new System.Drawing.Size(282, 45);
             this.trackPlyDepth.TabIndex = 0;
-            this.trackPlyDepth.Value = 1;
+            this.trackPlyDepth.Value = 5;
             this.trackPlyDepth.ValueChanged += new System.EventHandler(this.trackPlyDepth_ValueChanged);
             // 
             // radAgainstAI
@@ -418,9 +475,9 @@ namespace Prototype4
             this.pnlDuringGame.Controls.Add(this.btnResign);
             this.pnlDuringGame.Controls.Add(this.btnUndo);
             this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pnlDuringGame.Location = new System.Drawing.Point(916, 10);
+            this.pnlDuringGame.Location = new System.Drawing.Point(613, 56);
             this.pnlDuringGame.Name = "pnlDuringGame";
-            this.pnlDuringGame.Size = new System.Drawing.Size(300, 724);
+            this.pnlDuringGame.Size = new System.Drawing.Size(300, 725);
             this.pnlDuringGame.TabIndex = 6;
             this.pnlDuringGame.Visible = false;
             // 
@@ -513,9 +570,9 @@ namespace Prototype4
             // 
             this.pnlBlackUI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.pnlBlackUI.Controls.Add(this.pnlBlackTime);
-            this.pnlBlackUI.Location = new System.Drawing.Point(10, 10);
+            this.pnlBlackUI.Location = new System.Drawing.Point(10, 56);
             this.pnlBlackUI.Name = "pnlBlackUI";
-            this.pnlBlackUI.Size = new System.Drawing.Size(600, 59);
+            this.pnlBlackUI.Size = new System.Drawing.Size(600, 60);
             this.pnlBlackUI.TabIndex = 7;
             // 
             // pnlBlackTime
@@ -553,9 +610,9 @@ namespace Prototype4
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.panel2.Controls.Add(this.pnlWhiteTime);
-            this.panel2.Location = new System.Drawing.Point(10, 675);
+            this.panel2.Location = new System.Drawing.Point(10, 721);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(600, 59);
+            this.panel2.Size = new System.Drawing.Size(600, 60);
             this.panel2.TabIndex = 8;
             // 
             // pnlWhiteTime
@@ -594,19 +651,90 @@ namespace Prototype4
             this.timerUpdateTime.Interval = 10;
             this.timerUpdateTime.Tick += new System.EventHandler(this.timerUpdateTime_Tick);
             // 
-            // radDefaultPosition
+            // menuStrip
             // 
-            this.radDefaultPosition.AutoSize = true;
-            this.radDefaultPosition.Checked = true;
-            this.radDefaultPosition.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.radDefaultPosition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
-            this.radDefaultPosition.Location = new System.Drawing.Point(6, 29);
-            this.radDefaultPosition.Name = "radDefaultPosition";
-            this.radDefaultPosition.Size = new System.Drawing.Size(72, 21);
-            this.radDefaultPosition.TabIndex = 8;
-            this.radDefaultPosition.TabStop = true;
-            this.radDefaultPosition.Text = "Default";
-            this.radDefaultPosition.UseVisualStyleBackColor = true;
+            this.menuStrip.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSettings});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1677, 24);
+            this.menuStrip.TabIndex = 9;
+            this.menuStrip.Text = "menuStrip1";
+            // 
+            // toolStripSettings
+            // 
+            this.toolStripSettings.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.imagesToolStripMenuItem,
+            this.coloursToolStripMenuItem});
+            this.toolStripSettings.Name = "toolStripSettings";
+            this.toolStripSettings.Size = new System.Drawing.Size(61, 20);
+            this.toolStripSettings.Text = "Options";
+            // 
+            // imagesToolStripMenuItem
+            // 
+            this.imagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripComboBox1});
+            this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.imagesToolStripMenuItem.Text = "Images";
+            // 
+            // toolStripComboBox1
+            // 
+            this.toolStripComboBox1.Name = "toolStripComboBox1";
+            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            // 
+            // coloursToolStripMenuItem
+            // 
+            this.coloursToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.colourMenuC1,
+            this.colourMenuC2,
+            this.colourMenuMove,
+            this.colourMenuSelect,
+            this.menuResetColour});
+            this.coloursToolStripMenuItem.Name = "coloursToolStripMenuItem";
+            this.coloursToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.coloursToolStripMenuItem.Text = "Colours";
+            // 
+            // colourMenuC1
+            // 
+            this.colourMenuC1.BackColor = System.Drawing.SystemColors.Control;
+            this.colourMenuC1.Name = "colourMenuC1";
+            this.colourMenuC1.Size = new System.Drawing.Size(161, 22);
+            this.colourMenuC1.Text = "Cell Colour 1";
+            this.colourMenuC1.Click += new System.EventHandler(this.menuColourC1_Click);
+            // 
+            // colourMenuC2
+            // 
+            this.colourMenuC2.Name = "colourMenuC2";
+            this.colourMenuC2.Size = new System.Drawing.Size(161, 22);
+            this.colourMenuC2.Text = "Cell Colour 2";
+            this.colourMenuC2.Click += new System.EventHandler(this.menuColourC2_Click);
+            // 
+            // colourMenuMove
+            // 
+            this.colourMenuMove.Name = "colourMenuMove";
+            this.colourMenuMove.Size = new System.Drawing.Size(161, 22);
+            this.colourMenuMove.Text = "Move Colour";
+            this.colourMenuMove.Click += new System.EventHandler(this.menuColourMove_Click);
+            // 
+            // colourMenuSelect
+            // 
+            this.colourMenuSelect.Name = "colourMenuSelect";
+            this.colourMenuSelect.Size = new System.Drawing.Size(161, 22);
+            this.colourMenuSelect.Text = "Selection Colour";
+            this.colourMenuSelect.Click += new System.EventHandler(this.menuColourSelect_Click);
+            // 
+            // menuResetColour
+            // 
+            this.menuResetColour.Name = "menuResetColour";
+            this.menuResetColour.Size = new System.Drawing.Size(161, 22);
+            this.menuResetColour.Text = "Reset To Default";
+            this.menuResetColour.Click += new System.EventHandler(this.menuResetColour_Click);
+            // 
+            // colorDialog
+            // 
+            this.colorDialog.FullOpen = true;
             // 
             // GameForm
             // 
@@ -621,8 +749,10 @@ namespace Prototype4
             this.Controls.Add(this.pnlDuringGame);
             this.Controls.Add(this.pnlPreGame);
             this.Controls.Add(this.pnlBoard);
+            this.Controls.Add(this.menuStrip);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "GameForm";
             this.Text = "GameForm";
@@ -651,6 +781,8 @@ namespace Prototype4
             this.pnlWhiteTime.ResumeLayout(false);
             this.pnlWhiteTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWhiteTime)).EndInit();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -700,5 +832,18 @@ namespace Prototype4
         private System.Windows.Forms.Panel pnlCustomTime;
         private System.Windows.Forms.RadioButton radNoTimers;
         private System.Windows.Forms.RadioButton radDefaultPosition;
+        private System.Windows.Forms.TextBox textFEN;
+        private System.Windows.Forms.RadioButton radFEN;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem toolStripSettings;
+        private System.Windows.Forms.ToolStripMenuItem imagesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripMenuItem coloursToolStripMenuItem;
+        private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.ToolStripMenuItem colourMenuC1;
+        private System.Windows.Forms.ToolStripMenuItem colourMenuC2;
+        private System.Windows.Forms.ToolStripMenuItem colourMenuMove;
+        private System.Windows.Forms.ToolStripMenuItem colourMenuSelect;
+        private System.Windows.Forms.ToolStripMenuItem menuResetColour;
     }
 }
