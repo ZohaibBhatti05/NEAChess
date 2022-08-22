@@ -14,7 +14,7 @@ namespace Prototype5.Boards
 {
     public enum WinStatus
     {
-        None, 
+        None,
         WhiteCheck,
         BlackCheck,
         WhiteMate,
@@ -74,7 +74,7 @@ namespace Prototype5.Boards
         public Piece[][] board { get; private set; }
 
         private Player whitePlayer;
-        private Player blackPlayer; 
+        private Player blackPlayer;
 
         private int fiftyMoveCounter = 0;
 
@@ -116,11 +116,11 @@ namespace Prototype5.Boards
         }
 
         // initialise players of a game
-        public void InitialisePlayers(string username, bool AI, int plyDepth) 
+        public void InitialisePlayers(string username, bool AI, int plyDepth)
         {
             this.username = username;
             whitePlayer = new Human(username);
-            
+
             if (AI)
             {
                 blackPlayer = new AI(plyDepth, PlayerColour.Black);
@@ -273,7 +273,7 @@ namespace Prototype5.Boards
                     {
                         if (stride > 0)
                         {
-                            FEN += stride.ToString(); 
+                            FEN += stride.ToString();
                         }
                         stride = 0;
                         FEN += CharFromPiece(GetPiece(i, j));
@@ -894,7 +894,7 @@ namespace Prototype5.Boards
             }
 
             // draw by threefold repetition
-            for(int i = 0; i < positionHistory.Count - 2; i++)
+            for (int i = 0; i < positionHistory.Count - 2; i++)
             {
                 int repeats = 1;
                 for (int j = i + 1; j < positionHistory.Count; j++)
@@ -940,7 +940,7 @@ namespace Prototype5.Boards
         {
             bool loop = true;
             // clear all en passantable pawns
-            for(int x = 0; x < 8; x++)
+            for (int x = 0; x < 8; x++)
             {
                 if (!loop) { break; }
                 for (int y = 0; y < 8; y++)
@@ -1015,7 +1015,7 @@ namespace Prototype5.Boards
             {
                 for (int j = 0; j < 8; j++) // foreach piece on the board
                 {
-                    if (ContainsPiece(i , j))
+                    if (ContainsPiece(i, j))
                     {
                         Piece piece = GetPiece(i, j);
                         if (piece is King && piece.colour == colour) { return new Position(i, j); }
@@ -1047,7 +1047,7 @@ namespace Prototype5.Boards
 
                 UndoMove(move); // undo the move
             }
-            
+
             return validMoves;
         }
 
@@ -1113,6 +1113,8 @@ namespace Prototype5.Boards
 
         #region board value
 
+        bool endGame = false;
+
         public int BoardValue(bool max, int depth)
         {
             // winstatus
@@ -1129,6 +1131,7 @@ namespace Prototype5.Boards
             }
 
             int value = 0;
+            int pieceCount = 0;
 
             // collate pieces on the board // material block
             for (int i = 0; i < 8; i++)
@@ -1140,11 +1143,20 @@ namespace Prototype5.Boards
                         Piece piece = GetPiece(i, j);
 
                         value += ((piece.colour == PlayerColour.White) ? 1 : -1) * MaterialValue(piece.type);
-
                         value += ((piece.colour == PlayerColour.White) ? 1 : -1) * PositionalValue(i, j, piece.colour, piece.type);
                         // if white, add value, if black, subtract value
+
+                        if (!endGame && piece is not Pawn) // if still in midgame, check if in endgame
+                        {
+                            pieceCount++;
+                        }
                     }
                 }
+            }
+
+            if (!endGame && pieceCount < 8) // if moved to endgame, change bool
+            {
+                endGame = true;
             }
 
             return value + (max ? -depth : depth); // add very slight penalty for later moves
@@ -1154,10 +1166,18 @@ namespace Prototype5.Boards
 
         private int MaterialValue(int type)
         {
-            return PIECE_MATERIAL_VALUES[type];
+            if (endGame)
+            {
+                return PIECE_MATERIAL_VALUES_END[type];
+            }
+            else
+            {
+                return PIECE_MATERIAL_VALUES_MID[type];
+            }
         }
 
-        private readonly int[] PIECE_MATERIAL_VALUES = { 100, 500, 330, 350, 900, 10000 };
+        private readonly int[] PIECE_MATERIAL_VALUES_MID = { 80, 480, 340, 360, 1000, 10000 };
+        private readonly int[] PIECE_MATERIAL_VALUES_END = { 100, 510, 280, 300, 930, 10000 };
 
         // PIECE TABLES
         // positive is good and negative is bad for either side. usually reflections
@@ -1165,23 +1185,24 @@ namespace Prototype5.Boards
         // function returns position value of a given piece
         private int PositionalValue(int column, int row, PlayerColour colour, int type)
         {
+            int offset = (endGame ? 8 : 0);
             // white
             if (colour == PlayerColour.White)
             {
                 switch (type)
                 {
                     case 0: // pawn
-                        return PAWN_TABLE[7 - row][column]; // board starts at bottom left, array starts at top left and goes row->column
+                        return PAWN_TABLE[(7 - row) + offset][column]; // board starts at bottom left, array starts at top left and goes row->column
                     case 1: // rook
-                        return ROOK_TABLE[7 - row][column];
+                        return ROOK_TABLE[(7 - row) + offset][column];
                     case 2: // knight
-                        return KNIGHT_TABLE[7 - row][column];
+                        return KNIGHT_TABLE[(7 - row) + offset][column];
                     case 3: // bishop
-                        return BISHOP_TABLE[7 - row][column];
+                        return BISHOP_TABLE[(7 - row) + offset][column];
                     case 4: // queen
-                        return QUEEN_TABLE[7 - row][column];
+                        return QUEEN_TABLE[(7 - row) + offset][column];
                     case 5: // king
-                        return KING_TABLE[7 - row][column];
+                        return KING_TABLE[(7 - row) + offset][column];
                 }
             }
             // black
@@ -1190,107 +1211,155 @@ namespace Prototype5.Boards
                 switch (type)
                 {
                     case 0: // pawn
-                        return PAWN_TABLE[row][column];
+                        return PAWN_TABLE[row + offset][column];
                     case 1: // rook
-                        return ROOK_TABLE[row][column];
+                        return ROOK_TABLE[row + offset][column];
                     case 2: // knight
-                        return KNIGHT_TABLE[row][column];
+                        return KNIGHT_TABLE[row + offset][column];
                     case 3: // bishop
-                        return BISHOP_TABLE[row][column];
+                        return BISHOP_TABLE[row + offset][column];
                     case 4: // queen
-                        return QUEEN_TABLE[row][column];
+                        return QUEEN_TABLE[row + offset][column];
                     case 5: // king
-                        return KING_TABLE[row][column];
+                        return KING_TABLE[row + offset][column];
                 }
             }
 
             return 0;
         }
 
-        // MIDGAME
-
-        // pawns: advance, if in middle prioritise controlling the center
-        private readonly sbyte[][] PAWN_TABLE =
+        // pawns
+        private readonly int[][] PAWN_TABLE =
         {
-            new sbyte[] { 60, 60, 60,  60,  60,  60,  60, 60 },
-            new sbyte[] { 50, 50, 50,  50,  50,  50,  50, 50 },
-            new sbyte[] { 10, 10, 20,  30,  30,  20,  10, 10 },
-            new sbyte[] { 5,  5,  10,  25,  25,  10,  5,  5  },
-            new sbyte[] { 0,  0,  0,   20,  20,  0,   0,  0  },
-            new sbyte[] { 5, -5, -10,  0,   0,  -10, -5,  5  },
-            new sbyte[] { 5,  10, 10, -20, -20,  10,  10, 5  },
-            new sbyte[] { 0,  0,  0,   0,   0,   0,   0,  0  },
+            // mid
+            new int[] {  100, 140, 80,  100, 90,  130, 50,  0, },
+            new int[] {  100, 135, 60,  95,  70,  125, 35, -10, },
+            new int[] { -5,   5,   25,  30,  65,  56,  25, -20, },
+            new int[] { -15,  15,  5,   20,  25,  12,  15, -25, },
+            new int[] { -25, -2,  -5,   10,  15,  6,   10, -25, },
+            new int[] { -25, -5,  -5,  -10,  5,   5,   35, -10, },
+            new int[] { -35, -5,  -20, -25, -15,  25,  40, -20, },
+            new int[] { 0,    0,   0,   0,   0,   0,   0,   0, },
+            // end
+            new int[] { 300, 300, 300, 300, 300, 300, 300, 300, },
+            new int[] { 180, 175, 160, 135, 145, 130, 165, 185, },
+            new int[] { 95,  100, 85,  65,  55,  55,  80,  85, },
+            new int[] { 30,  25,  15,  5,   0,   5,   15,  15, },
+            new int[] { 15,  10, -5,  -5,  -5,  -10,  5,   0, },
+            new int[] { 5,   5,  -5,   0,   0,  -5,   0,  -10, },
+            new int[] { 15,  10,  10,  10,  15,  0,   0,  -5, },
+            new int[] { 0,   0,   0,   0,   0,   0,   0,   0, },
         };
 
-        // rooks: not really any good/bad places to be, but avoid harsh edges a bit unless on a corner
-        private readonly sbyte[][] ROOK_TABLE =
+        // rooks
+        private readonly int[][] ROOK_TABLE =
         {
-            new sbyte[] {  0, 0, 0, 0, 0, 0, 0, 0, },
-            new sbyte[] {  5, 5, 5, 5, 5, 5, 5, 5, },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
-            new sbyte[] { -5, 0, 0, 0, 0, 0, 0, -5 },
+            new int[] {  30,  40,  30,  50, 65,  10,  30,  45, },
+            new int[] {  25,  30,  60,  60, 80,  65,  25,  45, },
+            new int[] { -5,   20,  25,  35, 15,  45,  60,  15, },
+            new int[] { -25, -10,  5,   25, 25,  35, -10, -20, },
+            new int[] { -35, -25, -10,  0,  10, -5,   5,  -25, },
+            new int[] { -45, -25, -15, -15, 5,   0,  -5,  -35, },
+            new int[] { -45, -15, -20, -10, 0,   10, -5,  -70, },
+            new int[] { -20, -15,  0,   15, 15,  5,  -35, -25, },
+
+            new int[] {  15, 10, 20, 15,  10,  10,  10,  5, },
+            new int[] {  10, 15, 15, 10, -5,   5,   10,  5, },
+            new int[] {  5,  5,  5,  5,   5,  -5,  -5,  -5, },
+            new int[] {  5,  5, 15,  0,   0,   0,   0,   0, },
+            new int[] {  5,  5,  10, 5,  -5,  -5,  -10, -10, },
+            new int[] { -5,  0, -5,  0,  -5,  -10, -10, -15, },
+            new int[] { -5, -5,  0,  0,  -10, -10, -10, -5, },
+            new int[] { -10, 0,  5,  0,  -5,  -15,  5,  -20, },
         };
 
-        // knights: the closer to the center, the better, the closer to the corner, the worse
-        private readonly sbyte[][] KNIGHT_TABLE =
+        // knights
+        private readonly int[][] KNIGHT_TABLE =
         {
-            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
-            new sbyte[] { -40, -25, -5,   0,   0,  -5,  -25, -40 },
-            new sbyte[] { -35,  0,   5,   15,  15,  5,   0,  -35 },
-            new sbyte[] { -30,  0,   15,  30,  30,  15,  0,  -30 },
-            new sbyte[] { -30,  0,   15,  30,  30,  15,  0,  -30 },
-            new sbyte[] { -35,  0,   5,   15,  15,  5,   0,  -35 },
-            new sbyte[] { -40, -25, -5,   0,   0,  -5,  -25, -40 },
-            new sbyte[] { -50, -40, -35, -30, -30, -35, -40, -50 },
+            new int[] { -165, -90, -35, -50,  60, -95, -15, -105, },
+            new int[] { -75,  -40,  70,  35,  25,  60,  57, -15, },
+            new int[] { -45,   60,  35,  65,  85,  130, 75,  45, },
+            new int[] { -10,   15,  20,  55,  35,  70,  20,  20, },
+            new int[] { -15,   5,   15,  15,  30,  20,  20, -10, },
+            new int[] { -25,  -10,  10,  10,  20,  15,  25, -15, },
+            new int[] { -30,  -55, -10,  -5,  0,   20, -15, -20, },
+            new int[] { -105, -20, -60, -35, -15, -30, -20, -25, },
+
+            new int[] { -60, -40, -15, -30, -30, -25, -65, -100, },
+            new int[] { -25, -10, -25,  0,  -10, -25, -25, -50, },
+            new int[] { -25, -20,  10,  10,  0,  -10, -20, -40, },
+            new int[] { -15,  5,   20,  22,  20,  10,  10, -20, },
+            new int[] { -20, -5,   15,  25,  15,  15,  5,  -20, },
+            new int[] { -25, -5,   0,   15,  10, -5,  -20, -20, },
+            new int[] { -40, -20, -10, -5,   0,  -20, -25, -45, },
+            new int[] { -30, -50, -25, -15, -20, -20, -50, -65, },
         };
 
-        // bishops: avoid corners and edges, center is better for further ranks and vice versa for black
-        // discourage positions allowing opposite side to attack/develop pawns
-        private readonly sbyte[][] BISHOP_TABLE =
+        // bishops
+        private readonly int[][] BISHOP_TABLE =
         {
-            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
-            new sbyte[] { -20,  0,   0,   0,   0,   0,   0,  -20 },
-            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,  -10 },
-            new sbyte[] { -10,  0,   0,   5,   5,   0,   0,  -10 },
-            new sbyte[] { -10,  0,   5,   10,  10,  5,   0,  -10 },
-            new sbyte[] { -10,  5,   10,  10,  10,  10,  5,  -10 },
-            new sbyte[] { -20,  5,   0,   0,   0,   0,   5,  -20 },
-            new sbyte[] { -30, -20, -20, -20, -20, -20, -20, -30 },
+            new int[] { -30,  5,  -80, -35, -25, -40,   5, -10, },
+            new int[] { -25,  15, -20, -15,  30,  60,  20, -45, },
+            new int[] { -15,  35,  45,  40,  35,  50,  35,  0, },
+            new int[] { -5,   5,   20,  50,  35,  35,  5,   0, },
+            new int[] { -5,   15,  13,  25,  35,  10,  10,  5, },
+            new int[] {  0,   15,  15,  15,  15,  25,  20,  10, },
+            new int[] {  5,   15,  15,  0,   5,   20,  35,  0, },
+            new int[] { -35, -5,  -15, -20, -15, -10, -40, -20, },
+
+            new int[] { -15, -20, -10, -10, -5,  -10, -15, -25, },
+            new int[] { -10, -5,   5,  -10, -5,  -15, -5,  -15, },
+            new int[] {  0,  -10,  0,   0,   0,   5,   0,   5, },
+            new int[] { -5,   10,  10,  10,  15,  10,  5,   0, },
+            new int[] { -5,   5,   15,  20,  5,   10  -5,  -10, },
+            new int[] { -10, -5,   10,  10,  15,  5,  -5,  -15, },
+            new int[] { -15, -20, -5,   0,   5,  -10, -15, -25, },
+            new int[] { -25, -10, -25, -5,  -10, -15, -5,  -15, },
         };
 
-        // queens: avoid the opposite rank, avoid the very middle of the board, but encourage coverage
-        private readonly sbyte[][] QUEEN_TABLE =
+        // queens
+        private readonly int[][] QUEEN_TABLE =
         {
-            new sbyte[] { -15, -20, -30, -20, -40, -30, -20, -15 },
-            new sbyte[] { -20, -10, -20, -5,  -5,  -5,  -10, -20 },
-            new sbyte[] { -5,   0,   0,   5,   5,   0,   0,   0  },
-            new sbyte[] {  0,   0,   5,   5,   5,   5,   0,  -5  },
-            new sbyte[] { -5,   0,   5,   0,   0,   0,   0,   0  },
-            new sbyte[] { -5,   5,   0,   0,   5,   0,   0,  -5  },
-            new sbyte[] { -10, -5,   5,   5,   0,   0,   0,  -10 },
-            new sbyte[] { -15, -10, -10, -5,  -5,  -10, -10, -15 },
+            new int[] { -30,  0,   30,  10,  60,  45,  45,  45, },
+            new int[] { -25, -40, -5,   0,  -15,  55,  30,  55, },
+            new int[] { -15, -15,  5,   10,  30,  55,  45,  55, },
+            new int[] { -25, -25, -15, -15,  0,   15,  0,   0, },
+            new int[] { -10, -25, -10, -10,  0,  -5,   5,  -5, },
+            new int[] { -15,  0,  -10,  0,  -5,   0,   15,  5, },
+            new int[] { -35, -10,  10,  0,   10,  15, -5,   0, },
+            new int[] {  0,  -20, -10,  10, -15, -25, -30, -50, },
+
+            new int[] { -10,  20,  20,  25,  25,  20,  10,  20, },
+            new int[] { -15,  20,  30,  41,  60,  25,  30,  0, },
+            new int[] { -20,  5,   10,  50,  45,  35,  20,  10, },
+            new int[] {  5,   20,  24,  45,  55,  40,  55,  35, },
+            new int[] { -20,  30,  19,  45,  30,  35,  40,  25, },
+            new int[] { -15, -25,  15,  5,   10,  15,  10,  5, },
+            new int[] { -20, -25, -30, -15, -15, -25, -35, -30, },
+            new int[] { -35, -30, -22, -45, -5,  -30, -20, -40, },
         };
 
-        // kings: encourage castling, discourage advancing
-        private readonly sbyte[][] KING_TABLE =
+        // kings
+        private readonly int[][] KING_TABLE =
         {
-            new sbyte[] { -60, -60, -60, -60, -60, -60, -60, -60 },
-            new sbyte[] { -50, -50, -50, -50, -50, -50, -50, -50 },
-            new sbyte[] { -40, -40, -40, -40, -40, -40, -40, -40 },
-            new sbyte[] { -30, -30, -30, -30, -30, -30, -30, -30 },
-            new sbyte[] { -20, -20, -30, -40, -40, -30, -20, -20 },
-            new sbyte[] { -10, -10, -20, -20, -20, -20, -10, -10 },
-            new sbyte[] {  10,  10,  0,   0,   0,   0,   10,  10 },
-            new sbyte[] {  20,  30,  30,  0,   0,   30,  30,  20 },
+            new int[] { -65,  25,  15, -15, -55, -35,  0,   15, },
+            new int[] {  30,  0,  -20, -5,  -10, -5,  -40, -30, },
+            new int[] { -10,  25,  0,  -15, -20,  5,   20, -20, },
+            new int[] { -15, -20, -10, -25, -30, -25, -15, -35, },
+            new int[] { -50,  0,  -25, -40, -45, -45, -35, -50, },
+            new int[] { -15, -15, -20, -45, -45, -30, -15, -25, },
+            new int[] {  0,   5,  -10, -65, -45, -15,  10,  10, },
+            new int[] { -15,  35,  10, -55,  10, -30,  25,  15, },
+
+            new int[] { -75, -35, -20, -20, -10,  15,  5,  -15, },
+            new int[] { -10,  15,  15,  15,  15,  40,  25,  10, },
+            new int[] {  10,  15,  25,  15,  20,  45,  45,  15, },
+            new int[] { -10,  20,  25,  25,  25,  35,  25,  5, },
+            new int[] { -20, -5,   20,  25,  25,  25,  10, -10, },
+            new int[] { -20, -5,   10,  21,  25,  15,  5,  -10, },
+            new int[] { -25, -10,  5,   15,  15,  5,  -5,  -15, },
+            new int[] { -55, -35, -20, -10, -30, -15, -25, -45 },
         };
-
-        // ENDGAME
-
-
 
         #endregion
     }

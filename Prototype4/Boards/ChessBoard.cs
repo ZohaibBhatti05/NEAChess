@@ -14,7 +14,7 @@ namespace Prototype4.Boards
 {
     public enum WinStatus
     {
-        None, 
+        None,
         WhiteCheck,
         BlackCheck,
         WhiteMate,
@@ -74,7 +74,7 @@ namespace Prototype4.Boards
         public Piece[][] board { get; private set; }
 
         private Player whitePlayer;
-        private Player blackPlayer; 
+        private Player blackPlayer;
 
         private int fiftyMoveCounter = 0;
 
@@ -116,11 +116,11 @@ namespace Prototype4.Boards
         }
 
         // initialise players of a game
-        public void InitialisePlayers(string username, bool AI, int plyDepth) 
+        public void InitialisePlayers(string username, bool AI, int plyDepth)
         {
             this.username = username;
             whitePlayer = new Human(username);
-            
+
             if (AI)
             {
                 blackPlayer = new AI(plyDepth, PlayerColour.Black);
@@ -273,7 +273,7 @@ namespace Prototype4.Boards
                     {
                         if (stride > 0)
                         {
-                            FEN += stride.ToString(); 
+                            FEN += stride.ToString();
                         }
                         stride = 0;
                         FEN += CharFromPiece(GetPiece(i, j));
@@ -894,7 +894,7 @@ namespace Prototype4.Boards
             }
 
             // draw by threefold repetition
-            for(int i = 0; i < positionHistory.Count - 2; i++)
+            for (int i = 0; i < positionHistory.Count - 2; i++)
             {
                 int repeats = 1;
                 for (int j = i + 1; j < positionHistory.Count; j++)
@@ -940,7 +940,7 @@ namespace Prototype4.Boards
         {
             bool loop = true;
             // clear all en passantable pawns
-            for(int x = 0; x < 8; x++)
+            for (int x = 0; x < 8; x++)
             {
                 if (!loop) { break; }
                 for (int y = 0; y < 8; y++)
@@ -1015,7 +1015,7 @@ namespace Prototype4.Boards
             {
                 for (int j = 0; j < 8; j++) // foreach piece on the board
                 {
-                    if (ContainsPiece(i , j))
+                    if (ContainsPiece(i, j))
                     {
                         Piece piece = GetPiece(i, j);
                         if (piece is King && piece.colour == colour) { return new Position(i, j); }
@@ -1047,7 +1047,7 @@ namespace Prototype4.Boards
 
                 UndoMove(move); // undo the move
             }
-            
+
             return validMoves;
         }
 
