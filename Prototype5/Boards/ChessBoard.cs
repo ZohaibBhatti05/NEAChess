@@ -157,10 +157,10 @@ namespace Prototype5.Boards
         public void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             // custom fen for testing
-            //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
+            PositionFromFEN("r2q1rk1/pp3ppp/2B5/3b4/3P4/8/PP3PPP/R2Q1RK1 w - - 0 15");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -1108,7 +1108,6 @@ namespace Prototype5.Boards
                     checkCell = null;
                 }
             }
-            // test for other draw types here
         }
 
         #region board value
@@ -1184,8 +1183,8 @@ namespace Prototype5.Boards
             }
         }
 
-        private readonly int[] PIECE_MATERIAL_VALUES_MID = { 80, 480, 340, 360, 1000, 10000 };
-        private readonly int[] PIECE_MATERIAL_VALUES_END = { 100, 510, 280, 300, 930, 10000 };
+        public readonly int[] PIECE_MATERIAL_VALUES_MID = { 80, 480, 340, 360, 1000, 10000 };
+        public readonly int[] PIECE_MATERIAL_VALUES_END = { 100, 510, 280, 300, 930, 10000 };
 
         // PIECE TABLES
         // positive is good and negative is bad for either side. usually reflections
@@ -1197,6 +1196,7 @@ namespace Prototype5.Boards
             // white
             if (colour == PlayerColour.White)
             {
+                int temp = (7 - row) + offset;
                 switch (type)
                 {
                     case 0: // pawn
@@ -1274,7 +1274,7 @@ namespace Prototype5.Boards
             new int[] {  15, 10, 20, 15,  10,  10,  10,  5, },
             new int[] {  10, 15, 15, 10, -5,   5,   10,  5, },
             new int[] {  5,  5,  5,  5,   5,  -5,  -5,  -5, },
-            new int[] {  5,  5, 15,  0,   0,   0,   0,   0, },
+            new int[] {  5,  5,  15, 0,   0,   0,   0,   0, },
             new int[] {  5,  5,  10, 5,  -5,  -5,  -10, -10, },
             new int[] { -5,  0, -5,  0,  -5,  -10, -10, -15, },
             new int[] { -5, -5,  0,  0,  -10, -10, -10, -5, },
@@ -1319,7 +1319,7 @@ namespace Prototype5.Boards
             new int[] { -10, -5,   5,  -10, -5,  -15, -5,  -15, },
             new int[] {  0,  -10,  0,   0,   0,   5,   0,   5, },
             new int[] { -5,   10,  10,  10,  15,  10,  5,   0, },
-            new int[] { -5,   5,   15,  20,  5,   10  -5,  -10, },
+            new int[] { -5,   5,   15,  20,  5,   10, -5,  -10, },
             new int[] { -10, -5,   10,  10,  15,  5,  -5,  -15, },
             new int[] { -15, -20, -5,   0,   5,  -10, -15, -25, },
             new int[] { -25, -10, -25, -5,  -10, -15, -5,  -15, },

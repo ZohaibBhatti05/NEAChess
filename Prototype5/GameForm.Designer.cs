@@ -431,12 +431,14 @@ namespace Prototype5
             // radAgainstAI
             // 
             this.radAgainstAI.AutoSize = true;
+            this.radAgainstAI.Checked = true;
             this.radAgainstAI.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.radAgainstAI.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.radAgainstAI.Location = new System.Drawing.Point(9, 55);
             this.radAgainstAI.Name = "radAgainstAI";
             this.radAgainstAI.Size = new System.Drawing.Size(87, 21);
             this.radAgainstAI.TabIndex = 2;
+            this.radAgainstAI.TabStop = true;
             this.radAgainstAI.Text = "Computer";
             this.radAgainstAI.UseVisualStyleBackColor = true;
             this.radAgainstAI.CheckedChanged += new System.EventHandler(this.radAgainstAI_CheckedChanged);
@@ -444,14 +446,12 @@ namespace Prototype5
             // radAgainstHuman
             // 
             this.radAgainstHuman.AutoSize = true;
-            this.radAgainstHuman.Checked = true;
             this.radAgainstHuman.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.radAgainstHuman.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(215)))), ((int)(((byte)(215)))));
             this.radAgainstHuman.Location = new System.Drawing.Point(9, 28);
             this.radAgainstHuman.Name = "radAgainstHuman";
             this.radAgainstHuman.Size = new System.Drawing.Size(71, 21);
             this.radAgainstHuman.TabIndex = 1;
-            this.radAgainstHuman.TabStop = true;
             this.radAgainstHuman.Text = "Human";
             this.radAgainstHuman.UseVisualStyleBackColor = true;
             // 
