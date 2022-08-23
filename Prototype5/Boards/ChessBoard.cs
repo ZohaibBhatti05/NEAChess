@@ -1113,8 +1113,6 @@ namespace Prototype5.Boards
 
         #region board value
 
-        bool endGame = false;
-
         public int BoardValue(bool max, int depth)
         {
             // winstatus
@@ -1130,8 +1128,9 @@ namespace Prototype5.Boards
                     break;
             }
 
-            int value = 0;
-            int pieceCount = 0;
+            int midValue = 0;
+            int endValue = 0;
+            int phase = 0; // use an integer instead of a bool
 
             // collate pieces on the board // material block
             for (int i = 0; i < 8; i++)
@@ -1141,30 +1140,39 @@ namespace Prototype5.Boards
                     if (ContainsPiece(i, j))
                     {
                         Piece piece = GetPiece(i, j);
+                        bool white = (piece.colour == PlayerColour.White);
 
-                        value += ((piece.colour == PlayerColour.White) ? 1 : -1) * MaterialValue(piece.type);
-                        value += ((piece.colour == PlayerColour.White) ? 1 : -1) * PositionalValue(i, j, piece.colour, piece.type);
+                        midValue += (white ? 1 : -1) * MaterialValue(piece.type, false); // midgame values
+                        midValue += (white ? 1 : -1) * PositionalValue(i, j, piece.colour, piece.type, false);
+
+                        endValue += (white ? 1 : -1) * MaterialValue(piece.type, true); // endgame values
+                        endValue += (white ? 1 : -1) * PositionalValue(i, j, piece.colour, piece.type, true);
+
+                        phase += piece.weight; // increment phase for piece type, pseudo "count" of pieces on the board
+                        // pawns/king weigh 0, bishops/knights weigh 1, rooks weigh 2 and queens weigh 4. Change in piece classes if erroneous behaviour
+
                         // if white, add value, if black, subtract value
-
-                        if (!endGame && piece is not Pawn) // if still in midgame, check if in endgame
-                        {
-                            pieceCount++;
-                        }
                     }
                 }
             }
 
-            if (!endGame && pieceCount < 8) // if moved to endgame, change bool
+            // tapered evaluation // use 24 as its the default weight of the board (100% mid weight at first)
+            int midWeight = phase;
+            if (midWeight > 24)
             {
-                endGame = true;
+                midWeight = 24; // avoid errors in promotion overflow
             }
+            int endWeight = 24 - midWeight;
 
-            return value + (max ? -depth : depth); // add very slight penalty for later moves
+            int value = (midValue * midWeight) + (endValue * endWeight);
+            value /= 24; // take weighted average
+
+            return value + (max ? -depth : depth); // slight penalty per depth
         }
 
         // MATERIAL
 
-        private int MaterialValue(int type)
+        private int MaterialValue(int type, bool endGame)
         {
             if (endGame)
             {
@@ -1183,7 +1191,7 @@ namespace Prototype5.Boards
         // positive is good and negative is bad for either side. usually reflections
 
         // function returns position value of a given piece
-        private int PositionalValue(int column, int row, PlayerColour colour, int type)
+        private int PositionalValue(int column, int row, PlayerColour colour, int type, bool endGame)
         {
             int offset = (endGame ? 8 : 0);
             // white

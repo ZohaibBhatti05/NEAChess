@@ -15,6 +15,7 @@ namespace Prototype5.Pieces
             base.type = 1;
             base.value = 5;
             base.canCastle = false;
+            base.weight = 2;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)

@@ -15,6 +15,8 @@ namespace Prototype5.Pieces
         public int value { get; protected set; }
         public bool canCastle { get; protected set; }
 
+        public int weight { get; protected set; }
+
         // encapsulation method
         public void SetCastle(bool value)
         {
