@@ -28,7 +28,7 @@ namespace Prototype5.Boards
         private PlayerColour colour;
         private Move bestMove;
 
-        bool useTransposition = true;
+        bool useTransposition = false;
         private Zobrist hasher;
         private TranspositionTable transpositionTable;
 
@@ -70,7 +70,7 @@ namespace Prototype5.Boards
         // method run by board when computer needs to make a move
         public Move MakeMove(ChessBoard board)
         {
-            nodes = 0; qNodes = 0; ttReads = 0; ttWrites = 0;
+            nodes = 0; qNodes = 0; ttReads = 0; ttWrites = 0; ttReadSuccess = 0;
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -172,10 +172,10 @@ namespace Prototype5.Boards
                     Transposition transposition = transpositionTable.GetTransposition(hash);
                     if (transposition.depth >= currentDepth) // only read if higher/equal depth
                     {
+                        ttReadSuccess++;
                         switch (transposition.type)
                         {
                             case TranspositionType.Exact:
-                                ttReadSuccess++;
                                 return transposition.value;
                             case TranspositionType.Beta:
                                 alpha = Math.Max(alpha, transposition.value);
@@ -183,12 +183,10 @@ namespace Prototype5.Boards
                             case TranspositionType.Alpha:
                                 beta = Math.Min(beta, transposition.value);
                                 break;
-
                         }
 
                         if (alpha >= beta)
                         {
-                            ttReadSuccess++;
                             return transposition.value;
                         }
                     }
@@ -319,7 +317,7 @@ namespace Prototype5.Boards
             }
         }
 
-        private const int QUIESCENCE_MAX_DEPTH = 5;
+        private const int QUIESCENCE_MAX_DEPTH = 3;
 
         // quiescence search
         private int Quiescence(ChessBoard board, bool max, int qDepth, int alpha, int beta)
