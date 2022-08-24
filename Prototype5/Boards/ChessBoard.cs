@@ -83,7 +83,6 @@ namespace Prototype5.Boards
         public Stopwatch whiteTimer { get; private set; }
         public Stopwatch blackTimer { get; private set; }
 
-
         // initialise new instance of board
         public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback)
         {
@@ -157,10 +156,10 @@ namespace Prototype5.Boards
         public void StandardPositions()
         {
             // fen for standard position
-            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             // custom fen for testing
-            PositionFromFEN("r2q1rk1/pp3ppp/2B5/3b4/3P4/8/PP3PPP/R2Q1RK1 w - - 0 15");
+            //PositionFromFEN("5rk1/6pp/8/3Ppq1n/2B3P1/7P/P2N1P1K/5RN1 w - - 0 1");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -666,6 +665,7 @@ namespace Prototype5.Boards
         // function does logistics after a move is made
         private void AfterMove(Move move)
         {
+
             // switch turns
             currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
 
@@ -1243,11 +1243,11 @@ namespace Prototype5.Boards
             new int[] {  100, 140, 80,  100, 90,  130, 50,  0, },
             new int[] {  100, 135, 60,  95,  70,  125, 35, -10, },
             new int[] { -5,   5,   25,  30,  65,  56,  25, -20, },
-            new int[] { -15,  15,  5,   20,  25,  12,  15, -25, },
-            new int[] { -25, -2,  -5,   10,  15,  6,   10, -25, },
-            new int[] { -25, -5,  -5,  -10,  5,   5,   35, -10, },
-            new int[] { -35, -5,  -20, -25, -15,  25,  40, -20, },
-            new int[] { 0,    0,   0,   0,   0,   0,   0,   0, },
+            new int[] { -45,  15,  5,   20,  25,  12,  15, -25, },
+            new int[] { -55, -2,  -5,   10,  15,  6,   10, -25, },
+            new int[] { -55, -5,  -5,  -10,  5,   5,   35, -10, },
+            new int[] { -5,  -5,  -20, -25, -15,  25,  40, -20, },
+            new int[] {  0,   0,   0,   0,   0,   0,   0,   0, },
             // end
             new int[] { 300, 300, 300, 300, 300, 300, 300, 300, },
             new int[] { 180, 175, 160, 135, 145, 130, 165, 185, },
