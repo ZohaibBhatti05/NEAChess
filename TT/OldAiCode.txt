@@ -1,4 +1,4 @@
-﻿using Prototype5.Boards;
+using Prototype5.Boards;
 using Prototype5.Pieces;
 using System;
 using System.Collections.Generic;
@@ -84,7 +84,7 @@ namespace Prototype5.Boards
             stopwatch.Start();
             // debug
 
-            initialMoves = board.AllPossibleMoves(colour);
+            initialMoves = null;
             bestMove = null;
 
             // Search opening table
@@ -240,16 +240,15 @@ namespace Prototype5.Boards
             }
 
             // get all possible moves
-            List<Move> possibleMoves;
-            if (currentDepth == plyDepth) // shallowest node
-            {
-                possibleMoves = initialMoves;
-            }
-            else // need to generate moves
+            List<Move> possibleMoves = null;
+            if (currentDepth < plyDepth || initialMoves == null) // if need to generate moves
             {
                 possibleMoves = board.AllPossibleMoves(((max) ? PlayerColour.White : PlayerColour.Black));
             }
-            //
+            if (currentDepth == plyDepth) // store possible moves from shallowest depth
+            {
+                initialMoves = possibleMoves;
+            }
 
             if (possibleMoves.Count == 0) // early termination node
             {
@@ -263,7 +262,7 @@ namespace Prototype5.Boards
 
             value = int.MinValue;
             Move bestMoveNode = null;
-            foreach (Move move in possibleMoves)
+            foreach(Move move in possibleMoves)
             {
                 nodes++;
                 board.MakeMove(move);
