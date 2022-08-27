@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prototype4", "Prototype4\Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prototype5", "Prototype5\Prototype5.csproj", "{8702FCCB-EA0F-4D5B-84AF-A5FE00CEE421}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpeningFormatter", "OpeningFormatter\OpeningFormatter.csproj", "{360626E9-BD68-4D25-AEF9-28706EE4985E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{8702FCCB-EA0F-4D5B-84AF-A5FE00CEE421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8702FCCB-EA0F-4D5B-84AF-A5FE00CEE421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8702FCCB-EA0F-4D5B-84AF-A5FE00CEE421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{360626E9-BD68-4D25-AEF9-28706EE4985E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{360626E9-BD68-4D25-AEF9-28706EE4985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{360626E9-BD68-4D25-AEF9-28706EE4985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{360626E9-BD68-4D25-AEF9-28706EE4985E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

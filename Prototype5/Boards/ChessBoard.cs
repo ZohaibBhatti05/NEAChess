@@ -156,10 +156,10 @@ namespace Prototype5.Boards
         public void StandardPositions()
         {
             // fen for standard position
-            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             // custom fen for testing
-            PositionFromFEN("r2q1rk1/p5pp/1p1bp3/3bBp2/3P4/3Q4/PP2BPPP/R4RK1 w - - 2 17");
+            //PositionFromFEN("r2q1rk1/p5pp/1p1bp3/3bBp2/3P4/3Q4/PP2BPPP/R4RK1 w - - 2 17");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }

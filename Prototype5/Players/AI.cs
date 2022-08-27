@@ -39,12 +39,15 @@ namespace Prototype5.Boards
 
         private int QUIESCENCE_MAX_DEPTH = 4;
 
+        private Move[] pvsMoves;
+
         public AI(int plyDepth, PlayerColour colour) : base()
         {
             QUIESCENCE_MAX_DEPTH = 7 - plyDepth;
 
             this.maxPlyDepth = plyDepth;
             this.colour = colour;
+            pvsMoves = new Move[maxPlyDepth];
 
             killerMoves = new Move[plyDepth][];
             for (int i = 0; i < plyDepth; i++)
@@ -107,7 +110,6 @@ namespace Prototype5.Boards
                 AlphaBeta(board, plyDepth, (colour == PlayerColour.White), int.MinValue + 1, int.MaxValue, 0);
 
                 Console.WriteLine($"Ply {plyDepth} + {QUIESCENCE_MAX_DEPTH} :: {nodes} nodes :: {qNodes} Q-Nodes in {stopwatch.Elapsed.ToString()} seconds");
-                Console.WriteLine($"{ttReadSuccess} Successful out of {ttReads} TT-Reads :: {ttWrites} TT-Writes\n"); // debug
 
                 // iterative deepening
                 initialMoves.Remove(bestMove); // place best move from previous search at front of list
@@ -115,6 +117,8 @@ namespace Prototype5.Boards
 
                 plyDepth++;
             }
+
+            Console.WriteLine($"{ttReadSuccess} Successful out of {ttReads} TT-Reads :: {ttWrites} TT-Writes\n"); // debug
 
             if (bestMove == null) // handle error in search
             {
@@ -301,6 +305,9 @@ namespace Prototype5.Boards
                 }
             }
 
+            // add pvs move :: -1 for array index
+            pvsMoves[currentDepth - 1] = bestMoveNode;
+
             // write to tt
             if (useTransposition)
             {
@@ -352,7 +359,7 @@ namespace Prototype5.Boards
             }
 
             // sort list by value of taken piece - value of taking piece
-            //possibleMoves = possibleMoves.OrderByDescending(move => ((move.takenPiece is null ? -100 : move.takenPiece.value) - move.movingPiece.value)).ToList();
+            possibleMoves = possibleMoves.OrderByDescending(move => ((move.takenPiece is null ? -100 : move.takenPiece.value) - move.movingPiece.value)).ToList();
 
             foreach (Move move in possibleMoves)
             {
@@ -400,8 +407,10 @@ namespace Prototype5.Boards
         // orders the move list before recursion starts
         private void OrderMoves(List<Move> moves, int depth)
         {
-            // killer heuristic
+            // order moves by value of taking pieces
+            //moves = moves.OrderBy(move => ((move.takenPiece is null ? move.movingPiece.value : move.takenPiece.value) - move.movingPiece.value)).ToList();
 
+            // killer heuristic
             int foundKiller = 0;
             // sort killer moves to be evaluated first
             for (int i = 0; i < moves.Count - 1; i++)
@@ -429,7 +438,7 @@ namespace Prototype5.Boards
 
     public class TranspositionTable
     {
-        private int tableSize = 2 << 20;
+        private int tableSize = 1 << 20;
         public Transposition[] table { get; private set; }
 
         public TranspositionTable()
@@ -595,8 +604,14 @@ namespace Prototype5.Boards
 
                 hash ^= hashTable[(12 * (4 + (6 * ((max) ? 0 : 1)))) + posT]; // add queen to
             }
+            // regular non-taking move
+            else if (move.takenPiece is null)
+            {
+                hash ^= hashTable[(12 * valM) + posF]; // remove old pos
+                hash ^= hashTable[(12 * valM) + posT]; // add new pos to
+            }
             // regular taking move
-            else if (move.takenPiece is not null)
+            else
             {
                 int valT = move.takenPiece.type + (6 * ((!max) ? 0 : 1)); // get taken piece
 
@@ -604,16 +619,12 @@ namespace Prototype5.Boards
                 hash ^= hashTable[(12 * valT) + posT]; // remove taken piece
                 hash ^= hashTable[(12 * valM) + posT]; // add new piece to
             }
-            // regular non-taking move
-            else
-            {
-                hash ^= hashTable[(12 * valM) + posF]; // remove old pos
-                hash ^= hashTable[(12 * valM) + posT]; // add new pos to
-            }
 
             return hash;
         }
     }
+
+
 
     #endregion
 }
