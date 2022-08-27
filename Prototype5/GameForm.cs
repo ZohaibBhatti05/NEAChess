@@ -56,20 +56,18 @@ namespace Prototype5
             // intialise board players
             if (radAgainstAI.Checked) // ai game
             {
-                chessBoard.InitialisePlayers(username, true, trackPlyDepth.Value);
-                pnlWhiteTime.Hide();
-                pnlBlackTime.Hide(); // hide and disable timers
+                chessBoard.InitialisePlayers(username, true, trackPlyDepth.Value, checkUseTT.Checked);
+                timerUpdateTime.Start();
             }
             else // human game
             {
-                chessBoard.InitialisePlayers(username, false, 0);
+                chessBoard.InitialisePlayers(username, false, 0, false);
 
                 // time settings
                 if (radCustomTime.Checked) // custom
                 {
                     totalTime = new TimeSpan(0, int.Parse(textMinutes.Text), int.Parse(textSeconds.Text));
                     increment = new TimeSpan(0, 0, int.Parse(textIncrement.Text));
-                    timerUpdateTime.Start();
                 }
                 else if (radPresetTime.Checked) // preset
                 {
@@ -108,13 +106,8 @@ namespace Prototype5
                             increment = new TimeSpan(0, 0, 1);
                             break;
                     }
-                    timerUpdateTime.Start();
                 }
-                else // infinite time
-                {
-                    pnlWhiteTime.Hide();
-                    pnlBlackTime.Hide(); // hide and disable timers
-                }
+                timerUpdateTime.Start();
             }
 
             // position
@@ -165,24 +158,33 @@ namespace Prototype5
         // take timers from board, display times
         private void timerUpdateTime_Tick(object sender, EventArgs e)
         {
-            TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed + (((chessBoard.moveNameHistory.Count + 1) / 2) * increment);
-            TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed + ((chessBoard.moveNameHistory.Count / 2) * increment);
-
-            if (whiteTimeLeft < TimeSpan.Zero)
+            if (radNoTimers.Checked) // permanent display if disabled
             {
-                whiteTimeLeft = TimeSpan.Zero;
-                chessBoard.Timeout();
-                timerUpdateTime.Stop();
+                lblWhiteTime.Text = "-- : -- : --";
+                lblBlackTime.Text = "-- : -- : --";
+                timerUpdateTime.Stop(); // disable tick timer, no need to keep updating
             }
-            else if (blackTimeLeft < TimeSpan.Zero)
+            else
             {
-                blackTimeLeft = TimeSpan.Zero;
-                chessBoard.Timeout();
-                timerUpdateTime.Stop();
-            }
+                TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed + (((chessBoard.moveNameHistory.Count + 1) / 2) * increment);
+                TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed + ((chessBoard.moveNameHistory.Count / 2) * increment);
 
-            lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");
-            lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
+                if (whiteTimeLeft < TimeSpan.Zero)
+                {
+                    whiteTimeLeft = TimeSpan.Zero;
+                    chessBoard.Timeout();
+                    timerUpdateTime.Stop();
+                }
+                else if (blackTimeLeft < TimeSpan.Zero)
+                {
+                    blackTimeLeft = TimeSpan.Zero;
+                    chessBoard.Timeout();
+                    timerUpdateTime.Stop();
+                }
+
+                lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");
+                lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
+            }
         }
 
 
@@ -312,8 +314,8 @@ namespace Prototype5
             DrawBoard(false);
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

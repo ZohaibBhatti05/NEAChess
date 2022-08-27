@@ -18,6 +18,11 @@ namespace Prototype5
     {
         private readonly string RESOURCE_PATH = System.AppDomain.CurrentDomain.BaseDirectory; // get where app is RUNNING
         private Dictionary<int, Image> pieceImages = new Dictionary<int, Image>(); // dictionary of images
+        private readonly Dictionary<char, char> unicodePieces = new Dictionary<char, char>()
+        {
+            {'P', '♙' }, {'R', '♖' }, {'N', '♘' }, {'B', '♗' }, {'Q', '♕' }, {'K', '♔' },
+            {'p', /*'♟'*/ '♙' }, {'r', '♜' }, {'n', '♞' }, {'b', '♝' }, {'q', '♛' }, {'k', '♚' },
+        };
 
         #region DefaultColours
         readonly Color DEFAULT_CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
@@ -179,11 +184,36 @@ namespace Prototype5
             }
 
             UpdateMoveHistory();
+            UpdatePieceDisplay();
 
             if (updatePost)
             {
                 chessBoard.PostBoardRedraw();
             }
+        }
+
+        // prints the taken pieces to labels on the form
+        private void UpdatePieceDisplay()
+        {
+            List<char> taken = chessBoard.takenPieces;
+
+            lblWhiteTaken.Text = string.Empty;
+            lblBlackTaken.Text = string.Empty;
+
+            foreach(char p in taken)
+            {
+                if (char.IsUpper(p)) // white piece
+                {
+                    lblWhiteTaken.Text += unicodePieces[p]; 
+                }
+                else // black piece
+                {
+                    lblBlackTaken.Text += unicodePieces[p];
+                }
+            }
+
+            lblBlackTaken.Update();
+            lblWhiteTaken.Update();
         }
 
         // prints the move history to a rich text box on the game form :: format better later

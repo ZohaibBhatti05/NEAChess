@@ -15,6 +15,7 @@ namespace Prototype5
         public Position positionFrom { get; private set; }
         public Position positionTo { get; private set; }
 
+        public int captureValue { get; private set; }
 
         // initialise a standard non-taking move
         public Move(Position from, Position to, Piece moving)
@@ -23,6 +24,7 @@ namespace Prototype5
             takenPiece = null;
             positionFrom = from;
             positionTo = to;
+            captureValue = 0;
         }
 
         // initialise a standard taking move
@@ -32,6 +34,14 @@ namespace Prototype5
             takenPiece = taken;
             positionFrom = from;
             positionTo = to;
+            if (taken == null)
+            {
+                captureValue = 0;
+            }
+            else
+            {
+                captureValue = taken.value - moving.value;
+            }
         }
 
         // function returns the PGN notation for a move. Should be overwritten on promotion

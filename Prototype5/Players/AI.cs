@@ -13,10 +13,10 @@ namespace Prototype5.Boards
     class AI : Player
     {
         private string[][] openingMoves = new string[261487][]; // table contains 261487 opening lines
-        private bool useOpening = false; // disable after move 16 or if no longer found
+        private bool useOpening = true; // disable after move 16 or if no longer found
 
         private Move[][] killerMoves;
-        private const int KILLER_MOVE_COUNT = 2;
+        private const int KILLER_MOVE_COUNT = 3;
 
         private int nodes;
         private int qNodes;
@@ -39,18 +39,14 @@ namespace Prototype5.Boards
 
         private int QUIESCENCE_MAX_DEPTH = 4;
 
-        private Move[] pvsMoves;
-
-        public AI(int plyDepth, PlayerColour colour) : base()
+        public AI(int plyDepth, PlayerColour colour, bool tt) : base()
         {
-            QUIESCENCE_MAX_DEPTH = 7 - plyDepth;
-
+            this.useTransposition = tt;
             this.maxPlyDepth = plyDepth;
             this.colour = colour;
-            pvsMoves = new Move[maxPlyDepth];
 
-            killerMoves = new Move[plyDepth][];
-            for (int i = 0; i < plyDepth; i++)
+            killerMoves = new Move[maxPlyDepth][];
+            for (int i = 0; i < maxPlyDepth; i++)
             {
                 killerMoves[i] = new Move[KILLER_MOVE_COUNT];
             }
@@ -102,10 +98,10 @@ namespace Prototype5.Boards
                 }
             }
 
+            // iterative deepening
             plyDepth = 1;
             while (stopwatch.Elapsed < MAX_ITERATIVE_TIME && plyDepth <= maxPlyDepth)
             {
-
                 // intital Minimax call
                 AlphaBeta(board, plyDepth, (colour == PlayerColour.White), int.MinValue + 1, int.MaxValue, 0);
 
@@ -305,9 +301,6 @@ namespace Prototype5.Boards
                 }
             }
 
-            // add pvs move :: -1 for array index
-            pvsMoves[currentDepth - 1] = bestMoveNode;
-
             // write to tt
             if (useTransposition)
             {
@@ -359,7 +352,7 @@ namespace Prototype5.Boards
             }
 
             // sort list by value of taken piece - value of taking piece
-            possibleMoves = possibleMoves.OrderByDescending(move => ((move.takenPiece is null ? -100 : move.takenPiece.value) - move.movingPiece.value)).ToList();
+            possibleMoves = possibleMoves.OrderByDescending(move => move.captureValue).ToList();
 
             foreach (Move move in possibleMoves)
             {
@@ -408,7 +401,7 @@ namespace Prototype5.Boards
         private void OrderMoves(List<Move> moves, int depth)
         {
             // order moves by value of taking pieces
-            //moves = moves.OrderBy(move => ((move.takenPiece is null ? move.movingPiece.value : move.takenPiece.value) - move.movingPiece.value)).ToList();
+            //moves = moves.OrderByDescending(move => move.captureValue).ToList();
 
             // killer heuristic
             int foundKiller = 0;
@@ -426,6 +419,7 @@ namespace Prototype5.Boards
                     }
                 }
             }
+
         }
     }
 
@@ -470,12 +464,12 @@ namespace Prototype5.Boards
             {
                 if (depth < old.depth) // if better than old evaluation or empty, replace
                 {
-                    table[hash % tableSize] = new Transposition(hash, move, value, depth);
+                    table[hash % tableSize] = new Transposition(hash, move, value, depth, type);
                 }
             }
             else
             {
-                table[hash % tableSize] = new Transposition(hash, move, value, depth);
+                table[hash % tableSize] = new Transposition(hash, move, value, depth, type);
             }
         }
 
@@ -501,14 +495,6 @@ namespace Prototype5.Boards
             this.value = value;
             this.depth = depth;
             this.type = type;
-        }
-
-        public Transposition(long hash, Move move, int value, int depth)
-        {
-            this.hash = hash;
-            this.move = move;
-            this.value = value;
-            this.depth = depth;
         }
     }
 

@@ -15,10 +15,9 @@ namespace GUIProto1
             { 1, Color.Red }
         };
 
-        private Board board;
+        private Board board = new Board();
 
-        private Player whitePlayer;
-        private Player blackPlayer;
+        private Player whitePlayer = new Human();
 
         private readonly string imagePath = System.IO.Directory.GetCurrentDirectory() + "\\Assets\\Pieces\\";
         private readonly string imageType = "Standard";

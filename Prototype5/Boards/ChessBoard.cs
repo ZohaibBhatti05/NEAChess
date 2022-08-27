@@ -71,6 +71,8 @@ namespace Prototype5.Boards
         private Stack<bool> castleChangeHistory;
         private List<string> positionHistory;
 
+        public List<char> takenPieces { get; private set; }
+
         public Piece[][] board { get; private set; }
 
         private Player whitePlayer;
@@ -110,19 +112,21 @@ namespace Prototype5.Boards
             positionHistory = new List<string>();
             winStatus = WinStatus.None;
 
+            takenPieces = new List<char>();
+
             // initialise timers
             InitialiseTimers();
         }
 
         // initialise players of a game
-        public void InitialisePlayers(string username, bool AI, int plyDepth)
+        public void InitialisePlayers(string username, bool AI, int plyDepth, bool transposition)
         {
             this.username = username;
             whitePlayer = new Human(username);
 
             if (AI)
             {
-                blackPlayer = new AI(plyDepth, PlayerColour.Black);
+                blackPlayer = new AI(plyDepth, PlayerColour.Black, transposition);
             }
             else
             {
@@ -383,7 +387,6 @@ namespace Prototype5.Boards
             return new Position((int)pos[0] - 97, int.Parse(pos[1].ToString()));
         }
 
-
         // takes a character, returns a piece
         private Piece NewPieceFromCharType(char type, PlayerColour colour)
         {
@@ -628,6 +631,12 @@ namespace Prototype5.Boards
                     GetPiece(move.positionFrom).SetCastle(castleChangeHistory.Pop());
                 }
 
+                // Remove taken pieces for board display
+                if (move.takenPiece != null)
+                {
+                    takenPieces.Remove(CharFromPiece(move.takenPiece));
+                }
+
                 graphicsCallBack.Invoke(false); // redraw board
             }
         }
@@ -726,6 +735,12 @@ namespace Prototype5.Boards
                     moveNameHistory.Add(name); break;
             }
             SwapTimers();
+
+            // add to taken pieces for board display
+            if (move.takenPiece != null)
+            {
+                takenPieces.Add(CharFromPiece(move.takenPiece));
+            }
 
             graphicsCallBack.Invoke(true);
         }

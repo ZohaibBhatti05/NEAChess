@@ -12,7 +12,7 @@ namespace Prototype5.Pieces
         public Bishop(PlayerColour colour) : base(colour)
         {
             base.type = 3;
-            base.value = 3;
+            base.value = 4;
             base.weight = 1;
         }
 
