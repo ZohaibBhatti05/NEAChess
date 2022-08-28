@@ -1,5 +1,5 @@
-﻿using Prototype5.Boards;
-using Prototype5.Pieces;
+﻿using Prototype6.Boards;
+using Prototype6.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Prototype5.Boards
+namespace Prototype6.Boards
 {
     class AI : Player
     {
@@ -39,8 +39,9 @@ namespace Prototype5.Boards
 
         private int QUIESCENCE_MAX_DEPTH = 2;
 
-        public AI(int plyDepth, PlayerColour colour, bool tt) : base()
+        public AI(int plyDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
+            this.useOpening = opTable;
             this.useTransposition = tt;
             this.maxPlyDepth = plyDepth;
             this.colour = colour;

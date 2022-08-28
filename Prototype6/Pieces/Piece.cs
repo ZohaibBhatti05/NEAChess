@@ -1,11 +1,11 @@
-﻿using Prototype4.Boards;
+﻿using Prototype6.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype4.Pieces
+namespace Prototype6.Pieces
 {
     public class Piece
     {
@@ -137,6 +137,11 @@ namespace Prototype4.Pieces
                     validMoves.Add(new Move(position, positionTo, this, board.GetPiece(positionTo)));
                 }
                 if (!proceed) { break; }
+            }
+
+            if (board is Antichess)
+            {
+                return validMoves;
             }
             return board.CullCheckMoves(validMoves, this.colour);
         }

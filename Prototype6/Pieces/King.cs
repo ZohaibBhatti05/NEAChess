@@ -1,11 +1,11 @@
-﻿using Prototype4.Boards;
+﻿using Prototype6.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype4.Pieces
+namespace Prototype6.Pieces
 {
     class King : Piece
     {
@@ -26,7 +26,6 @@ namespace Prototype4.Pieces
             base.type = 5;
             base.value = 100;
             base.canCastle = false;
-            base.weight = 0;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)
@@ -97,6 +96,8 @@ namespace Prototype4.Pieces
 
         public bool IsInCheck(ChessBoard board, Position position)
         {
+            if (board is Antichess) { return false; }
+
             int x = position.column; int y = position.row;
 
             #region ROOK / QUEEN

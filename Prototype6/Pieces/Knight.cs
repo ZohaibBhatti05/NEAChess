@@ -1,11 +1,11 @@
-﻿using Prototype4.Boards;
+﻿using Prototype6.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype4.Pieces
+namespace Prototype6.Pieces
 {
     class Knight : Piece
     {
@@ -19,7 +19,7 @@ namespace Prototype4.Pieces
         {
             base.type = 2;
             base.value = 3;
-            base.weight = 2;
+            base.weight = 1;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)

@@ -1,5 +1,5 @@
 ﻿
-namespace Prototype5
+namespace Prototype6
 {
     partial class GameForm
     {
@@ -49,6 +49,7 @@ namespace Prototype5
             this.cmbTimeSettings = new System.Windows.Forms.ComboBox();
             this.lblTimeControl = new System.Windows.Forms.Label();
             this.pnlVariants = new System.Windows.Forms.Panel();
+            this.cmbVariant = new System.Windows.Forms.ComboBox();
             this.lblVariant = new System.Windows.Forms.Label();
             this.pnlPlayerOptions = new System.Windows.Forms.Panel();
             this.pnlAISettings = new System.Windows.Forms.Panel();
@@ -88,7 +89,6 @@ namespace Prototype5
             this.colourMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.menuResetColour = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.cmbVariant = new System.Windows.Forms.ComboBox();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -142,7 +142,7 @@ namespace Prototype5
             this.pnlPreGame.Controls.Add(this.pnlVariants);
             this.pnlPreGame.Controls.Add(this.pnlPlayerOptions);
             this.pnlPreGame.Controls.Add(this.btnStartGame);
-            this.pnlPreGame.Location = new System.Drawing.Point(919, 56);
+            this.pnlPreGame.Location = new System.Drawing.Point(613, 56);
             this.pnlPreGame.Name = "pnlPreGame";
             this.pnlPreGame.Size = new System.Drawing.Size(300, 725);
             this.pnlPreGame.TabIndex = 5;
@@ -362,6 +362,24 @@ namespace Prototype5
             this.pnlVariants.Size = new System.Drawing.Size(294, 82);
             this.pnlVariants.TabIndex = 3;
             // 
+            // cmbVariant
+            // 
+            this.cmbVariant.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.cmbVariant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVariant.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbVariant.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.cmbVariant.ForeColor = System.Drawing.Color.White;
+            this.cmbVariant.FormattingEnabled = true;
+            this.cmbVariant.Items.AddRange(new object[] {
+            "Standard",
+            "Chess960",
+            "Antichess",
+            "Three-Check"});
+            this.cmbVariant.Location = new System.Drawing.Point(7, 34);
+            this.cmbVariant.Name = "cmbVariant";
+            this.cmbVariant.Size = new System.Drawing.Size(136, 25);
+            this.cmbVariant.TabIndex = 8;
+            // 
             // lblVariant
             // 
             this.lblVariant.AutoSize = true;
@@ -557,7 +575,7 @@ namespace Prototype5
             // btnResign
             // 
             this.btnResign.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.btnResign.BackgroundImage = global::Prototype5.Properties.Resources.Flag;
+            this.btnResign.BackgroundImage = global::Prototype6.Properties.Resources.Flag;
             this.btnResign.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnResign.FlatAppearance.BorderSize = 0;
             this.btnResign.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
@@ -573,7 +591,7 @@ namespace Prototype5
             // btnUndo
             // 
             this.btnUndo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.btnUndo.BackgroundImage = global::Prototype5.Properties.Resources.Undo;
+            this.btnUndo.BackgroundImage = global::Prototype6.Properties.Resources.Undo;
             this.btnUndo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnUndo.FlatAppearance.BorderSize = 0;
             this.btnUndo.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
@@ -621,7 +639,7 @@ namespace Prototype5
             // 
             // picBlackTime
             // 
-            this.picBlackTime.Image = global::Prototype5.Properties.Resources.Timer;
+            this.picBlackTime.Image = global::Prototype6.Properties.Resources.Timer;
             this.picBlackTime.Location = new System.Drawing.Point(3, 3);
             this.picBlackTime.Name = "picBlackTime";
             this.picBlackTime.Size = new System.Drawing.Size(47, 47);
@@ -675,7 +693,7 @@ namespace Prototype5
             // 
             // picWhiteTime
             // 
-            this.picWhiteTime.Image = global::Prototype5.Properties.Resources.Timer;
+            this.picWhiteTime.Image = global::Prototype6.Properties.Resources.Timer;
             this.picWhiteTime.Location = new System.Drawing.Point(3, 3);
             this.picWhiteTime.Name = "picWhiteTime";
             this.picWhiteTime.Size = new System.Drawing.Size(47, 47);
@@ -783,24 +801,6 @@ namespace Prototype5
             // colorDialog
             // 
             this.colorDialog.FullOpen = true;
-            // 
-            // cmbVariant
-            // 
-            this.cmbVariant.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.cmbVariant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbVariant.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cmbVariant.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.cmbVariant.ForeColor = System.Drawing.Color.White;
-            this.cmbVariant.FormattingEnabled = true;
-            this.cmbVariant.Items.AddRange(new object[] {
-            "Standard",
-            "Chess960",
-            "Antichess",
-            "Three-Check"});
-            this.cmbVariant.Location = new System.Drawing.Point(7, 34);
-            this.cmbVariant.Name = "cmbVariant";
-            this.cmbVariant.Size = new System.Drawing.Size(136, 25);
-            this.cmbVariant.TabIndex = 8;
             // 
             // GameForm
             // 

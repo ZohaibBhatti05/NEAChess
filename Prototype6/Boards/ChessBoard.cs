@@ -1,5 +1,5 @@
-﻿using Prototype4.Database;
-using Prototype4.Pieces;
+﻿using Prototype6.Database;
+using Prototype6.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Prototype4.Boards
+namespace Prototype6.Boards
 {
     public enum WinStatus
     {
@@ -28,6 +28,8 @@ namespace Prototype4.Boards
         BlackResign,
         WhiteTimeout,
         BlackTimeout,
+        WhiteWin,
+        BlackWin,
     }
 
     public enum PlayerColour
@@ -59,10 +61,12 @@ namespace Prototype4.Boards
 
         public PlayerColour currentTurn { get; private set; }
 
-        public Position selectedCell { get; private set; }
-        public Position checkCell { get; private set; }
+        public Position selectedCell { get; protected set; }
+        public Position checkCell { get; protected set; }
 
-        public List<Move> selectedMoves { get; private set; }
+        public List<Move> selectedMoves { get; protected set; }
+
+        protected List<Move> allPossibleMoves;
 
         public Stack<Move> moveHistory { get; private set; }
         public List<string> moveNameHistory { get; private set; }
@@ -71,6 +75,8 @@ namespace Prototype4.Boards
         private Stack<bool> castleChangeHistory;
         private List<string> positionHistory;
 
+        public List<char> takenPieces { get; private set; }
+
         public Piece[][] board { get; private set; }
 
         private Player whitePlayer;
@@ -78,11 +84,10 @@ namespace Prototype4.Boards
 
         private int fiftyMoveCounter = 0;
 
-        public WinStatus winStatus { get; private set; }
+        public WinStatus winStatus { get; protected set; }
 
         public Stopwatch whiteTimer { get; private set; }
         public Stopwatch blackTimer { get; private set; }
-
 
         // initialise new instance of board
         public ChessBoard(UpdateBoardGraphicsCallBack updateGraphicsCallback)
@@ -111,19 +116,21 @@ namespace Prototype4.Boards
             positionHistory = new List<string>();
             winStatus = WinStatus.None;
 
+            takenPieces = new List<char>();
+
             // initialise timers
             InitialiseTimers();
         }
 
         // initialise players of a game
-        public void InitialisePlayers(string username, bool AI, int plyDepth)
+        public void InitialisePlayers(string username, bool AI, int plyDepth, bool transposition, bool opening)
         {
             this.username = username;
             whitePlayer = new Human(username);
 
             if (AI)
             {
-                blackPlayer = new AI(plyDepth, PlayerColour.Black);
+                blackPlayer = new AI(plyDepth, PlayerColour.Black, transposition, opening);
             }
             else
             {
@@ -154,13 +161,13 @@ namespace Prototype4.Boards
         }
 
         // function loads standard positions :: override if child classes are implemented
-        public void StandardPositions()
+        public virtual void StandardPositions()
         {
             // fen for standard position
             PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 
             // custom fen for testing
-            //PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
+            //PositionFromFEN("8/3K4/8/8/8/5p2/1Q6/8 w - - 0 1");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -171,7 +178,7 @@ namespace Prototype4.Boards
         }
 
         // places pieces from a FEN string
-        private void PositionFromFEN(string FEN)
+        protected void PositionFromFEN(string FEN)
         {
             // split relevant parts of string into seperate sections
             string[] partFEN = FEN.Split(' ');
@@ -309,42 +316,45 @@ namespace Prototype4.Boards
             // castling rights
             bool castlingRightsAvailable = false;
 
-            if (GetPiece(GetKingPosition(PlayerColour.White)).canCastle) // if white king can castle
+            if (this is not Antichess)
             {
-                if (ContainsPiece(0, 7)) // kingside
+                if (GetPiece(GetKingPosition(PlayerColour.White)).canCastle) // if white king can castle
                 {
-                    if (GetPiece(0, 7).canCastle)
+                    if (ContainsPiece(0, 7)) // kingside
                     {
-                        FEN += "K";
-                        castlingRightsAvailable = true;
+                        if (GetPiece(0, 7).canCastle)
+                        {
+                            FEN += "K";
+                            castlingRightsAvailable = true;
+                        }
+                    }
+                    if (ContainsPiece(7, 7)) // queenside
+                    {
+                        if (GetPiece(7, 7).canCastle)
+                        {
+                            FEN += "Q";
+                            castlingRightsAvailable = true;
+                        }
                     }
                 }
-                if (ContainsPiece(7, 7)) // queenside
-                {
-                    if (GetPiece(7, 7).canCastle)
-                    {
-                        FEN += "Q";
-                        castlingRightsAvailable = true;
-                    }
-                }
-            }
 
-            if (GetPiece(GetKingPosition(PlayerColour.Black)).canCastle) // if black king can castle
-            {
-                if (ContainsPiece(0, 0)) // kingside
+                if (GetPiece(GetKingPosition(PlayerColour.Black)).canCastle) // if black king can castle
                 {
-                    if (GetPiece(0, 0).canCastle)
+                    if (ContainsPiece(0, 0)) // kingside
                     {
-                        FEN += "k";
-                        castlingRightsAvailable = true;
+                        if (GetPiece(0, 0).canCastle)
+                        {
+                            FEN += "k";
+                            castlingRightsAvailable = true;
+                        }
                     }
-                }
-                if (ContainsPiece(7, 0)) // queenside
-                {
-                    if (GetPiece(7, 0).canCastle)
+                    if (ContainsPiece(7, 0)) // queenside
                     {
-                        FEN += "q";
-                        castlingRightsAvailable = true;
+                        if (GetPiece(7, 0).canCastle)
+                        {
+                            FEN += "q";
+                            castlingRightsAvailable = true;
+                        }
                     }
                 }
             }
@@ -383,7 +393,6 @@ namespace Prototype4.Boards
         {
             return new Position((int)pos[0] - 97, int.Parse(pos[1].ToString()));
         }
-
 
         // takes a character, returns a piece
         private Piece NewPieceFromCharType(char type, PlayerColour colour)
@@ -465,7 +474,7 @@ namespace Prototype4.Boards
         }
 
         // method run from form when a cell is clicked
-        public void SelectCell(Position position)
+        public virtual void SelectCell(Position position)
         {
             if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
@@ -629,6 +638,12 @@ namespace Prototype4.Boards
                     GetPiece(move.positionFrom).SetCastle(castleChangeHistory.Pop());
                 }
 
+                // Remove taken pieces for board display
+                if (move.takenPiece != null)
+                {
+                    takenPieces.Remove(CharFromPiece(move.takenPiece));
+                }
+
                 graphicsCallBack.Invoke(false); // redraw board
             }
         }
@@ -664,8 +679,9 @@ namespace Prototype4.Boards
         }
 
         // function does logistics after a move is made
-        private void AfterMove(Move move)
+        protected void AfterMove(Move move)
         {
+
             // switch turns
             currentTurn = (currentTurn == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
 
@@ -727,6 +743,12 @@ namespace Prototype4.Boards
             }
             SwapTimers();
 
+            // add to taken pieces for board display
+            if (move.takenPiece != null)
+            {
+                takenPieces.Add(CharFromPiece(move.takenPiece));
+            }
+
             graphicsCallBack.Invoke(true);
         }
 
@@ -741,7 +763,7 @@ namespace Prototype4.Boards
         }
 
         // method perofrms post-game logistics
-        private void UpdatePostGame()
+        protected void UpdatePostGame()
         {
             if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) && whitePlayer is Human && blackPlayer is Human) // if someone won and its humans
             {
@@ -751,15 +773,18 @@ namespace Prototype4.Boards
                 {
                     case WinStatus.WhiteResign:
                     case WinStatus.WhiteTimeout:
+                    case WinStatus.BlackWin:
                         moveNameHistory.Add("0-1");
                         break;
 
                     case WinStatus.BlackResign:
                     case WinStatus.BlackTimeout:
+                    case WinStatus.WhiteWin:
                         moveNameHistory.Add("1-0");
                         break;
                 }
 
+                // DATABASE
                 if (username != "Guest") // if someone is logged in
                 {
 
@@ -767,9 +792,11 @@ namespace Prototype4.Boards
                     switch (winStatus)
                     {
                         case WinStatus.BlackMate: // white wins
+                        case WinStatus.WhiteWin:
                             winState = "White Wins";
                             break;
                         case WinStatus.WhiteMate: // black wins
+                        case WinStatus.BlackWin:
                             winState = "Black Wins";
                             break;
                         case WinStatus.Stalemate:
@@ -800,12 +827,34 @@ namespace Prototype4.Boards
 
                     }
 
+                    // variant
+                    string variant = null;
+                    if (this is Antichess)
+                    {
+                        variant = "Antichess";
+                    }
+                    else if (this is Chess960)
+                    {
+                        variant = "Chess960";
+                    }
+                    else if (this is ThreeCheck)
+                    {
+                        variant = "3-Check";
+                    }
+                    else // standard
+                    {
+                        variant = "Standard";
+                    }
+
+                    string FEN = positionHistory.First();
 
                     string PGN = string.Join(", ", moveNameHistory.ToArray()); // convert pgn history to single string
 
                     DatabaseConnection dbConnection = new DatabaseConnection();
-                    dbConnection.StoreNewGame(username, winState, PGN);
+                    dbConnection.StoreNewGame(username, variant, FEN, PGN, winState);
                 }
+
+                graphicsCallBack.Invoke(false);
 
                 // stop both timers
                 whiteTimer.Stop();
@@ -836,7 +885,7 @@ namespace Prototype4.Boards
         }
 
         // check for draw by insufficiency, 50 move and threefold repetition
-        private bool UpdateDrawConditions(Move move)
+        protected virtual bool UpdateDrawConditions(Move move)
         {
             // 50 move rule
             if (move.takenPiece is null && move.movingPiece is not Pawn) // if no piece taken / pawn moved
@@ -1009,7 +1058,7 @@ namespace Prototype4.Boards
         }
 
         // returns the position of the king of the specified colour
-        private Position GetKingPosition(PlayerColour colour)
+        protected Position GetKingPosition(PlayerColour colour)
         {
             for (int i = 0; i < 8; i++)
             {
@@ -1069,6 +1118,7 @@ namespace Prototype4.Boards
                     }
                 }
             }
+            allPossibleMoves = possibleMoves;
             return possibleMoves;
         }
 
@@ -1078,7 +1128,7 @@ namespace Prototype4.Boards
             UpdateWinStatus(currentTurn);
         }
 
-        internal void UpdateWinStatus(PlayerColour turn)
+        internal virtual void UpdateWinStatus(PlayerColour turn)
         {
             Position position = GetKingPosition(turn); // get the king
             King king = (GetPiece(position) as King);
@@ -1108,7 +1158,6 @@ namespace Prototype4.Boards
                     checkCell = null;
                 }
             }
-            // test for other draw types here
         }
 
         #region board value

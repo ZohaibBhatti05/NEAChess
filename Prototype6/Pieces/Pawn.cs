@@ -1,11 +1,11 @@
-﻿using Prototype4.Boards;
+﻿using Prototype6.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype4.Pieces
+namespace Prototype6.Pieces
 {
     class Pawn : Piece
     {
@@ -21,7 +21,6 @@ namespace Prototype4.Pieces
             base.type = 0;
             base.value = 1;
             canBeEnPassanted = false;
-            base.weight = 0;
         }
 
         public override List<Move> GenerateLegalMoves(ChessBoard board, Position position)

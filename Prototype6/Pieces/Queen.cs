@@ -1,11 +1,11 @@
-﻿using Prototype4.Boards;
+﻿using Prototype6.Boards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Prototype4.Pieces
+namespace Prototype6.Pieces
 {
     class Queen : Piece
     {
