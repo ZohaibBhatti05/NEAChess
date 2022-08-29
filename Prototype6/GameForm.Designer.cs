@@ -81,7 +81,7 @@ namespace Prototype6
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.imagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.cmbPieceSet = new System.Windows.Forms.ToolStripComboBox();
             this.coloursToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colourMenuC1 = new System.Windows.Forms.ToolStripMenuItem();
             this.colourMenuC2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,6 +89,22 @@ namespace Prototype6
             this.colourMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.menuResetColour = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
+            this.lblRank1 = new System.Windows.Forms.Label();
+            this.lblRank2 = new System.Windows.Forms.Label();
+            this.lblRank4 = new System.Windows.Forms.Label();
+            this.lblRank3 = new System.Windows.Forms.Label();
+            this.lblRank8 = new System.Windows.Forms.Label();
+            this.lblRank7 = new System.Windows.Forms.Label();
+            this.lblRank6 = new System.Windows.Forms.Label();
+            this.lblRank5 = new System.Windows.Forms.Label();
+            this.lblFile1 = new System.Windows.Forms.Label();
+            this.lblFile2 = new System.Windows.Forms.Label();
+            this.lblFile4 = new System.Windows.Forms.Label();
+            this.lblFile3 = new System.Windows.Forms.Label();
+            this.lblFile8 = new System.Windows.Forms.Label();
+            this.lblFile7 = new System.Windows.Forms.Label();
+            this.lblFile6 = new System.Windows.Forms.Label();
+            this.lblFile5 = new System.Windows.Forms.Label();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -113,7 +129,7 @@ namespace Prototype6
             this.pnlBoard.AutoSize = true;
             this.pnlBoard.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlBoard.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pnlBoard.Location = new System.Drawing.Point(10, 118);
+            this.pnlBoard.Location = new System.Drawing.Point(38, 118);
             this.pnlBoard.Margin = new System.Windows.Forms.Padding(0);
             this.pnlBoard.MinimumSize = new System.Drawing.Size(600, 600);
             this.pnlBoard.Name = "pnlBoard";
@@ -127,9 +143,9 @@ namespace Prototype6
             this.btnStartGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartGame.Font = new System.Drawing.Font("Bahnschrift", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnStartGame.ForeColor = System.Drawing.Color.White;
-            this.btnStartGame.Location = new System.Drawing.Point(3, 654);
+            this.btnStartGame.Location = new System.Drawing.Point(3, 662);
             this.btnStartGame.Name = "btnStartGame";
-            this.btnStartGame.Size = new System.Drawing.Size(294, 70);
+            this.btnStartGame.Size = new System.Drawing.Size(294, 82);
             this.btnStartGame.TabIndex = 1;
             this.btnStartGame.Text = "START GAME";
             this.btnStartGame.UseVisualStyleBackColor = false;
@@ -142,9 +158,9 @@ namespace Prototype6
             this.pnlPreGame.Controls.Add(this.pnlVariants);
             this.pnlPreGame.Controls.Add(this.pnlPlayerOptions);
             this.pnlPreGame.Controls.Add(this.btnStartGame);
-            this.pnlPreGame.Location = new System.Drawing.Point(613, 56);
+            this.pnlPreGame.Location = new System.Drawing.Point(641, 56);
             this.pnlPreGame.Name = "pnlPreGame";
-            this.pnlPreGame.Size = new System.Drawing.Size(300, 725);
+            this.pnlPreGame.Size = new System.Drawing.Size(300, 747);
             this.pnlPreGame.TabIndex = 5;
             // 
             // pnlPosition
@@ -156,7 +172,7 @@ namespace Prototype6
             this.pnlPosition.Controls.Add(this.lblPosition);
             this.pnlPosition.Location = new System.Drawing.Point(3, 531);
             this.pnlPosition.Name = "pnlPosition";
-            this.pnlPosition.Size = new System.Drawing.Size(294, 117);
+            this.pnlPosition.Size = new System.Drawing.Size(294, 125);
             this.pnlPosition.TabIndex = 5;
             // 
             // textFEN
@@ -165,11 +181,10 @@ namespace Prototype6
             this.textFEN.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textFEN.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.textFEN.ForeColor = System.Drawing.Color.White;
-            this.textFEN.Location = new System.Drawing.Point(6, 81);
+            this.textFEN.Location = new System.Drawing.Point(6, 88);
             this.textFEN.Name = "textFEN";
             this.textFEN.Size = new System.Drawing.Size(282, 16);
             this.textFEN.TabIndex = 10;
-            this.textFEN.Text = "qrb5/rk1p1K2/p2P4/Pp6/1N2n3/6p1/5nB1/6b1 w - - 1 12";
             this.textFEN.Visible = false;
             // 
             // radFEN
@@ -513,9 +528,9 @@ namespace Prototype6
             this.pnlDuringGame.Controls.Add(this.btnResign);
             this.pnlDuringGame.Controls.Add(this.btnUndo);
             this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pnlDuringGame.Location = new System.Drawing.Point(613, 56);
+            this.pnlDuringGame.Location = new System.Drawing.Point(641, 56);
             this.pnlDuringGame.Name = "pnlDuringGame";
-            this.pnlDuringGame.Size = new System.Drawing.Size(300, 725);
+            this.pnlDuringGame.Size = new System.Drawing.Size(300, 747);
             this.pnlDuringGame.TabIndex = 6;
             this.pnlDuringGame.Visible = false;
             // 
@@ -526,7 +541,7 @@ namespace Prototype6
             this.panel1.Controls.Add(this.txtWhiteMoves);
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(294, 658);
+            this.panel1.Size = new System.Drawing.Size(294, 680);
             this.panel1.TabIndex = 4;
             // 
             // txtBlackMoves
@@ -539,7 +554,7 @@ namespace Prototype6
             this.txtBlackMoves.Multiline = true;
             this.txtBlackMoves.Name = "txtBlackMoves";
             this.txtBlackMoves.ReadOnly = true;
-            this.txtBlackMoves.Size = new System.Drawing.Size(100, 652);
+            this.txtBlackMoves.Size = new System.Drawing.Size(100, 674);
             this.txtBlackMoves.TabIndex = 1;
             // 
             // txtWhiteMoves
@@ -552,7 +567,7 @@ namespace Prototype6
             this.txtWhiteMoves.Multiline = true;
             this.txtWhiteMoves.Name = "txtWhiteMoves";
             this.txtWhiteMoves.ReadOnly = true;
-            this.txtWhiteMoves.Size = new System.Drawing.Size(100, 652);
+            this.txtWhiteMoves.Size = new System.Drawing.Size(100, 674);
             this.txtWhiteMoves.TabIndex = 0;
             // 
             // btnDraw
@@ -564,7 +579,7 @@ namespace Prototype6
             this.btnDraw.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDraw.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnDraw.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(207)))), ((int)(((byte)(207)))));
-            this.btnDraw.Location = new System.Drawing.Point(200, 666);
+            this.btnDraw.Location = new System.Drawing.Point(200, 688);
             this.btnDraw.Margin = new System.Windows.Forms.Padding(2);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(98, 56);
@@ -580,7 +595,7 @@ namespace Prototype6
             this.btnResign.FlatAppearance.BorderSize = 0;
             this.btnResign.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnResign.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnResign.Location = new System.Drawing.Point(100, 666);
+            this.btnResign.Location = new System.Drawing.Point(100, 688);
             this.btnResign.Margin = new System.Windows.Forms.Padding(2);
             this.btnResign.Name = "btnResign";
             this.btnResign.Size = new System.Drawing.Size(96, 56);
@@ -596,7 +611,7 @@ namespace Prototype6
             this.btnUndo.FlatAppearance.BorderSize = 0;
             this.btnUndo.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.btnUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUndo.Location = new System.Drawing.Point(2, 666);
+            this.btnUndo.Location = new System.Drawing.Point(2, 688);
             this.btnUndo.Margin = new System.Windows.Forms.Padding(2);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(94, 56);
@@ -609,7 +624,7 @@ namespace Prototype6
             this.pnlBlackUI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.pnlBlackUI.Controls.Add(this.lblWhiteTaken);
             this.pnlBlackUI.Controls.Add(this.pnlBlackTime);
-            this.pnlBlackUI.Location = new System.Drawing.Point(10, 56);
+            this.pnlBlackUI.Location = new System.Drawing.Point(38, 56);
             this.pnlBlackUI.Name = "pnlBlackUI";
             this.pnlBlackUI.Size = new System.Drawing.Size(600, 60);
             this.pnlBlackUI.TabIndex = 7;
@@ -663,7 +678,7 @@ namespace Prototype6
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
             this.panel2.Controls.Add(this.lblBlackTaken);
             this.panel2.Controls.Add(this.pnlWhiteTime);
-            this.panel2.Location = new System.Drawing.Point(10, 721);
+            this.panel2.Location = new System.Drawing.Point(38, 743);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(600, 60);
             this.panel2.TabIndex = 8;
@@ -740,15 +755,49 @@ namespace Prototype6
             // imagesToolStripMenuItem
             // 
             this.imagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripComboBox1});
+            this.cmbPieceSet});
             this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
             this.imagesToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.imagesToolStripMenuItem.Text = "Images";
             // 
-            // toolStripComboBox1
+            // cmbPieceSet
             // 
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 23);
+            this.cmbPieceSet.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPieceSet.Items.AddRange(new object[] {
+            "Alpha",
+            "Anarcandy",
+            "California",
+            "Cardinal",
+            "Cburnett",
+            "Chess7",
+            "Chessnut",
+            "Companion",
+            "Dubrovny",
+            "Fantasy",
+            "Fresca",
+            "Gioco",
+            "Governor",
+            "Horsey",
+            "Icpieces",
+            "Kosal",
+            "Leipzig",
+            "Letter",
+            "Libra",
+            "Maestro",
+            "Merida",
+            "Mono",
+            "Pirouetti",
+            "Pixel",
+            "Reillycraig",
+            "Riohacha",
+            "Shapes",
+            "Standard",
+            "Spatial",
+            "Staunty",
+            "Tatiana"});
+            this.cmbPieceSet.Name = "cmbPieceSet";
+            this.cmbPieceSet.Size = new System.Drawing.Size(121, 23);
+            this.cmbPieceSet.SelectedIndexChanged += new System.EventHandler(this.cmbPieceSet_SelectedIndexChanged);
             // 
             // coloursToolStripMenuItem
             // 
@@ -802,6 +851,206 @@ namespace Prototype6
             // 
             this.colorDialog.FullOpen = true;
             // 
+            // lblRank1
+            // 
+            this.lblRank1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank1.ForeColor = System.Drawing.Color.White;
+            this.lblRank1.Location = new System.Drawing.Point(13, 643);
+            this.lblRank1.Name = "lblRank1";
+            this.lblRank1.Size = new System.Drawing.Size(22, 75);
+            this.lblRank1.TabIndex = 10;
+            this.lblRank1.Text = "1";
+            this.lblRank1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank2
+            // 
+            this.lblRank2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank2.ForeColor = System.Drawing.Color.White;
+            this.lblRank2.Location = new System.Drawing.Point(13, 568);
+            this.lblRank2.Name = "lblRank2";
+            this.lblRank2.Size = new System.Drawing.Size(22, 75);
+            this.lblRank2.TabIndex = 11;
+            this.lblRank2.Text = "2";
+            this.lblRank2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank4
+            // 
+            this.lblRank4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank4.ForeColor = System.Drawing.Color.White;
+            this.lblRank4.Location = new System.Drawing.Point(13, 418);
+            this.lblRank4.Name = "lblRank4";
+            this.lblRank4.Size = new System.Drawing.Size(22, 75);
+            this.lblRank4.TabIndex = 13;
+            this.lblRank4.Text = "4";
+            this.lblRank4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank3
+            // 
+            this.lblRank3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank3.ForeColor = System.Drawing.Color.White;
+            this.lblRank3.Location = new System.Drawing.Point(13, 493);
+            this.lblRank3.Name = "lblRank3";
+            this.lblRank3.Size = new System.Drawing.Size(22, 75);
+            this.lblRank3.TabIndex = 12;
+            this.lblRank3.Text = "3";
+            this.lblRank3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank8
+            // 
+            this.lblRank8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank8.ForeColor = System.Drawing.Color.White;
+            this.lblRank8.Location = new System.Drawing.Point(13, 118);
+            this.lblRank8.Name = "lblRank8";
+            this.lblRank8.Size = new System.Drawing.Size(22, 75);
+            this.lblRank8.TabIndex = 17;
+            this.lblRank8.Text = "8";
+            this.lblRank8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank7
+            // 
+            this.lblRank7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank7.ForeColor = System.Drawing.Color.White;
+            this.lblRank7.Location = new System.Drawing.Point(13, 193);
+            this.lblRank7.Name = "lblRank7";
+            this.lblRank7.Size = new System.Drawing.Size(22, 75);
+            this.lblRank7.TabIndex = 16;
+            this.lblRank7.Text = "7";
+            this.lblRank7.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank6
+            // 
+            this.lblRank6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank6.ForeColor = System.Drawing.Color.White;
+            this.lblRank6.Location = new System.Drawing.Point(13, 268);
+            this.lblRank6.Name = "lblRank6";
+            this.lblRank6.Size = new System.Drawing.Size(22, 75);
+            this.lblRank6.TabIndex = 15;
+            this.lblRank6.Text = "6";
+            this.lblRank6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblRank5
+            // 
+            this.lblRank5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblRank5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblRank5.ForeColor = System.Drawing.Color.White;
+            this.lblRank5.Location = new System.Drawing.Point(13, 343);
+            this.lblRank5.Name = "lblRank5";
+            this.lblRank5.Size = new System.Drawing.Size(22, 75);
+            this.lblRank5.TabIndex = 14;
+            this.lblRank5.Text = "5";
+            this.lblRank5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblFile1
+            // 
+            this.lblFile1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile1.ForeColor = System.Drawing.Color.White;
+            this.lblFile1.Location = new System.Drawing.Point(38, 718);
+            this.lblFile1.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile1.Name = "lblFile1";
+            this.lblFile1.Size = new System.Drawing.Size(75, 22);
+            this.lblFile1.TabIndex = 18;
+            this.lblFile1.Text = "a";
+            this.lblFile1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile2
+            // 
+            this.lblFile2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile2.ForeColor = System.Drawing.Color.White;
+            this.lblFile2.Location = new System.Drawing.Point(113, 718);
+            this.lblFile2.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile2.Name = "lblFile2";
+            this.lblFile2.Size = new System.Drawing.Size(75, 22);
+            this.lblFile2.TabIndex = 19;
+            this.lblFile2.Text = "b";
+            this.lblFile2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile4
+            // 
+            this.lblFile4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile4.ForeColor = System.Drawing.Color.White;
+            this.lblFile4.Location = new System.Drawing.Point(263, 718);
+            this.lblFile4.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile4.Name = "lblFile4";
+            this.lblFile4.Size = new System.Drawing.Size(75, 22);
+            this.lblFile4.TabIndex = 21;
+            this.lblFile4.Text = "d";
+            this.lblFile4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile3
+            // 
+            this.lblFile3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile3.ForeColor = System.Drawing.Color.White;
+            this.lblFile3.Location = new System.Drawing.Point(188, 718);
+            this.lblFile3.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile3.Name = "lblFile3";
+            this.lblFile3.Size = new System.Drawing.Size(75, 22);
+            this.lblFile3.TabIndex = 20;
+            this.lblFile3.Text = "c";
+            this.lblFile3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile8
+            // 
+            this.lblFile8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile8.ForeColor = System.Drawing.Color.White;
+            this.lblFile8.Location = new System.Drawing.Point(563, 718);
+            this.lblFile8.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile8.Name = "lblFile8";
+            this.lblFile8.Size = new System.Drawing.Size(75, 22);
+            this.lblFile8.TabIndex = 25;
+            this.lblFile8.Text = "h";
+            this.lblFile8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile7
+            // 
+            this.lblFile7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile7.ForeColor = System.Drawing.Color.White;
+            this.lblFile7.Location = new System.Drawing.Point(488, 718);
+            this.lblFile7.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile7.Name = "lblFile7";
+            this.lblFile7.Size = new System.Drawing.Size(75, 22);
+            this.lblFile7.TabIndex = 24;
+            this.lblFile7.Text = "g";
+            this.lblFile7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile6
+            // 
+            this.lblFile6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile6.ForeColor = System.Drawing.Color.White;
+            this.lblFile6.Location = new System.Drawing.Point(413, 718);
+            this.lblFile6.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile6.Name = "lblFile6";
+            this.lblFile6.Size = new System.Drawing.Size(75, 22);
+            this.lblFile6.TabIndex = 23;
+            this.lblFile6.Text = "f";
+            this.lblFile6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblFile5
+            // 
+            this.lblFile5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblFile5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblFile5.ForeColor = System.Drawing.Color.White;
+            this.lblFile5.Location = new System.Drawing.Point(338, 718);
+            this.lblFile5.Margin = new System.Windows.Forms.Padding(0);
+            this.lblFile5.Name = "lblFile5";
+            this.lblFile5.Size = new System.Drawing.Size(75, 22);
+            this.lblFile5.TabIndex = 22;
+            this.lblFile5.Text = "e";
+            this.lblFile5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -810,6 +1059,22 @@ namespace Prototype6
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1677, 934);
+            this.Controls.Add(this.lblFile8);
+            this.Controls.Add(this.lblFile7);
+            this.Controls.Add(this.lblFile6);
+            this.Controls.Add(this.lblFile5);
+            this.Controls.Add(this.lblFile4);
+            this.Controls.Add(this.lblFile3);
+            this.Controls.Add(this.lblFile2);
+            this.Controls.Add(this.lblFile1);
+            this.Controls.Add(this.lblRank8);
+            this.Controls.Add(this.lblRank7);
+            this.Controls.Add(this.lblRank6);
+            this.Controls.Add(this.lblRank5);
+            this.Controls.Add(this.lblRank4);
+            this.Controls.Add(this.lblRank3);
+            this.Controls.Add(this.lblRank2);
+            this.Controls.Add(this.lblRank1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.pnlBlackUI);
             this.Controls.Add(this.pnlDuringGame);
@@ -905,7 +1170,7 @@ namespace Prototype6
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripSettings;
         private System.Windows.Forms.ToolStripMenuItem imagesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox cmbPieceSet;
         private System.Windows.Forms.ToolStripMenuItem coloursToolStripMenuItem;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.ToolStripMenuItem colourMenuC1;
@@ -917,5 +1182,21 @@ namespace Prototype6
         private System.Windows.Forms.Label lblWhiteTaken;
         private System.Windows.Forms.CheckBox checkUseTT;
         private System.Windows.Forms.ComboBox cmbVariant;
+        private System.Windows.Forms.Label lblRank1;
+        private System.Windows.Forms.Label lblRank2;
+        private System.Windows.Forms.Label lblRank4;
+        private System.Windows.Forms.Label lblRank3;
+        private System.Windows.Forms.Label lblRank8;
+        private System.Windows.Forms.Label lblRank7;
+        private System.Windows.Forms.Label lblRank6;
+        private System.Windows.Forms.Label lblRank5;
+        private System.Windows.Forms.Label lblFile1;
+        private System.Windows.Forms.Label lblFile2;
+        private System.Windows.Forms.Label lblFile4;
+        private System.Windows.Forms.Label lblFile3;
+        private System.Windows.Forms.Label lblFile8;
+        private System.Windows.Forms.Label lblFile7;
+        private System.Windows.Forms.Label lblFile6;
+        private System.Windows.Forms.Label lblFile5;
     }
 }

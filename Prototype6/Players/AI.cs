@@ -13,7 +13,7 @@ namespace Prototype6.Boards
     class AI : Player
     {
         private string[][] openingMoves = new string[261487][]; // table contains 261487 opening lines
-        private bool useOpening = false; // disable after move 16 or if no longer found
+        private bool useOpening = true; // disable after move 16 or if no longer found
 
         private Move[][] killerMoves;
         private const int KILLER_MOVE_COUNT = 2;
@@ -37,7 +37,7 @@ namespace Prototype6.Boards
 
         private List<Move> initialMoves;
 
-        private int QUIESCENCE_MAX_DEPTH = 2;
+        private int QUIESCENCE_MAX_DEPTH = 8;
 
         public AI(int plyDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
@@ -104,7 +104,7 @@ namespace Prototype6.Boards
             while (stopwatch.Elapsed < MAX_ITERATIVE_TIME && plyDepth <= maxPlyDepth)
             {
                 // intital Minimax call
-                AlphaBeta(board, plyDepth, (colour == PlayerColour.White), int.MinValue + 1, int.MaxValue, 0);
+                int value = AlphaBeta(board, plyDepth, (colour == PlayerColour.White), int.MinValue + 1, int.MaxValue, 0);
 
                 Console.WriteLine($"Ply {plyDepth} + {QUIESCENCE_MAX_DEPTH} :: {nodes} nodes :: {qNodes} Q-Nodes in {stopwatch.Elapsed.ToString()} seconds");
 
@@ -113,6 +113,11 @@ namespace Prototype6.Boards
                 initialMoves.Insert(0, bestMove);
 
                 plyDepth++;
+
+                if (value >= (int.MaxValue - plyDepth - 50))
+                {
+                    break;
+                }
             }
 
             Console.WriteLine($"{ttReadSuccess} Successful out of {ttReads} TT-Reads :: {ttWrites} TT-Writes\n"); // debug
@@ -129,6 +134,12 @@ namespace Prototype6.Boards
         {
             string moveName = null;
             bool found = false; // bool for early termination
+
+            if (board.moveNameHistory.Count > 15)
+            {
+                useOpening = false;
+                return false;
+            }
 
             // iterate through the opening table
             Parallel.ForEach(openingMoves, (moveString, loopState) =>

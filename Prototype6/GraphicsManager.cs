@@ -42,9 +42,22 @@ namespace Prototype6
         PictureBox[][] boardCells = new PictureBox[8][];
         // array of buttons for click location purposes
 
+
+        private string pieceSet = "Standard";
+        private void cmbPieceSet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pieceSet = cmbPieceSet.Text; // select set
+            if (chessBoard != null)
+            {
+                InitialiseGraphics(); // redraw board if it exists
+            }
+        }
+
         // sets up graphics dictionary and pictureboxes
         private void InitialiseGraphics()
         {
+            pnlBoard.Controls.Clear();
+
             // create buttons, arrange and resize, add click event
             for (int i = 0; i < 8; i++)
             {
@@ -65,7 +78,11 @@ namespace Prototype6
             //
 
             // initialise piece graphics
-            string pieceImagePath = RESOURCE_PATH + "Assets\\PieceImages\\Standard\\";
+            pieceImages.Clear();
+            // change visual style
+
+
+            string pieceImagePath = RESOURCE_PATH + "Assets\\PieceImages\\" + pieceSet + "\\";
             // add relative path
 
             for (int i = 0; i < 12; i++)
