@@ -37,7 +37,7 @@ namespace Prototype6.Boards
 
         private List<Move> initialMoves;
 
-        private int QUIESCENCE_MAX_DEPTH = 8;
+        private int QUIESCENCE_MAX_DEPTH = 5;
 
         public AI(int plyDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
