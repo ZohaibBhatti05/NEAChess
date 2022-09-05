@@ -621,7 +621,5 @@ namespace Prototype7.Boards
         }
     }
 
-
-
     #endregion
 }
