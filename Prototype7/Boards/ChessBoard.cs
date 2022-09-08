@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Prototype7.Boards
 {
@@ -850,8 +851,10 @@ namespace Prototype7.Boards
 
                     string PGN = string.Join(", ", moveNameHistory.ToArray()); // convert pgn history to single string
 
+                    string dateTime = DateTime.Now.ToString(); // get date and time of game
+
                     DatabaseConnection dbConnection = new DatabaseConnection();
-                    dbConnection.StoreNewGame(username, variant, FEN, PGN, winState);
+                    dbConnection.StoreNewGame(username, variant, FEN, PGN, winState, dateTime);
                 }
 
                 graphicsCallBack.Invoke(false);

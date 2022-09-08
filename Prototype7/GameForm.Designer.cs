@@ -88,6 +88,7 @@ namespace Prototype7
             this.colourMenuMove = new System.Windows.Forms.ToolStripMenuItem();
             this.colourMenuSelect = new System.Windows.Forms.ToolStripMenuItem();
             this.menuResetColour = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuPreviousGames = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.lblRank1 = new System.Windows.Forms.Label();
             this.lblRank2 = new System.Windows.Forms.Label();
@@ -105,7 +106,6 @@ namespace Prototype7
             this.lblFile7 = new System.Windows.Forms.Label();
             this.lblFile6 = new System.Windows.Forms.Label();
             this.lblFile5 = new System.Windows.Forms.Label();
-            this.menuPreviousGames = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -759,7 +759,7 @@ namespace Prototype7
             this.imagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmbPieceSet});
             this.imagesToolStripMenuItem.Name = "imagesToolStripMenuItem";
-            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.imagesToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.imagesToolStripMenuItem.Text = "Images";
             // 
             // cmbPieceSet
@@ -810,7 +810,7 @@ namespace Prototype7
             this.colourMenuSelect,
             this.menuResetColour});
             this.coloursToolStripMenuItem.Name = "coloursToolStripMenuItem";
-            this.coloursToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.coloursToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.coloursToolStripMenuItem.Text = "Colours";
             // 
             // colourMenuC1
@@ -848,6 +848,13 @@ namespace Prototype7
             this.menuResetColour.Size = new System.Drawing.Size(161, 22);
             this.menuResetColour.Text = "Reset To Default";
             this.menuResetColour.Click += new System.EventHandler(this.menuResetColour_Click);
+            // 
+            // menuPreviousGames
+            // 
+            this.menuPreviousGames.Name = "menuPreviousGames";
+            this.menuPreviousGames.Size = new System.Drawing.Size(100, 20);
+            this.menuPreviousGames.Text = "PreviousGames";
+            this.menuPreviousGames.Click += new System.EventHandler(this.menuPreviousGames_Click);
             // 
             // colorDialog
             // 
@@ -1052,13 +1059,6 @@ namespace Prototype7
             this.lblFile5.TabIndex = 22;
             this.lblFile5.Text = "e";
             this.lblFile5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // menuPreviousGames
-            // 
-            this.menuPreviousGames.Name = "menuPreviousGames";
-            this.menuPreviousGames.Size = new System.Drawing.Size(55, 20);
-            this.menuPreviousGames.Text = "Games";
-            this.menuPreviousGames.Click += new System.EventHandler(this.menuPreviousGames_Click);
             // 
             // GameForm
             // 

@@ -122,12 +122,12 @@ namespace Prototype7.Database
         }
 
         // method stores a new instance of a game.
-        public void StoreNewGame(string username, string variant, string FEN, string PGN, string winState)
+        public void StoreNewGame(string username, string variant, string FEN, string PGN, string winState, string dateTime)
         {
             int userID = GetUserID(username);
 
             OleDbCommand command = new OleDbCommand(
-                $"INSERT INTO Games (UserID, Variant, FEN, PGN, WinState) VALUES ('{userID}', '{variant}', '{FEN}', '{PGN}', '{winState}')",
+                $"INSERT INTO Games (UserID, Variant, FEN, PGN, WinState, DatePlayed) VALUES ('{userID}', '{variant}', '{FEN}', '{PGN}', '{winState}', #{dateTime}#)",
                 dbConnection);  // query
 
             dbConnection.Open();
@@ -166,7 +166,7 @@ namespace Prototype7.Database
             while (reader.Read()) // while the reader is active, get the data required from the table
             {
                 // format new entry
-                output += String.Format($"[Variant \"{reader["Variant"]}\"]\n[White \"{username}\"]\n" +
+                output += String.Format($"[Date/Time \"{reader["DatePlayed"]}\"]\n[Variant \"{reader["Variant"]}\"]\n[White \"{username}\"]\n" +
                     $"[Result = \"{reader["WinState"]}\"]\n[FEN \"{reader["FEN"]}\"]\n{FormatPGN(reader["PGN"].ToString())}\n\n");
             }
 
@@ -180,6 +180,7 @@ namespace Prototype7.Database
             StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile());
             writer.WriteLine(output);
             writer.Close();
+
 
             // open file
             Process.Start(new ProcessStartInfo(saveFileDialog.FileName) { UseShellExecute = true });

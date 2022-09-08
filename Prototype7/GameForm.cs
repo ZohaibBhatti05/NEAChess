@@ -339,10 +339,9 @@ namespace Prototype7
         // display previous games
         private void menuPreviousGames_Click(object sender, EventArgs e)
         {
-            DatabaseConnection dbConnection = new DatabaseConnection();
 
-            dbConnection.SaveGameHistory(username);
-            
+            AnalysisForm analysisForm = new AnalysisForm(username);
+            analysisForm.ShowDialog();          
         }
     }
 }
