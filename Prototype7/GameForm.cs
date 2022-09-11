@@ -12,6 +12,8 @@ using System.Windows.Forms;
 
 namespace Prototype7
 {
+    public delegate void CreateAnalysisCallback(string FEN, string PGN);
+
     public partial class GameForm : Form
     {
         ChessBoard chessBoard;
@@ -37,6 +39,7 @@ namespace Prototype7
             username = "Guest";
             InitializeComponent();
             cmbTimeSettings.SelectedIndex = 1;
+            cmbVariant.SelectedIndex = 0;
             pnlCustomTime.Hide();
             cmbTimeSettings.Hide();
 
@@ -68,7 +71,6 @@ namespace Prototype7
                 case 3:
                     chessBoard = new ThreeCheck(new UpdateBoardGraphicsCallBack(DrawBoard));
                     break;
-
             }
             
 
@@ -160,12 +162,23 @@ namespace Prototype7
 
         private void btnUndoMove_Click(object sender, EventArgs e)
         {
+            if (radAgainstAI.Checked)
+            {
+                chessBoard.UndoLastMove();
+            }
             chessBoard.UndoLastMove();
         }
 
         private void btnResign_Click(object sender, EventArgs e)
         {
-            chessBoard.Resign();
+            if (chessBoard is Analysis)
+            {
+                (chessBoard as Analysis).RedoNextMove();
+            }
+            else
+            {
+                chessBoard.Resign();
+            }
         }
 
 
@@ -339,9 +352,29 @@ namespace Prototype7
         // display previous games
         private void menuPreviousGames_Click(object sender, EventArgs e)
         {
-
-            AnalysisForm analysisForm = new AnalysisForm(username);
+            AnalysisForm analysisForm = new AnalysisForm(username, new CreateAnalysisCallback(CreateAnalysisBoard));
             analysisForm.ShowDialog();          
+        }
+
+        // callback function to create an analysis board
+        private void CreateAnalysisBoard(string FEN, string PGN)
+        {
+            chessBoard = new Analysis(new UpdateBoardGraphicsCallBack(DrawBoard));
+            (chessBoard as Analysis).SetupAnalysis(FEN, PGN);
+
+            // logistics
+            pnlPreGame.Visible = false;
+            pnlDuringGame.Visible = true;
+
+            // emulate infinite time settings
+            radNoTimers.Checked = true;
+            timerUpdateTime.Start();
+
+            // button logistics
+            btnResign.BackgroundImage = Properties.Resources.Redo;
+            btnDraw.Hide();
+
+            InitialiseGraphics();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Prototype7.Boards
         private Zobrist hasher;
         private TranspositionTable transpositionTable;
 
-        private readonly TimeSpan MAX_ITERATIVE_TIME = new TimeSpan(0, 0, 20);
+        private readonly TimeSpan MAX_ITERATIVE_TIME = new TimeSpan(0, 0, 10);
 
         private List<Move> initialMoves;
 

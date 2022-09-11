@@ -70,7 +70,7 @@ namespace Prototype7.Boards
         protected List<Move> allPossibleMoves;
 
         public Stack<Move> moveHistory { get; private set; }
-        public List<string> moveNameHistory { get; private set; }
+        public List<string> moveNameHistory { get; protected set; }
         private Stack<Position> checkCellHistory;
         private Stack<WinStatus> winStatusHistory;
         private Stack<bool> castleChangeHistory;
