@@ -479,7 +479,6 @@ namespace Prototype7.Boards
         {
             if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
-
                 // if there is no selected position
                 if (selectedCell == null)
                 {
@@ -603,7 +602,7 @@ namespace Prototype7.Boards
         }
 
         // runs when the undo button is clicked. if move history empty, do nothing
-        public void UndoLastMove()
+        public virtual void UndoLastMove()
         {
             if (moveHistory.Count == 0)
             {
