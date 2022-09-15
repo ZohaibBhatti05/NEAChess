@@ -207,6 +207,12 @@ namespace Prototype7
             {
                 chessBoard.PostBoardRedraw();
             }
+
+            // analysis block
+            if (chessBoard is Analysis)
+            {
+                lblAnalysisMove.Text = "Expected move: " + (chessBoard as Analysis).analysisMove;
+            }
         }
 
         // prints the taken pieces to labels on the form

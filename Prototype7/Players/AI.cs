@@ -76,8 +76,14 @@ namespace Prototype7.Boards
             reader.Close();
         }
 
-        // method run by board when computer needs to make a move
+        // run by board
         public Move MakeMove(ChessBoard board)
+        {
+            return MakeMove(board, this.colour);
+        }
+
+        // method run by board when computer needs to make a move
+        public Move MakeMove(ChessBoard board, PlayerColour colour)
         {
             nodes = 0; qNodes = 0; ttReads = 0; ttWrites = 0; ttReadSuccess = 0;
             Stopwatch stopwatch = new Stopwatch();
@@ -128,6 +134,7 @@ namespace Prototype7.Boards
             }
             return bestMove;
         }
+
 
         // function attempts to make a move from the opening table
         private bool SearchOpeningTable(ChessBoard board)

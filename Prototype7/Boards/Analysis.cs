@@ -20,6 +20,8 @@ namespace Prototype7.Boards
 
         private List<string> gameMoveNameHistory = new List<string>();
 
+        public string analysisMove { get; private set; }
+
         public void SetupAnalysis(string FEN, string PGN)
         {
             base.PositionFromFEN(FEN);
@@ -51,10 +53,12 @@ namespace Prototype7.Boards
             }
         }
 
-        // returns PVS from ai class
-        public string GetMoveString()
+        // get pvs from ai after a move is made
+        protected override void AfterMove(Move move)
         {
-            return (analysisAI.MakeMove(this).GetMoveName(this));
+            base.AfterMove(move);
+            analysisMove = analysisAI.MakeMove(this, currentTurn).GetMoveName(this); // get best move found
+            graphicsCallBack.Invoke(false);
         }
 
         // undoes the last move

@@ -106,6 +106,7 @@ namespace Prototype7
             this.lblFile7 = new System.Windows.Forms.Label();
             this.lblFile6 = new System.Windows.Forms.Label();
             this.lblFile5 = new System.Windows.Forms.Label();
+            this.lblAnalysisMove = new System.Windows.Forms.Label();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -538,6 +539,7 @@ namespace Prototype7
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.panel1.Controls.Add(this.lblAnalysisMove);
             this.panel1.Controls.Add(this.txtBlackMoves);
             this.panel1.Controls.Add(this.txtWhiteMoves);
             this.panel1.Location = new System.Drawing.Point(3, 3);
@@ -1060,6 +1062,17 @@ namespace Prototype7
             this.lblFile5.Text = "e";
             this.lblFile5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblAnalysisMove
+            // 
+            this.lblAnalysisMove.AutoSize = true;
+            this.lblAnalysisMove.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAnalysisMove.ForeColor = System.Drawing.Color.White;
+            this.lblAnalysisMove.Location = new System.Drawing.Point(9, 656);
+            this.lblAnalysisMove.Name = "lblAnalysisMove";
+            this.lblAnalysisMove.Size = new System.Drawing.Size(45, 17);
+            this.lblAnalysisMove.TabIndex = 0;
+            this.lblAnalysisMove.Text = "label1";
+            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1208,5 +1221,6 @@ namespace Prototype7
         private System.Windows.Forms.Label lblFile6;
         private System.Windows.Forms.Label lblFile5;
         private System.Windows.Forms.ToolStripMenuItem menuPreviousGames;
+        private System.Windows.Forms.Label lblAnalysisMove;
     }
 }

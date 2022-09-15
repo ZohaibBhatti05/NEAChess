@@ -679,7 +679,7 @@ namespace Prototype7.Boards
         }
 
         // function does logistics after a move is made
-        protected void AfterMove(Move move)
+        protected virtual void AfterMove(Move move)
         {
 
             // switch turns
