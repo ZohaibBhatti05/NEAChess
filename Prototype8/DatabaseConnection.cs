@@ -12,7 +12,7 @@ namespace Prototype8.Database
     // class used for connections to the main database
     public class DatabaseConnection
     {
-        private readonly string DB_PATH = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName +
+        private readonly string DB_PATH = //Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName +
             "/Database/Database.accdb"; // path of database file, change later
 
         private OleDbConnection dbConnection;

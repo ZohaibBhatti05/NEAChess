@@ -43,6 +43,10 @@
             <asp:Button ID="btnLogin" runat="server" style = "position:absolute; left: 75px; top: 323px; width: 250px; height: 45px; text-align:center, center; background-color: rgb(80, 150, 230)"
                 Font-Bold="True" Font-Size="13pt" Font-Names="Bahnschrift" Text="SIGN IN" ForeColor ="White" FlatStyle="Flat" BorderColor="White" BorderWidth="1px" OnClick="btnLogin_Click"/>
 
+            <asp:Button ID="btnRegister" runat="server" style = "position:absolute; left: 253px; top: 384px; width: 72px; height: 26px; text-align:center, center; background-color: rgb(70, 70, 70);
+                color:rgb(80, 150, 230)"
+                Font-Bold="True" Font-Size="10pt" Font-Names="Segoe UI" Text="Register" FlatStyle="Flat" BorderStyle="None" OnClick="btnRegister_Click"/>
+
 
         </asp:Panel>
 

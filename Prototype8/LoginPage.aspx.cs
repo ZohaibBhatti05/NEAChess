@@ -58,7 +58,7 @@ namespace Prototype8
             return false;
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        protected void btnRegister_Click(object sender, EventArgs e)
         {
             //RegisterForm registerForm = new RegisterForm();
             //this.Hide();
