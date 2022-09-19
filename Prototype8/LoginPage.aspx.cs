@@ -60,10 +60,17 @@ namespace Prototype8
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+            Response.Redirect("RegisterPage.aspx");
             //RegisterForm registerForm = new RegisterForm();
             //this.Hide();
             //registerForm.ShowDialog();
             //this.Show();
+        }
+
+        // guest, set gameform attributes as needed
+        protected void btnGuest_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GamePage.aspx");
         }
     }
 }

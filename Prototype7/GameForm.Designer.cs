@@ -62,6 +62,7 @@ namespace Prototype7
             this.lblPlayAgainst = new System.Windows.Forms.Label();
             this.pnlDuringGame = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblAnalysisMove = new System.Windows.Forms.Label();
             this.txtBlackMoves = new System.Windows.Forms.TextBox();
             this.txtWhiteMoves = new System.Windows.Forms.TextBox();
             this.btnDraw = new System.Windows.Forms.Button();
@@ -72,7 +73,7 @@ namespace Prototype7
             this.pnlBlackTime = new System.Windows.Forms.Panel();
             this.picBlackTime = new System.Windows.Forms.PictureBox();
             this.lblBlackTime = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnlWhiteUI = new System.Windows.Forms.Panel();
             this.lblBlackTaken = new System.Windows.Forms.Label();
             this.pnlWhiteTime = new System.Windows.Forms.Panel();
             this.picWhiteTime = new System.Windows.Forms.PictureBox();
@@ -106,7 +107,6 @@ namespace Prototype7
             this.lblFile7 = new System.Windows.Forms.Label();
             this.lblFile6 = new System.Windows.Forms.Label();
             this.lblFile5 = new System.Windows.Forms.Label();
-            this.lblAnalysisMove = new System.Windows.Forms.Label();
             this.pnlPreGame.SuspendLayout();
             this.pnlPosition.SuspendLayout();
             this.pnlTimeControl.SuspendLayout();
@@ -120,7 +120,7 @@ namespace Prototype7
             this.pnlBlackUI.SuspendLayout();
             this.pnlBlackTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBlackTime)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.pnlWhiteUI.SuspendLayout();
             this.pnlWhiteTime.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWhiteTime)).BeginInit();
             this.menuStrip.SuspendLayout();
@@ -160,7 +160,7 @@ namespace Prototype7
             this.pnlPreGame.Controls.Add(this.pnlVariants);
             this.pnlPreGame.Controls.Add(this.pnlPlayerOptions);
             this.pnlPreGame.Controls.Add(this.btnStartGame);
-            this.pnlPreGame.Location = new System.Drawing.Point(641, 56);
+            this.pnlPreGame.Location = new System.Drawing.Point(944, 53);
             this.pnlPreGame.Name = "pnlPreGame";
             this.pnlPreGame.Size = new System.Drawing.Size(300, 747);
             this.pnlPreGame.TabIndex = 5;
@@ -547,6 +547,17 @@ namespace Prototype7
             this.panel1.Size = new System.Drawing.Size(294, 680);
             this.panel1.TabIndex = 4;
             // 
+            // lblAnalysisMove
+            // 
+            this.lblAnalysisMove.AutoSize = true;
+            this.lblAnalysisMove.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAnalysisMove.ForeColor = System.Drawing.Color.White;
+            this.lblAnalysisMove.Location = new System.Drawing.Point(9, 656);
+            this.lblAnalysisMove.Name = "lblAnalysisMove";
+            this.lblAnalysisMove.Size = new System.Drawing.Size(45, 17);
+            this.lblAnalysisMove.TabIndex = 0;
+            this.lblAnalysisMove.Text = "label1";
+            // 
             // txtBlackMoves
             // 
             this.txtBlackMoves.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
@@ -676,15 +687,15 @@ namespace Prototype7
             this.lblBlackTime.Size = new System.Drawing.Size(0, 21);
             this.lblBlackTime.TabIndex = 0;
             // 
-            // panel2
+            // pnlWhiteUI
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
-            this.panel2.Controls.Add(this.lblBlackTaken);
-            this.panel2.Controls.Add(this.pnlWhiteTime);
-            this.panel2.Location = new System.Drawing.Point(38, 743);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(600, 60);
-            this.panel2.TabIndex = 8;
+            this.pnlWhiteUI.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(70)))));
+            this.pnlWhiteUI.Controls.Add(this.lblBlackTaken);
+            this.pnlWhiteUI.Controls.Add(this.pnlWhiteTime);
+            this.pnlWhiteUI.Location = new System.Drawing.Point(38, 743);
+            this.pnlWhiteUI.Name = "pnlWhiteUI";
+            this.pnlWhiteUI.Size = new System.Drawing.Size(600, 60);
+            this.pnlWhiteUI.TabIndex = 8;
             // 
             // lblBlackTaken
             // 
@@ -743,7 +754,7 @@ namespace Prototype7
             this.menuPreviousGames});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1677, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1297, 24);
             this.menuStrip.TabIndex = 9;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -1062,17 +1073,6 @@ namespace Prototype7
             this.lblFile5.Text = "e";
             this.lblFile5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblAnalysisMove
-            // 
-            this.lblAnalysisMove.AutoSize = true;
-            this.lblAnalysisMove.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblAnalysisMove.ForeColor = System.Drawing.Color.White;
-            this.lblAnalysisMove.Location = new System.Drawing.Point(9, 656);
-            this.lblAnalysisMove.Name = "lblAnalysisMove";
-            this.lblAnalysisMove.Size = new System.Drawing.Size(45, 17);
-            this.lblAnalysisMove.TabIndex = 0;
-            this.lblAnalysisMove.Text = "label1";
-            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -1080,7 +1080,7 @@ namespace Prototype7
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(1677, 934);
+            this.ClientSize = new System.Drawing.Size(1297, 838);
             this.Controls.Add(this.lblFile8);
             this.Controls.Add(this.lblFile7);
             this.Controls.Add(this.lblFile6);
@@ -1097,7 +1097,7 @@ namespace Prototype7
             this.Controls.Add(this.lblRank3);
             this.Controls.Add(this.lblRank2);
             this.Controls.Add(this.lblRank1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.pnlWhiteUI);
             this.Controls.Add(this.pnlBlackUI);
             this.Controls.Add(this.pnlDuringGame);
             this.Controls.Add(this.pnlPreGame);
@@ -1131,8 +1131,8 @@ namespace Prototype7
             this.pnlBlackTime.ResumeLayout(false);
             this.pnlBlackTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBlackTime)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnlWhiteUI.ResumeLayout(false);
+            this.pnlWhiteUI.PerformLayout();
             this.pnlWhiteTime.ResumeLayout(false);
             this.pnlWhiteTime.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picWhiteTime)).EndInit();
@@ -1162,7 +1162,7 @@ namespace Prototype7
         private System.Windows.Forms.TextBox txtBlackMoves;
         private System.Windows.Forms.TextBox txtWhiteMoves;
         private System.Windows.Forms.Panel pnlBlackUI;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnlWhiteUI;
         private System.Windows.Forms.Panel pnlWhiteTime;
         private System.Windows.Forms.Label lblWhiteTime;
         private System.Windows.Forms.Panel pnlBlackTime;

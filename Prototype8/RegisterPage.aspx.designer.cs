@@ -11,35 +11,35 @@ namespace Prototype8
 {
 
 
-    public partial class LoginPage
+    public partial class RegisterPage
     {
 
         /// <summary>
-        /// LoginForm control.
+        /// RegisterForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm LoginForm;
+        protected global::System.Web.UI.HtmlControls.HtmlForm RegisterForm;
 
         /// <summary>
-        /// pnlLogin control.
+        /// pnlRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLogin;
+        protected global::System.Web.UI.WebControls.Panel pnlRegister;
 
         /// <summary>
-        /// lblLogin control.
+        /// lblRegister control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLogin;
+        protected global::System.Web.UI.WebControls.Label lblRegister;
 
         /// <summary>
         /// lblUsername control.
@@ -51,13 +51,22 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Label lblUsername;
 
         /// <summary>
-        /// lblError control.
+        /// lblUNError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
+        protected global::System.Web.UI.WebControls.Label lblUNError;
+
+        /// <summary>
+        /// lblPWError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPWError;
 
         /// <summary>
         /// lblPassword control.
@@ -69,13 +78,13 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Label lblPassword;
 
         /// <summary>
-        /// lblNoAccount control.
+        /// lblConfirmPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNoAccount;
+        protected global::System.Web.UI.WebControls.Label lblConfirmPassword;
 
         /// <summary>
         /// pnlUN control.
@@ -87,13 +96,13 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Panel pnlUN;
 
         /// <summary>
-        /// txtLoginUsername control.
+        /// txtUsername control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLoginUsername;
+        protected global::System.Web.UI.WebControls.TextBox txtUsername;
 
         /// <summary>
         /// pnlPW control.
@@ -105,22 +114,31 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Panel pnlPW;
 
         /// <summary>
-        /// txtLoginPassword control.
+        /// txtPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLoginPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtPassword;
 
         /// <summary>
-        /// btnLogin control.
+        /// pnlCPW control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.Panel pnlCPW;
+
+        /// <summary>
+        /// txtPasswordConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPasswordConfirm;
 
         /// <summary>
         /// btnRegister control.
@@ -132,12 +150,12 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Button btnRegister;
 
         /// <summary>
-        /// btnGuest control.
+        /// btnLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuest;
+        protected global::System.Web.UI.WebControls.Button btnLogin;
     }
 }
