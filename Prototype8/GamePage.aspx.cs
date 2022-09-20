@@ -15,6 +15,7 @@ namespace Prototype8
             pnlAISettings.Visible = false;
             pnlCustomTime.Visible = false;
             cmbTimeSettings.Visible = false;
+            textFEN.Visible = false;
             radAgainstAI_CheckedChanged(sender, e);
         }
 
@@ -25,10 +26,6 @@ namespace Prototype8
             //pnlDuringGame.Visible = true;
             //InitialiseGame();
         }
-
-
-
-
 
 
         #region AI Settings
@@ -55,19 +52,14 @@ namespace Prototype8
                 radPresetTime.Visible = true;
             }
             timeRadioButton_CheckChanged(sender, e);
-        }
-
-        //.Visible = true value of ai ply depth in label
-        protected void trackPlyDepth_ValueChanged(object sender, EventArgs e)
-        {
-            //lblPlyDepth.Text = trackPlyDepth.Value.ToString();
+            radDefaultPosition_CheckedChanged(sender, e);
         }
 
         #endregion
 
         #region Time Settings
 
-        //.Visible = false relevant controls for time settings
+        //hide relevant controls for time settings
         protected void timeRadioButton_CheckChanged(object sender, EventArgs e)
         {
             if (radPresetTime.Checked)
@@ -101,7 +93,36 @@ namespace Prototype8
             }
             pnlCustomTime.Visible = true;
         }
+        #endregion
 
+
+        #region Position
+
+        protected void radDefaultPosition_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radDefaultPosition.Checked)
+            {
+                textFEN.Visible = false;
+            }
+            else
+            {
+                textFEN.Visible = true;
+            }
+        }
+
+        #endregion
+
+        #region Variants
+
+        protected void cmbVariant_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbVariant.SelectedIndex == 1) // disallow custom positions in ficherrandom
+            {
+                radDefaultPosition.Checked = true;
+                radCustomPosition.Checked = false;
+                radAgainstAI_CheckedChanged(sender, e);
+            }
+        }
 
         #endregion
     }

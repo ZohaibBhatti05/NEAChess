@@ -80,10 +80,33 @@
                         <asp:Panel ID = "pnlAISettings" runat="server" style="height: 120px; width: 288px; background-color: rgb(40, 40, 40); position: absolute; left: 3px; top: 82px; border-radius: 5px 5px;">
 
                             <asp:Label ID="lblDepth" runat="server" Text = "Ply Depth:" style = "position:absolute; left: 6px; top: 14px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
-                            <asp:Label ID="lblPlyDepth" runat="server" Text = "4" style = "position:absolute; left: 78px; top: 14px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                            <ajaxToolkit:ComboBox runat="server" ID="cmbPlyDepth" style="position:absolute; width: 136px; height: 25px; left:78px; top:6px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
+                                ToolTip="Dictates how many moves ahead the AI calculates.">
+                                <asp:ListItem Text="1 (Very Easy)"></asp:ListItem>
+                                <asp:ListItem Text="2 (Easy)"></asp:ListItem>
+                                <asp:ListItem Text="3 (Competent)"></asp:ListItem>
+                                <asp:ListItem Text="4 (Normal)" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="5 (Good)"></asp:ListItem>
+                                <asp:ListItem Text="6 (Very Good)"></asp:ListItem>
+                                <asp:ListItem Text="7 (Hard)"></asp:ListItem>
+                                <asp:ListItem Text="8 (Very Hard)"></asp:ListItem>
+                            </ajaxToolkit:ComboBox>
 
-      
+                            <asp:Label ID="lblQDepth" runat="server" Text = "Q Depth:" style = "position:absolute; left: 6px; top: 54px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                            <ajaxToolkit:ComboBox runat="server" ID="cmbQDepth" style="position:absolute; width: 136px; height: 25px; left:78px; top:46px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
+                                ToolTip="Dictates how many moves ahead the AI can calculate after ply. Use to simulate higher ply if high ply runs slowly.">
+                                <asp:ListItem Text="0"></asp:ListItem>
+                                <asp:ListItem Text="1"></asp:ListItem>
+                                <asp:ListItem Text="2" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="3"></asp:ListItem>
+                                <asp:ListItem Text="4"></asp:ListItem>
+                                <asp:ListItem Text="5"></asp:ListItem>
+                                <asp:ListItem Text="6"></asp:ListItem>
+                                <asp:ListItem Text="7"></asp:ListItem>
+                                <asp:ListItem Text="8"></asp:ListItem>
+                            </ajaxToolkit:ComboBox>
 
+                            <asp:CheckBox ID="checkUseTT" style="position:absolute; left:9px; top:89px;" Text ="Use Transposition Table" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" runat="server" ToolTip="Improves performance but increases memory usage. Recommended for ply above 4"/>
                         </asp:Panel>
 
                     </asp:Panel>
@@ -121,7 +144,7 @@
                     <asp:Panel ID = "pnlVariants" runat="server" style="height: 82px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 443px;">
                         <asp:Label ID="lblVariant" runat="server" Text = "Variant:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
 
-                        <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true">
+                        <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbVariant_SelectedIndexChanged">
                             <asp:ListItem Text="Standard" Selected="True"></asp:ListItem>
                             <asp:ListItem Text="Chess960"></asp:ListItem>
                             <asp:ListItem Text="Antichess"></asp:ListItem>
@@ -132,6 +155,10 @@
                     <asp:Panel ID = "pnlPosition" runat="server" style="height: 125px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 531px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
                         <asp:Label ID="lblPosition" runat="server" Text = "Position:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
 
+                        <asp:RadioButton ID="radDefaultPosition" runat="server" Text="Default" Checked="true" style="position:absolute; left:6px; top:29px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                        <asp:RadioButton ID="radCustomPosition" runat="server" Text="Custom" Checked="false" style="position:absolute; left:6px; top:54px; text-align:center; color: rgb(215, 215, 215)" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                        
+                        <asp:TextBox ID="textFEN" runat="server" style="position:absolute; left:6px; top:88px; background-color: rgb(50, 50, 50); width:270px; height:16px" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:TextBox>
 
                     </asp:Panel>
 

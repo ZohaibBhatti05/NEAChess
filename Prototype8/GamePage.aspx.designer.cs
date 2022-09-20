@@ -348,13 +348,40 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Label lblDepth;
 
         /// <summary>
-        /// lblPlyDepth control.
+        /// cmbPlyDepth control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlyDepth;
+        protected global::AjaxControlToolkit.ComboBox cmbPlyDepth;
+
+        /// <summary>
+        /// lblQDepth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQDepth;
+
+        /// <summary>
+        /// cmbQDepth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ComboBox cmbQDepth;
+
+        /// <summary>
+        /// checkUseTT control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox checkUseTT;
 
         /// <summary>
         /// pnlTimeControl control.
@@ -490,6 +517,33 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPosition;
+
+        /// <summary>
+        /// radDefaultPosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton radDefaultPosition;
+
+        /// <summary>
+        /// radCustomPosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton radCustomPosition;
+
+        /// <summary>
+        /// textFEN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox textFEN;
 
         /// <summary>
         /// btnStartGame control.
