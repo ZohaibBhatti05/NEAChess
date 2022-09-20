@@ -13,7 +13,7 @@ namespace Prototype8.Database
     public class DatabaseConnection
     {
         private readonly string DB_PATH = //Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName +
-            "C:/Users/Zohaib/source/repos/NEAChess/" +
+            "C:/Users/Zobear/source/repos/NEAChess/" +
             "/Database/Database.accdb"; // path of database file, change later
 
         private OleDbConnection dbConnection;

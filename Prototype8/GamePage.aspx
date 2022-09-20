@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="GamePage.aspx.cs" Inherits="Prototype8.GamePage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 <!DOCTYPE html>
 
@@ -9,6 +10,9 @@
 
 <body style="width: 95%; height: 100%; background-color: rgb(40, 40, 40);">
     <form id="GameForm" runat="server">
+
+
+        <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
 
         <div style = "vertical-align:central; text-align:center">
 
@@ -78,7 +82,32 @@
                     </asp:Panel>
 
                     <asp:Panel ID = "pnlTimeControl" runat="server" style="height: 223px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 214px;">
+                        <asp:Label ID="lblTimeControl" runat="server" Text = "Time:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
 
+
+                        <asp:RadioButton ID="radNoTimers" runat="server" Text="Unlimited" Checked="true" style="position:absolute; left:7px; top:33px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                        <asp:RadioButton ID="radPresetTime" runat="server" Text="Preset" Checked="false" style="position:absolute; left:7px; top:70px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                        <asp:RadioButton ID="radCustomTime" runat="server" Text="Custom" Checked="false" style="position:absolute; left:7px; top:140px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+
+                        <ajaxToolkit:ComboBox runat="server" ID="cmbTimeSettings" style="position:absolute; width: 136px; height: 25px; left:7px; top:97px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true">
+                            <asp:ListItem Text="1 min"></asp:ListItem>
+                            <asp:ListItem Text="10 min" Selected="True"></asp:ListItem>
+                            <asp:ListItem Text="20 min"></asp:ListItem>
+                            <asp:ListItem Text="60 min"></asp:ListItem>
+                            <asp:ListItem Text="15 | 10"></asp:ListItem>
+                            <asp:ListItem Text="10 | 5"></asp:ListItem>
+                            <asp:ListItem Text="3 | 2"></asp:ListItem>
+                            <asp:ListItem Text="1 | 1"></asp:ListItem>
+                        </ajaxToolkit:ComboBox>
+                        
+
+                        <asp:Panel ID = "pnlCustomTime" runat="server" style="height: 33px; width: 286px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 167px;">
+
+                            <asp:TextBox ID="textMinutes" runat="server" style="left:16px; top:4px; width:80px; height:25px; position:absolute; background-color: rgb(50,50,50); text-align:center" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="minutes" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
+                            <asp:TextBox ID="textSeconds" runat="server" style="left:102px; top:4px; width:80px; height:25px; position:absolute; background-color: rgb(50,50,50); text-align:center" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="seconds" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
+                            <asp:TextBox ID="textIncrement" runat="server" style="left:188px; top:4px; width:80px; height:25px; position:absolute; background-color: rgb(50,50,50); text-align:center" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="increment" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
+
+                        </asp:Panel>
 
                     </asp:Panel>
 
