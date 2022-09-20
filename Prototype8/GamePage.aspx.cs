@@ -15,6 +15,7 @@ namespace Prototype8
             pnlAISettings.Visible = false;
             pnlCustomTime.Visible = false;
             cmbTimeSettings.Visible = false;
+            radAgainstAI_CheckedChanged(sender, e);
         }
 
         // starts the game
@@ -94,10 +95,13 @@ namespace Prototype8
                 if (!int.TryParse(c.ToString(), out int i))
                 {
                     ((System.Web.UI.WebControls.TextBox)sender).Text = string.Empty;
+                    pnlCustomTime.Visible = true;
                     return;
                 }
             }
+            pnlCustomTime.Visible = true;
         }
+
 
         #endregion
     }

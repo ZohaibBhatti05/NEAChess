@@ -213,6 +213,33 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Panel pnlWhiteTime;
 
         /// <summary>
+        /// picWhiteTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image picWhiteTime;
+
+        /// <summary>
+        /// lblWhiteTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWhiteTime;
+
+        /// <summary>
+        /// lblBlackTaken control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBlackTaken;
+
+        /// <summary>
         /// pnlBlackUI control.
         /// </summary>
         /// <remarks>
@@ -229,6 +256,33 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlBlackTime;
+
+        /// <summary>
+        /// picBlackTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image picBlackTime;
+
+        /// <summary>
+        /// lblBlackTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBlackTime;
+
+        /// <summary>
+        /// lblWhiteTaken control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWhiteTaken;
 
         /// <summary>
         /// pnlPreGame control.
@@ -402,6 +456,24 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Panel pnlVariants;
 
         /// <summary>
+        /// lblVariant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVariant;
+
+        /// <summary>
+        /// cmbVariant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ComboBox cmbVariant;
+
+        /// <summary>
         /// pnlPosition control.
         /// </summary>
         /// <remarks>
@@ -409,6 +481,15 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlPosition;
+
+        /// <summary>
+        /// lblPosition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPosition;
 
         /// <summary>
         /// btnStartGame control.

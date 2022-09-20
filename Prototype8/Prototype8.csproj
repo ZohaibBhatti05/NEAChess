@@ -75,6 +75,12 @@
     <Content Include="Global.asax" />
     <Content Include="LoginPage.aspx" />
     <Content Include="RegisterPage.aspx" />
+    <None Include="Resources\Circle.png" />
+    <None Include="Resources\Dot.png" />
+    <None Include="Resources\Flag.png" />
+    <None Include="Resources\Redo.png" />
+    <None Include="Resources\Timer.png" />
+    <None Include="Resources\Undo.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +115,11 @@
     <Compile Include="RegisterPage.aspx.designer.cs">
       <DependentUpon>RegisterPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -128,6 +139,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
