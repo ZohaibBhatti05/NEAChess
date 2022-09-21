@@ -1,4 +1,5 @@
-﻿using Prototype8.Boards;
+﻿using Microsoft.Win32;
+using Prototype8.Boards;
 using Prototype8.Pieces;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,6 @@ namespace Prototype8
         private void InitialiseGraphics()
         {
             pnlBoard.Controls.Clear();
-
             // create buttons, arrange and resize, add click event
             for (int i = 0; i < 8; i++)
             {
@@ -80,7 +80,7 @@ namespace Prototype8
 
                     pnlBoard.Controls.Add(cell);
                     boardCells[i][j] = cell;
-                    
+
                     // set up the front images
                     ImageButton fcell = new ImageButton();
                     fcell.Style.Add("position", "absolute");

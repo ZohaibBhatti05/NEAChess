@@ -12,6 +12,9 @@ namespace Prototype8
     public partial class GamePage : System.Web.UI.Page
     {
         static ChessBoard chessBoard = null;
+
+        static List<Position> selectHistory;
+
         private string username; // username of person logged in
 
         protected void Page_Load(object sender, EventArgs e)
@@ -23,21 +26,22 @@ namespace Prototype8
             textFEN.Visible = false;
             radAgainstAI_CheckedChanged(sender, e);
 
-            //if (Page.IsPostBack)
-            //{
-            //    if (chessBoard != null)
-            //    {
-            //        InitialiseGraphics();
-            //        //pnlDuringGame.Visible = true;
-            //        DrawBoard(false);
-            //    }
-            //}
-            if (chessBoard is null)
+            if (Page.IsPostBack)
             {
-                InitialiseGame();
+                if (chessBoard != null)
+                {
+                    InitialiseGame();
+                    InitialiseGraphics();
+
+                    foreach (Position pos in selectHistory)
+                    {
+                        chessBoard.SelectCell(pos);
+                    }
+
+                    DrawBoard(false);
+                }
             }
-            InitialiseGraphics();
-            DrawBoard(false);
+
         }
 
         // starts the game
@@ -50,6 +54,8 @@ namespace Prototype8
 
         private void InitialiseGame()
         {
+            if (chessBoard == null) { selectHistory = new List<Position>(); }
+
             // set board variant
             switch (cmbVariant.SelectedIndex)
             {
@@ -153,6 +159,7 @@ namespace Prototype8
                 {
                     position = new Position(i, Array.IndexOf(frontBoardCells[i], sender));
                     chessBoard.SelectCell(position);
+                    selectHistory.Add(position);
                     break;
                 }
             }

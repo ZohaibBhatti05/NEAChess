@@ -40,9 +40,8 @@
 
                 <!-- CHESSBOARD -->
                 <asp:Panel ID = "pnlBoard" runat="server" style="height: 600px; width: 600px; background-color: rgb(115, 115, 115); position: absolute; left: 38px; top: 118px">
-                    
-                    <!--
-                    <asp:ImageButton ID = "btnA8" style="left: 0px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+
+                    <%--<asp:ImageButton ID = "btnA8" style="left: 0px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
                     <asp:ImageButton ID = "btnA7" style="left: 0px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
                     <asp:ImageButton ID = "btnA6" style="left: 0px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
                     <asp:ImageButton ID = "btnA5" style="left: 0px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
@@ -112,9 +111,9 @@
                     <asp:ImageButton ID = "btnH4" style="left: 525px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
                     <asp:ImageButton ID = "btnH3" style="left: 525px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
                     <asp:ImageButton ID = "btnH2" style="left: 525px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
-                    <asp:ImageButton ID = "btnH1" style="left: 525px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH1" style="left: 525px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>--%>
 
-                    -->
+                    
 
                 </asp:Panel>
                 <!-- CHESSBOARD -->
