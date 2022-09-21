@@ -33,10 +33,10 @@ namespace Prototype8
                     InitialiseGame();
                     InitialiseGraphics();
 
-                    foreach (Position pos in selectHistory)
-                    {
-                        chessBoard.SelectCell(pos);
-                    }
+                    //foreach (Position pos in selectHistory)
+                    //{
+                    //    chessBoard.SelectCell(pos);
+                    //}
 
                     DrawBoard(false);
                 }
@@ -54,7 +54,7 @@ namespace Prototype8
 
         private void InitialiseGame()
         {
-            if (chessBoard == null) { selectHistory = new List<Position>(); }
+            if (chessBoard != null) { return;  selectHistory = new List<Position>(); }
 
             // set board variant
             switch (cmbVariant.SelectedIndex)
@@ -141,10 +141,6 @@ namespace Prototype8
                 chessBoard.CustomPosition(textFEN.Text);
             }
 
-            // asp:net :: set viewstates so everything doesnt get reset after postback
-            Session["board"] = chessBoard;
-            //
-
             InitialiseGraphics();
         }
 
@@ -159,7 +155,7 @@ namespace Prototype8
                 {
                     position = new Position(i, Array.IndexOf(frontBoardCells[i], sender));
                     chessBoard.SelectCell(position);
-                    selectHistory.Add(position);
+                    //selectHistory.Add(position);
                     break;
                 }
             }

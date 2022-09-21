@@ -41,8 +41,8 @@ namespace Prototype8
         Color CHECK_COLOUR = Color.FromArgb(255, 0, 0);
         #endregion
 
-        Image[][] boardCells = new Image[8][];
-        ImageButton[][] frontBoardCells = new ImageButton[8][];
+        static Image[][] boardCells = new Image[8][];
+        static ImageButton[][] frontBoardCells = new ImageButton[8][];
         // array of buttons for click location purposes
 
 
@@ -77,6 +77,7 @@ namespace Prototype8
                     cell.Style.Add("top", $"{(7 - j) * 75}px");
                     cell.BorderWidth = Unit.Empty;
                     cell.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+                    cell.ID = String.Format($"bg{i}{j}");
 
                     pnlBoard.Controls.Add(cell);
                     boardCells[i][j] = cell;
@@ -91,6 +92,7 @@ namespace Prototype8
                     fcell.BorderWidth = Unit.Empty;
                     fcell.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
                     fcell.BackColor = Color.Transparent;
+                    fcell.ID = String.Format($"fg{i}{j}");
 
                     fcell.Click += ClickCell;
 
