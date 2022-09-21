@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Prototype8.Database;
+using Prototype8.Pieces;
+using Prototype8.Players;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -1029,8 +1032,8 @@ namespace Prototype8.Boards
                     return;
                 }
 
-                PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
-                promotionForm.ShowDialog();
+                //PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
+                //promotionForm.ShowDialog();
             }
         }
 

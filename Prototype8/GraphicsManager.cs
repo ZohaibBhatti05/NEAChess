@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Prototype8.Boards;
+using Prototype8.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using Image = System.Web.UI.WebControls.Image;
 
 namespace Prototype8
 {
@@ -14,9 +18,8 @@ namespace Prototype8
 
     public partial class GamePage : System.Web.UI.Page
     {
-        private readonly string RESOURCE_PATH = System.AppDomain.CurrentDomain.BaseDirectory; // get where app is RUNNING
-        private Dictionary<int, System.Drawing.Image> pieceImages = new Dictionary<int, System.Drawing.Image>(); // dictionary of images
-        private readonly Dictionary<char, char> unicodePieces = new Dictionary<char, char>()
+        private static Dictionary<int, string> pieceImages = new Dictionary<int, string>(); // dictionary of images
+        private readonly static Dictionary<char, char> unicodePieces = new Dictionary<char, char>()
         {
             {'P', '♙' }, {'R', '♖' }, {'N', '♘' }, {'B', '♗' }, {'Q', '♕' }, {'K', '♔' },
             {'p', /*'♟'*/ '♙' }, {'r', '♜' }, {'n', '♞' }, {'b', '♝' }, {'q', '♛' }, {'k', '♚' },
@@ -37,11 +40,12 @@ namespace Prototype8
         Color CHECK_COLOUR = Color.FromArgb(255, 0, 0);
         #endregion
 
-        PictureBox[][] boardCells = new PictureBox[8][];
+        Image[][] boardCells = new Image[8][];
+        ImageButton[][] frontBoardCells = new ImageButton[8][];
         // array of buttons for click location purposes
 
 
-        private string pieceSet = "Standard";
+        private static string pieceSet = "Standard";
 
         //private void cmbPieceSet_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -55,24 +59,44 @@ namespace Prototype8
         // sets up graphics dictionary and pictureboxes
         private void InitialiseGraphics()
         {
-                
             pnlBoard.Controls.Clear();
 
             // create buttons, arrange and resize, add click event
             for (int i = 0; i < 8; i++)
             {
-                boardCells[i] = new PictureBox[8];
+                boardCells[i] = new Image[8];
+                frontBoardCells[i] = new ImageButton[8];
                 for (int j = 0; j < 8; j++)
                 {
-                    PictureBox cell = new PictureBox();
-                    cell.Size = new Size(75, 75);
-                    cell.Location = new Point(i * 75, (7 - j) * 75);
-                    cell.SizeMode = PictureBoxSizeMode.StretchImage;
-                    cell.BackgroundImageLayout = ImageLayout.Stretch;
-                    cell.Margin = new Padding(0, 0, 0, 0);
+                    // set up the pieces
+                    Image cell = new Image();
+                    cell.Style.Add("position", "absolute");
+                    cell.Style.Add("width", "75px");
+                    cell.Style.Add("height", "75px");
+                    cell.Style.Add("left", $"{i * 75}px");
+                    cell.Style.Add("top", $"{(7 - j) * 75}px");
+                    cell.BorderWidth = Unit.Empty;
+                    cell.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+
                     pnlBoard.Controls.Add(cell);
                     boardCells[i][j] = cell;
-                    cell.Click += ClickCell;
+                    
+                    // set up the front images
+                    ImageButton fcell = new ImageButton();
+                    fcell.Style.Add("position", "absolute");
+                    fcell.Style.Add("width", "75px");
+                    fcell.Style.Add("height", "75px");
+                    fcell.Style.Add("left", $"{i * 75}px");
+                    fcell.Style.Add("top", $"{(7 - j) * 75}px");
+                    fcell.BorderWidth = Unit.Empty;
+                    fcell.BorderStyle = System.Web.UI.WebControls.BorderStyle.None;
+                    fcell.BackColor = Color.Transparent;
+
+                    fcell.Click += ClickCell;
+
+                    pnlBoard.Controls.Add(fcell);
+                    frontBoardCells[i][j] = fcell;
+
                 }
             }
             //
@@ -81,8 +105,7 @@ namespace Prototype8
             pieceImages.Clear();
             // change visual style
 
-
-            string pieceImagePath = RESOURCE_PATH + "Assets\\PieceImages\\" + pieceSet + "\\";
+            string pieceImagePath = "~/Assets/PieceImages/" + pieceSet + "/";
             // add relative path
 
             for (int i = 0; i < 12; i++)
@@ -116,7 +139,8 @@ namespace Prototype8
                     case 11:
                         path += "bK.png"; break;
                 }
-                pieceImages[i] = Image.FromFile(path);
+
+                pieceImages[i] = path;
             }
             //
 
@@ -131,9 +155,12 @@ namespace Prototype8
             {
                 for (int j = 0; j < 8; j++)
                 {
+                    //pnlBoard.Controls.Add(boardCells[i][j]);
+                    //pnlBoard.Controls.Add(frontBoardCells[i][j]);
+
                     // clear image
-                    boardCells[i][j].BackgroundImage = null;
-                    boardCells[i][j].Image = null;
+                    boardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Empty.png");
+                    frontBoardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Empty.png");
 
                     // set colour
                     if ((i + j) % 2 != 0)
@@ -168,9 +195,9 @@ namespace Prototype8
                         Piece piece = chessBoard.GetPiece(i, j);
                         int type = piece.type;
                         if (piece.colour == PlayerColour.Black) { type += (pieceImages.Count / 2); }
-                        boardCells[i][j].BackgroundImage = pieceImages[type];
+                        boardCells[i][j].ImageUrl = ResolveUrl(pieceImages[type]);
                     }
-                    boardCells[i][j].Update(); // redraw cell
+                    //boardCells[i][j].Update(); // redraw cell
                 }
             }
 
@@ -189,13 +216,13 @@ namespace Prototype8
                         int j = move.positionTo.row;
                         if (chessBoard.ContainsPiece(move.positionTo))  // if contains piece, display circle, else display dot
                         {
-                            boardCells[i][j].Image = Properties.Resources.Circle;
+                            frontBoardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Circle.png");
                         }
                         else
                         {
-                            boardCells[i][j].Image = Properties.Resources.Dot;
+                            frontBoardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Dot.png");
                         }
-                        //boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
+                        boardCells[move.positionTo.column][move.positionTo.row].BackColor = MOVE_COLOUR;
                     }
                 }
             }
@@ -213,6 +240,7 @@ namespace Prototype8
             {
                 lblAnalysisMove.Text = "Expected move: " + (chessBoard as Analysis).analysisMove;
             }
+
         }
 
         // prints the taken pieces to labels on the form
@@ -235,8 +263,8 @@ namespace Prototype8
                 }
             }
 
-            lblBlackTaken.Update();
-            lblWhiteTaken.Update();
+            //lblBlackTaken.Update();
+            //lblWhiteTaken.Update();
         }
 
         // prints the move history to a rich text box on the game form :: format better later
@@ -255,8 +283,8 @@ namespace Prototype8
                     txtBlackMoves.Text += chessBoard.moveNameHistory[i] + Environment.NewLine;
                 }
             }
-            txtWhiteMoves.Update();
-            txtBlackMoves.Update(); // redraw
+            //txtWhiteMoves.Update();
+            //txtBlackMoves.Update(); // redraw
         }
 
     }

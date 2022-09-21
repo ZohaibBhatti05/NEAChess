@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prototype8.Boards;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,9 @@ namespace Prototype8
 {
     public partial class GamePage : System.Web.UI.Page
     {
+        static ChessBoard chessBoard = null;
+        private string username; // username of person logged in
+
         protected void Page_Load(object sender, EventArgs e)
         {
             pnlDuringGame.Visible = false;
@@ -18,6 +22,22 @@ namespace Prototype8
             cmbTimeSettings.Visible = false;
             textFEN.Visible = false;
             radAgainstAI_CheckedChanged(sender, e);
+
+            //if (Page.IsPostBack)
+            //{
+            //    if (chessBoard != null)
+            //    {
+            //        InitialiseGraphics();
+            //        //pnlDuringGame.Visible = true;
+            //        DrawBoard(false);
+            //    }
+            //}
+            if (chessBoard is null)
+            {
+                InitialiseGame();
+            }
+            InitialiseGraphics();
+            DrawBoard(false);
         }
 
         // starts the game
@@ -25,9 +45,180 @@ namespace Prototype8
         {
             pnlPreGame.Visible = false;
             pnlDuringGame.Visible = true;
-            //pnlDuringGame.Visible = true;
-            //InitialiseGame();
+            InitialiseGame();
         }
+
+        private void InitialiseGame()
+        {
+            // set board variant
+            switch (cmbVariant.SelectedIndex)
+            {
+                case 0:
+                    chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard));
+                    break;
+                case 1:
+                    chessBoard = new Chess960(new UpdateBoardGraphicsCallBack(DrawBoard));
+                    break;
+                case 2:
+                    chessBoard = new Antichess(new UpdateBoardGraphicsCallBack(DrawBoard));
+                    break;
+                case 3:
+                    chessBoard = new ThreeCheck(new UpdateBoardGraphicsCallBack(DrawBoard));
+                    break;
+            }
+
+
+            // intialise board players
+            if (radAgainstAI.Checked) // ai game
+            {
+                chessBoard.InitialisePlayers(username, true, cmbPlyDepth.SelectedIndex, checkUseTT.Checked, !radCustomPosition.Checked);
+                //timerUpdateTime.Start();
+            }
+            else // human game
+            {
+                chessBoard.InitialisePlayers(username, false, 0, false, false);
+
+                // time settings
+                if (radCustomTime.Checked) // custom
+                {
+                    totalTime = new TimeSpan(0, int.Parse(textMinutes.Text), int.Parse(textSeconds.Text));
+                    increment = new TimeSpan(0, 0, int.Parse(textIncrement.Text));
+                }
+                else if (radPresetTime.Checked) // preset
+                {
+                    switch (cmbTimeSettings.SelectedIndex)
+                    {
+                        case 0: // 1 min
+                            totalTime = new TimeSpan(0, 1, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 1: // 10 min
+                            totalTime = new TimeSpan(0, 10, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 2: // 20 min
+                            totalTime = new TimeSpan(0, 20, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 3: // 60 min
+                            totalTime = new TimeSpan(1, 0, 0);
+                            increment = new TimeSpan(0, 0, 0);
+                            break;
+                        case 4: // 15 | 10
+                            totalTime = new TimeSpan(0, 15, 0);
+                            increment = new TimeSpan(0, 0, 10);
+                            break;
+                        case 5: // 10 | 5
+                            totalTime = new TimeSpan(0, 10, 0);
+                            increment = new TimeSpan(0, 0, 5);
+                            break;
+                        case 6: // 3 | 2
+                            totalTime = new TimeSpan(0, 3, 0);
+                            increment = new TimeSpan(0, 0, 2);
+                            break;
+                        case 7: // 1 | 1
+                            totalTime = new TimeSpan(0, 1, 0);
+                            increment = new TimeSpan(0, 0, 1);
+                            break;
+                    }
+                }
+                //timerUpdateTime.Start();
+            }
+
+            // position
+            if (radDefaultPosition.Checked)
+            {
+                chessBoard.StandardPositions();
+            }
+            else
+            {
+                chessBoard.CustomPosition(textFEN.Text);
+            }
+
+            // asp:net :: set viewstates so everything doesnt get reset after postback
+            Session["board"] = chessBoard;
+            //
+
+            InitialiseGraphics();
+        }
+
+        // function is run whenever a cell is clicked
+        protected void ClickCell(object sender, EventArgs e)
+        {
+            Position position;
+            // get position of clicked cell
+            for (int i = 0; i < 8; i++)
+            {
+                if (frontBoardCells[i].Contains(sender))
+                {
+                    position = new Position(i, Array.IndexOf(frontBoardCells[i], sender));
+                    chessBoard.SelectCell(position);
+                    break;
+                }
+            }
+        }
+
+        private void btnUndoMove_Click(object sender, EventArgs e)
+        {
+            if (radAgainstAI.Checked)
+            {
+                chessBoard.UndoLastMove();
+            }
+            chessBoard.UndoLastMove();
+        }
+
+        private void btnResign_Click(object sender, EventArgs e)
+        {
+            if (chessBoard is Analysis)
+            {
+                (chessBoard as Analysis).RedoNextMove();
+            }
+            else
+            {
+                chessBoard.Resign();
+            }
+        }
+
+
+        #region timers
+
+        TimeSpan totalTime = new TimeSpan(0, 10, 0); // 5 minutes hardcoded
+        TimeSpan increment = new TimeSpan(0, 10, 0);
+
+        // take timers from board, display times
+        private void timerUpdateTime_Tick(object sender, EventArgs e)
+        {
+            if (radNoTimers.Checked) // permanent display if disabled
+            {
+                lblWhiteTime.Text = "-- : -- : --";
+                lblBlackTime.Text = "-- : -- : --";
+                //timerUpdateTime.Stop(); // disable tick timer, no need to keep updating
+            }
+            else
+            {
+                //TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed + (((chessBoard.moveNameHistory.Count + 1) / 2) * increment);
+                //TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed + ((chessBoard.moveNameHistory.Count / 2) * increment);
+
+                //if (whiteTimeLeft < TimeSpan.Zero)
+                //{
+                //    whiteTimeLeft = TimeSpan.Zero;
+                //    chessBoard.Timeout();
+                //    //timerUpdateTime.Stop();
+                //}
+                //else if (blackTimeLeft < TimeSpan.Zero)
+                //{
+                //    blackTimeLeft = TimeSpan.Zero;
+                //    chessBoard.Timeout();
+                //    //timerUpdateTime.Stop();
+                //}
+
+                //lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");
+                //lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
+            }
+        }
+
+
+        #endregion
 
 
         #region AI Settings

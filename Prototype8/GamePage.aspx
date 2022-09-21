@@ -40,6 +40,81 @@
 
                 <!-- CHESSBOARD -->
                 <asp:Panel ID = "pnlBoard" runat="server" style="height: 600px; width: 600px; background-color: rgb(115, 115, 115); position: absolute; left: 38px; top: 118px">
+                    
+                    <!--
+                    <asp:ImageButton ID = "btnA8" style="left: 0px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA7" style="left: 0px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA6" style="left: 0px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA5" style="left: 0px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA4" style="left: 0px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA3" style="left: 0px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA2" style="left: 0px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnA1" style="left: 0px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+
+                    <asp:ImageButton ID = "btnB8" style="left: 75px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB7" style="left: 75px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB6" style="left: 75px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB5" style="left: 75px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB4" style="left: 75px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB3" style="left: 75px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB2" style="left: 75px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnB1" style="left: 75px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+					
+					<asp:ImageButton ID = "btnC8" style="left: 150px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC7" style="left: 150px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC6" style="left: 150px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC5" style="left: 150px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC4" style="left: 150px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC3" style="left: 150px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC2" style="left: 150px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnC1" style="left: 150px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+					
+					<asp:ImageButton ID = "btnD8" style="left: 225px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD7" style="left: 225px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD6" style="left: 225px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD5" style="left: 225px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD4" style="left: 225px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD3" style="left: 225px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD2" style="left: 225px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnD1" style="left: 225px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+					
+					<asp:ImageButton ID = "btnE8" style="left: 300px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE7" style="left: 300px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE6" style="left: 300px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE5" style="left: 300px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE4" style="left: 300px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE3" style="left: 300px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE2" style="left: 300px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnE1" style="left: 300px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+					
+					<asp:ImageButton ID = "btnF8" style="left: 375px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF7" style="left: 375px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF6" style="left: 375px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF5" style="left: 375px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF4" style="left: 375px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF3" style="left: 375px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF2" style="left: 375px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnF1" style="left: 375px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+					
+					<asp:ImageButton ID = "btnG8" style="left: 450px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG7" style="left: 450px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG6" style="left: 450px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG5" style="left: 450px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG4" style="left: 450px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG3" style="left: 450px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG2" style="left: 450px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnG1" style="left: 450px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+					
+					<asp:ImageButton ID = "btnH8" style="left: 525px; top: 0px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH7" style="left: 525px; top: 75px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH6" style="left: 525px; top: 150px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH5" style="left: 525px; top: 225px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH4" style="left: 525px; top: 300px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH3" style="left: 525px; top: 375px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH2" style="left: 525px; top: 450px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+                    <asp:ImageButton ID = "btnH1" style="left: 525px; top: 525px; position:absolute; width:75px; height:75px" OnClick="ClickCell" runat="server"/>
+
+                    -->
 
                 </asp:Panel>
                 <!-- CHESSBOARD -->
@@ -176,12 +251,14 @@
                     <asp:Panel ID = "pnlPGN" runat="server" style="height: 680px; width: 293px; background-color: rgb(50, 50, 50); position: absolute; left: 3px; top: 3px; border-top-left-radius:5px; border-top-right-radius:5px;">
                         <asp:TextBox ID="txtWhiteMoves" runat="server" style="position:absolute; left:3px; top:3px; width:100px; height:674px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None"></asp:TextBox>
                         <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:674px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None"></asp:TextBox>
-                        
+                    
+                        <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 656px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
                     </asp:Panel>
 
                     <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png"/>
                     <asp:ImageButton ID="btnResign" runat="server" style="position:absolute; left:102px; top:688px; width:95px; height: 56px; background-color:rgb(70, 70, 70);" ImageUrl="~/Resources/Flag.png"/>
                     <asp:Button ID="btnDraw" runat="server" style="position:absolute; left:202px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-right-radius:5px;" BorderWidth="0px" Text="½ ½" Font-Names="Segoe UI" Font-Size="14pt" Font-Bold="true" ForeColor="White"/>
+
                 </asp:Panel>
                 <!-- During-Game Settings -->
             </asp:Panel>

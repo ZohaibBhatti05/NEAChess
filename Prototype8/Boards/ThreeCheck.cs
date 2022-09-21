@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prototype8.Pieces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;

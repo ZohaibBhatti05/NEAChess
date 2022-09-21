@@ -1,21 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 
 namespace Prototype8.Boards
 {
-    internal class Antichess : ChessBoard
+    internal class Analysis : ChessBoard
     {
-        public Antichess(UpdateBoardGraphicsCallBack updateGraphicsCallback) : base(updateGraphicsCallback)
+        public Analysis(UpdateBoardGraphicsCallBack updateGraphicsCallback) : base(updateGraphicsCallback)
         {
+
+        }
+
+        private int deviatingMoveCount = 0;
+
+        private AI analysisAI = new AI(4, PlayerColour.Black, true, false);
+
+        private List<string> gameMoveNameHistory = new List<string>();
+
+        public string analysisMove { get; private set; }
+
+        public void SetupAnalysis(string FEN, string PGN)
+        {
+            base.PositionFromFEN(FEN);
+
+            gameMoveNameHistory = PGN.Split(new string[] {", "}, StringSplitOptions.RemoveEmptyEntries).ToList();
+            //base.moveNameHistory = gameMoveNameHistory;
+        }
+
+
+
+        // function replays the move made in the given game
+        public void RedoNextMove()
+        {
+            if (deviatingMoveCount > 0)
+            {
+                return; // dont run code if deviating from recorded moves
+            }
+
+            List<Move> moves = AllPossibleMoves(currentTurn); // get all moves
+
+            foreach (Move move in moves)
+            {
+                string name = move.GetMoveName(this);
+                if (name == Regex.Replace(gameMoveNameHistory[moveNameHistory.Count], "[#+]", "")) // if move matches, make it
+                {
+                    MakeMove(move);
+                    AfterMove(move);
+                }
+            }
+        }
+
+        // get pvs from ai after a move is made
+        protected override void AfterMove(Move move)
+        {
+            base.AfterMove(move);
+            analysisMove = analysisAI.MakeMove(this, currentTurn).GetMoveName(this); // get best move found
+            graphicsCallBack.Invoke(false);
+        }
+
+        // undoes the last move
+        public override void UndoLastMove()
+        {
+            if (deviatingMoveCount > 0)
+            {
+                deviatingMoveCount--;
+            }
+            base.UndoLastMove();
         }
 
         public override void SelectCell(Position position)
         {
             if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
-
                 // if there is no selected position
                 if (selectedCell == null)
                 {
@@ -34,8 +92,6 @@ namespace Prototype8.Boards
                         // select piece
                         selectedCell = position;
                         selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
-                        AllPossibleMoves(currentTurn); // generate all moves
-                        CullNonCaptureMoves(base.allPossibleMoves); // antichess culling
                         graphicsCallBack.Invoke(false);
                         return;
                     }
@@ -52,7 +108,6 @@ namespace Prototype8.Boards
                         {
                             selectedCell = position; // select cell
                             selectedMoves = GetPiece(position).GenerateLegalMoves(this, position); // get valid moves
-                            CullNonCaptureMoves(base.allPossibleMoves);
                             graphicsCallBack.Invoke(false);
                             return;
                         }
@@ -64,6 +119,7 @@ namespace Prototype8.Boards
                             {
                                 if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
                                 {
+                                    deviatingMoveCount++;
                                     MakeMove(move);
                                     AfterMove(move);
                                     return;
@@ -79,6 +135,7 @@ namespace Prototype8.Boards
                         {
                             if ((position.column == move.positionTo.column) && (position.row == move.positionTo.row))
                             {
+                                deviatingMoveCount++;
                                 MakeMove(move);
                                 AfterMove(move);
                                 return;
@@ -87,52 +144,6 @@ namespace Prototype8.Boards
                     }
                 }
             }
-        }
-
-
-        // method removes all non-capture moves if a caputure move exists
-        private void CullNonCaptureMoves(List<Move> allPossibleMoves)
-        {
-            // for every move from the player colour
-            foreach (Move move in allPossibleMoves)
-            {
-                if (move.takenPiece != null) // if any move is a capture, remove all non-captures from the list of moves
-                {
-                    selectedMoves.RemoveAll(m => m.takenPiece == null);
-                    return;
-                }
-            }
-        }
-
-        protected override bool UpdateDrawConditions(Move move)
-        {
-            return false;
-        }
-
-        internal override void UpdateWinStatus(PlayerColour turn)
-        {
-            bool win = true;
-            // count pieces on the board
-            for (int i = 0; i < 8; i++)
-            {
-                for (int j = 0; j < 8; j++)
-                {
-                    if (ContainsPiece(i, j))
-                    {
-                        if (GetPiece(i, j).colour == turn) // if the current player still has a piece
-                        {
-                            win = false; // player has not won
-                        }
-                    }
-                }
-            }
-            if (win || AllPossibleMoves(turn).Count == 0) // all pieces taken or stalemated
-            {
-                winStatus = (currentTurn == PlayerColour.White ? WinStatus.BlackWin : WinStatus.WhiteWin);
-                return;
-            }
-
-            winStatus = WinStatus.None;
         }
     }
 }
