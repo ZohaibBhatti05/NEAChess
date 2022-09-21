@@ -12,6 +12,7 @@ namespace Prototype8
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            pnlDuringGame.Visible = false;
             pnlAISettings.Visible = false;
             pnlCustomTime.Visible = false;
             cmbTimeSettings.Visible = false;
@@ -23,6 +24,7 @@ namespace Prototype8
         protected void btnStartGame_Click(object sender, EventArgs e)
         {
             pnlPreGame.Visible = false;
+            pnlDuringGame.Visible = true;
             //pnlDuringGame.Visible = true;
             //InitialiseGame();
         }
@@ -94,7 +96,6 @@ namespace Prototype8
             pnlCustomTime.Visible = true;
         }
         #endregion
-
 
         #region Position
 

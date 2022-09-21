@@ -38,9 +38,11 @@
                 <asp:Label ID="lblRank8" runat="server" Text = "8" style = "line-height:75px; position:absolute; left: 13px; top: 118px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
                 <!-- File/Rank Labels -->
 
+                <!-- CHESSBOARD -->
                 <asp:Panel ID = "pnlBoard" runat="server" style="height: 600px; width: 600px; background-color: rgb(115, 115, 115); position: absolute; left: 38px; top: 118px">
 
                 </asp:Panel>
+                <!-- CHESSBOARD -->
 
                 <!-- White/Black UI -->
                 <asp:Panel ID = "pnlWhiteUI" runat="server" style="height: 60px; width: 600px; background-color: rgb(70, 70, 70); position: absolute; left: 38px; top: 743px; border-radius: 5px 5px">
@@ -170,7 +172,17 @@
 
 
                 <!-- During-Game Settings -->
+                <asp:Panel ID = "pnlDuringGame" runat="server" style="height: 747px; width: 300px; background-color: rgb(40, 40, 40); position: absolute; left: 641px; top: 56px; border-radius: 5px 5px">
+                    <asp:Panel ID = "pnlPGN" runat="server" style="height: 680px; width: 293px; background-color: rgb(50, 50, 50); position: absolute; left: 3px; top: 3px; border-top-left-radius:5px; border-top-right-radius:5px;">
+                        <asp:TextBox ID="txtWhiteMoves" runat="server" style="position:absolute; left:3px; top:3px; width:100px; height:674px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None"></asp:TextBox>
+                        <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:674px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None"></asp:TextBox>
+                        
+                    </asp:Panel>
 
+                    <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png"/>
+                    <asp:ImageButton ID="btnResign" runat="server" style="position:absolute; left:102px; top:688px; width:95px; height: 56px; background-color:rgb(70, 70, 70);" ImageUrl="~/Resources/Flag.png"/>
+                    <asp:Button ID="btnDraw" runat="server" style="position:absolute; left:202px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-right-radius:5px;" BorderWidth="0px" Text="½ ½" Font-Names="Segoe UI" Font-Size="14pt" Font-Bold="true" ForeColor="White"/>
+                </asp:Panel>
                 <!-- During-Game Settings -->
             </asp:Panel>
 

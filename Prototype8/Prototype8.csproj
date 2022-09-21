@@ -84,6 +84,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Boards\Antichess.cs" />
+    <Compile Include="Boards\ChessBoard.cs" />
+    <Compile Include="Boards\ThreeCheck.cs" />
     <Compile Include="DatabaseConnection.cs" />
     <Compile Include="GamePage.aspx.cs">
       <DependentUpon>GamePage.aspx</DependentUpon>
@@ -94,6 +97,9 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GraphicsManager.cs">
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="LoginPage.aspx.cs">
       <DependentUpon>LoginPage.aspx</DependentUpon>
@@ -133,6 +139,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Pieces\" />
+    <Folder Include="Players\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

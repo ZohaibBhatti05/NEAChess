@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace Prototype7.Boards
+namespace Prototype8.Boards
 {
     internal class Antichess : ChessBoard
     {
@@ -95,7 +94,7 @@ namespace Prototype7.Boards
         private void CullNonCaptureMoves(List<Move> allPossibleMoves)
         {
             // for every move from the player colour
-            foreach(Move move in allPossibleMoves)
+            foreach (Move move in allPossibleMoves)
             {
                 if (move.takenPiece != null) // if any move is a capture, remove all non-captures from the list of moves
                 {
@@ -114,9 +113,9 @@ namespace Prototype7.Boards
         {
             bool win = true;
             // count pieces on the board
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
-                for(int j = 0; j < 8; j++)
+                for (int j = 0; j < 8; j++)
                 {
                     if (ContainsPiece(i, j))
                     {
