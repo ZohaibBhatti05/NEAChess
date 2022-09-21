@@ -120,14 +120,14 @@ namespace Prototype8.Boards
         }
 
         // initialise players of a game
-        public void InitialisePlayers(string username, bool AI, int plyDepth, bool transposition, bool opening)
+        public void InitialisePlayers(string username, bool AI, int plyDepth, int qDepth, bool transposition, bool opening)
         {
             this.username = username;
             whitePlayer = new Human(username);
 
             if (AI)
             {
-                blackPlayer = new AI(plyDepth, PlayerColour.Black, transposition, opening);
+                blackPlayer = new AI(plyDepth++, qDepth, PlayerColour.Black, transposition, opening);
             }
             else
             {

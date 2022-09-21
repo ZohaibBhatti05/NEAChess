@@ -15,7 +15,7 @@ namespace Prototype8.Boards
 
         private int deviatingMoveCount = 0;
 
-        private AI analysisAI = new AI(4, PlayerColour.Black, true, false);
+        private AI analysisAI = new AI(3, 4, PlayerColour.Black, true, false);
 
         private List<string> gameMoveNameHistory = new List<string>();
 

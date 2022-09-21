@@ -77,12 +77,12 @@ namespace Prototype8
             // intialise board players
             if (radAgainstAI.Checked) // ai game
             {
-                chessBoard.InitialisePlayers(username, true, cmbPlyDepth.SelectedIndex, checkUseTT.Checked, !radCustomPosition.Checked);
+                chessBoard.InitialisePlayers(username, true, cmbPlyDepth.SelectedIndex, cmbQDepth.SelectedIndex, checkUseTT.Checked, !radCustomPosition.Checked);
                 //timerUpdateTime.Start();
             }
             else // human game
             {
-                chessBoard.InitialisePlayers(username, false, 0, false, false);
+                chessBoard.InitialisePlayers(username, false, 0, 0, false, false);
 
                 // time settings
                 if (radCustomTime.Checked) // custom

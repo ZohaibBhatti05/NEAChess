@@ -37,13 +37,15 @@ namespace Prototype8.Boards
 
         private List<Move> initialMoves;
 
-        private int QUIESCENCE_MAX_DEPTH = 3;
+        private int quiescentDepth = 3;
 
-        public AI(int plyDepth, PlayerColour colour, bool tt, bool opTable) : base()
+        public AI(int plyDepth, int qDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
-            this.useOpening = opTable;
+            //this.useOpening = opTable;
+            this.useOpening = false;
             this.useTransposition = tt;
             this.maxPlyDepth = plyDepth;
+            this.quiescentDepth = qDepth;
             this.colour = colour;
 
             killerMoves = new Move[maxPlyDepth][];
@@ -52,7 +54,10 @@ namespace Prototype8.Boards
                 killerMoves[i] = new Move[KILLER_MOVE_COUNT];
             }
 
-            InitialiseTables();
+            if (useOpening)
+            {
+                InitialiseTables();
+            }
 
             if (useTransposition)
             {
@@ -112,7 +117,7 @@ namespace Prototype8.Boards
                 // intital Minimax call
                 int value = AlphaBeta(board, plyDepth, (colour == PlayerColour.White), int.MinValue + 1, int.MaxValue, 0);
 
-                Console.WriteLine($"Ply {plyDepth} + {QUIESCENCE_MAX_DEPTH} :: {nodes} nodes :: {qNodes} Q-Nodes in {stopwatch.Elapsed.ToString()} seconds");
+                Console.WriteLine($"Ply {plyDepth} + {quiescentDepth} :: {nodes} nodes :: {qNodes} Q-Nodes in {stopwatch.Elapsed.ToString()} seconds");
 
                 // iterative deepening
                 initialMoves.Remove(bestMove); // place best move from previous search at front of list
@@ -250,7 +255,7 @@ namespace Prototype8.Boards
             if (plyDepth > 3 && !(board.winStatus == WinStatus.WhiteCheck || board.winStatus == WinStatus.BlackCheck))
             {
                 // make null move
-                value = -Quiescence(board, !max, QUIESCENCE_MAX_DEPTH - 2, -beta, -alpha);
+                value = -Quiescence(board, !max, quiescentDepth - 2, -beta, -alpha);
                 // undo null move
                 if (value >= beta) // if position strong enough to produce cutoff, return
                 {
@@ -348,7 +353,7 @@ namespace Prototype8.Boards
             // "standpat" score
             int value = (max ? 1 : -1) * board.BoardValue(max, qDepth);
 
-            if (qDepth == QUIESCENCE_MAX_DEPTH) // depth cutoff
+            if (qDepth == quiescentDepth) // depth cutoff
             {
                 return value;
             }
