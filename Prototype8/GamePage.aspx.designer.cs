@@ -186,6 +186,15 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Label lblRank8;
 
         /// <summary>
+        /// updatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatePanel;
+
+        /// <summary>
         /// pnlBoard control.
         /// </summary>
         /// <remarks>

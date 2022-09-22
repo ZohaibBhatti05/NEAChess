@@ -11,10 +11,7 @@ namespace Prototype8
 {
     public partial class GamePage : System.Web.UI.Page
     {
-        static ChessBoard chessBoard = null;
-
-        static List<Position> selectHistory;
-
+        static ChessBoard chessBoard;
         private string username; // username of person logged in
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,14 +27,9 @@ namespace Prototype8
             {
                 if (chessBoard != null)
                 {
-                    InitialiseGame();
+                    //InitialiseGame();
                     InitialiseGraphics();
-
-                    //foreach (Position pos in selectHistory)
-                    //{
-                    //    chessBoard.SelectCell(pos);
-                    //}
-
+                    pnlDuringGame.Visible = true;
                     DrawBoard(false);
                 }
             }
@@ -54,7 +46,7 @@ namespace Prototype8
 
         private void InitialiseGame()
         {
-            if (chessBoard != null) { return;  selectHistory = new List<Position>(); }
+            if (chessBoard != null) { return; }
 
             // set board variant
             switch (cmbVariant.SelectedIndex)
@@ -78,7 +70,6 @@ namespace Prototype8
             if (radAgainstAI.Checked) // ai game
             {
                 chessBoard.InitialisePlayers(username, true, cmbPlyDepth.SelectedIndex, cmbQDepth.SelectedIndex, checkUseTT.Checked, !radCustomPosition.Checked);
-                //timerUpdateTime.Start();
             }
             else // human game
             {
@@ -128,8 +119,8 @@ namespace Prototype8
                             break;
                     }
                 }
-                //timerUpdateTime.Start();
             }
+            //timerUpdateTime.Enabled = true;
 
             // position
             if (radDefaultPosition.Checked)
@@ -155,7 +146,6 @@ namespace Prototype8
                 {
                     position = new Position(i, Array.IndexOf(frontBoardCells[i], sender));
                     chessBoard.SelectCell(position);
-                    //selectHistory.Add(position);
                     break;
                 }
             }
@@ -185,44 +175,45 @@ namespace Prototype8
 
         #region timers
 
-        TimeSpan totalTime = new TimeSpan(0, 10, 0); // 5 minutes hardcoded
-        TimeSpan increment = new TimeSpan(0, 10, 0);
+        static TimeSpan totalTime = new TimeSpan(0, 10, 0); // 5 minutes hardcoded
+        static TimeSpan increment = new TimeSpan(0, 10, 0);
+        static TimeSpan whiteTimeLeft;
+        static TimeSpan blackTimeLeft;
 
         // take timers from board, display times
-        private void timerUpdateTime_Tick(object sender, EventArgs e)
+        protected void timerUpdateTime_Tick(object sender, EventArgs e)
         {
             if (radNoTimers.Checked) // permanent display if disabled
             {
                 lblWhiteTime.Text = "-- : -- : --";
                 lblBlackTime.Text = "-- : -- : --";
-                //timerUpdateTime.Stop(); // disable tick timer, no need to keep updating
+                //timerUpdateTime.Enabled = false; // disable tick timer, no need to keep updating
             }
             else
             {
-                //TimeSpan whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed + (((chessBoard.moveNameHistory.Count + 1) / 2) * increment);
-                //TimeSpan blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed + ((chessBoard.moveNameHistory.Count / 2) * increment);
+                whiteTimeLeft = totalTime - chessBoard.whiteTimer.Elapsed + new TimeSpan(0, 0, (((chessBoard.moveNameHistory.Count + 1) / 2) * increment.Seconds));
+                blackTimeLeft = totalTime - chessBoard.blackTimer.Elapsed + new TimeSpan(0, 0, ((chessBoard.moveNameHistory.Count / 2) * increment.Seconds));
 
-                //if (whiteTimeLeft < TimeSpan.Zero)
-                //{
-                //    whiteTimeLeft = TimeSpan.Zero;
-                //    chessBoard.Timeout();
-                //    //timerUpdateTime.Stop();
-                //}
-                //else if (blackTimeLeft < TimeSpan.Zero)
-                //{
-                //    blackTimeLeft = TimeSpan.Zero;
-                //    chessBoard.Timeout();
-                //    //timerUpdateTime.Stop();
-                //}
+                if (whiteTimeLeft < TimeSpan.Zero)
+                {
+                    whiteTimeLeft = TimeSpan.Zero;
+                    chessBoard.Timeout();
+                    //timerUpdateTime.Enabled = false;
+                }
+                else if (blackTimeLeft < TimeSpan.Zero)
+                {
+                    blackTimeLeft = TimeSpan.Zero;
+                    chessBoard.Timeout();
+                    //timerUpdateTime.Enabled = false;
+                }
 
-                //lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");
-                //lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
+                lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");
+                lblBlackTime.Text = blackTimeLeft.ToString("mm\\:ss\\.ff");
             }
         }
 
 
         #endregion
-
 
         #region AI Settings
 

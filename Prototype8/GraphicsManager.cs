@@ -152,14 +152,13 @@ namespace Prototype8
         // method to draw the cells and pieces that comprise the board
         private void DrawBoard(bool updatePost)
         {
+            if (boardCells == null) { return; }
+            else if (boardCells[0] == null) { return; }
             // draw cells (update button colours and pictures)
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    //pnlBoard.Controls.Add(boardCells[i][j]);
-                    //pnlBoard.Controls.Add(frontBoardCells[i][j]);
-
                     // clear image
                     boardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Empty.png");
                     frontBoardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Empty.png");
@@ -243,6 +242,7 @@ namespace Prototype8
                 lblAnalysisMove.Text = "Expected move: " + (chessBoard as Analysis).analysisMove;
             }
 
+            //Page_Load(this, new EventArgs());
         }
 
         // prints the taken pieces to labels on the form
@@ -287,6 +287,11 @@ namespace Prototype8
             }
             //txtWhiteMoves.Update();
             //txtBlackMoves.Update(); // redraw
+        }
+
+        protected void UpdatePanel(object sender, EventArgs e)
+        {
+            DrawBoard(false);
         }
 
     }
