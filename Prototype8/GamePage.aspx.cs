@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace Prototype8
 {
+
     public partial class GamePage : System.Web.UI.Page
     {
         static ChessBoard chessBoard;
@@ -17,6 +18,7 @@ namespace Prototype8
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //timerAI.Enabled = false;
             //username = Request.QueryString["Username"];
             lblUsername.Text = "You are logged in as: " + username;
             pnlDuringGame.Visible = false;
@@ -34,13 +36,6 @@ namespace Prototype8
                     InitialiseGraphics();
                     pnlDuringGame.Visible = true;
                     DrawBoard(false);
-
-                    //if (makeAIMove)
-                    //{
-                    //    makeAIMove = false;
-                    //    chessBoard.PostBoardRedraw();
-                    //    updatePanel.Update();
-                    //}
                 }
             }
 
@@ -327,5 +322,12 @@ namespace Prototype8
         }
 
         #endregion
+
+        protected void MakeAIMove(object sender, EventArgs e)
+        {
+            //timerAI.Enabled = false;
+            //chessBoard.PostBoardRedraw();
+            //updatePanel.Update();
+        }
     }
 }

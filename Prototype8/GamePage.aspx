@@ -11,7 +11,7 @@
 <body style="width: 95%; height: 100%; background-color: rgb(40, 40, 40);">
     <form id="GameForm" runat="server">
 
-        <asp:ScriptManager ID="ScriptManager" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager" runat="server" EnableCdn="true"></asp:ScriptManager>
 
         <div style = "vertical-align:central; text-align:center">
 
@@ -38,7 +38,6 @@
                 <asp:Label ID="lblRank7" runat="server" Text = "7" style = "line-height:75px; position:absolute; left: 13px; top: 193px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
                 <asp:Label ID="lblRank8" runat="server" Text = "8" style = "line-height:75px; position:absolute; left: 13px; top: 118px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
                 <!-- File/Rank Labels -->
-                
 
                 <asp:UpdatePanel ID="updatePanelTimers" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false" EnableViewState="true"> 
                     

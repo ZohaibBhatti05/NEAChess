@@ -235,8 +235,11 @@ namespace Prototype8
 
             if (updatePost)
             {
-                DrawBoard(false);
-                chessBoard.PostBoardRedraw();
+                //makeAIMove.Invoke();
+                //updatePanel.Update();
+                //makeAIMove = true;
+                //DrawBoard(false);
+                //chessBoard.PostBoardRedraw();
             }
 
             // analysis block
