@@ -12,10 +12,13 @@ namespace Prototype8
     public partial class GamePage : System.Web.UI.Page
     {
         static ChessBoard chessBoard;
-        private string username; // username of person logged in
+        private string username = "Guest"; // username of person logged in
+        //static bool makeAIMove;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //username = Request.QueryString["Username"];
+            lblUsername.Text = "You are logged in as: " + username;
             pnlDuringGame.Visible = false;
             pnlAISettings.Visible = false;
             pnlCustomTime.Visible = false;
@@ -27,10 +30,17 @@ namespace Prototype8
             {
                 if (chessBoard != null)
                 {
-                    //InitialiseGame();
+                    InitialiseGame();
                     InitialiseGraphics();
                     pnlDuringGame.Visible = true;
                     DrawBoard(false);
+
+                    //if (makeAIMove)
+                    //{
+                    //    makeAIMove = false;
+                    //    chessBoard.PostBoardRedraw();
+                    //    updatePanel.Update();
+                    //}
                 }
             }
 
@@ -42,11 +52,16 @@ namespace Prototype8
             pnlPreGame.Visible = false;
             pnlDuringGame.Visible = true;
             InitialiseGame();
+            updatePanel.Update();
         }
 
         private void InitialiseGame()
         {
-            if (chessBoard != null) { return; }
+            //timerUpdateTime.Enabled = true;
+            if (chessBoard != null)
+            {
+                return;
+            }
 
             // set board variant
             switch (cmbVariant.SelectedIndex)
@@ -120,7 +135,7 @@ namespace Prototype8
                     }
                 }
             }
-            //timerUpdateTime.Enabled = true;
+            timerUpdateTime.Enabled = true;
 
             // position
             if (radDefaultPosition.Checked)
@@ -149,6 +164,7 @@ namespace Prototype8
                     break;
                 }
             }
+            updatePanel.Update();
         }
 
         private void btnUndoMove_Click(object sender, EventArgs e)
@@ -187,7 +203,7 @@ namespace Prototype8
             {
                 lblWhiteTime.Text = "-- : -- : --";
                 lblBlackTime.Text = "-- : -- : --";
-                //timerUpdateTime.Enabled = false; // disable tick timer, no need to keep updating
+                timerUpdateTime.Enabled = false; // disable tick timer, no need to keep updating
             }
             else
             {
@@ -198,13 +214,13 @@ namespace Prototype8
                 {
                     whiteTimeLeft = TimeSpan.Zero;
                     chessBoard.Timeout();
-                    //timerUpdateTime.Enabled = false;
+                    timerUpdateTime.Enabled = false;
                 }
                 else if (blackTimeLeft < TimeSpan.Zero)
                 {
                     blackTimeLeft = TimeSpan.Zero;
                     chessBoard.Timeout();
-                    //timerUpdateTime.Enabled = false;
+                    timerUpdateTime.Enabled = false;
                 }
 
                 lblWhiteTime.Text = whiteTimeLeft.ToString("mm\\:ss\\.ff");

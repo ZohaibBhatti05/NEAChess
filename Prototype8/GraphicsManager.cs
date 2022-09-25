@@ -152,7 +152,9 @@ namespace Prototype8
         // method to draw the cells and pieces that comprise the board
         private void DrawBoard(bool updatePost)
         {
-            if (boardCells == null) { return; }
+            if (frontBoardCells == null) { return; }
+            else if (frontBoardCells[0] == null) { return; }
+            else if (boardCells == null) { return; }
             else if (boardCells[0] == null) { return; }
             // draw cells (update button colours and pictures)
             for (int i = 0; i < 8; i++)
@@ -233,6 +235,7 @@ namespace Prototype8
 
             if (updatePost)
             {
+                DrawBoard(false);
                 chessBoard.PostBoardRedraw();
             }
 
@@ -241,8 +244,6 @@ namespace Prototype8
             {
                 lblAnalysisMove.Text = "Expected move: " + (chessBoard as Analysis).analysisMove;
             }
-
-            //Page_Load(this, new EventArgs());
         }
 
         // prints the taken pieces to labels on the form
@@ -264,9 +265,6 @@ namespace Prototype8
                     lblBlackTaken.Text += unicodePieces[p];
                 }
             }
-
-            //lblBlackTaken.Update();
-            //lblWhiteTaken.Update();
         }
 
         // prints the move history to a rich text box on the game form :: format better later

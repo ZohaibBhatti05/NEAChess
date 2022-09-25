@@ -15,7 +15,10 @@ namespace Prototype8.Boards
         // override standard positions method from base board class
         public override void StandardPositions()
         {
-            string posPath = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Tablebases/Chess960Positions.pgn";
+            string posPath =
+                //"C:/Users/Zobear/source/repos/NEAChess/" +
+                "C:/Users/Zohaib/source/repos/NEAChess/" +
+                 "/Tablebases/Chess960Positions.pgn";
             StreamReader reader = new StreamReader(posPath); // open file of FEN strings
 
             string FEN = string.Empty; // position to load

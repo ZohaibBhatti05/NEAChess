@@ -42,6 +42,15 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Panel pnlForm;
 
         /// <summary>
+        /// lblUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsername;
+
+        /// <summary>
         /// lblFile1 control.
         /// </summary>
         /// <remarks>
@@ -186,22 +195,22 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Label lblRank8;
 
         /// <summary>
-        /// updatePanel control.
+        /// updatePanelTimers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanel;
+        protected global::System.Web.UI.UpdatePanel updatePanelTimers;
 
         /// <summary>
-        /// pnlBoard control.
+        /// timerUpdateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlBoard;
+        protected global::System.Web.UI.Timer timerUpdateTime;
 
         /// <summary>
         /// pnlWhiteUI control.
@@ -292,6 +301,24 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblWhiteTaken;
+
+        /// <summary>
+        /// updatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updatePanel;
+
+        /// <summary>
+        /// pnlBoard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBoard;
 
         /// <summary>
         /// pnlPreGame control.

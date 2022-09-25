@@ -144,6 +144,7 @@ namespace Prototype8.Boards
                     }
                 }
             }
+            return;
         }
     }
 }

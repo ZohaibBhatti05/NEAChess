@@ -26,9 +26,7 @@ namespace Prototype8
             {
                 if (AreDetailsValid(txtLoginUsername.Text, txtLoginPassword.Text))
                 {
-                    //GameForm gameForm = new GameForm(txtLoginUsername.Text); // show the game form
-                    //gameForm.ShowDialog();
-                    //return;
+                    Response.Redirect($"GamePage.aspx?Username={txtLoginUsername.Text}");
                 }
             }
             lblError.Text = "Invalid Details - Please check your entered details.";
@@ -61,16 +59,12 @@ namespace Prototype8
         protected void btnRegister_Click(object sender, EventArgs e)
         {
             Response.Redirect("RegisterPage.aspx");
-            //RegisterForm registerForm = new RegisterForm();
-            //this.Hide();
-            //registerForm.ShowDialog();
-            //this.Show();
         }
 
         // guest, set gameform attributes as needed
         protected void btnGuest_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GamePage.aspx");
+            Response.Redirect("GamePage.aspx?Username=Guest");
         }
     }
 }
