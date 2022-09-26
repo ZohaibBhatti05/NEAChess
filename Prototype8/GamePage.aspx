@@ -96,7 +96,7 @@
                             <asp:Panel ID = "pnlAISettings" runat="server" style="height: 120px; width: 288px; background-color: rgb(40, 40, 40); position: absolute; left: 3px; top: 82px; border-radius: 5px 5px;">
 
                                 <asp:Label ID="lblDepth" runat="server" Text = "Ply Depth:" style = "position:absolute; left: 6px; top: 14px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
-                                <ajaxToolkit:ComboBox runat="server" ID="cmbPlyDepth" style="position:absolute; width: 136px; height: 25px; left:78px; top:6px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
+                                <ajaxToolkit:ComboBox runat="server" ID="cmbPlyDepth" style="position:absolute; width: 0px; height: 25px; left:78px; top:6px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
                                     ToolTip="Dictates how many moves ahead the AI calculates.">
                                     <asp:ListItem Text="1 (Very Easy)"></asp:ListItem>
                                     <asp:ListItem Text="2 (Easy)"></asp:ListItem>
@@ -108,8 +108,8 @@
                                     <asp:ListItem Text="8 (Very Hard)"></asp:ListItem>
                                 </ajaxToolkit:ComboBox>
 
-                                <asp:Label ID="lblQDepth" runat="server" Text = "Q Depth:" style = "position:absolute; left: 6px; top: 54px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
-                                <ajaxToolkit:ComboBox runat="server" ID="cmbQDepth" style="position:absolute; width: 136px; height: 25px; left:78px; top:46px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
+                                <asp:Label ID="lblQDepth" runat="server" Text = "Q Depth:" style = "position:absolute; left: 6px; top: 54px; color: rgb(215, 215, 215)" Font-Bold="True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                                <ajaxToolkit:ComboBox runat="server" ID="cmbQDepth" style="position:absolute; width: 0px; height: 25px; left:78px; top:46px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
                                     ToolTip="Dictates how many moves ahead the AI can calculate after ply. Use to simulate higher ply if high ply runs slowly.">
                                     <asp:ListItem Text="0"></asp:ListItem>
                                     <asp:ListItem Text="1"></asp:ListItem>
@@ -135,7 +135,7 @@
                             <asp:RadioButton ID="radPresetTime" runat="server" Text="Preset" Checked="false" style="position:absolute; left:7px; top:70px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
                             <asp:RadioButton ID="radCustomTime" runat="server" Text="Custom" Checked="false" style="position:absolute; left:7px; top:140px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
 
-                            <ajaxToolkit:ComboBox runat="server" ID="cmbTimeSettings" style="position:absolute; width: 136px; height: 25px; left:7px; top:97px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true">
+                            <ajaxToolkit:ComboBox runat="server" ID="cmbTimeSettings" style="position:absolute; width: 136px; height: 25px; left:7px; top:97px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true">
                                 <asp:ListItem Text="1 min"></asp:ListItem>
                                 <asp:ListItem Text="10 min" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="20 min"></asp:ListItem>
@@ -160,7 +160,7 @@
                         <asp:Panel ID = "pnlVariants" runat="server" style="height: 82px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 443px;">
                             <asp:Label ID="lblVariant" runat="server" Text = "Variant:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
 
-                            <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbVariant_SelectedIndexChanged">
+                            <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbVariant_SelectedIndexChanged">
                                 <asp:ListItem Text="Standard" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="Chess960"></asp:ListItem>
                                 <asp:ListItem Text="Antichess"></asp:ListItem>
@@ -198,6 +198,14 @@
                         <asp:ImageButton ID="btnResign" runat="server" style="position:absolute; left:102px; top:688px; width:95px; height: 56px; background-color:rgb(70, 70, 70);" ImageUrl="~/Resources/Flag.png"/>
                         <asp:Button ID="btnDraw" runat="server" style="position:absolute; left:202px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-right-radius:5px;" BorderWidth="0px" Text="½ ½" Font-Names="Segoe UI" Font-Size="14pt" Font-Bold="true" ForeColor="White"/>
 
+                        <asp:Label ID="lblPromote" runat="server" Text = "Promote To:" style = "position:absolute; left: 6px; top: 658px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                        <ajaxToolkit:ComboBox runat="server" ID="cmbPromote" style="position:absolute; width: 0px; height: 25px; left:85px; top:648px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
+                            ToolTip="Determines what a pawn becomes when reeaching the opposite end of the board.">
+                            <asp:ListItem Text="Bishop"></asp:ListItem>
+                            <asp:ListItem Text="Knight"></asp:ListItem>
+                            <asp:ListItem Text="Rook"></asp:ListItem>
+                            <asp:ListItem Text="Queen" Selected="True"></asp:ListItem>
+                        </ajaxToolkit:ComboBox>
                     </asp:Panel>
                     <!-- During-Game Settings -->
 

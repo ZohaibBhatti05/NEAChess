@@ -11,8 +11,9 @@ namespace Prototype8.Boards
         {
         }
 
-        public override void SelectCell(Position position)
+        public override void SelectCell(Position position, int promoteChoice)
         {
+            base.SetPromotionChoice(promoteChoice);
             if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
 

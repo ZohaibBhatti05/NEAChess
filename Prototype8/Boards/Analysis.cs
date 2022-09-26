@@ -70,8 +70,9 @@ namespace Prototype8.Boards
             base.UndoLastMove();
         }
 
-        public override void SelectCell(Position position)
+        public override void SelectCell(Position position, int promoteChoice)
         {
+            SetPromotionChoice(promoteChoice);
             if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
                 // if there is no selected position

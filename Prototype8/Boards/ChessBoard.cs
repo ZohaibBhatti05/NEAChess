@@ -56,6 +56,9 @@ namespace Prototype8.Boards
         protected UpdateBoardGraphicsCallBack graphicsCallBack;
         private string username;
 
+
+        private char promotionSelection = ' '; 
+
         public PlayerColour currentTurn { get; private set; }
 
         public Position selectedCell { get; protected set; }
@@ -470,9 +473,31 @@ namespace Prototype8.Boards
             return (board[column][row]);
         }
 
-        // method run from form when a cell is clicked
-        public virtual void SelectCell(Position position)
+        protected void SetPromotionChoice(int choice)
         {
+            switch (choice)
+            {
+                case 0:
+                    promotionSelection = 'b';
+                    return;
+                case 1:
+                    promotionSelection = 'n';
+                    return;
+                case 2:
+                    promotionSelection = 'r';
+                    return;
+                case 3:
+                    promotionSelection = 'q';
+                    return;
+
+            }
+        }
+
+        // method run from form when a cell is clicked
+        public virtual void SelectCell(Position position, int promoteChoice)
+        {
+            SetPromotionChoice(promoteChoice);
+
             if (winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) // if noone won
             {
                 // if there is no selected position
@@ -1031,9 +1056,10 @@ namespace Prototype8.Boards
                     Promote((currentTurn == PlayerColour.White) ? 'q' : 'Q', move); // promote automatically for ais
                     return;
                 }
-
-                //PromotionForm promotionForm = new PromotionForm(new GetPromotionCallback(Promote), move.movingPiece.colour, move);
-                //promotionForm.ShowDialog();
+                else
+                {
+                    Promote((currentTurn == PlayerColour.White) ? promotionSelection : char.ToUpper(promotionSelection), move);
+                }
             }
         }
 

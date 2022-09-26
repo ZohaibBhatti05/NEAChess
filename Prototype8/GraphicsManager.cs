@@ -239,7 +239,7 @@ namespace Prototype8
                 //updatePanel.Update();
                 //makeAIMove = true;
                 //DrawBoard(false);
-                //chessBoard.PostBoardRedraw();
+                chessBoard.PostBoardRedraw();
             }
 
             // analysis block

@@ -155,7 +155,7 @@ namespace Prototype8
                 if (frontBoardCells[i].Contains(sender))
                 {
                     position = new Position(i, Array.IndexOf(frontBoardCells[i], sender));
-                    chessBoard.SelectCell(position);
+                    chessBoard.SelectCell(position, cmbPromote.SelectedIndex);
                     break;
                 }
             }
