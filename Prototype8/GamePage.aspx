@@ -174,7 +174,7 @@
                             <asp:RadioButton ID="radDefaultPosition" runat="server" Text="Default" Checked="true" style="position:absolute; left:6px; top:29px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
                             <asp:RadioButton ID="radCustomPosition" runat="server" Text="Custom" Checked="false" style="position:absolute; left:6px; top:54px; text-align:center; color: rgb(215, 215, 215)" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
                         
-                            <asp:TextBox ID="textFEN" runat="server" style="position:absolute; left:6px; top:88px; background-color: rgb(50, 50, 50); width:270px; height:16px" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:TextBox>
+                            <asp:TextBox ID="textFEN" runat="server" style="position:absolute; left:6px; top:88px; background-color: rgb(50, 50, 50); width:270px; height:16px" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="rnbqkbnr/ppPp1ppp/8/8/8/8/PP1PpPPP/RNBQKBNR w KQkq - 0 1"></asp:TextBox>
 
                         </asp:Panel>
 

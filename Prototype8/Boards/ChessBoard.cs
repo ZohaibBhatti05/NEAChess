@@ -57,7 +57,7 @@ namespace Prototype8.Boards
         private string username;
 
 
-        private char promotionSelection = ' '; 
+        private static char promotionSelection = ' '; 
 
         public PlayerColour currentTurn { get; private set; }
 
@@ -1048,17 +1048,16 @@ namespace Prototype8.Boards
         // method run when a pawn needs to promote
         private void UpdatePromotion(Move move)
         {
-
             if (move.movingPiece is Pawn && (move.positionTo.row == 0 || move.positionTo.row == 7))
             {
                 if ((currentTurn == PlayerColour.White && blackPlayer is AI) || (currentTurn == PlayerColour.Black && whitePlayer is AI))
                 {
-                    Promote((currentTurn == PlayerColour.White) ? 'q' : 'Q', move); // promote automatically for ais
+                    Promote('q', move); // promote automatically for ais
                     return;
                 }
                 else
                 {
-                    Promote((currentTurn == PlayerColour.White) ? promotionSelection : char.ToUpper(promotionSelection), move);
+                    Promote(promotionSelection, move);
                 }
             }
         }
