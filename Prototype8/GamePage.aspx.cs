@@ -162,18 +162,19 @@ namespace Prototype8
             updatePanel.Update();
         }
 
-        private void btnUndoMove_Click(object sender, EventArgs e)
+        // undo button
+        protected void btnUndoMove_Click(object sender, EventArgs e)
         {
             if (radAgainstAI.Checked)
             {
-                chessBoard.UndoLastMove();
+                chessBoard.UndoLastMove(); // undo twice during ai game
             }
             chessBoard.UndoLastMove();
         }
 
-        private void btnResign_Click(object sender, EventArgs e)
+        protected void btnResign_Click(object sender, EventArgs e)
         {
-            if (chessBoard is Analysis)
+            if (chessBoard is Analysis) // misnomer, used for redoing in analysis
             {
                 (chessBoard as Analysis).RedoNextMove();
             }

@@ -194,17 +194,17 @@
                             <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 656px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
                         </asp:Panel>
 
-                        <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png"/>
-                        <asp:ImageButton ID="btnResign" runat="server" style="position:absolute; left:102px; top:688px; width:95px; height: 56px; background-color:rgb(70, 70, 70);" ImageUrl="~/Resources/Flag.png"/>
+                        <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png" OnClick="btnUndoMove_Click"/>
+                        <asp:ImageButton ID="btnResign" runat="server" style="position:absolute; left:102px; top:688px; width:95px; height: 56px; background-color:rgb(70, 70, 70);" ImageUrl="~/Resources/Flag.png" OnClick="btnResign_Click"/>
                         <asp:Button ID="btnDraw" runat="server" style="position:absolute; left:202px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-right-radius:5px;" BorderWidth="0px" Text="½ ½" Font-Names="Segoe UI" Font-Size="14pt" Font-Bold="true" ForeColor="White"/>
 
                         <asp:Label ID="lblPromote" runat="server" Text = "Promote To:" style = "position:absolute; left: 6px; top: 658px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
                         <ajaxToolkit:ComboBox runat="server" ID="cmbPromote" style="position:absolute; width: 0px; height: 25px; left:85px; top:648px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
-                            ToolTip="Determines what a pawn becomes when reeaching the opposite end of the board.">
-                            <asp:ListItem Text="Bishop"></asp:ListItem>
-                            <asp:ListItem Text="Knight"></asp:ListItem>
-                            <asp:ListItem Text="Rook"></asp:ListItem>
-                            <asp:ListItem Text="Queen" Selected="True"></asp:ListItem>
+                            ToolTip="Determines what a pawn becomes when reaching the opposite end of the board.">
+                            <asp:ListItem Text="Bishop ♗"></asp:ListItem>
+                            <asp:ListItem Text="Knight ♘"></asp:ListItem>
+                            <asp:ListItem Text="Rook ♖"></asp:ListItem>
+                            <asp:ListItem Text="Queen ♕" Selected="True"></asp:ListItem>
                         </ajaxToolkit:ComboBox>
                     </asp:Panel>
                     <!-- During-Game Settings -->

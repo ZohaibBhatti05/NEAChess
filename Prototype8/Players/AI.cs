@@ -41,8 +41,7 @@ namespace Prototype8.Boards
 
         public AI(int plyDepth, int qDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
-            //this.useOpening = opTable;
-            this.useOpening = false;
+            this.useOpening = opTable;
             this.useTransposition = tt;
             this.maxPlyDepth = plyDepth;
             this.quiescentDepth = qDepth;
@@ -70,7 +69,8 @@ namespace Prototype8.Boards
         private void InitialiseTables()
         {
             // open file
-            string opPath = Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName + "/Tablebases/Openings.pgn";
+            string opPath = "C:\\Users\\Zohaib\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
+            //string opPath = "C:\\Users\\Zobear\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
             StreamReader reader = new StreamReader(opPath);
 
             for (int index = 0; index < 261487; index++)

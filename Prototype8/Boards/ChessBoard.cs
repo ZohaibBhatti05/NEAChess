@@ -56,7 +56,6 @@ namespace Prototype8.Boards
         protected UpdateBoardGraphicsCallBack graphicsCallBack;
         private string username;
 
-
         private static char promotionSelection = ' '; 
 
         public PlayerColour currentTurn { get; private set; }
