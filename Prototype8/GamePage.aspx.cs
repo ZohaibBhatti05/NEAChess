@@ -13,13 +13,11 @@ namespace Prototype8
     public partial class GamePage : System.Web.UI.Page
     {
         static ChessBoard chessBoard;
-        private string username = "Guest"; // username of person logged in
-        //static bool makeAIMove;
+        private string username; // = "Guest"; // username of person logged in
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //timerAI.Enabled = false;
-            //username = Request.QueryString["Username"];
+            username = Session["username"].ToString();
             lblUsername.Text = "You are logged in as: " + username;
             pnlDuringGame.Visible = false;
             pnlAISettings.Visible = false;
@@ -324,11 +322,9 @@ namespace Prototype8
 
         #endregion
 
-        protected void MakeAIMove(object sender, EventArgs e)
+        protected void temp_Click(object sender, EventArgs e)
         {
-            //timerAI.Enabled = false;
-            //chessBoard.PostBoardRedraw();
-            //updatePanel.Update();
+            Server.Transfer("AnalysisPage.aspx");
         }
     }
 }

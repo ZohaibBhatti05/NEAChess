@@ -29,12 +29,12 @@
 
             <asp:Panel ID="pnlUN" runat="server" style = "position:absolute; left: 75px; top: 136px; background-color: rgb(64, 66, 51); width: 250px; height: 45px; border-radius: 5px 5px">
                 <asp:TextBox ID="txtLoginUsername" runat="server" style = "position:absolute; left: 10px; top: 12px; width:227px; background-color: rgb(64, 66, 51);"
-                    Font-Bold="False" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White" BorderStyle ="None" ViewStateMode="Inherit">
+                    Font-Bold="False" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White" BorderStyle ="None" ViewStateMode="Inherit" Text="Zohaib1">
                 </asp:TextBox>
             </asp:Panel>
             <asp:Panel ID="pnlPW" runat="server" style = "position:absolute; left: 75px; top: 247px; background-color: rgb(64, 66, 51); width: 250px; height: 45px; border-radius: 5px 5px">
                 <asp:TextBox ID="txtLoginPassword" runat="server" style = "position:absolute; left: 10px; top: 12px; width: 227px; background-color: rgb(64, 66, 51);"
-                    Font-Bold="False" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White" BorderStyle ="None" TextMode="Password">
+                    Font-Bold="False" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White" BorderStyle ="None" Text="Password1">
                 </asp:TextBox>
             </asp:Panel>
 

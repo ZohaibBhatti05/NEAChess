@@ -26,7 +26,9 @@ namespace Prototype8
             {
                 if (AreDetailsValid(txtLoginUsername.Text, txtLoginPassword.Text))
                 {
-                    Response.Redirect($"GamePage.aspx?Username={txtLoginUsername.Text}");
+                    Session["username"] = txtLoginUsername.Text;
+                    //Response.Redirect($"GamePage.aspx?Username={txtLoginUsername.Text}");
+                    Server.Transfer("GamePage.aspx");
                 }
             }
             lblError.Text = "Invalid Details - Please check your entered details.";

@@ -462,7 +462,7 @@ namespace Prototype8.Boards
         // returns the piece at the specified position
         public Piece GetPiece(Position position)
         {
-            // jank code remove later
+            // error handling
             if (position == null) return null;
 
             return (board[position.column][position.row]);
@@ -807,7 +807,6 @@ namespace Prototype8.Boards
                 // DATABASE
                 if (username != "Guest") // if someone is logged in
                 {
-
                     string winState = string.Empty;
                     switch (winStatus)
                     {

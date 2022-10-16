@@ -10,6 +10,8 @@
 
 <body style="width: 95%; height: 100%; background-color: rgb(40, 40, 40);">
     <form id="GameForm" runat="server">
+        
+        <asp:Button runat="server" ID="temp" OnClick="temp_Click" style="position:absolute; left: 3px; top:3px"/>
 
         <asp:ScriptManager ID="ScriptManager" runat="server" EnableCdn="true"></asp:ScriptManager>
 
@@ -17,7 +19,7 @@
 
             <asp:Panel ID = "pnlForm" runat="server" style="z-index: 1; height: 850px; width: 960px; background-color: rgb(30, 30, 30); margin: 2% auto; position: relative; border-radius: 5px 5px">
 
-                <asp:Label ID="lblUsername" runat="server" Text = "User currently logged in: Zobear" style = "position:absolute; left: 38px; top:20px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White"></asp:Label>
+                <asp:Label ID="lblUsername" runat="server" Text = "User currently logged in:" style = "position:absolute; left: 38px; top:20px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White"></asp:Label>
 
                 <!-- File/Rank Labels -->
                 <asp:Label ID="lblFile1" runat="server" Text = "a" style = "position:absolute; left: 38px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
