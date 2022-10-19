@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AnalysisPage.aspx.cs" Inherits="Prototype8.AnalysisPage" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AnalysisPage.aspx.cs" Inherits="Prototype8.AnalysisPage" EnableEventValidation="false"%>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,8 +13,8 @@
 
                 <asp:GridView ID="dataGridGames" runat="server" AutoGenerateColumns="false" DataKeyNames="GameID"
                     EmptyDataText="No games have been played by this user" style="position:absolute; left:12px; top:50px;
-                    width:900px; height:22px; font-size:9pt" Font-Names="Segoe UI" Font-Bold="true" ForeColor="White"
-                     HeaderStyle-BackColor="#5a5a5a" RowStyle-Height="22px" AllowSorting="true" HeaderStyle-Height="22px">
+                    height:22px; font-size:9pt" Font-Names="Segoe UI" Font-Bold="true" ForeColor="White"
+                     HeaderStyle-BackColor="#5a5a5a" RowStyle-Height="22px" AllowSorting="true" HeaderStyle-Height="22px" SelectedRowStyle-BackColor="Yellow" OnRowDataBound="OnRowDataBound" OnSelectedIndexChanged="OnSelectedIndexChanged"> 
                     <Columns>
                         <asp:TemplateField HeaderText="DatePlayed" ItemStyle-Width="150">
                             <ItemTemplate>
@@ -53,7 +52,7 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="PGN" ItemStyle-Width="150">
+                        <asp:TemplateField HeaderText="PGN" ItemStyle-Width="250">
                             <ItemTemplate>
                                 <asp:Label ID="lblPGN" runat="server" Text='<%# Eval("PGN") %>'></asp:Label>
                             </ItemTemplate>
