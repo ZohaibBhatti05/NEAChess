@@ -15,7 +15,7 @@ namespace Prototype8.Boards
 
         private int deviatingMoveCount = 0;
 
-        private AI analysisAI = new AI(3, 4, PlayerColour.Black, true, false);
+        private AI analysisAI = new AI(2, 4, PlayerColour.Black, false, false);
 
         private List<string> gameMoveNameHistory = new List<string>();
 
@@ -41,9 +41,18 @@ namespace Prototype8.Boards
 
             List<Move> moves = AllPossibleMoves(currentTurn); // get all moves
 
+            moves.RemoveAll(move => move == null);
+
             foreach (Move move in moves)
             {
                 string name = move.GetMoveName(this);
+
+                // end of recorded history, do not attempt to read further
+                if (moveNameHistory.Count >= gameMoveNameHistory.Count)
+                {
+                    return;
+                }
+
                 if (name == Regex.Replace(gameMoveNameHistory[moveNameHistory.Count], "[#+]", "")) // if move matches, make it
                 {
                     MakeMove(move);
@@ -56,7 +65,11 @@ namespace Prototype8.Boards
         protected override void AfterMove(Move move)
         {
             base.AfterMove(move);
-            analysisMove = analysisAI.MakeMove(this, currentTurn).GetMoveName(this); // get best move found
+
+            if (AllPossibleMoves(currentTurn).Count > 0)
+            {
+                //analysisMove = analysisAI.MakeMove(this, currentTurn).GetMoveName(this); // get best move found
+            }
             graphicsCallBack.Invoke(false);
         }
 

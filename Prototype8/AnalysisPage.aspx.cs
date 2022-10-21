@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace Prototype8
 {
@@ -52,25 +53,22 @@ namespace Prototype8
             }
         }
 
+        // method run whenever a row is double clicked
         protected void dataGridGames_OnRowEdit(object sender, GridViewEditEventArgs e)
         {
-            Server.Transfer("throw an error!!");
+            (string FEN, string PGN) data = dbConnection.GetAnalysisData(username, dataGridGames.SelectedIndex);
+
+            Session["FEN"] = data.FEN;
+            Session["PGN"] = data.PGN;
+
+            Session["IsAnalysisPostback"] = true;
+            Server.Transfer("GamePage.aspx");
         }
 
 
         protected void dataGridGames_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //foreach (GridViewRow row in dataGridGames.Rows)
-            //{
-            //    if (row.RowIndex == dataGridGames.SelectedIndex)
-            //    {
-            //        row.BackColor = Color.FromArgb(130, 130, 130);
-            //    }
-            //    else
-            //    {
-            //        row.BackColor = Color.FromArgb(90, 90, 90);
-            //    }
-            //}
+
         }
     }
 }

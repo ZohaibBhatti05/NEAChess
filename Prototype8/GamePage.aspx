@@ -193,7 +193,7 @@
                             <asp:TextBox ID="txtWhiteMoves" runat="server" style="position:absolute; left:3px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
                             <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
                     
-                            <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 656px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                            <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 636px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
                         </asp:Panel>
 
                         <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png" OnClick="btnUndoMove_Click"/>

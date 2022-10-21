@@ -423,6 +423,7 @@ namespace Prototype8.Boards
         // orders the move list before recursion starts
         private void OrderMoves(List<Move> moves, int depth)
         {
+            moves.RemoveAll(move => move is null);
             // order moves by value of taking pieces
             moves = moves.OrderByDescending(move => move.captureValue).ToList();
 

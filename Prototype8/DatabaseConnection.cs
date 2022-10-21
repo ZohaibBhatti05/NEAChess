@@ -186,26 +186,32 @@ namespace Prototype8.Database
         // formats all game data to be displayed in a data grid view control
         public OleDbCommand GetGameHistory(string username)
         {
+            // sql query
+            return new OleDbCommand(
+                $"SELECT * FROM Games RIGHT JOIN Users ON Games.UserID = Users.UserID WHERE Username = '{username}' ",
+                dbConnection);
+        }
+
+        public (string, string) GetAnalysisData(string username, int index)
+        {
             List<string[]> dataList = new List<string[]>();
 
             // sql query
-            return /*OleDbCommand command = */ new OleDbCommand(
+            OleDbCommand command =  new OleDbCommand(
                 $"SELECT * FROM Games RIGHT JOIN Users ON Games.UserID = Users.UserID WHERE Username = '{username}' ",
                 dbConnection);
 
+            dbConnection.Open();
+            OleDbDataReader reader = command.ExecuteReader(); // create reader to access data from the table
+            while (reader.Read()) // while the reader is active, get the data required from the table
+            {
+                string[] entry;
+                entry = new string[] { reader["DatePlayed"].ToString(), reader["Variant"].ToString(),
+                    reader["WinState"].ToString(), reader["FEN"].ToString(), reader["PGN"].ToString() };
+                dataList.Add(entry); // add record to list
+            }
 
-            //// read data
-            //dbConnection.Open();
-            //OleDbDataReader reader = command.ExecuteReader(); // create reader to access data from the table
-            //while (reader.Read()) // while the reader is active, get the data required from the table
-            //{
-            //    string[] entry;
-            //    entry = new string[] { reader["DatePlayed"].ToString(), reader["Variant"].ToString(),
-            //        reader["WinState"].ToString(), reader["FEN"].ToString(), reader["PGN"].ToString() };
-            //    dataList.Add(entry); // add record to list
-            //}
-
-            //return dataList;
+            return (dataList[index][3], dataList[index][4]);
         }
 
         // formats e4, d4, Nf3... into 1.e4 d4 2.Nf3...

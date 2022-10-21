@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
 </head>
-<body style="width: 800px; height: 605px; background-color: rgb(40, 40, 40); max-width: 500px; margin:10% auto;">
+<body style="width: 800px; height: 500px; background-color: rgb(40, 40, 40); max-width: 500px; margin:10% auto;">
     <form id="RegisterForm" runat="server">
 
         <asp:Panel ID="pnlRegister" runat="server" style="z-index: 1; height: 535px; width: 400px; background-color: rgb(70, 70, 70); max-width: 500px; max-height: 500px; margin:50px, auto; position:relative; border-radius: 5px 5px">

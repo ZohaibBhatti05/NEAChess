@@ -17,6 +17,14 @@ namespace Prototype8
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IsAnalysisPostback"] != null)
+            {
+                Session.Remove("IsAnalysisPostback");
+                CreateAnalysisBoard(Session["FEN"].ToString(), Session["PGN"].ToString());
+                return;
+            }
+
+
             username = Session["username"].ToString();
             lblUsername.Text = "You are logged in as: " + username;
             pnlDuringGame.Visible = false;
@@ -321,6 +329,26 @@ namespace Prototype8
         }
 
         #endregion
+
+        private void CreateAnalysisBoard(string FEN, string PGN)
+        {
+            chessBoard = new Analysis(new UpdateBoardGraphicsCallBack(DrawBoard));
+            (chessBoard as Analysis).SetupAnalysis(FEN, PGN);
+
+            // logistics
+            pnlPreGame.Visible = false;
+            pnlDuringGame.Visible = true;
+
+            // emulate infinite time settings
+            radNoTimers.Checked = true;
+            timerUpdateTime.Enabled = true;
+
+            // button logistics
+            btnResign.ImageUrl = "~/Resources/Redo.png";
+            btnDraw.Visible = false;
+
+            InitialiseGraphics();
+        }
 
         protected void temp_Click(object sender, EventArgs e)
         {
