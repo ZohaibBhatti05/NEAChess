@@ -27,24 +27,24 @@ namespace Prototype8
         };
 
         #region DefaultColours
-        readonly Color DEFAULT_CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
-        readonly Color DEFAULT_CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
-        readonly Color DEFAULT_SELECT_COLOUR = Color.FromArgb(214, 195, 79);
-        readonly Color DEFAULT_MOVE_COLOUR = Color.FromArgb(245, 235, 121);
+        static readonly Color DEFAULT_CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
+        static readonly Color DEFAULT_CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
+        static readonly Color DEFAULT_SELECT_COLOUR = Color.FromArgb(214, 195, 79);
+        static readonly Color DEFAULT_MOVE_COLOUR = Color.FromArgb(245, 235, 121);
+        static readonly Color DEFAULT_CHECK_COLOUR = Color.FromArgb(255, 0, 0);
         #endregion
 
         #region UserDefinedSettings
-        Color CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
-        Color CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
-        Color SELECT_COLOUR = Color.FromArgb(214, 195, 79);
-        Color MOVE_COLOUR = Color.FromArgb(245, 235, 121);
-        Color CHECK_COLOUR = Color.FromArgb(255, 0, 0);
+        static Color CELL_COLOUR_1 = Color.FromArgb(236, 217, 183);
+        static Color CELL_COLOUR_2 = Color.FromArgb(174, 137, 100);
+        static Color SELECT_COLOUR = Color.FromArgb(214, 195, 79);
+        static Color MOVE_COLOUR = Color.FromArgb(245, 235, 121);
+        static Color CHECK_COLOUR = Color.FromArgb(255, 0, 0);
         #endregion
 
         static Image[][] boardCells = new Image[8][];
         static ImageButton[][] frontBoardCells = new ImageButton[8][];
         // array of buttons for click location purposes
-
 
         private static string pieceSet = "Standard";
 
@@ -57,6 +57,16 @@ namespace Prototype8
         //    }
         //}
 
+        // updates customisable colours depending on user selections
+        protected void ManageColours(object sender, EventArgs e)
+        {
+            CELL_COLOUR_1 = (txtLightCellColour.Text == String.Empty) ? DEFAULT_CELL_COLOUR_1 : ColorTranslator.FromHtml("#" + txtLightCellColour.Text);
+            CELL_COLOUR_2 = (txtDarkCellColour.Text == String.Empty) ? DEFAULT_CELL_COLOUR_2 : ColorTranslator.FromHtml("#" + txtDarkCellColour.Text);
+            SELECT_COLOUR = (txtSelectCellColour.Text == String.Empty) ? DEFAULT_SELECT_COLOUR : ColorTranslator.FromHtml("#" + txtSelectCellColour.Text);
+            MOVE_COLOUR = (txtMoveCellColour.Text == String.Empty) ? DEFAULT_MOVE_COLOUR : ColorTranslator.FromHtml("#" + txtMoveCellColour.Text);
+            CHECK_COLOUR = (txtCheckCellColour.Text == String.Empty) ? DEFAULT_CHECK_COLOUR : ColorTranslator.FromHtml("#" + txtCheckCellColour.Text);
+        }
+
         // sets up graphics dictionary and pictureboxes
         private void InitialiseGraphics()
         {
@@ -68,7 +78,7 @@ namespace Prototype8
                 frontBoardCells[i] = new ImageButton[8];
                 for (int j = 0; j < 8; j++)
                 {
-                    // set up the pieces
+                    // set up the piece images
                     Image cell = new Image();
                     cell.Style.Add("position", "absolute");
                     cell.Style.Add("width", "75px");
@@ -294,6 +304,5 @@ namespace Prototype8
         {
             DrawBoard(false);
         }
-
     }
 }

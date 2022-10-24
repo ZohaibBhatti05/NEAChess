@@ -9,7 +9,7 @@
 <body style="width: 800px; height: 500px; background-color: rgb(40, 40, 40); max-width: 500px; margin:10% auto;">
     <form id="RegisterForm" runat="server">
 
-        <asp:Panel ID="pnlRegister" runat="server" style="z-index: 1; height: 535px; width: 400px; background-color: rgb(70, 70, 70); max-width: 500px; max-height: 500px; margin:50px, auto; position:relative; border-radius: 5px 5px">
+        <asp:Panel ID="pnlRegister" runat="server" style="z-index: 1; height: 535px; width: 400px; background-color: rgb(70, 70, 70); margin:50px, auto; position:relative; border-radius: 5px 5px">
 
             <asp:Label ID="lblRegister" runat="server" style = "position:absolute; left: 33px; top: 30px;" Font-Bold="False" Font-Names="Segoe UI Semibold" Font-Size="19pt" ForeColor="White"
                 >Register</asp:Label>

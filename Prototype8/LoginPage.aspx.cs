@@ -27,7 +27,7 @@ namespace Prototype8
                 if (AreDetailsValid(txtLoginUsername.Text, txtLoginPassword.Text))
                 {
                     Session["username"] = txtLoginUsername.Text;
-                    //Response.Redirect($"GamePage.aspx?Username={txtLoginUsername.Text}");
+                    //Server.Transfer($"GamePage.aspx?Username={txtLoginUsername.Text}");
                     Server.Transfer("GamePage.aspx");
                 }
             }
@@ -60,13 +60,14 @@ namespace Prototype8
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            Response.Redirect("RegisterPage.aspx");
+            Server.Transfer("RegisterPage.aspx");
         }
 
         // guest, set gameform attributes as needed
         protected void btnGuest_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GamePage.aspx?Username=Guest");
+            Session["Username"] = "Guest";
+            Server.Transfer("GamePage.aspx");
         }
     }
 }
