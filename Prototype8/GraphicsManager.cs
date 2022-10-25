@@ -48,15 +48,6 @@ namespace Prototype8
 
         private static string pieceSet = "Standard";
 
-        //private void cmbPieceSet_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    pieceSet = cmbPieceSet.Text; // select set
-        //    if (chessBoard != null)
-        //    {
-        //        InitialiseGraphics(); // redraw board if it exists
-        //    }
-        //}
-
         // updates customisable colours depending on user selections
         protected void ManageColours(object sender, EventArgs e)
         {
@@ -65,6 +56,15 @@ namespace Prototype8
             SELECT_COLOUR = (txtSelectCellColour.Text == String.Empty) ? DEFAULT_SELECT_COLOUR : ColorTranslator.FromHtml("#" + txtSelectCellColour.Text);
             MOVE_COLOUR = (txtMoveCellColour.Text == String.Empty) ? DEFAULT_MOVE_COLOUR : ColorTranslator.FromHtml("#" + txtMoveCellColour.Text);
             CHECK_COLOUR = (txtCheckCellColour.Text == String.Empty) ? DEFAULT_CHECK_COLOUR : ColorTranslator.FromHtml("#" + txtCheckCellColour.Text);
+
+            updatePanel.Update();
+        }
+
+        // updates piece set images depending on user selections
+        protected void cmbPieceSet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            pieceSet = cmbPieceSet.Text;
+            InitialiseGraphics();
         }
 
         // sets up graphics dictionary and pictureboxes
