@@ -44,39 +44,6 @@
                 <asp:UpdatePanel ID="updatePanelTimers" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false" EnableViewState="true"> 
                     
                     <ContentTemplate>
-                
-                        <!-- Settings -->
-                        <asp:Panel ID="SettingsPanel" runat="server" style="background-color: rgb(30, 30, 30); border-radius: 5px 5px; position:absolute; left: 965px; top:0px; width:350px; height: 850px" Visible="true">
-
-                            <asp:Label runat="server" ID="lblLightColour" Text="Light Cell Colour:" style="position:absolute; left: 10px; top: 15px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtLightCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:15px"></asp:TextBox>
-                            <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtLightCellColour" Enabled="true"/>
-
-                            <asp:Label runat="server" ID="lblDarkColour" Text="Dark Cell Colour:" style="position:absolute; left: 10px; top: 55px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtDarkCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:55px"></asp:TextBox>
-                            <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtDarkCellColour" Enabled="true" />
-
-                            <asp:Label runat="server" ID="lblSelectColour" Text="Selected Cell Colour:" style="position:absolute; left: 10px; top: 95px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtSelectCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:95px"></asp:TextBox>
-                            <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtSelectCellColour" Enabled="true" />
-
-                            <asp:Label runat="server" ID="lblCheckColour" Text="Check Colour:" style="position:absolute; left: 10px; top: 135px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtCheckCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:135px"></asp:TextBox>
-                            <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtCheckCellColour" Enabled="true" />
-
-                            <asp:Label runat="server" ID="lblMoveColour" Text="Move Colour:" style="position:absolute; left: 10px; top: 175px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtMoveCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:175px"></asp:TextBox>
-                            <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtMoveCellColour" Enabled="true" />
-
-                            <asp:Button ID="btnChangeColours" runat="server" OnClick="ManageColours" style="position:absolute; left: 10px; top: 300px; width: 100px; height: 70px; background-color:rgb(170, 170, 170); border-radius:5px 5px" BorderStyle="None" Text="Load Changes" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true"/>
-
-                            <ajaxToolkit:ComboBox runat="server" ID="cmbPieceSet" style="position:absolute; width: 0px; height: 25px; left:10px; top:400px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbPieceSet_SelectedIndexChanged">
-                                <asp:ListItem Text="Standard"></asp:ListItem>
-                                <asp:ListItem Text="Kosal"></asp:ListItem>
-                            </ajaxToolkit:ComboBox>
-
-                        </asp:Panel>
-
 
                         <asp:Timer ID="timerUpdateTime" runat="server" Enabled="false" OnTick="timerUpdateTime_Tick" Interval="10"></asp:Timer>
                         <!-- White/Black UI -->
@@ -106,13 +73,44 @@
 
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="timerUpdateTime" EventName="Tick" />
-                        <asp:AsyncPostBackTrigger ControlID="btnChangeColours" EventName="Click" />
                     </Triggers>
 
                 </asp:UpdatePanel>
 
                 <asp:UpdatePanel ID="updatePanel" runat="server" UpdateMode="Conditional" OnPreRender="UpdatePanel" ChildrenAsTriggers="true" EnableViewState="true"> 
                     <ContentTemplate>
+
+                    <!-- Settings -->
+                    <asp:Panel ID="SettingsPanel" runat="server" style="background-color: rgb(30, 30, 30); border-radius: 5px 5px; position:absolute; left: 965px; top:0px; width:350px; height: 850px" Visible="true">
+
+                        <asp:Label runat="server" ID="lblLightColour" Text="Light Cell Colour:" style="position:absolute; left: 10px; top: 15px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
+                        <asp:TextBox ID="txtLightCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:15px"></asp:TextBox>
+                        <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtLightCellColour" Enabled="true"/>
+
+                        <asp:Label runat="server" ID="lblDarkColour" Text="Dark Cell Colour:" style="position:absolute; left: 10px; top: 55px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
+                        <asp:TextBox ID="txtDarkCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:55px"></asp:TextBox>
+                        <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtDarkCellColour" Enabled="true" />
+
+                        <asp:Label runat="server" ID="lblSelectColour" Text="Selected Cell Colour:" style="position:absolute; left: 10px; top: 95px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
+                        <asp:TextBox ID="txtSelectCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:95px"></asp:TextBox>
+                        <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtSelectCellColour" Enabled="true" />
+
+                        <asp:Label runat="server" ID="lblCheckColour" Text="Check Colour:" style="position:absolute; left: 10px; top: 135px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
+                        <asp:TextBox ID="txtCheckCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:135px"></asp:TextBox>
+                        <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtCheckCellColour" Enabled="true" />
+
+                        <asp:Label runat="server" ID="lblMoveColour" Text="Move Colour:" style="position:absolute; left: 10px; top: 175px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
+                        <asp:TextBox ID="txtMoveCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:175px"></asp:TextBox>
+                        <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtMoveCellColour" Enabled="true" />
+
+                        <asp:Button ID="btnChangeColours" runat="server" OnClick="ManageColours" style="position:absolute; left: 10px; top: 300px; width: 100px; height: 70px; background-color:rgb(170, 170, 170); border-radius:5px 5px" BorderStyle="None" Text="Load Changes" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true"/>
+
+                        <ajaxToolkit:ComboBox runat="server" ID="cmbPieceSet" style="position:absolute; width: 0px; height: 25px; left:10px; top:400px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"  OnSelectedIndexChanged="cmbPieceSet_SelectedIndexChanged">
+                            <asp:ListItem Text="Standard"></asp:ListItem>
+                            <asp:ListItem Text="Kosal"></asp:ListItem>
+                        </ajaxToolkit:ComboBox>
+
+                    </asp:Panel>
 
                     <!-- CHESSBOARD -->
                     <asp:Panel ID = "pnlBoard" runat="server" style="height: 600px; width: 600px; background-color: rgb(115, 115, 115); position: absolute; left: 38px; top: 118px">
