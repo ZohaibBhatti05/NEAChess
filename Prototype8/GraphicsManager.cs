@@ -48,6 +48,21 @@ namespace Prototype8
 
         private static string pieceSet = "Standard";
 
+        // sets all colour schemes to default
+        protected void btnDefaultVisuals_Click(object sender, EventArgs e)
+        {
+            txtLightCellColour.Text = String.Empty;
+            txtDarkCellColour.Text = String.Empty;
+            txtSelectCellColour.Text = String.Empty;
+            txtMoveCellColour.Text = String.Empty;
+            txtCheckCellColour.Text = String.Empty;
+
+            cmbPieceSet.SelectedIndex = 0;
+
+            ManageColours(sender, e);
+            cmbPieceSet_SelectedIndexChanged(sender, e);
+        }
+
         // updates customisable colours depending on user selections
         protected void ManageColours(object sender, EventArgs e)
         {
@@ -304,5 +319,7 @@ namespace Prototype8
         {
             DrawBoard(false);
         }
+
+
     }
 }

@@ -420,6 +420,15 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.TextBox txtMoveCellColour;
 
         /// <summary>
+        /// cmbPieceSet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ComboBox cmbPieceSet;
+
+        /// <summary>
         /// btnChangeColours control.
         /// </summary>
         /// <remarks>
@@ -429,13 +438,13 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Button btnChangeColours;
 
         /// <summary>
-        /// cmbPieceSet control.
+        /// btnDefaultVisuals control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox cmbPieceSet;
+        protected global::System.Web.UI.WebControls.Button btnDefaultVisuals;
 
         /// <summary>
         /// pnlBoard control.
