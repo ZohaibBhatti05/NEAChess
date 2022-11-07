@@ -79,7 +79,10 @@ namespace Prototype8
         protected void cmbPieceSet_SelectedIndexChanged(object sender, EventArgs e)
         {
             pieceSet = cmbPieceSet.Text;
-            InitialiseGraphics();
+            if (chessBoard != null)
+            {
+                InitialiseGraphics();
+            }
         }
 
         // sets up graphics dictionary and pictureboxes

@@ -103,13 +103,16 @@
                         <asp:TextBox ID="txtMoveCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top:175px"></asp:TextBox>
                         <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtMoveCellColour" Enabled="true" />
 
-                        <ajaxToolkit:ComboBox runat="server" ID="cmbPieceSet" style="position:absolute; width: 0px; height: 25px; left:10px; top:400px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"  OnSelectedIndexChanged="cmbPieceSet_SelectedIndexChanged">
+                        <ajaxToolkit:ComboBox runat="server" ID="cmbPieceSet" style="position:absolute; width: 0px; height: 25px; left:10px; top:400px; text-align:center; background-color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbPieceSet_SelectedIndexChanged">
                             <asp:ListItem Text="Standard"></asp:ListItem>
                             <asp:ListItem Text="Kosal"></asp:ListItem>
                         </ajaxToolkit:ComboBox>
 
-                        <asp:Button ID="btnChangeColours" runat="server" OnClick="ManageColours" style="position:absolute; left: 10px; top: 300px; width: 100px; height: 70px; background-color:rgb(170, 170, 170); border-radius:5px 5px" BorderStyle="None" Text="Apply Changes" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true"/>
-                        <asp:Button ID="btnDefaultVisuals" runat="server" style="position:absolute; left: 150px; top: 350px" OnClick="btnDefaultVisuals_Click" Text="Reset to Default"/>
+                        <asp:Button ID="btnChangeColours" runat="server" OnClick="ManageColours" style="position:absolute; left: 10px; top: 300px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 90)"
+                            BorderStyle="None" Text="Apply Changes" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true" ForeColor="White"/>
+
+                        <asp:Button ID="btnDefaultVisuals" runat="server" OnClick="btnDefaultVisuals_Click" style="position:absolute; left: 150px; top: 300px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 90)"
+                            BorderStyle="None" Text="Reset to Defaults" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true" ForeColor="White"/>
 
                     </asp:Panel>
 
