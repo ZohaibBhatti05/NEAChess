@@ -303,13 +303,31 @@ namespace Prototype8
         protected global::System.Web.UI.UpdatePanel updatePanel;
 
         /// <summary>
-        /// SettingsPanel control.
+        /// pnlSettings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel SettingsPanel;
+        protected global::System.Web.UI.WebControls.Panel pnlSettings;
+
+        /// <summary>
+        /// pnlVisuals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlVisuals;
+
+        /// <summary>
+        /// lblSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSettings;
 
         /// <summary>
         /// lblLightColour control.
@@ -402,6 +420,15 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.TextBox txtMoveCellColour;
 
         /// <summary>
+        /// lblPieceSet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPieceSet;
+
+        /// <summary>
         /// cmbPieceSet control.
         /// </summary>
         /// <remarks>
@@ -427,6 +454,24 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnDefaultVisuals;
+
+        /// <summary>
+        /// pnlUserSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlUserSettings;
+
+        /// <summary>
+        /// lblUserSettings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUserSettings;
 
         /// <summary>
         /// pnlBoard control.
