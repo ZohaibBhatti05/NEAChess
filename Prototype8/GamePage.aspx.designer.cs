@@ -258,15 +258,6 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.Label lblWhiteTime;
 
         /// <summary>
-        /// lblBlackTaken control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBlackTaken;
-
-        /// <summary>
         /// pnlBlackUI control.
         /// </summary>
         /// <remarks>
@@ -301,15 +292,6 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblBlackTime;
-
-        /// <summary>
-        /// lblWhiteTaken control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWhiteTaken;
 
         /// <summary>
         /// updatePanel control.
@@ -769,6 +751,24 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAnalysisMove;
+
+        /// <summary>
+        /// lblWhiteTaken control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblWhiteTaken;
+
+        /// <summary>
+        /// lblBlackTaken control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBlackTaken;
 
         /// <summary>
         /// btnUndo control.

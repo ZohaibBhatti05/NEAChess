@@ -41,7 +41,7 @@
                 <asp:Label ID="lblRank8" runat="server" Text = "8" style = "line-height:75px; position:absolute; left: 13px; top: 118px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
                 <!-- File/Rank Labels -->
 
-                <asp:UpdatePanel ID="updatePanelTimers" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="false" EnableViewState="true"> 
+                <asp:UpdatePanel ID="updatePanelTimers" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true" EnableViewState="true"> 
                     
                     <ContentTemplate>
 
@@ -54,8 +54,6 @@
                                 <asp:Label ID="lblWhiteTime" runat="server" style = "position:absolute; left: 59px; top: 17px;" Font-Names="Segoe UI" Font-Size="12pt" Font-Bold="true" ForeColor="White"></asp:Label>
                             </asp:Panel>
 
-                            <asp:Label ID="lblBlackTaken" runat="server" style = "position:absolute; left: 172px; top: 12px;" Font-Names="Arial" Font-Size="20pt" Font-Bold="true" ForeColor="White"></asp:Label>
-
                         </asp:Panel>
 
                         <asp:Panel ID = "pnlBlackUI" runat="server" style="height: 60px; width: 600px; background-color: rgb(70, 70, 70); position: absolute; left: 38px; top: 56px; border-top-left-radius: 5px; border-top-right-radius: 5px">
@@ -65,8 +63,8 @@
                                 <asp:Label ID="lblBlackTime" runat="server" style = "position:absolute; left: 59px; top: 17px;" Font-Names="Segoe UI" Font-Size="12pt" Font-Bold="true" ForeColor="White"></asp:Label>
                             </asp:Panel>
 
-                            <asp:Label ID="lblWhiteTaken" runat="server" style = "position:absolute; left: 172px; top: 12px;" Font-Names="Arial" Font-Size="20pt" Font-Bold="true" ForeColor="White"></asp:Label>
-
+                            
+                            
                         </asp:Panel>
                         <!-- White/Black UI -->
                     </ContentTemplate>
@@ -231,6 +229,11 @@
                             <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
                     
                             <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 636px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+
+                            
+                            <asp:Label ID="lblWhiteTaken" runat="server" style = "position:absolute; left: -430px; top: 11px;" Font-Names="Arial" Font-Size="20pt" ForeColor="White"></asp:Label>
+                            <asp:label ID="lblBlackTaken" runat="server" style = "position:absolute; left: -430px; top: 696px;" Font-Names="Arial" Font-Size="20pt" ForeColor="White"></asp:label>
+
                         </asp:Panel>
 
                         <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png" OnClick="btnUndoMove_Click"/>

@@ -40,8 +40,9 @@ namespace Prototype8
                 if (chessBoard != null)
                 {
                     InitialiseGame();
-                    InitialiseGraphics();
                     pnlDuringGame.Visible = true;
+                    pnlWhiteUI.Visible = true;
+                    pnlBlackUI.Visible = true;
                     DrawBoard(false);
                 }
             }

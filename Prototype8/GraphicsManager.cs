@@ -174,21 +174,22 @@ namespace Prototype8
             }
             //
 
-            DrawBoard(false);
+            //DrawBoard(false);
         }
 
         // method to draw the cells and pieces that comprise the board
         private void DrawBoard(bool updatePost)
         {
-            if (frontBoardCells == null) { return; }
-            else if (frontBoardCells[0] == null) { return; }
-            else if (boardCells == null) { return; }
-            else if (boardCells[0] == null) { return; }
+            if (chessBoard is null) { return; }
+            InitialiseGraphics();
+
             // draw cells (update button colours and pictures)
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
-                {
+                {               
+                    if (boardCells[i][j] == null || frontBoardCells[i][j] == null) { return; }
+
                     // clear image
                     boardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Empty.png");
                     frontBoardCells[i][j].ImageUrl = ResolveUrl("~/Resources/Empty.png");
@@ -280,10 +281,11 @@ namespace Prototype8
         // prints the taken pieces to labels on the form
         private void UpdatePieceDisplay()
         {
+
             List<char> taken = chessBoard.takenPieces;
 
-            lblWhiteTaken.Text = string.Empty;
-            lblBlackTaken.Text = string.Empty;
+            lblWhiteTaken.Text = null;
+            lblBlackTaken.Text = null;
 
             foreach (char p in taken)
             {
