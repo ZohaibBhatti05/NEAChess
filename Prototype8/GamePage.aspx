@@ -6,6 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="stylesheet" href="Styles.css"/>
 </head>
 
 <body style="width: 95%; height: 100%; background-color: rgb(40, 40, 40);">
@@ -17,28 +18,28 @@
 
         <div style = "vertical-align:central; text-align:center">
 
-            <asp:Panel ID = "pnlForm" runat="server" style="left: -100px; height: 850px; width: 960px; background-color: rgb(30, 30, 30); margin: 2% auto; position: relative; border-radius: 5px 5px">
+            <asp:Panel ID = "pnlForm" runat="server" style="position:absolute; left: -100px; height: 850px; width: 960px; background-color: rgb(30, 30, 30); margin: 2% auto; position: relative; border-radius: 5px 5px">
 
-                <asp:Label ID="lblUsername" runat="server" Text = "User currently logged in:" style = "position:absolute; left: 38px; top:20px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White"></asp:Label>
+                <asp:Label ID="lblUsername" runat="server" Text = "User currently logged in:" style = "left: 38px; top:20px;" CssClass="HeadingLabels"></asp:Label>
 
                 <!-- File/Rank Labels -->
-                <asp:Label ID="lblFile1" runat="server" Text = "a" style = "position:absolute; left: 38px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile2" runat="server" Text = "b" style = "position:absolute; left: 113px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile3" runat="server" Text = "c" style = "position:absolute; left: 188px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile4" runat="server" Text = "d" style = "position:absolute; left: 263px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile5" runat="server" Text = "e" style = "position:absolute; left: 338px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile6" runat="server" Text = "f" style = "position:absolute; left: 413px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile7" runat="server" Text = "g" style = "position:absolute; left: 488px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblFile8" runat="server" Text = "h" style = "position:absolute; left: 563px; top: 718px; width:75px; height:22px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
+                <asp:Label ID="lblFile1" runat="server" Text = "a" style = "left: 38px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile2" runat="server" Text = "b" style = "left: 113px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile3" runat="server" Text = "c" style = "left: 188px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile4" runat="server" Text = "d" style = "left: 263px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile5" runat="server" Text = "e" style = "left: 338px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile6" runat="server" Text = "f" style = "left: 413px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile7" runat="server" Text = "g" style = "left: 488px;" CssClass="FileLabels"></asp:Label>
+                <asp:Label ID="lblFile8" runat="server" Text = "h" style = "left: 563px;" CssClass="FileLabels"></asp:Label>
 
-                <asp:Label ID="lblRank1" runat="server" Text = "1" style = "line-height:75px; position:absolute; left: 13px; top: 643px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank2" runat="server" Text = "2" style = "line-height:75px; position:absolute; left: 13px; top: 568px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank3" runat="server" Text = "3" style = "line-height:75px; position:absolute; left: 13px; top: 493px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank4" runat="server" Text = "4" style = "line-height:75px; position:absolute; left: 13px; top: 418px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank5" runat="server" Text = "5" style = "line-height:75px; position:absolute; left: 13px; top: 343px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank6" runat="server" Text = "6" style = "line-height:75px; position:absolute; left: 13px; top: 268px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank7" runat="server" Text = "7" style = "line-height:75px; position:absolute; left: 13px; top: 193px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
-                <asp:Label ID="lblRank8" runat="server" Text = "8" style = "line-height:75px; position:absolute; left: 13px; top: 118px; width:22px; height:75px; text-align:center" Font-Bold="True" Font-Names="Segoe UI" Font-Size="12pt" ForeColor="White"></asp:Label>
+                <asp:Label ID="lblRank1" runat="server" Text = "1" style = "top: 643px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank2" runat="server" Text = "2" style = "top: 568px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank3" runat="server" Text = "3" style = "top: 493px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank4" runat="server" Text = "4" style = "top: 418px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank5" runat="server" Text = "5" style = "top: 343px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank6" runat="server" Text = "6" style = "top: 268px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank7" runat="server" Text = "7" style = "top: 193px;" CssClass="RankLabels"></asp:Label>
+                <asp:Label ID="lblRank8" runat="server" Text = "8" style = "top: 118px;" CssClass="RankLabels"></asp:Label>
                 <!-- File/Rank Labels -->
 
                 <asp:UpdatePanel ID="updatePanelTimers" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="true" EnableViewState="true"> 
@@ -47,19 +48,19 @@
 
                         <asp:Timer ID="timerUpdateTime" runat="server" Enabled="false" OnTick="timerUpdateTime_Tick" Interval="10"></asp:Timer>
                         <!-- White/Black UI -->
-                        <asp:Panel ID = "pnlWhiteUI" runat="server" style="height: 60px; width: 600px; background-color: rgb(70, 70, 70); position: absolute; left: 38px; top: 743px; border-radius: 5px 5px">
+                        <asp:Panel ID = "pnlWhiteUI" runat="server" CssClass="PlayerUIPanels" style="top: 743px;">
 
-                            <asp:Panel ID = "pnlWhiteTime" runat="server" style="height: 53px; width: 165px; background-color: rgb(20, 20, 20); position: absolute; left: 3px; top: 4px; border-radius: 5px 5px">
-                                <asp:Image ID="picWhiteTime" runat="server" style="position:absolute; left:3px; top:3px; width:47px; height: 47px;" ImageUrl="~/Resources/Timer.png"/>
+                            <asp:Panel ID = "pnlWhiteTime" runat="server" CssClass="TimePanels">
+                                <asp:Image ID="picWhiteTime" runat="server" style = "position:absolute; left:3px; top:3px; width:47px; height: 47px;" ImageUrl="~/Resources/Timer.png"/>
                                 <asp:Label ID="lblWhiteTime" runat="server" style = "position:absolute; left: 59px; top: 17px;" Font-Names="Segoe UI" Font-Size="12pt" Font-Bold="true" ForeColor="White"></asp:Label>
                             </asp:Panel>
 
                         </asp:Panel>
 
-                        <asp:Panel ID = "pnlBlackUI" runat="server" style="height: 60px; width: 600px; background-color: rgb(70, 70, 70); position: absolute; left: 38px; top: 56px; border-top-left-radius: 5px; border-top-right-radius: 5px">
+                        <asp:Panel ID = "pnlBlackUI" runat="server" CssClass="PlayerUIPanels" style="top: 56px">
 
-                            <asp:Panel ID = "pnlBlackTime" runat="server" style="height: 53px; width: 165px; background-color: rgb(20, 20, 20); position: absolute; left: 3px; top: 4px; border-radius: 5px 5px">
-                                <asp:Image ID="picBlackTime" runat="server" style="position:absolute; left:3px; top:3px; width:47px; height: 47px;" ImageUrl="~/Resources/Timer.png"/>
+                            <asp:Panel ID = "pnlBlackTime" runat="server" CssClass="TimePanels">
+                                <asp:Image ID="picBlackTime" runat="server" style = "position:absolute; left:3px; top:3px; width:47px; height: 47px;" ImageUrl="~/Resources/Timer.png"/>
                                 <asp:Label ID="lblBlackTime" runat="server" style = "position:absolute; left: 59px; top: 17px;" Font-Names="Segoe UI" Font-Size="12pt" Font-Bold="true" ForeColor="White"></asp:Label>
                             </asp:Panel>
                             
@@ -82,29 +83,29 @@
                         <!-- Visual Settings -->
                         <asp:Panel ID="pnlVisuals" runat="server" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:5px; width:290px; height: 390px" Visible="true">
 
-                            <asp:Label runat="server" ID="lblSettings" Text = "Settings" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White" style="position:absolute; left: 10px; top: 15px"></asp:Label>
+                            <asp:Label runat="server" ID="lblSettings" Text = "Settings" style="left: 10px; top: 15px" CssClass="HeadingLabels"></asp:Label>
 
-                            <asp:Label runat="server" ID="lblLightColour" Text="Light Cell Colour:" style="position:absolute; left: 10px; top: 65px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtLightCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top: 65px; width: 120px"></asp:TextBox>
+                            <asp:Label runat="server" ID="lblLightColour" Text="Light Cell Colour:" style="top: 65px;" CssClass="ColourLabels"></asp:Label>
+                            <asp:TextBox ID="txtLightCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top: 65px; width: 120px" CssClass="ColourPickers"></asp:TextBox>
                             <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtLightCellColour" Enabled="true"/>
 
-                            <asp:Label runat="server" ID="lblDarkColour" Text="Dark Cell Colour:" style="position:absolute; left: 10px; top: 105px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtDarkCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top: 105px; width: 120px"></asp:TextBox>
+                            <asp:Label runat="server" ID="lblDarkColour" Text="Dark Cell Colour:" style="top: 105px;" CssClass="ColourLabels"></asp:Label>
+                            <asp:TextBox ID="txtDarkCellColour" runat="server" AutoPostBack="true" style="top: 105px;" CssClass="ColourPickers"></asp:TextBox>
                             <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtDarkCellColour" Enabled="true" />
 
-                            <asp:Label runat="server" ID="lblSelectColour" Text="Selected Colour:" style="position:absolute; left: 10px; top: 145px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtSelectCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top: 145px; width: 120px"></asp:TextBox>
+                            <asp:Label runat="server" ID="lblSelectColour" Text="Selected Colour:" style="top: 145px;" CssClass="ColourLabels"></asp:Label>
+                            <asp:TextBox ID="txtSelectCellColour" runat="server" AutoPostBack="true" style="top: 145px;" CssClass="ColourPickers"></asp:TextBox>
                             <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtSelectCellColour" Enabled="true" />
 
-                            <asp:Label runat="server" ID="lblCheckColour" Text="Check Colour:" style="position:absolute; left: 10px; top: 185px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtCheckCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top: 185px; width: 120px"></asp:TextBox>
+                            <asp:Label runat="server" ID="lblCheckColour" Text="Check Colour:" style="top: 185px;" CssClass="ColourLabels"></asp:Label>
+                            <asp:TextBox ID="txtCheckCellColour" runat="server" AutoPostBack="true" style="top: 185px;" CssClass="ColourPickers"></asp:TextBox>
                             <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtCheckCellColour" Enabled="true" />
 
-                            <asp:Label runat="server" ID="lblMoveColour" Text="Move Colour:" style="position:absolute; left: 10px; top: 225px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
-                            <asp:TextBox ID="txtMoveCellColour" runat="server" AutoPostBack="true" style="position:absolute; left: 150px; top: 225px; width: 120px"></asp:TextBox>
+                            <asp:Label runat="server" ID="lblMoveColour" Text="Move Colour:" style="top: 225px;" CssClass="ColourLabels"></asp:Label>
+                            <asp:TextBox ID="txtMoveCellColour" runat="server" AutoPostBack="true" style="top: 225px;" CssClass="ColourPickers"></asp:TextBox>
                             <ajaxToolkit:ColorPickerExtender runat="server" TargetControlID="txtMoveCellColour" Enabled="true" />
 
-                            <asp:Label runat="server" ID="lblPieceSet" Text="Pieces:" style="position:absolute; left: 10px; top: 265px;" Font-Bold="True" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="White"></asp:Label>
+                            <asp:Label runat="server" ID="lblPieceSet" Text="Pieces:" style="top: 265px;" CssClass="ColourLabels"></asp:Label>
                             <ajaxToolkit:ComboBox runat="server" ID="cmbPieceSet" style="position:absolute; width: 0px; height: 25px; left:70px; top:257px; text-align:center; background-color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbPieceSet_SelectedIndexChanged">
                                 <asp:ListItem Text="Standard"></asp:ListItem>
                                 <asp:ListItem Text="Kosal"></asp:ListItem>
@@ -121,7 +122,7 @@
                         <!-- User Settings -->
                         <asp:Panel runat="server" ID="pnlUserSettings" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:400px; width:290px; height: 295px" Visible="true">
 
-                            <asp:Label runat="server" ID="lblUserSettings" Text = "User Settings:" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White" style="position:absolute; left: 10px; top: 15px"></asp:Label>
+                            <asp:Label runat="server" ID="lblUserSettings" Text = "User Settings:" style="left: 10px; top: 15px" CssClass="HeadingLabels"></asp:Label>
                             <asp:Button runat="server" ID="btnLogOut" Text="Log Out" style="position:absolute; top: 300px; left: 5px; width: 200px; height: 80px"/>
 
 
@@ -139,14 +140,14 @@
 
                         <asp:Panel ID = "pnlPlayerSettings" runat="server" style="height: 205px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 3px; border-top-left-radius: 5px; border-top-right-radius: 5px">
 
-                            <asp:Label ID="lblPlayAgainst" runat="server" Text = "Play Against:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
+                            <asp:Label ID="lblPlayAgainst" runat="server" Text = "Play Against:" CssClass="SubHeadingLabels"></asp:Label>
 
-                            <asp:RadioButton ID="radAgainstHuman" runat="server" Text="Human" Checked="true" style="position:absolute; left:9px; top:28px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="AISettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
-                            <asp:RadioButton ID="radAgainstAI" runat="server" Text="AI" Checked="false" style="position:absolute; left:9px; top:55px; text-align:center; color: rgb(215, 215, 215)" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="AISettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                            <asp:RadioButton ID="radAgainstHuman" runat="server" Text="Human" Checked="true" style="top:28px;" GroupName="AISettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
+                            <asp:RadioButton ID="radAgainstAI" runat="server" Text="AI" Checked="false" style="top:55px;" GroupName="AISettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
                         
                             <asp:Panel ID = "pnlAISettings" runat="server" style="height: 120px; width: 288px; background-color: rgb(40, 40, 40); position: absolute; left: 3px; top: 82px; border-radius: 5px 5px;">
 
-                                <asp:Label ID="lblDepth" runat="server" Text = "Ply Depth:" style = "position:absolute; left: 6px; top: 14px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                                <asp:Label ID="lblDepth" runat="server" Text = "Ply Depth:" style = "top: 14px;" CssClass="AILabels"></asp:Label>
                                 <ajaxToolkit:ComboBox runat="server" ID="cmbPlyDepth" style="position:absolute; width: 0px; height: 25px; left:78px; top:6px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
                                     ToolTip="Dictates how many moves ahead the AI calculates.">
                                     <asp:ListItem Text="1 (Very Easy)"></asp:ListItem>
@@ -159,7 +160,7 @@
                                     <asp:ListItem Text="8 (Very Hard)"></asp:ListItem>
                                 </ajaxToolkit:ComboBox>
 
-                                <asp:Label ID="lblQDepth" runat="server" Text = "Q Depth:" style = "position:absolute; left: 6px; top: 54px; color: rgb(215, 215, 215)" Font-Bold="True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                                <asp:Label ID="lblQDepth" runat="server" Text = "Q Depth:" style = "top: 54px;" CssClass="AILabels"></asp:Label>
                                 <ajaxToolkit:ComboBox runat="server" ID="cmbQDepth" style="position:absolute; width: 0px; height: 25px; left:78px; top:46px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
                                     ToolTip="Dictates how many moves ahead the AI can calculate after ply. Use to simulate higher ply if high ply runs slowly.">
                                     <asp:ListItem Text="0"></asp:ListItem>
@@ -173,18 +174,18 @@
                                     <asp:ListItem Text="8"></asp:ListItem>
                                 </ajaxToolkit:ComboBox>
 
-                                <asp:CheckBox ID="checkUseTT" style="position:absolute; left:9px; top:89px;" Text ="Use Transposition Table" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" runat="server" ToolTip="Improves performance but increases memory usage. Recommended for ply above 4"/>
+                                <asp:CheckBox ID="checkUseTT" style="position:absolute; left:9px; top:89px;" Text ="Use Transposition Table" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"
+                                    GroupName="TimeSettings" runat="server" ToolTip="Improves performance but increases memory usage. Recommended for ply above 4"/>
                             </asp:Panel>
 
                         </asp:Panel>
 
                         <asp:Panel ID = "pnlTimeControl" runat="server" style="height: 223px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 214px;">
-                            <asp:Label ID="lblTimeControl" runat="server" Text = "Time:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
+                            <asp:Label ID="lblTimeControl" runat="server" Text = "Time:" CssClass="SubHeadingLabels"></asp:Label>
 
-
-                            <asp:RadioButton ID="radNoTimers" runat="server" Text="Unlimited" Checked="true" style="position:absolute; left:7px; top:33px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
-                            <asp:RadioButton ID="radPresetTime" runat="server" Text="Preset" Checked="false" style="position:absolute; left:7px; top:70px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
-                            <asp:RadioButton ID="radCustomTime" runat="server" Text="Custom" Checked="false" style="position:absolute; left:7px; top:140px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                            <asp:RadioButton ID="radNoTimers" runat="server" Text="Unlimited" Checked="true" style="top:33px;" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
+                            <asp:RadioButton ID="radPresetTime" runat="server" Text="Preset" Checked="false" style="top:70px;" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
+                            <asp:RadioButton ID="radCustomTime" runat="server" Text="Custom" Checked="false" style="top:140px;" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
 
                             <ajaxToolkit:ComboBox runat="server" ID="cmbTimeSettings" style="position:absolute; width: 136px; height: 25px; left:7px; top:97px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true">
                                 <asp:ListItem Text="1 min"></asp:ListItem>
@@ -196,20 +197,19 @@
                                 <asp:ListItem Text="3 | 2"></asp:ListItem>
                                 <asp:ListItem Text="1 | 1"></asp:ListItem>
                             </ajaxToolkit:ComboBox>
-                        
 
                             <asp:Panel ID = "pnlCustomTime" runat="server" style="height: 33px; width: 286px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 167px;">
 
-                                <asp:TextBox ID="textMinutes" runat="server" style="left:16px; top:4px; width:80px; height:25px; position:absolute; background-color: rgb(50,50,50); text-align:center" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="minutes" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
-                                <asp:TextBox ID="textSeconds" runat="server" style="left:102px; top:4px; width:80px; height:25px; position:absolute; background-color: rgb(50,50,50); text-align:center" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="seconds" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
-                                <asp:TextBox ID="textIncrement" runat="server" style="left:188px; top:4px; width:80px; height:25px; position:absolute; background-color: rgb(50,50,50); text-align:center" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="increment" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" BorderStyle="Solid" BorderWidth="1px"></asp:TextBox>
+                                <asp:TextBox ID="textMinutes" runat="server" style="left:16px;" Text="minutes" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox"></asp:TextBox>
+                                <asp:TextBox ID="textSeconds" runat="server" style="left:102px;" Text="seconds" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox"></asp:TextBox>
+                                <asp:TextBox ID="textIncrement" runat="server" style="left:188px;" Text="increment" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox"></asp:TextBox>
 
                             </asp:Panel>
 
                         </asp:Panel>
 
                         <asp:Panel ID = "pnlVariants" runat="server" style="height: 82px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 443px;">
-                            <asp:Label ID="lblVariant" runat="server" Text = "Variant:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
+                            <asp:Label ID="lblVariant" runat="server" Text = "Variant:" CssClass="SubHeadingLabels"></asp:Label>
 
                             <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbVariant_SelectedIndexChanged">
                                 <asp:ListItem Text="Standard" Selected="True"></asp:ListItem>
@@ -220,10 +220,10 @@
                         </asp:Panel>
 
                         <asp:Panel ID = "pnlPosition" runat="server" style="height: 125px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 531px; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
-                            <asp:Label ID="lblPosition" runat="server" Text = "Position:" style = "position:absolute; left: 4px; top: 4px;" Font-Names="Segoe UI Semibold" Font-Size="11pt" ForeColor="White"></asp:Label>
+                            <asp:Label ID="lblPosition" runat="server" Text = "Position:" CssClass="SubHeadingLabels"></asp:Label>
 
-                            <asp:RadioButton ID="radDefaultPosition" runat="server" Text="Default" Checked="true" style="position:absolute; left:6px; top:29px; text-align:center; color: rgb(215, 215, 215);" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
-                            <asp:RadioButton ID="radCustomPosition" runat="server" Text="Custom" Checked="false" style="position:absolute; left:6px; top:54px; text-align:center; color: rgb(215, 215, 215)" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true"/>
+                            <asp:RadioButton ID="radDefaultPosition" runat="server" Text="Default" Checked="true" style="top:29px;" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
+                            <asp:RadioButton ID="radCustomPosition" runat="server" Text="Custom" Checked="false" style="top:54px;" GroupName="PosSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
                         
                             <asp:TextBox ID="textFEN" runat="server" style="position:absolute; left:6px; top:88px; background-color: rgb(50, 50, 50); width:270px; height:16px" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" Text="rnbqkbnr/ppPp1ppp/8/8/8/8/PP1PpPPP/RNBQKBNR w KQkq - 0 1"></asp:TextBox>
 
@@ -244,7 +244,6 @@
                     
                             <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 636px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
 
-                            
                             <asp:Label ID="lblWhiteTaken" runat="server" style = "position:absolute; left: -430px; top: 11px;" Font-Names="Arial" Font-Size="20pt" ForeColor="White"></asp:Label>
                             <asp:label ID="lblBlackTaken" runat="server" style = "position:absolute; left: -430px; top: 696px;" Font-Names="Arial" Font-Size="20pt" ForeColor="White"></asp:label>
 

@@ -1,0 +1,106 @@
+﻿.FileLabels {
+    position: absolute;
+    top: 718px;
+    width: 75px;
+    height: 22px;
+    text-align: center;
+    font-family: 'Segoe UI';
+    font-size: 12pt;
+    color: white;
+    font-weight: bold;
+}
+
+.RankLabels {
+    position:absolute;
+    line-height: 75px;
+    left: 13px;
+    width: 22px;
+    height: 75px;
+    text-align: center;
+    font-family: 'Segoe UI';
+    font-size: 12pt;
+    color: white;
+    font-weight: bold;
+}
+
+.PlayerUIPanels {
+    height: 60px;
+    width: 600px;
+    background-color: rgb(70, 70, 70);
+    position: absolute;
+    left: 38px;
+    border-radius: 5px 5px
+}
+
+.TimePanels {
+    height: 53px;
+    width: 165px;
+    background-color: rgb(20, 20, 20);
+    position: absolute;
+    left: 3px;
+    top: 4px;
+    border-radius: 5px 5px;
+}
+
+.ColourLabels {
+    position: absolute;
+    left: 10px;
+    font-family: 'Segoe UI';
+    font-size: 10pt;
+    color: white;
+    font-weight: bold;
+}
+
+.ColourPickers {
+    width: 120px;
+    position: absolute;
+    left: 150px;
+}
+
+.HeadingLabels {
+    position: absolute;
+    font-family: 'Segoe UI';
+    font-size: 14pt;
+    color: white;
+    font-weight: bold;
+}
+
+.SubHeadingLabels {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    font-family: 'Segoe UI Semibold';
+    font-size: 11pt;
+    color: white;
+}
+
+.RadioButton {
+    position: absolute;
+    left: 4px;
+    text-align: center;
+    color: rgb(215, 215, 215);
+    font-family: 'Segoe UI Semibold';
+    font-size: 9.75pt;
+}
+
+.AILabels {
+    position: absolute;
+    left: 6px;
+    color: rgb(215, 215, 215);
+    font-family: 'Segoe UI Semibold';
+    font-weight:bold;
+    font-size: 9.75pt;
+}
+
+.TimeTextBox {
+    top: 4px;
+    width: 80px;
+    height: 25px;
+    position: absolute;
+    background-color: rgb(50,50,50);
+    text-align: center;
+    font-family: 'Segoe UI Semibold';
+    font-size: 9.75pt;
+    border-style: solid;
+    border-width: 1px;
+}

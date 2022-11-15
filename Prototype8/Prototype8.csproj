@@ -80,6 +80,7 @@
     <None Include="Resources\Redo.png" />
     <None Include="Resources\Timer.png" />
     <None Include="Resources\Undo.png" />
+    <Content Include="Styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
