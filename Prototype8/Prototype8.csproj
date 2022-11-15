@@ -73,6 +73,7 @@
     <Content Include="GamePage.aspx" />
     <Content Include="Global.asax" />
     <Content Include="LoginPage.aspx" />
+    <Content Include="MenuStyles.css" />
     <Content Include="RegisterPage.aspx" />
     <None Include="Resources\Circle.png" />
     <None Include="Resources\Dot.png" />

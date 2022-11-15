@@ -1,0 +1,90 @@
+﻿body {
+    width: 800px;
+    background-color: rgb(40, 40, 40);
+    max-width: 500px;
+    margin: 10% auto;
+}
+
+.BigLabel {
+    position: absolute;
+    left: 33px;
+    top: 30px;
+    font-family: 'Segoe UI Semibold';
+    font-size: 19pt;
+    color: white;
+}
+
+.Panel {
+    width: 400px;
+    background-color: rgb(70, 70, 70);
+    margin: 50px, auto;
+    position: relative;
+    border-radius: 5px 5px;
+}
+
+.TextPanel {
+    position: absolute;
+    left: 75px;
+    background-color: rgb(64, 66, 51);
+    width: 250px;
+    height: 45px;
+    border-radius: 5px 5px;
+}
+
+.TextBox {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    width: 227px;
+    background-color: rgb(64, 66, 51);
+    font-family: 'Segoe UI';
+    font-size: 12pt;
+    color: white;
+    border-style: none;
+}
+
+.Heading {
+    position: absolute;
+    left: 72px;
+    font-family: 'Segoe UI';
+    font-size: 12pt;
+    color: white;
+    font-weight: bold;
+}
+
+.Error {
+    position: absolute;
+    left: 72px;
+    font-family: 'Segoe UI';
+    font-size: 9pt;
+    color: indianred;
+    font-weight: bold;
+}
+
+.BigButton {
+    position: absolute;
+    left: 75px;
+    width: 250px;
+    height: 45px;
+    text-align: center, center;
+    background-color: rgb(80, 150, 230);
+    border-radius: 5px 5px;
+    font-family: 'Bahnschrift';
+    font-size: 13pt;
+    color: white;
+    font-weight: bold;
+    border-color: white;
+    border-width: 2px;
+}
+
+.SmallButton {
+    position: absolute;
+    height: 30px;
+    text-align: center, center;
+    background-color: rgb(70, 70, 70);
+    color: rgb(80, 150, 230);
+    font-family: 'Segoe UI';
+    font-size: 10pt;
+    border-style: none;
+    font-weight: bold;
+}
