@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 namespace Prototype8
 {
+    // callback function for board to tell form game has ended
+    public delegate void GameEndCallback();
 
     public partial class GamePage : System.Web.UI.Page
     {
@@ -83,6 +85,8 @@ namespace Prototype8
                     break;
             }
 
+            // set callback
+            chessBoard.SetGameEndCallback(new GameEndCallback(OnGameEnd));
 
             // intialise board players
             if (radAgainstAI.Checked) // ai game
@@ -195,7 +199,7 @@ namespace Prototype8
 
         #region timers
 
-        static TimeSpan totalTime = new TimeSpan(0, 10, 0); // 5 minutes hardcoded
+        static TimeSpan totalTime = new TimeSpan(0, 10, 0);
         static TimeSpan increment = new TimeSpan(0, 10, 0);
         static TimeSpan whiteTimeLeft;
         static TimeSpan blackTimeLeft;
@@ -356,5 +360,11 @@ namespace Prototype8
         {
             Server.Transfer("AnalysisPage.aspx");
         }
+
+        // method run when a game ends
+        private void OnGameEnd()
+        {
+            pnlDuringGame.Visible = false;
+        } 
     }
 }

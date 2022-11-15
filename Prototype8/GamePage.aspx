@@ -62,8 +62,6 @@
                                 <asp:Image ID="picBlackTime" runat="server" style="position:absolute; left:3px; top:3px; width:47px; height: 47px;" ImageUrl="~/Resources/Timer.png"/>
                                 <asp:Label ID="lblBlackTime" runat="server" style = "position:absolute; left: 59px; top: 17px;" Font-Names="Segoe UI" Font-Size="12pt" Font-Bold="true" ForeColor="White"></asp:Label>
                             </asp:Panel>
-
-                            
                             
                         </asp:Panel>
                         <!-- White/Black UI -->
@@ -79,7 +77,9 @@
                     <ContentTemplate>
 
                     <!-- Settings -->
-                    <asp:Panel ID="pnlSettings" runat="server" style="background-color: rgb(30, 30, 30); border-radius: 5px 5px; position:absolute; left: 965px; top:0px; width:300px; height: 850px" Visible="true">
+                    <asp:Panel ID="pnlSettings" runat="server" style="background-color: rgb(30, 30, 30); border-radius: 5px 5px; position:absolute; left: 965px; top:0px; width:300px; height: 700px" Visible="true">
+
+                        <!-- Visual Settings -->
                         <asp:Panel ID="pnlVisuals" runat="server" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:5px; width:290px; height: 390px" Visible="true">
 
                             <asp:Label runat="server" ID="lblSettings" Text = "Settings" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White" style="position:absolute; left: 10px; top: 15px"></asp:Label>
@@ -118,9 +118,11 @@
 
                         </asp:Panel>
 
-                        <asp:Panel runat="server" ID="pnlUserSettings" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:400px; width:290px; height: 445px" Visible="true">
+                        <!-- User Settings -->
+                        <asp:Panel runat="server" ID="pnlUserSettings" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:400px; width:290px; height: 295px" Visible="true">
 
                             <asp:Label runat="server" ID="lblUserSettings" Text = "User Settings:" Font-Bold="True" Font-Names="Segoe UI" Font-Size="14pt" ForeColor="White" style="position:absolute; left: 10px; top: 15px"></asp:Label>
+                            <asp:Button runat="server" ID="btnLogOut" Text="Log Out" style="position:absolute; top: 300px; left: 5px; width: 200px; height: 80px"/>
 
 
                         </asp:Panel>

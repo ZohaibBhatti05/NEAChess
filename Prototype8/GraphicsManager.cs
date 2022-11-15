@@ -324,7 +324,5 @@ namespace Prototype8
         {
             DrawBoard(false);
         }
-
-
     }
 }

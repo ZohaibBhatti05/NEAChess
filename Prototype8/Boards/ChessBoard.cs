@@ -54,6 +54,7 @@ namespace Prototype8.Boards
     public class ChessBoard
     {
         protected UpdateBoardGraphicsCallBack graphicsCallBack;
+        protected GameEndCallback gameEndCallback;
         private string username;
 
         private static char promotionSelection = ' '; 
@@ -119,6 +120,11 @@ namespace Prototype8.Boards
 
             // initialise timers
             InitialiseTimers();
+        }
+
+        public void SetGameEndCallback(GameEndCallback callback)
+        {
+            gameEndCallback = callback;
         }
 
         // initialise players of a game
@@ -880,6 +886,9 @@ namespace Prototype8.Boards
                 // stop both timers
                 whiteTimer.Stop();
                 blackTimer.Stop();
+
+                // tell form game has ended
+                gameEndCallback.Invoke();
             }
         }
 
@@ -1183,7 +1192,7 @@ namespace Prototype8.Boards
 
         #region board value
 
-        public int BoardValue(bool max, int depth)
+        public virtual int BoardValue(bool max, int depth)
         {
             // winstatus
             switch (winStatus)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 
@@ -135,6 +136,12 @@ namespace Prototype8.Boards
             }
 
             winStatus = WinStatus.None;
+        }
+
+        // return the OPPOSITE of what it should
+        public override int BoardValue(bool max, int depth)
+        {
+            return -base.BoardValue(max, depth);
         }
     }
 }
