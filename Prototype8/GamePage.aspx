@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="Styles.css"/>
 </head>
 
-<body style="width: 95%; height: 100%; background-color: rgb(40, 40, 40);">
+<body style="background-color: rgb(40,40,40); background: linear-gradient(90deg, rgba(40, 40, 40, 1) 0%, rgba(30, 30, 30, 1) 100%);">
     <form id="GameForm" runat="server">
         
         <asp:Button runat="server" ID="temp" OnClick="temp_Click" style="position:absolute; left: 3px; top:3px"/>

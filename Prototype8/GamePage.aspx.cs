@@ -19,8 +19,8 @@ namespace Prototype8
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //username = Session["username"].ToString();
-            username = "Guest";
+            username = Session["username"].ToString();
+            //username = "Guest";
             lblUsername.Text = "You are logged in as: " + username;
 
             if (Session["IsAnalysisPostback"] != null)
