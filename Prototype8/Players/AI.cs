@@ -94,8 +94,8 @@ namespace Prototype8.Boards
 
         public Move[] MakeAnalysisMove(ChessBoard board, PlayerColour colour)
         {
-            pvsMoves = new Move[maxPlyDepth];
-            for (int i = 0; i < 3; i++)
+            pvsMoves = new Move[4];
+            for (int i = 0; i < 4; i++)
             {
                 Move pvsMove = this.MakeMove(board, colour);
                 board.MakeMove(pvsMove);
@@ -103,10 +103,13 @@ namespace Prototype8.Boards
                 colour = (colour == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
             }
 
+            for (int j = 0; j < 4; j++)
+            {
+                board.UndoMove(pvsMoves[j]);
+            }
+
             return pvsMoves;
         }
-
-        private void CollateAnalysisMoves()
 
         // method run by board when computer needs to make a move
         private Move MakeMove(ChessBoard board, PlayerColour colour)
