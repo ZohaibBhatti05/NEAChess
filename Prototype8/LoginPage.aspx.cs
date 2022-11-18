@@ -27,8 +27,7 @@ namespace Prototype8
                 if (AreDetailsValid(txtLoginUsername.Text, txtLoginPassword.Text))
                 {
                     Session["username"] = txtLoginUsername.Text;
-                    //Server.Transfer($"GamePage.aspx?Username={txtLoginUsername.Text}");
-                    Server.Transfer("GamePage.aspx");
+                    Response.Redirect("GamePage.aspx");
                 }
             }
             lblError.Text = "Invalid Details - Please check your entered details.";
@@ -67,7 +66,7 @@ namespace Prototype8
         protected void btnGuest_Click(object sender, EventArgs e)
         {
             Session["Username"] = "Guest";
-            Server.Transfer("GamePage.aspx");
+            Response.Redirect("GamePage.aspx");
         }
     }
 }

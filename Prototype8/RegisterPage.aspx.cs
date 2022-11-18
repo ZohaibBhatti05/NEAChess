@@ -48,7 +48,7 @@ namespace Prototype8
         private void CreateNewUser(string username, string hash, string salt)
         {
             dbConnection.StoreNewUser(username, hash, salt);
-            Server.Transfer("LoginPage.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
 
         // function returns if a username meets complexity requirements
@@ -144,7 +144,7 @@ namespace Prototype8
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            Server.Transfer("LoginPage.aspx");
+            Response.Redirect("LoginPage.aspx");
         }
     }
 }

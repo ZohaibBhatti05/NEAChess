@@ -39,8 +39,13 @@ namespace Prototype8.Boards
 
         private int quiescentDepth = 3;
 
+
+        private Move[] pvsMoves;
+
         public AI(int plyDepth, int qDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
+            pvsMoves = new Move[plyDepth];
+
             this.useOpening = opTable;
             this.useTransposition = tt;
             this.maxPlyDepth = plyDepth;
@@ -87,8 +92,24 @@ namespace Prototype8.Boards
             return MakeMove(board, this.colour);
         }
 
+        public Move[] MakeAnalysisMove(ChessBoard board, PlayerColour colour)
+        {
+            pvsMoves = new Move[maxPlyDepth];
+            for (int i = 0; i < 3; i++)
+            {
+                Move pvsMove = this.MakeMove(board, colour);
+                board.MakeMove(pvsMove);
+                pvsMoves[i] = pvsMove;
+                colour = (colour == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
+            }
+
+            return pvsMoves;
+        }
+
+        private void CollateAnalysisMoves()
+
         // method run by board when computer needs to make a move
-        public Move MakeMove(ChessBoard board, PlayerColour colour)
+        private Move MakeMove(ChessBoard board, PlayerColour colour)
         {
             nodes = 0; qNodes = 0; ttReads = 0; ttWrites = 0; ttReadSuccess = 0;
             Stopwatch stopwatch = new Stopwatch();
@@ -300,8 +321,6 @@ namespace Prototype8.Boards
                 if (useTransposition) // update hash from the move
                 {
                     hash = hasher.HashFromMove(hashBeforeMove, move, max);
-                    //long hashBoard = hasher.HashFromBoard(board.board, !max);
-                    //Console.WriteLine($"ply {currentDepth}:: old {hashBeforeMove} :: {hash} :: {hashBoard} :: Difference {hash - hashBoard}");
                 }
 
                 int newValue = -AlphaBeta(board, currentDepth - 1, !max, -beta, -alpha, hash); //recursion call

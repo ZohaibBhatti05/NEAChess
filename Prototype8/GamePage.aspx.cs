@@ -20,9 +20,25 @@ namespace Prototype8
         protected void Page_Load(object sender, EventArgs e)
         {
             username = Session["username"].ToString();
-            //username = "Guest";
+            //username = "bruh";
             lblUsername.Text = "You are logged in as: " + username;
+            lblUserSettings.Text = "User: " + username;
 
+            // guest handling
+            if (username == "Guest")
+            {
+                //btnGameArchive.Enabled = false;
+                btnGameArchive.Style.Add("background-color", "rgb(70, 70, 70)");
+                btnGameArchive.Style.Add("color", "rgb(150, 150, 150)");
+            }
+            else
+            {
+                //btnGameArchive.Enabled = true;
+                btnGameArchive.Style.Add("background-color", "rgb(90, 90, 150)");
+                btnGameArchive.Style.Add("color", "white");
+            }
+
+            // analysis postback
             if (Session["IsAnalysisPostback"] != null)
             {
                 Session.Remove("IsAnalysisPostback");
@@ -356,15 +372,22 @@ namespace Prototype8
             InitialiseGraphics();
         }
 
-        protected void temp_Click(object sender, EventArgs e)
+        protected void btnGameArchive_Click(object sender, EventArgs e)
         {
-            Server.Transfer("AnalysisPage.aspx");
+            Response.Redirect("AnalysisPage.aspx");
         }
 
         // method run when a game ends
         private void OnGameEnd()
         {
             pnlDuringGame.Visible = false;
-        } 
+        }
+
+        // logs user out
+        protected void btnLogOut_Click(object sender, EventArgs e)
+        {
+            chessBoard = null;
+            Response.Redirect("LoginPage.aspx");
+        }
     }
 }

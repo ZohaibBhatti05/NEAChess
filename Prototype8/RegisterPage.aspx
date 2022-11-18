@@ -7,7 +7,7 @@
     <title></title>
     <link rel="stylesheet" href="MenuStyles.css"/>
 </head>
-<body style="height: 500px; background: linear-gradient(90deg, rgba(40, 40, 40, 1) 0%, rgba(30, 30, 30, 1) 100%);">
+<body style="height: 500px; background: linear-gradient(90deg, rgba(50, 50, 50, 1) 0%, rgba(30, 30, 30, 1) 100%);">
     <form id="RegisterForm" runat="server">
 
         <asp:Panel ID="pnlRegister" runat="server" style="height: 535px;" CssClass="Panel">

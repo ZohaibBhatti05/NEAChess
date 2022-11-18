@@ -24,15 +24,6 @@ namespace Prototype8
         protected global::System.Web.UI.HtmlControls.HtmlForm GameForm;
 
         /// <summary>
-        /// temp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button temp;
-
-        /// <summary>
         /// ScriptManager control.
         /// </summary>
         /// <remarks>
@@ -481,6 +472,15 @@ namespace Prototype8
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLogOut;
+
+        /// <summary>
+        /// btnGameArchive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGameArchive;
 
         /// <summary>
         /// pnlBoard control.

@@ -9,10 +9,8 @@
     <link rel="stylesheet" href="Styles.css"/>
 </head>
 
-<body style="background-color: rgb(40,40,40); background: linear-gradient(90deg, rgba(40, 40, 40, 1) 0%, rgba(30, 30, 30, 1) 100%);">
+<body style="background-color: rgb(40,40,40); background: linear-gradient(90deg, rgba(50, 50, 50, 1) 0%, rgba(30, 30, 30, 1) 100%);">
     <form id="GameForm" runat="server">
-        
-        <asp:Button runat="server" ID="temp" OnClick="temp_Click" style="position:absolute; left: 3px; top:3px"/>
 
         <asp:ScriptManager ID="ScriptManager" runat="server" EnableCdn="true"></asp:ScriptManager>
 
@@ -78,7 +76,7 @@
                     <ContentTemplate>
 
                     <!-- Settings -->
-                    <asp:Panel ID="pnlSettings" runat="server" style="background-color: rgb(30, 30, 30); border-radius: 5px 5px; position:absolute; left: 965px; top:0px; width:300px; height: 700px" Visible="true">
+                    <asp:Panel ID="pnlSettings" runat="server" style="background-color: rgb(30, 30, 30); border-radius: 5px 5px; position:absolute; left: 965px; top:0px; width:300px; height: 550px" Visible="true">
 
                         <!-- Visual Settings -->
                         <asp:Panel ID="pnlVisuals" runat="server" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:5px; width:290px; height: 390px" Visible="true">
@@ -111,21 +109,25 @@
                                 <asp:ListItem Text="Kosal"></asp:ListItem>
                             </ajaxToolkit:ComboBox>
 
-                            <asp:Button ID="btnChangeColours" runat="server" OnClick="ManageColours" style="position:absolute; left: 10px; top: 310px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 90)"
-                                BorderStyle="None" Text="Apply Changes" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true" ForeColor="White"/>
+                            <asp:Button ID="btnChangeColours" runat="server" OnClick="ManageColours" style="position:absolute; left: 10px; top: 310px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 150)"
+                                BorderStyle="None" Text="Apply Changes" Font-Names="Segoe UI" Font-Size="11pt" Font-Bold="true" ForeColor="White"/>
 
-                            <asp:Button ID="btnDefaultVisuals" runat="server" OnClick="btnDefaultVisuals_Click" style="position:absolute; left: 150px; top: 310px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 90)"
-                                BorderStyle="None" Text="Reset to Defaults" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true" ForeColor="White"/>
+                            <asp:Button ID="btnDefaultVisuals" runat="server" OnClick="btnDefaultVisuals_Click" style="position:absolute; left: 150px; top: 310px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 150)"
+                                BorderStyle="None" Text="Reset to Defaults" Font-Names="Segoe UI" Font-Size="11pt" Font-Bold="true" ForeColor="White"/>
+
 
                         </asp:Panel>
 
                         <!-- User Settings -->
-                        <asp:Panel runat="server" ID="pnlUserSettings" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:400px; width:290px; height: 295px" Visible="true">
+                        <asp:Panel runat="server" ID="pnlUserSettings" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:400px; width:290px; height: 145px" Visible="true">
 
-                            <asp:Label runat="server" ID="lblUserSettings" Text = "User Settings:" style="left: 10px; top: 15px" CssClass="HeadingLabels"></asp:Label>
-                            <asp:Button runat="server" ID="btnLogOut" Text="Log Out" style="position:absolute; top: 300px; left: 5px; width: 200px; height: 80px"/>
+                            <asp:Label runat="server" ID="lblUserSettings" Text = "User" style="left: 10px; top: 15px" CssClass="HeadingLabels"></asp:Label>
+                            <asp:Button runat="server" ID="btnLogOut" Text="Log Out" style="position:absolute; left: 10px; top: 60px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 150)"
+                                BorderStyle="None" Font-Names="Segoe UI" Font-Size="11pt" Font-Bold="true" ForeColor="White" OnClick="btnLogOut_Click"/>
 
-
+                            <asp:Button runat="server" ID="btnGameArchive" Text="Previous Games" style="position:absolute; left: 150px; top: 60px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 150); color:white"
+                                BorderStyle="None" Font-Names="Segoe UI" Font-Size="10pt" Font-Bold="true" OnClick="btnGameArchive_Click"/>
+                                
                         </asp:Panel>
                     </asp:Panel>
 
@@ -242,7 +244,7 @@
                             <asp:TextBox ID="txtWhiteMoves" runat="server" style="position:absolute; left:3px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
                             <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
                     
-                            <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 636px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
+                            <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 620px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
 
                             <asp:Label ID="lblWhiteTaken" runat="server" style = "position:absolute; left: -430px; top: 11px;" Font-Names="Arial" Font-Size="20pt" ForeColor="White"></asp:Label>
                             <asp:label ID="lblBlackTaken" runat="server" style = "position:absolute; left: -430px; top: 696px;" Font-Names="Arial" Font-Size="20pt" ForeColor="White"></asp:label>
