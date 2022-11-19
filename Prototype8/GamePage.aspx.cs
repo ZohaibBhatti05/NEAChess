@@ -27,12 +27,14 @@ namespace Prototype8
             // guest handling
             if (username == "Guest")
             {
+                btnLogOut.Text = "Log In";
                 btnGameArchive.Enabled = false;
                 btnGameArchive.Style.Add("background-color", "rgb(70, 70, 70)");
                 btnGameArchive.Style.Add("color", "rgb(150, 150, 150)");
             }
             else
             {
+                btnLogOut.Text = "Log Out";
                 btnGameArchive.Enabled = true;
                 btnGameArchive.Style.Add("background-color", "rgb(90, 90, 150)");
                 btnGameArchive.Style.Add("color", "white");

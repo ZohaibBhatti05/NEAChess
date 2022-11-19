@@ -10,6 +10,7 @@
 </head>
 
 <body style="background-color: rgb(40,40,40); background: linear-gradient(90deg, rgba(50, 50, 50, 1) 0%, rgba(30, 30, 30, 1) 100%);">
+
     <form id="GameForm" runat="server">
 
         <asp:ScriptManager ID="ScriptManager" runat="server" EnableCdn="true"></asp:ScriptManager>

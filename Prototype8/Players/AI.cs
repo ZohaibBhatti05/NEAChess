@@ -70,7 +70,7 @@ namespace Prototype8.Boards
             }
         }
 
-        // method sets up the opening/ending tablebases
+        // method sets up the opening tablebase
         private void InitialiseTables()
         {
             // open file
