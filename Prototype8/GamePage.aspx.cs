@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -16,6 +17,7 @@ namespace Prototype8
     {
         static ChessBoard chessBoard;
         private string username; // = "Guest"; // username of person logged in
+        private static bool gameOver;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,6 +50,16 @@ namespace Prototype8
                 return;
             }
 
+            //
+            if (gameOver)
+            {
+                btnPlayAgain.Visible = true;
+            }
+            else
+            {
+                btnPlayAgain.Visible = false;
+            }
+
             pnlDuringGame.Visible = false;
             pnlAISettings.Visible = false;
             pnlCustomTime.Visible = false;
@@ -66,7 +78,6 @@ namespace Prototype8
                     DrawBoard(false);
                 }
             }
-
         }
 
         // starts the game
@@ -75,6 +86,7 @@ namespace Prototype8
             pnlPreGame.Visible = false;
             pnlDuringGame.Visible = true;
             InitialiseGame();
+            gameOver = false;
             updatePanel.Update();
         }
 
@@ -190,6 +202,11 @@ namespace Prototype8
                 }
             }
             updatePanel.Update();
+
+            if (gameOver)
+            {
+                btnPlayAgain.Visible = true;
+            }
         }
 
         // undo button
@@ -380,9 +397,9 @@ namespace Prototype8
         }
 
         // method run when a game ends
-        private void OnGameEnd()
+        protected void OnGameEnd()
         {
-            pnlDuringGame.Visible = false;
+            gameOver = true;
         }
 
         // logs user out
@@ -390,6 +407,14 @@ namespace Prototype8
         {
             chessBoard = null;
             Response.Redirect("LoginPage.aspx");
+        }
+
+        protected void btnPlayAgain_Click(object sender, EventArgs e)
+        {
+            gameOver = false;
+            btnPlayAgain.Visible = false;
+            chessBoard = null;
+            Response.Redirect("GamePage.aspx");
         }
     }
 }

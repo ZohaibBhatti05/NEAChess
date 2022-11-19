@@ -73,7 +73,7 @@
 
                 </asp:UpdatePanel>
 
-                <asp:UpdatePanel ID="updatePanel" runat="server" UpdateMode="Conditional" OnPreRender="UpdatePanel" ChildrenAsTriggers="true" EnableViewState="true"> 
+                <asp:UpdatePanel ID="updatePanel" runat="server" UpdateMode="Conditional" OnPreRender="UpdatePanel" ChildrenAsTriggers="true"> 
                     <ContentTemplate>
 
                     <!-- Settings -->
@@ -123,7 +123,8 @@
                         <asp:Panel runat="server" ID="pnlUserSettings" style="background-color: rgb(50, 50, 50); border-radius: 5px 5px; position:absolute; left: 5px; top:400px; width:290px; height: 145px" Visible="true">
 
                             <asp:Label runat="server" ID="lblUserSettings" Text = "User" style="left: 10px; top: 15px" CssClass="HeadingLabels"></asp:Label>
-                            <asp:Button runat="server" ID="btnLogOut" Text="Log Out" style="position:absolute; left: 10px; top: 60px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 150)"
+
+                            <asp:Button runat="server" ID="btnLogOut" Text="Log Out" style="position:absolute; left: 10px; top: 60px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 150, 90)"
                                 BorderStyle="None" Font-Names="Segoe UI" Font-Size="11pt" Font-Bold="true" ForeColor="White" OnClick="btnLogOut_Click"/>
 
                             <asp:Button runat="server" ID="btnGameArchive" Text="Previous Games" style="position:absolute; left: 150px; top: 60px; width: 130px; height: 70px; border-radius:5px 5px; background-color:rgb(90, 90, 150); color:white"
@@ -242,8 +243,8 @@
                     <!-- During-Game Settings -->
                     <asp:Panel ID = "pnlDuringGame" runat="server" style="height: 747px; width: 300px; background-color: rgb(40, 40, 40); position: absolute; left: 641px; top: 56px; border-radius: 5px 5px">
                         <asp:Panel ID = "pnlPGN" runat="server" style="height: 640px; width: 293px; background-color: rgb(50, 50, 50); position: absolute; left: 3px; top: 3px; border-top-left-radius:5px; border-top-right-radius:5px;">
-                            <asp:TextBox ID="txtWhiteMoves" runat="server" style="position:absolute; left:3px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
-                            <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:634px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
+                            <asp:TextBox ID="txtWhiteMoves" runat="server" style="position:absolute; left:3px; top:3px; width:100px; height:600px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
+                            <asp:TextBox ID="txtBlackMoves" runat="server" style="position:absolute; left:109px; top:3px; width:100px; height:600px; background-color: rgb(50, 50, 50);" ReadOnly="true" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White" BorderStyle="None" Rows = "30" TextMode="MultiLine" AutoPostBack="true"></asp:TextBox>
                     
                             <asp:Label ID="lblAnalysisMove" runat="server" style = "position:absolute; left: 9px; top: 620px;" Font-Names="Segoe UI Semibold" Font-Size="9.75pt" ForeColor="White"></asp:Label>
 
@@ -266,6 +267,9 @@
                         </ajaxToolkit:ComboBox>
                     </asp:Panel>
                     <!-- During-Game Settings -->
+
+                    <asp:Button ID="btnPlayAgain" runat="server" style = "position:absolute; left: 968px; top: 560px; width: 294px; height: 84px; text-align:center, center; background-color: forestgreen; border-radius: 5px 5px"
+                        Font-Bold="True" Font-Size="20pt" Font-Names="Bahnschrift" Text="PLAY AGAIN" ForeColor = "White" FlatStyle="Flat" BorderColor="White" BorderWidth="1px" OnClick="btnPlayAgain_Click" />
 
                 </ContentTemplate>
 

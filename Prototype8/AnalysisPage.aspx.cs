@@ -30,6 +30,7 @@ namespace Prototype8
             }
         }
 
+        // method binds data to griview
         private void InitialiseDataGrid()
         {
             OleDbCommand command = dbConnection.GetGameHistory(username); // get all game data for user
