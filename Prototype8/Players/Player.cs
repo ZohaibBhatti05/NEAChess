@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Prototype8.Players
 {
-    public class Player
+    public abstract class Player
     {
     }
 }

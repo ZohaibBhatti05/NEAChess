@@ -56,7 +56,7 @@ namespace Prototype8.Boards
                 if (name == Regex.Replace(gameMoveNameHistory[moveNameHistory.Count], "[#+]", "")) // if move matches, make it
                 {
                     MakeMove(move);
-                    AfterMove(move);
+                    AfterMove(move);        
                 }
             }
         }

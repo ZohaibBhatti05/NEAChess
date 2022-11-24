@@ -791,7 +791,7 @@ namespace Prototype8.Boards
         // method perofrms post-game logistics
         protected void UpdatePostGame()
         {
-            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) && whitePlayer is Human && blackPlayer is Human) // if someone won and its humans
+            if (!(winStatus == WinStatus.None || winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.BlackCheck) && whitePlayer is Human) // if someone won and its humans
             {
 
                 // add name to abrupt game ends

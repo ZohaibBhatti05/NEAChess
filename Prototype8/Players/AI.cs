@@ -74,8 +74,8 @@ namespace Prototype8.Boards
         private void InitialiseTables()
         {
             // open file
-            string opPath = "C:\\Users\\Zohaib\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
-            //string opPath = "C:\\Users\\Zobear\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
+            //string opPath = "C:\\Users\\Zohaib\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
+            string opPath = "C:\\Users\\Zobear\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
             StreamReader reader = new StreamReader(opPath);
 
             for (int index = 0; index < 261487; index++)
@@ -276,7 +276,7 @@ namespace Prototype8.Boards
 
 
             // null move heuristic
-            if (plyDepth > 3 && !(board.winStatus == WinStatus.WhiteCheck || board.winStatus == WinStatus.BlackCheck))
+            if (plyDepth > 3 && plyDepth != maxPlyDepth && !(board.winStatus == WinStatus.WhiteCheck || board.winStatus == WinStatus.BlackCheck))
             {
                 // make null move
                 value = -Quiescence(board, !max, quiescentDepth - 2, -beta, -alpha);
