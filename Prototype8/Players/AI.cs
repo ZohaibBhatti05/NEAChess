@@ -92,10 +92,11 @@ namespace Prototype8.Boards
             return MakeMove(board, this.colour);
         }
 
+        // returns pvs string of expected moves
         public Move[] MakeAnalysisMove(ChessBoard board, PlayerColour colour)
         {
             pvsMoves = new Move[4];
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++) // make 4 moves
             {
                 Move pvsMove = this.MakeMove(board, colour);
                 board.MakeMove(pvsMove);
@@ -103,7 +104,7 @@ namespace Prototype8.Boards
                 colour = (colour == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
             }
 
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++) // undo them, cannot be done concurrently
             {
                 board.UndoMove(pvsMoves[j]);
             }

@@ -22,6 +22,8 @@ namespace Prototype8
         protected void Page_Load(object sender, EventArgs e)
         {
             username = Session["username"].ToString();
+
+
             //username = "bruh";
             lblUsername.Text = "You are logged in as: " + username;
             lblUserSettings.Text = "User: " + username;
@@ -50,7 +52,7 @@ namespace Prototype8
                 return;
             }
 
-            //
+            // replay button
             if (gameOver)
             {
                 btnPlayAgain.Visible = true;

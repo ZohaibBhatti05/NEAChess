@@ -59,7 +59,7 @@ namespace Prototype8
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            Server.Transfer("RegisterPage.aspx");
+            Response.Redirect("RegisterPage.aspx");
         }
 
         // guest, set gameform attributes as needed
