@@ -173,88 +173,136 @@ namespace Prototype4.Boards
         // places pieces from a FEN string
         private void PositionFromFEN(string FEN)
         {
+            // default santiation
+
+            if (!Regex.IsMatch(FEN, "[/kK0-8]+")) // invalid syntax / no kings
+            {
+                StandardPositions();
+                return;
+            }
+
             // split relevant parts of string into seperate sections
             string[] partFEN = FEN.Split(' ');
 
-            // position
-            int file = 0; int rank = 7; // program displays from bottom up, FEN goes from top to bottom, so rank goes from 7 to 0
-            foreach (char c in partFEN[0])
+            // cant be same if statement for index reasons
+            if (partFEN.Length != 6)
             {
-                if (c == '/') // / denotes new line, go down
-                {
-                    file = 0; rank--;
-                }
-                else if (int.TryParse(c.ToString(), out int stride))
-                {
-                    file += stride;
-                }
-                else if (c != ' ')
-                {
-                    // uppercase for white pieces
-                    if (char.IsUpper(c))
-                    {
-                        board[file][rank] = NewPieceFromCharType(char.ToLower(c), PlayerColour.White);
-                    }
-                    else
-                    {
-                        board[file][rank] = NewPieceFromCharType(char.ToLower(c), PlayerColour.Black);
-                    }
-                    file++; // next position
-                }
+                StandardPositions();
+                return;
             }
 
-            // current turn
-            currentTurn = (partFEN[1] == "w") ? PlayerColour.White : PlayerColour.Black;
-
-            // castling rights (if found)
-            if (partFEN[2] != "-")
+            if (!Regex.IsMatch(partFEN[1], "^[wb]$") || !Regex.IsMatch(partFEN[2], "[-kKqQ]") || !int.TryParse(partFEN[4], out int var))
+            // if turn is not single letter  OR  castling data invalid  OR  fifty move count not a number, invalid
             {
-                foreach (char c in partFEN[2])
+                StandardPositions();
+                return;
+            }
+            //
+
+            try
+            {
+                // position
+                int file = 0; int rank = 7; // program displays from bottom up, FEN goes from top to bottom, so rank goes from 7 to 0
+                foreach (char c in partFEN[0])
                 {
-                    switch (c)
+                    if (c == '/') // / denotes new line, go down
                     {
-                        case 'k': // black kingside
-                            board[4][7].SetCastle(true);
-                            board[7][7].SetCastle(true);
-                            break;
-                        case 'q': // black queenside
-                            board[4][7].SetCastle(true);
-                            board[0][7].SetCastle(true);
-                            break;
+                        file = 0; rank--;
+                    }
+                    else if (int.TryParse(c.ToString(), out int stride))
+                    {
+                        file += stride;
+                    }
+                    else if (c != ' ')
+                    {
+                        // uppercase for white pieces
+                        if (char.IsUpper(c))
+                        {
+                            board[file][rank] = NewPieceFromCharType(char.ToLower(c), PlayerColour.White);
+                        }
+                        else
+                        {
+                            board[file][rank] = NewPieceFromCharType(char.ToLower(c), PlayerColour.Black);
+                        }
+                        file++; // next position
+                    }
 
-                        case 'K': // white kingside
-                            board[4][0].SetCastle(true);
-                            board[7][0].SetCastle(true);
-                            break;
-                        case 'Q': // white queenside
-                            board[4][0].SetCastle(true);
-                            board[0][0].SetCastle(true);
-                            break;
-
+                    // invalid position
+                    if (file > 8) 
+                    {
+                        throw new Exception("Position Invalid");
                     }
                 }
-            }
 
-            // en passant (if found)
-            if (partFEN[3] != "-")
+                // current turn
+                currentTurn = (partFEN[1] == "w") ? PlayerColour.White : PlayerColour.Black;
+
+                // castling rights (if found)
+                if (partFEN[2] != "-")
+                {
+                    foreach (char c in partFEN[2])
+                    {
+                        switch (c)
+                        {
+                            case 'k': // black kingside
+                                if (board[4][7] is King && board[7][7] is Rook)
+                                {
+                                    board[4][7].SetCastle(true);
+                                    board[7][7].SetCastle(true);
+                                }
+                                break;
+                            case 'q': // black queenside
+                                if (board[4][7] is King && board[0][7] is Rook)
+                                {
+                                    board[4][7].SetCastle(true);
+                                    board[0][7].SetCastle(true);
+                                }
+                                break;
+
+                            case 'K': // white kingside
+                                if (board[4][0] is King && board[7][0] is Rook)
+                                {
+                                    board[4][0].SetCastle(true);
+                                    board[7][0].SetCastle(true);
+                                }
+                                break;
+                            case 'Q': // white queenside
+                                if (board[4][0] is King && board[0][0] is Rook)
+                                {
+                                    board[4][0].SetCastle(true);
+                                    board[0][0].SetCastle(true);
+                                }
+                                break;
+
+                        }
+                    }
+                }
+
+                // en passant (if found)
+                if (partFEN[3] != "-")
+                {
+                    Position position = PositionFromAlgebraicPos(partFEN[3]);
+                    if (position.row == 2) // white pawn
+                    {
+                        (board[position.column][3] as Pawn).SetEnPassant(true);
+                    }
+                    else // black pawn
+                    {
+                        (board[position.column][4] as Pawn).SetEnPassant(true);
+                    }
+
+                }
+
+                // fifty move
+                fiftyMoveCounter = int.Parse(partFEN[4]);
+
+
+                positionHistory.Add(FEN); // inital position
+            }
+            catch
             {
-                Position position = PositionFromAlgebraicPos(partFEN[3]);
-                if (position.row == 2) // white pawn
-                {
-                    (board[position.column][3] as Pawn).SetEnPassant(true);
-                }
-                else // black pawn
-                {
-                    (board[position.column][4] as Pawn).SetEnPassant(true);
-                }
-
+                StandardPositions();
             }
-
-            // fifty move
-            fiftyMoveCounter = int.Parse(partFEN[4]);
-
-
-            positionHistory.Add(FEN); // inital position
         }
 
         // method returns the FEN string of the current board state

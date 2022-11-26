@@ -20,7 +20,7 @@ namespace Prototype8
         }
 
         #region readonly variables
-        private const string BANNED_CHARS = "!£$%^&*()-_=+{}[]@'~# "; // disallow in both un and pw
+        public static string BANNED_CHARS = "!£$%^&*()-_=+{}[]@'~#:;<,>.?/\\| "; // disallow in both un and pw
         private const string SALT_CHARS = "1234567890QWERTYUIOPASDFGHJKLZXCVBNM";
         private const int MIN_LENGTH = 5;
         private const int MAX_LENGTH = 15;

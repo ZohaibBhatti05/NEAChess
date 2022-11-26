@@ -110,7 +110,7 @@ namespace Prototype2.Boards
             //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            PositionFromFEN("6k1/6p1/6K1/8/8/8/8/8");
+            PositionFromFEN("7k/8/1r6/8/8/1P6/2P5/7K");
 
             // empty for analysis setup boards: 8/8/8/8/8/8/8/8 w - - 0 1
         }
@@ -431,7 +431,7 @@ namespace Prototype2.Boards
         {
             graphicsCallBack.Invoke();
 
-            if ((winStatus != WinStatus.WhiteMate && winStatus != WinStatus.BlackMate))
+            if ((winStatus == WinStatus.None || winStatus == WinStatus.BlackCheck || winStatus == WinStatus.WhiteCheck))
             {
 
                 if (currentTurn == PlayerColour.White && whitePlayer is AI)
@@ -471,7 +471,7 @@ namespace Prototype2.Boards
             }
 
             // insufficient material :: only run if taking move
-            if (move.takenPiece != null)
+            if (move.takenPiece != null || (move.movingPiece is Pawn && (move.positionTo.row % 7 == 0)))
             {
                 bool insufficient = true;
                 int whitePieces = 0;

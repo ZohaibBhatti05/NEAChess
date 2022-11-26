@@ -933,7 +933,7 @@ namespace Prototype8.Boards
             }
 
             // insufficient material :: only run if taking move
-            if (move.takenPiece != null)
+            if (move.takenPiece != null || (move.movingPiece is Pawn && (move.positionTo.row % 7 == 0)))
             {
                 bool insufficient = true;
                 int whitePieces = 0;

@@ -82,10 +82,10 @@ namespace Prototype1.Boards
         private void StandardPositions()
         {
             // fen for standard position
-            PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+            //PositionFromFEN("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 
             // custom fen for testing
-            //PositionFromFEN("k2q4/8/8/5QK1/8/8/8/8");
+            PositionFromFEN("6bk/7b/5P2/4B3/8/8/8/K7");
         }
 
         // places pieces from a FEN string

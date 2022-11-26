@@ -38,7 +38,7 @@ namespace Prototype8
             // only check for banned characters, others not as important
             foreach (char c in text)
             {
-                if ("!£$%^&*()-_=+{}[]@'~# ".Contains(c))
+                if (RegisterPage.BANNED_CHARS.Contains(c))
                 {
                     return false;
                 }
