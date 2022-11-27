@@ -1076,7 +1076,7 @@ namespace Prototype6.Boards
         }
 
         // function takes a list of moves and removes all that result in check
-        public List<Move> CullCheckMoves(List<Move> moves, PlayerColour colour)
+        public virtual List<Move> CullCheckMoves(List<Move> moves, PlayerColour colour)
         {
             List<Move> validMoves = new List<Move>();
 

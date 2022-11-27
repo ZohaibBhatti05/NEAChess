@@ -173,23 +173,16 @@ namespace Prototype4.Boards
         // places pieces from a FEN string
         private void PositionFromFEN(string FEN)
         {
-            // default santiation
-
-            if (!Regex.IsMatch(FEN, "[/kK0-8]+")) // invalid syntax / no kings
-            {
-                StandardPositions();
-                return;
-            }
-
             // split relevant parts of string into seperate sections
             string[] partFEN = FEN.Split(' ');
 
-            // cant be same if statement for index reasons
-            if (partFEN.Length != 6)
+            // default santiation
+            if (!Regex.IsMatch(FEN, "[/kK0-8]+") || partFEN.Length != 6) // invalid syntax / no kings
             {
                 StandardPositions();
                 return;
             }
+
 
             if (!Regex.IsMatch(partFEN[1], "^[wb]$") || !Regex.IsMatch(partFEN[2], "[-kKqQ]") || !int.TryParse(partFEN[4], out int var))
             // if turn is not single letter  OR  castling data invalid  OR  fifty move count not a number, invalid

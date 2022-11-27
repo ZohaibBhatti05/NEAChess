@@ -65,5 +65,20 @@ namespace Prototype8.Boards
                 }
             }
         }
+
+        public override void UndoLastMove()
+        {
+            // decrement check counters
+            if (winStatus == WinStatus.WhiteCheck || winStatus == WinStatus.WhiteMate)
+            {
+                wCheckCount--;
+            }
+            else if (winStatus == WinStatus.BlackCheck || winStatus == WinStatus.BlackMate)
+            {
+                bCheckCount--;
+            }
+
+            base.UndoLastMove();
+        }
     }
 }

@@ -107,6 +107,12 @@ namespace Prototype6.Boards
             }
         }
 
+        // dont remove moves that result in check
+        public override List<Move> CullCheckMoves(List<Move> moves, PlayerColour colour)
+        {
+            return moves;
+        }
+
         protected override bool UpdateDrawConditions(Move move)
         {
             return false;
@@ -131,7 +137,7 @@ namespace Prototype6.Boards
             }
             if (win || AllPossibleMoves(turn).Count == 0) // all pieces taken or stalemated
             {
-                winStatus = (currentTurn == PlayerColour.White ? WinStatus.BlackWin : WinStatus.WhiteWin);
+                winStatus = (currentTurn == PlayerColour.White ? WinStatus.WhiteWin : WinStatus.BlackWin);
                 return;
             }
 

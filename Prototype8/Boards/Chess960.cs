@@ -25,6 +25,7 @@ namespace Prototype8.Boards
 
             Random random = new Random();
             int pos = random.Next(0, 960);
+
             for (int i = 0; i <= pos; i++)
             {
                 FEN = reader.ReadLine(); // get position in file of randomly selected position

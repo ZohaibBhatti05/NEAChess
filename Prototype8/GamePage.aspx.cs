@@ -123,7 +123,7 @@ namespace Prototype8
             // intialise board players
             if (radAgainstAI.Checked) // ai game
             {
-                chessBoard.InitialisePlayers(username, true, cmbPlyDepth.SelectedIndex, cmbQDepth.SelectedIndex, checkUseTT.Checked, !radCustomPosition.Checked);
+                chessBoard.InitialisePlayers(username, true, cmbPlyDepth.SelectedIndex, cmbQDepth.SelectedIndex, checkUseTT.Checked, (!radCustomPosition.Checked && !(chessBoard is Chess960)));
             }
             else // human game
             {
