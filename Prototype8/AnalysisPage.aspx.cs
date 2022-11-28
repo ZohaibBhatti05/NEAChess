@@ -71,5 +71,18 @@ namespace Prototype8
         {
 
         }
+
+
+        // logs all game data in formatted pgn to a file of users choice
+        protected void btnPrintToFile_Click(object sender, EventArgs e)
+        {
+            dbConnection.SaveGameHistory(username);
+        }
+
+        // go back to form
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("GamePage.aspx");
+        }
     }
 }

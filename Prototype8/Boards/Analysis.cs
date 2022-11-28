@@ -30,7 +30,6 @@ namespace Prototype8.Boards
         }
 
 
-
         // function replays the move made in the given game
         public void RedoNextMove()
         {

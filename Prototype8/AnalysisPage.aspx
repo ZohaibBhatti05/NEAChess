@@ -9,7 +9,13 @@
     <form id="AnalysisForm" runat="server">
         <div>
             <asp:Panel ID = "pnlForm" runat="server" style="z-index: 1; height: 850px; width: 960px; background-color: rgb(30, 30, 30); margin: 2% auto; position: relative; border-radius: 5px 5px">
-                <asp:Button id="btnPrintToFile" runat="server" style="position:absolute; left:12px; top:12px; width: 137px; height: 32px; background-color:rgb(100,100,100)" Font-Bold="True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White" Text="Print Data to File" BorderStyle="None"/>
+                
+                <asp:Button id="btnPrintToFile" runat="server" style="position:absolute; left:157px; top:12px; width: 137px; height: 32px; background-color:rgb(100,100,100)" 
+                    Font-Bold="True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White" Text="Print Data to File" BorderStyle="None" OnClick="btnPrintToFile_Click"/>
+
+
+                <asp:Button ID="btnBack" runat="server" style="position:absolute; left:12px; top:12px; width: 137px; height: 32px; background-color:rgb(100,100,100)" 
+                    Font-Bold="True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White" Text="Back" BorderStyle="None" OnClick="btnBack_Click"/>
 
                 <asp:ScriptManager ID="ScriptManager" runat="server" EnableCdn="true"></asp:ScriptManager>
 
