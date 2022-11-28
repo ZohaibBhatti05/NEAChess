@@ -29,7 +29,8 @@
                         height:22px; font-size:9pt" Font-Names="Segoe UI" Font-Bold="true" ForeColor="White"
                          HeaderStyle-BackColor="#5a5a5a" RowStyle-Height="22px" AllowSorting="true" HeaderStyle-Height="22px" SelectedRowStyle-BackColor="#828282"
                           RowStyle-BackColor="#323232" OnRowDataBound="dataGridGame_OnRowBound" OnSelectedIndexChanged="dataGridGames_SelectedIndexChanged" 
-                            OnRowEditing="dataGridGames_OnRowEdit" AllowPaging="false"> 
+                            OnRowEditing="dataGridGames_OnRowEdit" ShowHeaderWhenEmpty="true" EnableViewState="true"> 
+                            <EmptyDataTemplate>No Games Found.</EmptyDataTemplate>
                         <Columns>
                             <asp:TemplateField HeaderText="DatePlayed" ItemStyle-Width="150">
                                 <ItemTemplate>

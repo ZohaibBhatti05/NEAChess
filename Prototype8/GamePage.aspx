@@ -204,9 +204,9 @@
 
                             <asp:Panel ID = "pnlCustomTime" runat="server" style="height: 33px; width: 286px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 167px;">
 
-                                <asp:TextBox ID="textMinutes" runat="server" style="left:16px;" Text="minutes" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox"></asp:TextBox>
-                                <asp:TextBox ID="textSeconds" runat="server" style="left:102px;" Text="seconds" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox"></asp:TextBox>
-                                <asp:TextBox ID="textIncrement" runat="server" style="left:188px;" Text="increment" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox"></asp:TextBox>
+                                <asp:TextBox ID="textMinutes" runat="server" style="left:16px;" Text="minutes" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox" Font-Bold="true" ForeColor="White"></asp:TextBox>
+                                <asp:TextBox ID="textSeconds" runat="server" style="left:102px;" Text="seconds" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox" Font-Bold="true" ForeColor="White"></asp:TextBox>
+                                <asp:TextBox ID="textIncrement" runat="server" style="left:188px;" Text="increment" OnTextChanged="customTimeTextBox_TextChanged" AutoPostBack="true" CssClass="TimeTextBox" Font-Bold="true" ForeColor="White"></asp:TextBox>
 
                             </asp:Panel>
 

@@ -40,12 +40,10 @@ namespace Prototype8.Boards
         private int quiescentDepth = 3;
 
 
-        private Move[] pvsMoves;
+        private List<Move> pvsMoves;
 
         public AI(int plyDepth, int qDepth, PlayerColour colour, bool tt, bool opTable) : base()
         {
-            pvsMoves = new Move[plyDepth];
-
             this.useOpening = opTable;
             this.useTransposition = tt;
             this.maxPlyDepth = plyDepth;
@@ -93,23 +91,29 @@ namespace Prototype8.Boards
         }
 
         // returns pvs string of expected moves
-        public Move[] MakeAnalysisMove(ChessBoard board, PlayerColour colour)
+        public string[] MakeAnalysisMove(ChessBoard board, PlayerColour colour)
         {
-            pvsMoves = new Move[4];
+            pvsMoves = new List<Move>();
+            string[] moveNames = new string[4];
             for (int i = 0; i < 4; i++) // make 4 moves
             {
+                if (board.AllPossibleMoves(colour).Count == 0) // break early if no moves found
+                {
+                    break;
+                }
                 Move pvsMove = this.MakeMove(board, colour);
                 board.MakeMove(pvsMove);
-                pvsMoves[i] = pvsMove;
+                pvsMoves.Add(pvsMove);
+                moveNames[i] = pvsMove.GetMoveName(board);
                 colour = (colour == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
             }
 
-            for (int j = 0; j < 4; j++) // undo them, cannot be done concurrently
+            for (int j = 0; j < pvsMoves.Count; j++) // undo them, cannot be done concurrently
             {
                 board.UndoMove(pvsMoves[j]);
             }
 
-            return pvsMoves;
+            return moveNames;
         }
 
         // method run by board when computer needs to make a move

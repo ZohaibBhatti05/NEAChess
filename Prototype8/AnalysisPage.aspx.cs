@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
@@ -58,6 +59,11 @@ namespace Prototype8
         protected void dataGridGames_OnRowEdit(object sender, GridViewEditEventArgs e)
         {
             (string FEN, string PGN) data = dbConnection.GetAnalysisData(username, dataGridGames.SelectedIndex);
+
+            if (string.IsNullOrEmpty(data.FEN) || string.IsNullOrEmpty(data.FEN))
+            {
+                return;
+            }    
 
             Session["FEN"] = data.FEN;
             Session["PGN"] = data.PGN;

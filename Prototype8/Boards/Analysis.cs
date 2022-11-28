@@ -15,7 +15,7 @@ namespace Prototype8.Boards
 
         private int deviatingMoveCount = 0;
 
-        private AI analysisAI = new AI(2, 3, PlayerColour.Black, false, false);
+        private AI analysisAI = new AI(2, 2, PlayerColour.Black, false, false);
 
         private List<string> gameMoveNameHistory = new List<string>();
 
@@ -69,9 +69,9 @@ namespace Prototype8.Boards
             if (AllPossibleMoves(currentTurn).Count > 0)
             {
                 //analysisMove = analysisAI.MakeAnalysisMove(this, currentTurn).GetMoveName(this); // get best move found
-                foreach (Move pvsMove in analysisAI.MakeAnalysisMove(this, currentTurn))
+                foreach (string pvsMove in analysisAI.MakeAnalysisMove(this, currentTurn))
                 {
-                    analysisMove += pvsMove.GetMoveName(this) + " ";
+                    analysisMove += pvsMove + " ";
                 }
             }
             analysisMove += "...";

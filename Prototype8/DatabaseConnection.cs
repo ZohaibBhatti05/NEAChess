@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Prototype8.Database
 {
@@ -168,19 +169,24 @@ namespace Prototype8.Database
             }
 
             // create new file
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.DefaultExt = "txt";
-            saveFileDialog.FileName = "log";
-            saveFileDialog.ShowDialog();
 
-            // write data to file
-            StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile());
-            writer.WriteLine(output);
-            writer.Close();
+            // create new thread
+            Thread saveFileThread = new Thread((ThreadStart)(() =>
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.DefaultExt = "txt";
+                saveFileDialog.FileName = "log";
+                saveFileDialog.ShowDialog();
 
+                // write data to file
+                StreamWriter writer = new StreamWriter(saveFileDialog.OpenFile());
+                writer.WriteLine(output);
+                writer.Close();
+            }));
 
-            // open file
-            Process.Start(new ProcessStartInfo(saveFileDialog.FileName) { UseShellExecute = true });
+            saveFileThread.SetApartmentState(ApartmentState.STA); // single threaded mode
+            saveFileThread.Start(); // run
+            saveFileThread.Join(); // prevent additional code until thread terminates
         }
 
         // formats all game data to be displayed in a data grid view control
