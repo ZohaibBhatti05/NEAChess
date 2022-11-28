@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -44,13 +45,17 @@ namespace Prototype4
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-            pnlPreGame.Visible = false;
-            pnlDuringGame.Visible = true;
             InitialiseGame();
         }
 
         private void InitialiseGame()
         {
+            // if any inputs invalid, do nothing
+            if (!ValidateSettings())
+            {
+                return;
+            }
+
             chessBoard = new ChessBoard(new UpdateBoardGraphicsCallBack(DrawBoard));
 
             // intialise board players
@@ -115,6 +120,9 @@ namespace Prototype4
                     pnlWhiteTime.Hide();
                     pnlBlackTime.Hide(); // hide and disable timers
                 }
+
+                pnlPreGame.Visible = false;
+                pnlDuringGame.Visible = true;
             }
 
             // position
@@ -128,6 +136,50 @@ namespace Prototype4
             }
 
             InitialiseGraphics();
+        }
+
+        // ensures timing and FEN data is valid
+        private bool ValidateSettings()
+        {
+            // timers (if custom)
+            if (radCustomTime.Checked) 
+            {
+                if (string.IsNullOrEmpty(textMinutes.Text) || string.IsNullOrEmpty(textSeconds.Text) || string.IsNullOrEmpty(textIncrement.Text))
+                {
+                    MessageBox.Show("Please enter time settings");
+                    return false;
+                }
+                if (int.Parse(textSeconds.Text) == 0)
+                {
+                    MessageBox.Show("Timers must have a non-zero initial time");
+                    return false;
+                }
+            }
+
+            // FEN
+            if (radFEN.Checked)
+            {
+                string FEN = textFEN.Text;
+                string[] partFEN = FEN.Split(' ');
+
+                // default santiation
+                if (!Regex.IsMatch(FEN, "[/kK0-8]+") || partFEN.Length != 6) // invalid syntax / no kings
+                {
+                    MessageBox.Show("Position entered is invalid");
+                    return false;
+                }
+
+
+                if (!Regex.IsMatch(partFEN[1], "^[wb]$") || !Regex.IsMatch(partFEN[2], "[-kKqQ]") || !int.TryParse(partFEN[4], out int var))
+                // if turn is not single letter  OR  castling data invalid  OR  fifty move count not a number, invalid
+                {
+                    MessageBox.Show("Position entered is invalid");
+                    return false;
+                }
+                //
+            }
+
+            return true;
         }
 
         // function is run whenever a cell is clicked

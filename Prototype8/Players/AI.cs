@@ -72,8 +72,8 @@ namespace Prototype8.Boards
         private void InitialiseTables()
         {
             // open file
-            //string opPath = "C:\\Users\\Zohaib\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
-            string opPath = "C:\\Users\\Zobear\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
+            string opPath = "C:\\Users\\Zohaib\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
+            //string opPath = "C:\\Users\\Zobear\\source\\repos\\NEAChess\\Tablebases\\Openings.pgn";
             StreamReader reader = new StreamReader(opPath);
 
             for (int index = 0; index < 261487; index++)
