@@ -101,7 +101,7 @@ namespace Prototype8.Boards
                 {
                     break;
                 }
-                Move pvsMove = this.MakeMove(board, colour);
+                Move pvsMove = MakeMove(board, colour);
                 board.MakeMove(pvsMove);
                 pvsMoves.Add(pvsMove);
                 moveNames[i] = pvsMove.GetMoveName(board);
