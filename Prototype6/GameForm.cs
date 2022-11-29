@@ -74,7 +74,7 @@ namespace Prototype6
             // intialise board players
             if (radAgainstAI.Checked) // ai game
             {
-                chessBoard.InitialisePlayers(username, true, trackPlyDepth.Value, checkUseTT.Checked, (!radFEN.Checked && chessBoard is not Chess960));
+                chessBoard.InitialisePlayers(username, true, trackPlyDepth.Value, checkUseTT.Checked, (!radFEN.Checked && chessBoard is not Chess960) && chessBoard is not Antichess);
                 timerUpdateTime.Start();
             }
             else // human game

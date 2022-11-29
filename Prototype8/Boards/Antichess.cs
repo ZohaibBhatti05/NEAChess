@@ -94,17 +94,24 @@ namespace Prototype8.Boards
 
 
         // method removes all non-capture moves if a caputure move exists
-        private void CullNonCaptureMoves(List<Move> allPossibleMoves)
+        private List<Move> CullNonCaptureMoves(List<Move> allPossibleMoves)
         {
             // for every move from the player colour
             foreach (Move move in allPossibleMoves)
             {
                 if (move.takenPiece != null) // if any move is a capture, remove all non-captures from the list of moves
                 {
-                    selectedMoves.RemoveAll(m => m.takenPiece == null);
-                    return;
+                    allPossibleMoves.RemoveAll(m => m.takenPiece == null);
+
+                    if (selectedMoves != null)
+                    {
+                        selectedMoves.RemoveAll(m => m.takenPiece == null);
+                    }
+
+                    break;
                 }
             }
+            return allPossibleMoves;
         }
 
 
@@ -143,6 +150,12 @@ namespace Prototype8.Boards
             }
 
             winStatus = WinStatus.None;
+        }
+
+        // used to ensure AI cant make illegal moves
+        public override List<Move> AllPossibleMoves(PlayerColour colour)
+        {
+            return CullNonCaptureMoves(base.AllPossibleMoves(colour));
         }
 
         // return the OPPOSITE of what it should

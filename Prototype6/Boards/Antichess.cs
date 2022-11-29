@@ -143,5 +143,11 @@ namespace Prototype6.Boards
 
             winStatus = WinStatus.None;
         }
+
+        // return the OPPOSITE of what it should
+        public override int BoardValue(bool max, int depth)
+        {
+            return -base.BoardValue(max, depth);
+        }
     }
 }

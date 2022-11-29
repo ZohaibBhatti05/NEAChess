@@ -1162,7 +1162,7 @@ namespace Prototype6.Boards
 
         #region board value
 
-        public int BoardValue(bool max, int depth)
+        public virtual int BoardValue(bool max, int depth)
         {
             // winstatus
             switch (winStatus)

@@ -1131,7 +1131,7 @@ namespace Prototype8.Boards
         }
 
         // function takes a colour and returns all possible moves for every piece of that colour
-        public List<Move> AllPossibleMoves(PlayerColour colour)
+        public virtual List<Move> AllPossibleMoves(PlayerColour colour)
         {
             List<Move> possibleMoves = new List<Move>();
             for (int x = 0; x < 8; x++)
