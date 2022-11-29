@@ -191,7 +191,8 @@
                             <asp:RadioButton ID="radPresetTime" runat="server" Text="Preset" Checked="false" style="top:70px;" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
                             <asp:RadioButton ID="radCustomTime" runat="server" Text="Custom" Checked="false" style="top:140px;" GroupName="TimeSettings" OnCheckedChanged="radAgainstAI_CheckedChanged" AutoPostBack="true" CssClass="RadioButton"/>
 
-                            <ajaxToolkit:ComboBox runat="server" ID="cmbTimeSettings" style="position:absolute; width: 136px; height: 25px; left:7px; top:97px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true">
+                            <ajaxToolkit:ComboBox runat="server" ID="cmbTimeSettings" style="position:absolute; width: 136px; height: 25px; left:7px; top:97px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"
+                                ToolTip="Select a preset time: A | B has you start with A seconds. Every move you make, your timer increases by B seconds.">
                                 <asp:ListItem Text="1 min"></asp:ListItem>
                                 <asp:ListItem Text="10 min" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="20 min"></asp:ListItem>
@@ -255,7 +256,7 @@
 
                         <asp:ImageButton ID="btnUndo" runat="server" style="position:absolute; left:3px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-left-radius:5px;" ImageUrl="~/Resources/Undo.png" OnClick="btnUndoMove_Click"/>
                         <asp:ImageButton ID="btnResign" runat="server" style="position:absolute; left:102px; top:688px; width:95px; height: 56px; background-color:rgb(70, 70, 70);" ImageUrl="~/Resources/Flag.png" OnClick="btnResign_Click"/>
-                        <asp:Button ID="btnDraw" runat="server" style="position:absolute; left:202px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-right-radius:5px;" BorderWidth="0px" Text="½ ½" Font-Names="Segoe UI" Font-Size="14pt" Font-Bold="true" ForeColor="White"/>
+                        <asp:ImageButton ID="btnEndGame" runat="server" style="position:absolute; left:202px; top:688px; width:94px; height: 56px; background-color:rgb(70, 70, 70); border-bottom-right-radius:5px;" ImageUrl="~/Resources/NewGame.png" OnClick="btnEndGame_Click"/>
 
                         <asp:Label ID="lblPromote" runat="server" Text = "Promote To:" style = "position:absolute; left: 6px; top: 658px; color: rgb(215, 215, 215)" Font-Bold = "True" Font-Names="Segoe UI" Font-Size="9.75pt" ForeColor="White"></asp:Label>
                         <ajaxToolkit:ComboBox runat="server" ID="cmbPromote" style="position:absolute; width: 0px; height: 25px; left:85px; top:648px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true"

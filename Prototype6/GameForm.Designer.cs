@@ -394,6 +394,7 @@ namespace Prototype6
             this.cmbVariant.Name = "cmbVariant";
             this.cmbVariant.Size = new System.Drawing.Size(136, 25);
             this.cmbVariant.TabIndex = 8;
+            this.cmbVariant.SelectedIndexChanged += new System.EventHandler(this.cmbVariant_SelectedIndexChanged);
             // 
             // lblVariant
             // 
@@ -528,7 +529,7 @@ namespace Prototype6
             this.pnlDuringGame.Controls.Add(this.btnResign);
             this.pnlDuringGame.Controls.Add(this.btnUndo);
             this.pnlDuringGame.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.pnlDuringGame.Location = new System.Drawing.Point(641, 56);
+            this.pnlDuringGame.Location = new System.Drawing.Point(1018, 53);
             this.pnlDuringGame.Name = "pnlDuringGame";
             this.pnlDuringGame.Size = new System.Drawing.Size(300, 747);
             this.pnlDuringGame.TabIndex = 6;

@@ -414,11 +414,16 @@ namespace Prototype8
 
         protected void cmbVariant_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbVariant.SelectedIndex == 1) // disallow custom positions in ficherrandom
+            if (cmbVariant.SelectedIndex != 0) // disallow custom positions in fischerrandom and antichess
             {
                 radDefaultPosition.Checked = true;
                 radCustomPosition.Checked = false;
+                radCustomPosition.Visible = false;
                 radAgainstAI_CheckedChanged(sender, e);
+            }
+            else
+            {
+                radCustomPosition.Visible = true;
             }
         }
 
@@ -439,7 +444,6 @@ namespace Prototype8
 
             // button logistics
             btnResign.ImageUrl = "~/Resources/Redo.png";
-            btnDraw.Visible = false;
 
             InitialiseGraphics();
         }
@@ -466,6 +470,13 @@ namespace Prototype8
         {
             gameOver = false;
             btnPlayAgain.Visible = false;
+            chessBoard = null;
+            Response.Redirect("GamePage.aspx");
+        }
+
+        // ends game early
+        protected void btnEndGame_Click(object sender, EventArgs e)
+        {
             chessBoard = null;
             Response.Redirect("GamePage.aspx");
         }

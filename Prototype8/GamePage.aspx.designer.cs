@@ -843,13 +843,13 @@ namespace Prototype8
         protected global::System.Web.UI.WebControls.ImageButton btnResign;
 
         /// <summary>
-        /// btnDraw control.
+        /// btnEndGame control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDraw;
+        protected global::System.Web.UI.WebControls.ImageButton btnEndGame;
 
         /// <summary>
         /// lblPromote control.

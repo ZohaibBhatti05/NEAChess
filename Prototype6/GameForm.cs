@@ -334,5 +334,19 @@ namespace Prototype6
 
 
         #endregion
+
+        // disable cutom position depending on variant selection
+        private void cmbVariant_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbVariant.SelectedIndex == 1) // Chess 960
+            {
+                radDefaultPosition.Checked = true;
+                radFEN.Hide();
+            }
+            else
+            {
+                radFEN.Show();
+            }
+        }
     }
 }

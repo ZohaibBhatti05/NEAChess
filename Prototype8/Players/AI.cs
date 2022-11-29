@@ -101,14 +101,14 @@ namespace Prototype8.Boards
                 {
                     break;
                 }
-                Move pvsMove = this.MakeMove(board, colour);
+                Move pvsMove = MakeMove(board, colour);
                 board.MakeMove(pvsMove);
                 pvsMoves.Add(pvsMove);
                 moveNames[i] = pvsMove.GetMoveName(board);
                 colour = (colour == PlayerColour.White) ? PlayerColour.Black : PlayerColour.White;
             }
 
-            for (int j = 0; j < pvsMoves.Count; j++) // undo them, cannot be done concurrently
+            for (int j = pvsMoves.Count - 1; j >= 0; j--) // undo them, cannot be done concurrently
             {
                 board.UndoMove(pvsMoves[j]);
             }
