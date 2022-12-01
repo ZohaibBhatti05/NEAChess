@@ -25,11 +25,11 @@
                 >Don't have an account?</asp:Label>
 
             <asp:Panel ID="pnlUN" runat="server" style = "top: 136px;" CssClass="TextPanel">
-                <asp:TextBox ID="txtLoginUsername" runat="server" Text="Zohaib1" CssClass="TextBox"></asp:TextBox>
+                <asp:TextBox ID="txtLoginUsername" runat="server" CssClass="TextBox" AutoCompleteType="Disabled"></asp:TextBox>
             </asp:Panel>
 
             <asp:Panel ID="pnlPW" runat="server" style = "top: 247px;" CssClass="TextPanel">
-                <asp:TextBox ID="txtLoginPassword" runat="server" Text="Password1" CssClass="TextBox"></asp:TextBox>
+                <asp:TextBox ID="txtLoginPassword" runat="server" TextMode="Password" CssClass="TextBox" AutoCompleteType="Disabled"></asp:TextBox>
             </asp:Panel>
 
             <asp:Button ID="btnLogin" runat="server" style = "top: 323px;" CssClass="BigButton" Text="SIGN IN" FlatStyle="Flat" OnClick="btnLogin_Click"/>

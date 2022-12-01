@@ -25,15 +25,15 @@
             <asp:Label ID="lblConfirmPassword" runat="server" style = "top: 302px;" CssClass="Heading">Confirm Password</asp:Label>
 
             <asp:Panel ID="pnlUN" runat="server" style = "top: 130px;" CssClass="TextPanel">
-                <asp:TextBox ID="txtUsername" runat="server" CssClass="TextBox"></asp:TextBox>
+                <asp:TextBox ID="txtUsername" runat="server" CssClass="TextBox" AutoCompleteType="Disabled"></asp:TextBox>
             </asp:Panel>
 
             <asp:Panel ID="pnlPW" runat="server" style = "top: 232px;" CssClass="TextPanel">
-                <asp:TextBox ID="txtPassword" runat="server" CssClass="TextBox" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="txtPassword" runat="server" CssClass="TextBox" TextMode="Password" AutoCompleteType="Disabled"></asp:TextBox>
             </asp:Panel>
 
             <asp:Panel ID="pnlCPW" runat="server" style = "top: 334px;" CssClass="TextPanel">
-                <asp:TextBox ID="txtPasswordConfirm" runat="server" CssClass="TextBox" TextMode="Password"></asp:TextBox>
+                <asp:TextBox ID="txtPasswordConfirm" runat="server" CssClass="TextBox" TextMode="Password" AutoCompleteType="Disabled"></asp:TextBox>
             </asp:Panel>
 
             <asp:Button ID="btnRegister" runat="server" style = "top: 399px;" CssClass="BigButton" Text="REGISTER" FlatStyle="Flat" OnClick="btnRegister_Click"/>

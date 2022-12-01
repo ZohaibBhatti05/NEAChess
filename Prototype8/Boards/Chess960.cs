@@ -16,8 +16,8 @@ namespace Prototype8.Boards
         public override void StandardPositions()
         {
             string posPath =
-                "C:/Users/Zobear/source/repos/NEAChess/" +
-                 //"C:/Users/Zohaib/source/repos/NEAChess/" +
+                 //"C:/Users/Zobear/source/repos/NEAChess/" +
+                 "C:/Users/Zohaib/source/repos/NEAChess/" +
                  "/Tablebases/Chess960Positions.pgn";
             StreamReader reader = new StreamReader(posPath); // open file of FEN strings
 
