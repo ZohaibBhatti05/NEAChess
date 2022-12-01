@@ -14,8 +14,8 @@ namespace Prototype8.Database
     public class DatabaseConnection
     {
         private readonly string DB_PATH = //Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName +
-            "C:/Users/Zobear/source/repos/NEAChess/" +
-            //"C:/Users/Zohaib/source/repos/NEAChess/" +
+            //"C:/Users/Zobear/source/repos/NEAChess/" +
+            "C:/Users/Zohaib/source/repos/NEAChess/" +
             "/Database/Database.accdb"; // path of database file, change later
 
         private OleDbConnection dbConnection;
@@ -194,11 +194,11 @@ namespace Prototype8.Database
         {
             // sql query
             return new OleDbCommand(
-                $"SELECT * FROM Games RIGHT JOIN Users ON Games.UserID = Users.UserID WHERE Username = '{username}' ",
+                $"SELECT * FROM Games RIGHT JOIN Users ON Games.UserID = Users.UserID WHERE Username = '{username}'",
                 dbConnection);
         }
 
-        public (string, string) GetAnalysisData(string username, int index)
+        public (string, string, bool) GetAnalysisData(string username, int index)
         {
             List<string[]> dataList = new List<string[]>();
 
@@ -217,7 +217,7 @@ namespace Prototype8.Database
                 dataList.Add(entry); // add record to list
             }
 
-            return (dataList[index][3], dataList[index][4]);
+            return (dataList[index][3], dataList[index][4], (dataList[index][1] == "Standard"));
         }
 
         // formats e4, d4, Nf3... into 1.e4 d4 2.Nf3...

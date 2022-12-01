@@ -58,9 +58,9 @@ namespace Prototype8
         // method run whenever a row is double clicked
         protected void dataGridGames_OnRowEdit(object sender, GridViewEditEventArgs e)
         {
-            (string FEN, string PGN) data = dbConnection.GetAnalysisData(username, dataGridGames.SelectedIndex);
+            (string FEN, string PGN, bool Standard) data = dbConnection.GetAnalysisData(username, dataGridGames.SelectedIndex);
 
-            if (string.IsNullOrEmpty(data.FEN) || string.IsNullOrEmpty(data.FEN))
+            if (string.IsNullOrEmpty(data.FEN) || string.IsNullOrEmpty(data.FEN) || !data.Standard)
             {
                 return;
             }    
