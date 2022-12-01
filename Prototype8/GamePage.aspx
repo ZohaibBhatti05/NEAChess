@@ -216,7 +216,10 @@
                         <asp:Panel ID = "pnlVariants" runat="server" style="height: 82px; width: 294px; background-color: rgb(70, 70, 70); position: absolute; left: 3px; top: 443px;">
                             <asp:Label ID="lblVariant" runat="server" Text = "Variant:" CssClass="SubHeadingLabels"></asp:Label>
 
-                            <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbVariant_SelectedIndexChanged">
+                            <ajaxToolkit:ComboBox runat="server" ID="cmbVariant" style="position:absolute; width: 136px; height: 25px; left:7px; top:34px; text-align:center; color: rgb(215, 215, 215);" Font-Bold="true" Font-Names="Segoe UI" Font-Size="10pt" ForeColor="Black" DropDownStyle="Simple" AutoPostBack="true" OnSelectedIndexChanged="cmbVariant_SelectedIndexChanged"
+                                ToolTip="Chess960: Start with a random position.
+Antichess: Lose all your pieces to win.
+Three-Check: Check your opponenet three times to win.">
                                 <asp:ListItem Text="Standard" Selected="True"></asp:ListItem>
                                 <asp:ListItem Text="Chess960"></asp:ListItem>
                                 <asp:ListItem Text="Antichess"></asp:ListItem>
